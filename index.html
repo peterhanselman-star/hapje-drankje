@@ -15,7 +15,8 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
     margin: 0; padding: 0; background: #f5f5f7; color: #1d1d1f; 
     font-size: 17px; line-height: 1.4; 
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);
   }
   .header { 
     background: #1a73e8; color: white; padding: 12px 16px 10px; text-align: center; 
@@ -35,21 +36,56 @@
     background: #1a73e8; color: white; margin-bottom: 10px; 
   }
   .big-button.secondary { background: #f0f0f0; color: #1d1d1f; }
+  .big-button.huge { padding: 26px 16px; font-size: 20px; }
   .big-button:active { opacity: 0.75; }
+  .big-button:disabled { opacity: 0.5; }
+  .link-button { background: none; border: none; color: #1a73e8; font-size: 16px; font-weight: 600; padding: 12px 4px; }
   input, select { 
     width: 100%; padding: 14px; font-size: 17px; border: 1px solid #ccc; border-radius: 10px; 
-    margin-bottom: 10px; background: white; -webkit-appearance: none;
+    margin-bottom: 10px; background: white; -webkit-appearance: none; color: #1d1d1f;
   }
-  .item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+  .item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; gap: 8px; }
   .item-row:last-child { border-bottom: none; }
   .item-name { font-weight: 600; }
-  .item-price { font-weight: 700; color: #1a73e8; }
+  .item-price { font-weight: 700; color: #1a73e8; white-space: nowrap; }
   .photo-preview { max-width: 100%; border-radius: 10px; margin: 8px 0; display: block; }
   .small-text { font-size: 14px; color: #666; margin-top: 2px; }
   .section-title { font-size: 20px; font-weight: 700; margin: 8px 0 10px; }
   .hidden { display: none !important; }
   .estimate-badge { background: #ff9500; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
   .history-item { background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+  /* v3 */
+  .qty-controls { display: flex; align-items: center; gap: 6px; }
+  .qty-btn { width: 44px; height: 44px; border-radius: 22px; border: none; background: #f0f0f0; font-size: 22px; font-weight: 700; color: #1d1d1f; padding: 0; }
+  .qty-btn.remove { font-size: 18px; color: #d93025; }
+  .qty-btn:active { opacity: 0.6; }
+  .menu-item { display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 10px; text-align: left;
+    background: #f7f9fc; border: 1px solid #e3e8f0; border-radius: 12px; padding: 16px 14px; margin-bottom: 8px; font-size: 17px; color: #1d1d1f; min-height: 58px; }
+  .menu-item:active { background: #dbe8fd; }
+  .menu-item.flash { background: #d7f5dd; border-color: #34a853; }
+  .menu-item .count { background: #1a73e8; color: white; border-radius: 12px; padding: 2px 9px; font-size: 14px; font-weight: 700; margin-left: 6px; }
+  .menu-group { font-size: 15px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin: 14px 2px 8px; }
+  .seg { display: flex; background: #f0f0f0; border-radius: 12px; padding: 4px; margin-bottom: 12px; }
+  .seg button { flex: 1; border: none; background: none; padding: 14px 6px; font-size: 16px; font-weight: 600; border-radius: 9px; color: #444; }
+  .seg button.active { background: white; color: #1a73e8; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+  .edit-item { border: 1px solid #e3e8f0; border-radius: 12px; padding: 10px; margin-bottom: 10px; background: #fafbfd; }
+  .edit-item input, .edit-item select { margin-bottom: 8px; padding: 12px; }
+  .edit-row { display: flex; gap: 8px; align-items: flex-start; }
+  .edit-row .price { flex: 0 0 34%; }
+  .edit-row .cat { flex: 1; }
+  .del-btn { flex: 0 0 48px; height: 48px; border: none; border-radius: 10px; background: #fde8e7; color: #d93025; font-size: 20px; font-weight: 700; }
+  .progress { height: 12px; background: #e6e6e6; border-radius: 6px; overflow: hidden; margin: 10px 0 6px; }
+  .progress > div { height: 100%; width: 0; background: #1a73e8; transition: width 0.3s; }
+  .thumbs { display: flex; gap: 8px; overflow-x: auto; margin: 8px 0; -webkit-overflow-scrolling: touch; }
+  .thumbs img { height: 80px; border-radius: 8px; border: 1px solid #ddd; }
+  .saved-rest { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #eee; }
+  .saved-rest:last-child { border-bottom: none; }
+  .saved-rest .pick { flex: 1; text-align: left; background: none; border: none; padding: 14px 4px; font-size: 17px; color: #1d1d1f; }
+  .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); transform: translateX(-50%);
+    background: rgba(30,30,30,0.92); color: white; padding: 14px 20px; border-radius: 14px; font-size: 16px; font-weight: 600;
+    z-index: 200; max-width: 90%; text-align: center; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+  .toast.show { opacity: 1; }
+  .notice { background: #fff4e5; border-radius: 10px; padding: 10px 12px; font-size: 15px; margin-bottom: 10px; }
 </style>
 </head>
 <body>
@@ -76,34 +112,90 @@
       </div>
       <div id="itemsList" style="margin-top:12px;"></div>
       <button class="big-button secondary" onclick="startNewVisit()" id="newVisitBtn">Nieuw restaurantbezoek starten</button>
+      <button class="big-button secondary" onclick="showTab('toevoegen')" id="toAddBtn" style="display:none;">+ Iets bestellen</button>
       <button class="big-button" onclick="finishVisit()" id="finishBtn" style="display:none;">Bezoek afronden</button>
     </div>
   </div>
+
+  <!-- Stap 1: menukaart kiezen -->
+  <div id="tab-menukaart" class="hidden">
+    <div class="card">
+      <div class="section-title" id="menuStepTitle">Menukaart</div>
+      <p class="small-text" style="margin-top:0;">Kies een of meer foto's of schermafbeeldingen van de menukaart. De app leest de gerechten en prijzen, daarna kun je alles nog aanpassen.</p>
+      <input type="file" id="menuInput" accept="image/*" multiple style="display:none;" onchange="handleMenuFiles(this)">
+      <button class="big-button huge" id="menuPickBtn" onclick="document.getElementById('menuInput').click()">📷 Foto's of screenshots van de menukaart kiezen</button>
+      <div id="ocrBox" class="hidden">
+        <div style="font-weight:600;" id="ocrStatus">Bezig…</div>
+        <div class="progress"><div id="ocrBar"></div></div>
+        <div class="small-text" id="ocrHint">De eerste keer worden taalgegevens gedownload (internet nodig). Dat kan even duren.</div>
+      </div>
+      <button class="big-button secondary" id="skipBtn" onclick="skipMenu()">Overslaan – zonder menukaart beginnen</button>
+      <button class="link-button" id="menuCancelBtn" onclick="cancelMenuFlow()">Annuleren</button>
+    </div>
+    <div class="card" id="savedCard">
+      <div class="section-title">Eerder bezocht</div>
+      <p class="small-text" style="margin-top:0;">Kies een restaurant om de bewaarde menukaart opnieuw te gebruiken.</p>
+      <div id="savedList"></div>
+    </div>
+  </div>
+
+  <!-- Stap 2: controleren -->
+  <div id="tab-controle" class="hidden">
+    <div class="card">
+      <div class="section-title" id="reviewTitle">Controleer de menukaart</div>
+      <div id="reviewNotice"></div>
+      <div class="thumbs" id="reviewThumbs"></div>
+      <label class="small-text" for="reviewName">Naam van het restaurant</label>
+      <input type="text" id="reviewName" placeholder="Naam van het restaurant" oninput="draft.name = this.value">
+      <div id="estimateChoice">
+        <div class="small-text" style="margin-bottom:6px;">Soort bezoek</div>
+        <div class="seg">
+          <button type="button" id="segEstimate" onclick="setDraftEstimate(true)">Inschatting vooraf</button>
+          <button type="button" id="segReal" onclick="setDraftEstimate(false)">Echte rekening</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="section-title" id="reviewCount">Gerechten</div>
+      <div id="reviewItems"></div>
+      <button class="big-button secondary" onclick="addDraftItem()">+ Gerecht toevoegen</button>
+      <button class="big-button secondary" onclick="document.getElementById('moreMenuInput').click()">📷 Nog een foto scannen</button>
+      <input type="file" id="moreMenuInput" accept="image/*" multiple style="display:none;" onchange="handleMoreMenuFiles(this)">
+      <div id="ocrBox2" class="hidden">
+        <div style="font-weight:600;" id="ocrStatus2">Bezig…</div>
+        <div class="progress"><div id="ocrBar2"></div></div>
+      </div>
+    </div>
+    <button class="big-button" id="reviewStartBtn" onclick="confirmDraft()">Bezoek starten</button>
+    <button class="link-button" onclick="reviewBack()">← Terug</button>
+  </div>
+
   <div id="tab-toevoegen" class="hidden">
+    <div class="card" id="menuCard"></div>
     <div class="card">
       <div class="section-title">Item toevoegen</div>
       <input type="text" id="itemName" placeholder="Naam van het gerecht of drankje">
-      <input type="number" id="itemPrice" placeholder="Prijs in euro's (bijv. 12.50)" step="0.01" min="0" inputmode="decimal">
+      <input type="text" id="itemPrice" placeholder="Prijs in euro's (bijv. 12,50)" inputmode="decimal" autocomplete="off">
       <select id="itemCategory">
         <option value="eten">Eten</option>
         <option value="drinken">Drinken</option>
         <option value="extra">Buiten de kaart / extra</option>
       </select>
-      <input type="number" id="itemQty" value="1" min="1" placeholder="Aantal">
+      <input type="number" id="itemQty" value="1" min="1" placeholder="Aantal" inputmode="numeric">
       <button class="big-button" onclick="addItem()">Toevoegen aan rekening</button>
     </div>
     <div class="card">
       <div class="section-title">Snel toevoegen</div>
       <input type="text" id="quickName" placeholder="Bijv. fooi, extra saus...">
-      <input type="number" id="quickPrice" placeholder="Prijs" step="0.01" min="0" inputmode="decimal">
+      <input type="text" id="quickPrice" placeholder="Prijs" inputmode="decimal" autocomplete="off">
       <button class="big-button secondary" onclick="addQuickItem()">Snel toevoegen</button>
     </div>
   </div>
   <div id="tab-fotos" class="hidden">
     <div class="card">
-      <div class="section-title">Foto's van de menukaart</div>
-      <p class="small-text">Maak een foto of kies een screenshot.</p>
-      <input type="file" id="photoInput" accept="image/*" capture="environment" multiple style="display:none;" onchange="handlePhotos(this)">
+      <div class="section-title">Foto's</div>
+      <p class="small-text">Maak een foto of kies een screenshot. Foto's van de menukaart worden hier ook bewaard.</p>
+      <input type="file" id="photoInput" accept="image/*" multiple style="display:none;" onchange="handlePhotos(this)">
       <button class="big-button" onclick="document.getElementById('photoInput').click()">Foto of screenshot toevoegen</button>
       <div id="photosContainer"></div>
     </div>
@@ -114,14 +206,244 @@
     <button class="big-button secondary" onclick="clearAllHistory()">Alles wissen</button>
   </div>
 </div>
+<div class="toast" id="toast"></div>
 <script>
+// ==PARSER-START==
+// Pure functie: OCR-tekst van een menukaart -> { name, items: [{ name, price, category }] }
+// Geen DOM, geen lookbehind (iOS Safari 15).
+var MenuParser = (function () {
+  var DRINK_WORDS = ['bier','pils','tap','wijn','rosé','rose','prosecco','cava','champagne','cola','coca','fanta','sprite','sinas','cassis','tonic','ginger','fris','frisdrank','water','spa','chaudfontaine','sourcy','koffie','coffee','espresso','cappuccino','cappucino','latte','americano','macchiato','thee','tea','chocomel','chocolademelk','warme chocolade','cocktail','mocktail','gin','whisky','whiskey','rum','vodka','jenever','likeur','baileys','amaretto','limoncello','aperol','spritz','mojito','margarita','port','sherry','martini','sap','jus','juice','smoothie','milkshake','limonade','ice tea','icetea','lipton','heineken','amstel','grolsch','hertog jan','brand','bavaria','jupiler','la chouffe','duvel','leffe','affligem','westmalle','chimay','kwak','corona','desperados','radler','weizen','ipa','tripel','dubbel','witbier','speciaalbier','merlot','chardonnay','sauvignon','pinot','shiraz','syrah','malbec','rioja','primitivo','cabernet','verdejo','riesling','tempranillo','sangria','glas','fles','karaf','borrelglas','beer','wine','soda','drink','drank','dranken','fernandes','red bull','redbull','appelsap','ginger ale','bitter lemon','tonic','fever-tree','kombucha','melk','karnemelk','verse munt','muntthee','jägermeister','jagermeister','tequila','cognac','calvados','grappa','sake','soju','lassi'];
+  var DRINK_HEADERS = ['dranken','drankjes','drinks','drinken','beverages','wijnen','wijn','wines','wine','bieren','bier','beers','beer','op tap','van de tap','speciaalbieren','frisdranken','fris','soft drinks','softdrinks','warme dranken','koude dranken','hot drinks','koffie','koffie & thee','koffie en thee','coffee','thee','cocktails','mocktails','gin & tonic','gin tonic','sterke drank','gedistilleerd','spirits','aperitief','aperitieven','digestief','likeuren','bubbels','huiswijn','huiswijnen','rode wijn','rode wijnen','witte wijn','witte wijnen','rosé','sappen','alcoholvrij','non alcoholic','whisky','barkaart','drankkaart','wijnkaart','vino','vini','bevande','bebidas','getränke','boissons','vins','bières'];
+  var FOOD_HEADERS = ['voorgerechten','voorgerecht','starters','starter','hoofdgerechten','hoofdgerecht','mains','main courses','main','desserts','dessert','nagerechten','nagerecht','toetjes','zoet','lunch','diner','dinner','ontbijt','breakfast','brunch','borrelhapjes','borrel','bites','borrelkaart','snacks','bijgerechten','side dishes','sides','extra','extra\'s','soepen','soep','soups','salades','salade','salads','tosti\'s','tostis','broodjes','brood','sandwiches','burgers','pizza','pizza\'s','pizzas','pasta','pasta\'s','vis','vlees','vega','vegetarisch','vegan','kindermenu','kinderen','kids','kinderkaart','gebak','taart','sharing','to share','delen','tapas','sushi','wraps','eten','food','keuken','specials','dagmenu','menu van de dag','gerechten','klassiekers','plates','small plates','big plates','grill','van de grill'];
+  var GENERIC_NAME = /^(menu|menukaart|de kaart|onze kaart|kaart|welkom|welcome|lunch|diner|dinner|borrel|food|drinks|eten|eten & drinken|eten en drinken|prijzen|prices|card|carte|la carte|page|pagina)$/i;
+  var DESC_LEAD = /^(met|van|op|in|uit|en|of|geserveerd|keuze|naar keuze|inclusief|incl\.?|served|with|and|optioneel|optie|ook|alle|onze|vers|verse|huisgemaakte?|vraag|ask|bevat|contains|\(|\+)/i;
+  var NOISE = /(www\.|https?:|\.nl\b|\.com\b|@|\btel\b|telefoon|\bbtw\b|allergie|allergen|\bkvk\b|iban|openingstijden|geopend|\bopen\b|\buur\b|pinnen|cash|instagram|facebook|wifi|wi-fi)/i;
+  var TIME_RANGE = /\d{1,2}[.:]\d{2}\s*(?:-|–|—|tot|t\/m)\s*\d{1,2}[.:]\d{2}/i;
+  var PHONE = /(\+31|\b0\d{1,3}[-\s]?\d{6,8}\b|\b\d{3}[-\s]\d{3}[-\s]?\d{2,4}\b)/;
+  var POSTCODE = /\b\d{4}\s?[A-Z]{2}\b/;
+  // Prijs aan het eind van de regel
+  var PRICE_END = /(^|[\s.·…:_|\-–—€*])((?:€|eur|euro|[EC](?=\s))?\s*)(\d{1,3})(?:\s*([.,])\s*(\d{1,2}|-{1,2}|–|—))?\s*(€|eur|euro|,-)?\s*$/i;
+  var PRICE_ONLY = /^(€|eur|euro)?\s*(\d{1,3})(?:\s*[.,]\s*(\d{1,2}|-{1,2}|–|—))?\s*(€|eur|euro)?$/i;
+  // Sterke prijzen (met decimalen, ,- of €) voor regels met meerdere prijzen
+  var PRICE_ALL = /(€\s*)?(\d{1,3})\s*[.,]\s*(\d{2}|-{1,2}|–|—)(?!\d)(?!\s*(?:cl|ml|l|ltr|liter|kg|gr?|%)\b)|€\s*(\d{1,3})(?![.,\d])/gi;
+
+  var VARIANT_WORDS = ['glas','fles','flesje','karaf','groot','grote','klein','kleine','small','medium','large','pul','pint','liter','halve','half','heel','hele','fluitje','vaasje','portie','kopje','kop','pot','per','1/2','glass','bottle','carafe'];
+  function letters(s) { var m = s.match(/[A-Za-zÀ-ÿ]/g); return m ? m.length : 0; }
+  function words(s) { return s.split(/\s+/).filter(Boolean).length; }
+  function hasWord(text, list) {
+    var t = ' ' + text.toLowerCase().replace(/[^a-zà-ÿ0-9&'\- ]/g, ' ').replace(/\s+/g, ' ') + ' ';
+    for (var i = 0; i < list.length; i++) {
+      var w = list[i];
+      // Korte woorden (gin, spa, tap, ipa...) alleen als los woord; langere ook in samenstellingen (huiswijn, witbier)
+      if (w.length <= 4) { if (t.indexOf(' ' + w + ' ') >= 0) return true; }
+      else if (t.indexOf(w) >= 0) return true;
+    }
+    return false;
+  }
+  function headerCategory(line) {
+    if (/\d/.test(line)) return null;
+    var t = line.toLowerCase().replace(/[^a-zà-ÿ&' ]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!t || words(t) > 4) return null;
+    if (DRINK_HEADERS.indexOf(t) >= 0) return 'drinken';
+    if (FOOD_HEADERS.indexOf(t) >= 0) return 'eten';
+    return null;
+  }
+  function toValue(intPart, dec) {
+    var v = parseInt(intPart, 10);
+    if (dec && /^\d+$/.test(dec)) v += parseInt(dec.length === 1 ? dec + '0' : dec, 10) / 100;
+    return Math.round(v * 100) / 100;
+  }
+  function cleanName(s) {
+    s = s.replace(/\s*(?:[.·…]\s*){3,}.*$/, '')                 // alles vanaf stippellijn weg
+         .replace(/[\s.·…:_|\-–—*•~=]+$/g, '')      // stippellijntjes / leaders
+         .replace(/\s+(€|eur|euro|[EC])$/i, '')      // losse euro-teken (of OCR-variant E/C)
+         .replace(/[\s.·…:_|\-–—*•~=]+$/g, '')
+         .replace(/^[\s•*·\-–—>|~=.»«‣◦●■□○,;:]+/, '')            // opsommingstekens
+         .replace(/^(?:nr\.?\s*)?\d{1,3}[.)]?\s+(?=[A-Za-zÀ-ÿ])/i, '') // menunummers "23. "
+         .replace(/\s+/g, ' ').trim();
+    if (s.length > 3 && s === s.toUpperCase() && letters(s) > 3) s = s.charAt(0) + s.slice(1).toLowerCase();
+    return s;
+  }
+  function isDescription(s) {
+    var c = s.replace(/^[\s•*·\-–—]+/, '');
+    if (!c) return true;
+    if (/^[a-zà-ÿ(]/.test(c)) return true;
+    if (DESC_LEAD.test(c)) return true;
+    if (words(c) > 7) return true;
+    if (c.indexOf(',') >= 0 && words(c) > 3) return true;
+    return false;
+  }
+  function isNoise(s) {
+    return NOISE.test(s) || TIME_RANGE.test(s) || PHONE.test(s) || POSTCODE.test(s);
+  }
+  function normalize(line) {
+    return line
+      .replace(/[\u2018\u2019\u00b4`]/g, "'")
+      .replace(/\t/g, ' ')
+      .replace(/(\d)\s*([.,])\s*([0-9Oo])([0-9Oo])(?![0-9A-Za-z])/g, function (m, a, sep, b, c) {
+        return a + sep + b.replace(/[Oo]/, '0') + c.replace(/[Oo]/, '0'); })   // 7,5O -> 7,50
+      .replace(/([A-Za-zÀ-ÿ.…])(\d{1,3}[.,]\d{2}|\d{1,3},-)\s*$/, '$1 $2')            // "o.oo6,75" -> "o.oo 6,75"
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+  var FOOD_HINT = /(saus|soep|stoof|taart|gebak|tiramisu|risotto|mossel|beslag|biefstuk|burger|friet|kip|vlees|vis\b|kaas|brood|\bin\b|gemarineerd|ijs\b|sorbet|pudding|parfait)/i;
+  function categoryFor(name, section) {
+    if (section === 'drinken') return 'drinken';
+    if (!hasWord(name, DRINK_WORDS) || FOOD_HINT.test(name)) return 'eten';
+    if (section === 'eten' && /\smet\s/i.test(name)) return 'eten';
+    return 'drinken';
+  }
+  function guessName(lines) {
+    for (var i = 0; i < lines.length && i < 10; i++) {
+      var l = lines[i].replace(/^[\s•*·\-–—|»«~_.,;:]+|[\s•*·\-–—|»«~_.,;:]+$/g, '');
+      if (letters(l) < 3 || isNoise(l) || headerCategory(l)) continue;
+      if (/\d{1,2}:\d{2}/.test(l) || /^[<‹←]/.test(l) || /\b(terug|back|zoeken|search|delen|share)\b/i.test(l)) continue;
+      if (letters(l) < 0.6 * l.replace(/\s/g, '').length) continue;
+      var m = l.match(/^(?:welkom\s+(?:bij|in|at)|welcome\s+(?:to|at))\s+(.+)$/i);
+      if (m) l = m[1];
+      l = l.replace(/^(menukaart|menu|kaart)\s+(van\s+)?/i, '').replace(/\s+(menukaart|menu|kaart)$/i, '').trim();
+      if (letters(l) < 3 || GENERIC_NAME.test(l) || words(l) > 6) continue;
+      if (/^[a-zà-ÿ]/.test(l) && words(l) > 3) continue;
+      if (l.length > 3 && l === l.toUpperCase()) l = l.toLowerCase().replace(/(^|\s)([a-zà-ÿ])/g, function (m, a, b) { return a + b.toUpperCase(); });
+      return l;
+    }
+    return '';
+  }
+
+  function parse(text) {
+    var raw = String(text || '').split(/\r?\n/);
+    var lines = [];
+    for (var i = 0; i < raw.length; i++) { var n = normalize(raw[i]); if (n) lines.push(n); }
+    var items = [], seen = {}, section = null, pending = null, unpriced = 0, headLines = [], firstItemSeen = false;
+
+    function add(name, price, cat) {
+      name = cleanName(name);
+      if (letters(name) < 2 || !(price >= 0.5 && price <= 500)) return false;
+      if (name.length > 60) name = name.slice(0, 60).trim();
+      var key = name.toLowerCase() + '|' + price.toFixed(2);
+      if (seen[key]) return true;
+      seen[key] = true;
+      items.push({ name: name, price: price, category: categoryFor(name, cat) });
+      firstItemSeen = true;
+      return true;
+    }
+
+    for (var j = 0; j < lines.length; j++) {
+      var line = lines[j];
+      if (!firstItemSeen) headLines.push(line);
+
+      // 1. Alleen een prijs op deze regel -> hoort bij het gerecht erboven
+      var po = line.match(PRICE_ONLY);
+      if (po) {
+        var strong = !!(po[1] || po[3] || po[4]);
+        var v = toValue(po[2], po[3]);
+        if (pending && (strong || (v >= 1 && v <= 99))) { add(pending, v, section); pending = null; }
+        continue;
+      }
+      if (isNoise(line)) continue;
+
+      // 2. Kopje (Dranken, Hoofdgerechten...)
+      var hc = headerCategory(line);
+      if (hc) { if (pending) unpriced++; section = hc; pending = null; continue; }
+
+      // 3. Prijzen zoeken
+      var all = [], mm;
+      PRICE_ALL.lastIndex = 0;
+      while ((mm = PRICE_ALL.exec(line)) !== null) {
+        var val = mm[2] !== undefined ? toValue(mm[2], mm[3]) : toValue(mm[4], null);
+        all.push({ index: mm.index, end: mm.index + mm[0].length, value: val });
+      }
+      all = all.filter(function (p) { return p.value >= 0.5; });
+
+      if (all.length >= 2) {
+        // Meerdere prijzen: "Huiswijn glas 4,50 fles 22,50" of "Cola 3,20 4,50"
+        var base = cleanName(line.slice(0, all[0].index));
+        if (letters(base) < 2 && pending) base = cleanName(pending);
+        if (isDescription(base) && pending) base = cleanName(pending);
+        for (var k = 0; k < all.length; k++) {
+          var label = k === 0 ? '' : cleanName(line.slice(all[k - 1].end, all[k].index));
+          var nm;
+          if (k === 0) nm = base;
+          else if (letters(label) >= 2) {
+            var lw = label.toLowerCase().split(' ')[0];
+            if (VARIANT_WORDS.indexOf(lw) >= 0) {
+              // "Huiswijn glas 4,50 fles 22,50" -> "Huiswijn fles"
+              var bw = base.split(' ');
+              var last = bw[bw.length - 1].toLowerCase();
+              nm = (bw.length > 1 && VARIANT_WORDS.indexOf(last) >= 0 ? bw.slice(0, -1).join(' ') : base) + ' ' + label;
+            } else if (/^[A-ZÀ-Ý]/.test(label)) {
+              nm = label;            // twee kolommen samengevoegd: "Bitterballen 7,50 Kaasstengels 6,75"
+            } else nm = base + ' ' + label;
+          } else nm = base + ' (' + (k + 1) + ')';
+          add(nm, all[k].value, section);
+        }
+        pending = null;
+        continue;
+      }
+
+      var pe = line.match(PRICE_END);
+      var price = null, namePart = line;
+      if (pe) {
+        var strongEnd = !!(pe[4] || (pe[2] && pe[2].trim()) || pe[6]);
+        var vEnd = toValue(pe[3], pe[5]);
+        var before = line.slice(0, pe.index + pe[1].length);
+        // eenheid of maat zonder prijs ("33 cl" staat niet aan het eind, maar "Pizza 4" e.d. wel)
+        if (strongEnd || (vEnd >= 1 && vEnd <= 99 && letters(before) >= 3 && /[A-Za-zÀ-ÿ)]\s*[.·…_\-–—]*\s*$/.test(before))) {
+          if (!/(\bcl|\bml|\bgr|\bkg|%)\s*$/i.test(before)) { price = vEnd; namePart = before; }
+        }
+      }
+
+      if (price === null) {
+        // 4. Regel zonder prijs: gerechtnaam (prijs volgt) of omschrijving
+        if (letters(line) < 2) continue;
+        if (!isDescription(line)) { if (pending) unpriced++; pending = line; }
+        continue;
+      }
+
+      // 5. Regel met prijs
+      var nmClean = cleanName(namePart);
+      if ((letters(nmClean) < 2 || isDescription(nmClean)) && pending) nmClean = pending;
+      if (add(nmClean, price, section)) pending = null;
+    }
+
+    if (pending) unpriced++;
+    // unpriced = regels die op een gerechtnaam lijken maar geen prijs kregen (maat voor slechte OCR-indeling)
+    return { name: guessName(headLines), items: items, unpriced: unpriced };
+  }
+
+  return { parse: parse, categoryFor: categoryFor, headerCategory: headerCategory };
+})();
+function parseMenuText(text) { return MenuParser.parse(text); }
+// Tesseract-resultaat -> tekst, zonder woorden met lage zekerheid (meestal stippellijntjes die als 'eee' of 'vive' gelezen worden)
+var PRICE_WORD = /^(€|eur)?\d{1,3}([.,](\d{1,2}|-{1,2}|–|—))?(€|,-)?$/i;
+function ocrDataToText(data) {
+  if (!data || !data.lines || !data.lines.length) return (data && data.text) || '';
+  var out = [];
+  for (var i = 0; i < data.lines.length; i++) {
+    var ws = data.lines[i].words || [], keep = [];
+    for (var j = 0; j < ws.length; j++) {
+      var t = String(ws[j].text || '').trim(), c = ws[j].confidence;
+      if (!t) continue;
+      if (/(?:[.·…]\s*){3,}/.test(t) && !PRICE_WORD.test(t.replace(/^[.·…]+/, ''))) continue;   // stippellijn
+      if (PRICE_WORD.test(t) || keep.length === 0 || c >= 45) keep.push(t);
+    }
+    if (keep.length) out.push(keep.join(' '));
+  }
+  return out.join('\n');
+}
+// ==PARSER-END==
+
+
 let currentVisit = null;
 let visits = [];
 let photos = [];
+let menus = [];
 try {
   visits = JSON.parse(localStorage.getItem('hapjeDrankjeVisits') || '[]');
   currentVisit = JSON.parse(localStorage.getItem('hapjeDrankjeCurrent') || 'null');
 } catch(e) { visits = []; currentVisit = null; }
+try { menus = JSON.parse(localStorage.getItem('hapjeDrankjeMenus') || '[]'); if (!Array.isArray(menus)) menus = []; } catch(e) { menus = []; }
+if (currentVisit && !Array.isArray(currentVisit.items)) currentVisit.items = [];
 
 // Foto's in IndexedDB (veel meer ruimte dan localStorage)
 const DB_NAME = 'hapjeDrankjeDB';
@@ -151,6 +473,7 @@ function loadPhotos() {
   }).catch(() => { photos = []; });
 }
 function savePhoto(p) { return dbTx('readwrite', s => s.put(p)); }
+function deletePhoto(id) { return dbTx('readwrite', s => s.delete(id)); }
 function clearPhotos() { return dbTx('readwrite', s => s.clear()); }
 function migrateOldPhotos() {
   // Oude foto's uit localStorage overzetten naar IndexedDB
@@ -159,29 +482,42 @@ function migrateOldPhotos() {
   if (!old.length) return Promise.resolve();
   return Promise.all(old.map(savePhoto)).then(() => localStorage.removeItem('hapjeDrankjePhotos')).catch(() => {});
 }
-// Foto verkleinen zodat hij weinig ruimte inneemt
-function resizeImage(file, maxSize, quality) {
+function loadImage(file) {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
     const img = new Image();
-    img.onload = () => {
-      let w = img.naturalWidth, h = img.naturalHeight;
-      const scale = Math.min(1, maxSize / Math.max(w, h));
-      w = Math.round(w * scale); h = Math.round(h * scale);
-      const c = document.createElement('canvas');
-      c.width = w; c.height = h;
-      c.getContext('2d').drawImage(img, 0, 0, w, h);
-      URL.revokeObjectURL(url);
-      resolve(c.toDataURL('image/jpeg', quality));
-    };
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
     img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Kan foto niet lezen')); };
     img.src = url;
   });
 }
+// Foto verkleinen zodat hij weinig ruimte inneemt
+function resizeImage(file, maxSize, quality) {
+  return loadImage(file).then(img => {
+    let w = img.naturalWidth, h = img.naturalHeight;
+    const scale = Math.min(1, maxSize / Math.max(w, h));
+    w = Math.round(w * scale); h = Math.round(h * scale);
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
+    ctx.drawImage(img, 0, 0, w, h);
+    return c.toDataURL('image/jpeg', quality);
+  });
+}
 function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 function formatEuro(amount) { return '€ ' + (Number(amount) || 0).toFixed(2).replace('.', ','); }
+function priceToInput(p) { return (Number(p) || 0).toFixed(2).replace('.', ','); }
+// "12,50", "12.50", "€ 12", "12,-" -> 12.5 (of NaN)
+function parsePrice(str) {
+  let s = String(str == null ? '' : str).replace(/€|eur|\s/gi, '').replace(/[,.]-+$/, '');
+  s = s.replace(',', '.');
+  if (!/^\d*\.?\d+$|^\d+\.$/.test(s)) return NaN;
+  return Math.round(parseFloat(s) * 100) / 100;
+}
+function categoryLabel(c) { return c === 'drinken' ? 'Drinken' : c === 'extra' ? 'Extra' : 'Eten'; }
 function saveData() { 
   try {
     localStorage.setItem('hapjeDrankjeVisits', JSON.stringify(visits));
@@ -189,26 +525,41 @@ function saveData() {
     else localStorage.removeItem('hapjeDrankjeCurrent');
   } catch(e) { alert('Opslag vol of niet beschikbaar'); }
 }
+function saveMenus() {
+  try { localStorage.setItem('hapjeDrankjeMenus', JSON.stringify(menus)); }
+  catch(e) { alert('Menukaart kon niet worden bewaard (opslag vol?)'); }
+}
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1600);
+}
 function updateTotal() {
   if (!currentVisit) { document.getElementById('totalDisplay').textContent = '€ 0,00'; return; }
   const total = currentVisit.items.reduce((sum, item) => sum + (Number(item.price) * Number(item.qty)), 0);
   document.getElementById('totalDisplay').textContent = formatEuro(total);
 }
-function renderCurrentVisit() {
+function renderCurrentVisit(skipMenuCard) {
   const nameEl = document.getElementById('visitName');
   const dateEl = document.getElementById('visitDate');
   const itemsEl = document.getElementById('itemsList');
   const finishBtn = document.getElementById('finishBtn');
   const newBtn = document.getElementById('newVisitBtn');
+  const toAddBtn = document.getElementById('toAddBtn');
   const badge = document.getElementById('estimateBadge');
   if (!currentVisit) {
     nameEl.textContent = 'Geen actief bezoek';
     dateEl.textContent = '';
     itemsEl.innerHTML = '<p class="small-text">Start een nieuw bezoek om te beginnen.</p>';
     finishBtn.style.display = 'none';
+    toAddBtn.style.display = 'none';
     newBtn.style.display = 'block';
     badge.style.display = 'none';
     updateTotal();
+    if (!skipMenuCard) renderMenuCard();
     return;
   }
   nameEl.textContent = currentVisit.name || 'Restaurantbezoek';
@@ -218,29 +569,478 @@ function renderCurrentVisit() {
   if (currentVisit.items.length === 0) {
     itemsEl.innerHTML = '<p class="small-text">Nog geen items toegevoegd.</p>';
   } else {
-    currentVisit.items.forEach((item) => {
+    currentVisit.items.forEach((item, idx) => {
       const row = document.createElement('div');
       row.className = 'item-row';
-      row.innerHTML = `<div><div class="item-name">${escapeHtml(item.name)} ${item.qty > 1 ? '×' + item.qty : ''}</div><div class="small-text">${item.category}</div></div><div class="item-price">${formatEuro(item.price * item.qty)}</div>`;
+      const q = Number(item.qty) || 1;
+      row.innerHTML = `<div style="flex:1; min-width:0;"><div class="item-name">${escapeHtml(item.name)} ${q > 1 ? '×' + q : ''}</div><div class="small-text">${escapeHtml(categoryLabel(item.category))} · ${formatEuro(item.price)} p.st.</div><div class="item-price">${formatEuro(item.price * q)}</div></div>` +
+        `<div class="qty-controls">` +
+        (q > 1 ? `<button class="qty-btn" data-act="minus" data-idx="${idx}" aria-label="Eén minder">−</button>`
+               : `<button class="qty-btn remove" data-act="minus" data-idx="${idx}" aria-label="Verwijderen">✕</button>`) +
+        `<button class="qty-btn" data-act="plus" data-idx="${idx}" aria-label="Eén meer">+</button></div>`;
       itemsEl.appendChild(row);
     });
   }
   finishBtn.style.display = 'block';
+  toAddBtn.style.display = 'block';
   newBtn.style.display = 'none';
   updateTotal();
+  if (!skipMenuCard) renderMenuCard();
 }
-function startNewVisit() {
-  const name = prompt('Naam van het restaurant (optioneel):') || 'Restaurantbezoek';
-  const isEstimate = confirm('Is dit een inschatting van tevoren?\n\nOK = inschatting\nAnnuleren = echte rekening');
-  currentVisit = { id: Date.now(), name: name, date: new Date().toISOString(), items: [], isEstimate: isEstimate, finished: false };
+document.getElementById('itemsList').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-act]');
+  if (!btn || !currentVisit) return;
+  const idx = Number(btn.getAttribute('data-idx'));
+  const item = currentVisit.items[idx];
+  if (!item) return;
+  if (btn.getAttribute('data-act') === 'plus') item.qty = (Number(item.qty) || 1) + 1;
+  else if ((Number(item.qty) || 1) > 1) item.qty = Number(item.qty) - 1;
+  else { currentVisit.items.splice(idx, 1); showToast(item.name + ' verwijderd'); }
   saveData();
   renderCurrentVisit();
-  showTab('toevoegen');
+});
+
+// ---------- Nieuw bezoek: menukaart-stap ----------
+// draft = het bezoek dat nog gestart (of bewerkt) wordt
+let draft = null;
+function newDraft(mode) {
+  return { mode: mode, name: '', isEstimate: false, items: [], files: [], thumbs: [], photoIds: [], restaurantId: null };
 }
+function startNewVisit() {
+  if (currentVisit && !confirm('Er loopt al een bezoek. Toch een nieuw bezoek starten? Het huidige bezoek wordt dan niet opgeslagen.')) return;
+  draft = newDraft('new');
+  openMenuStep();
+}
+function editCurrentMenu() {
+  if (!currentVisit) return;
+  draft = newDraft('edit');
+  draft.name = currentVisit.name || '';
+  draft.isEstimate = !!currentVisit.isEstimate;
+  draft.items = (currentVisit.menu || []).map(it => ({ name: it.name, price: it.price, category: it.category }));
+  draft.restaurantId = currentVisit.restaurantId || null;
+  if (draft.items.length) openReview(); else openMenuStep();
+}
+function openMenuStep() {
+  document.getElementById('menuStepTitle').textContent = draft.mode === 'edit' ? 'Menukaart toevoegen' : 'Nieuw bezoek: menukaart';
+  document.getElementById('skipBtn').textContent = draft.mode === 'edit' ? 'Zelf gerechten invullen' : 'Overslaan – zonder menukaart beginnen';
+  setOcrBusy(false);
+  renderSavedList();
+  showTab('menukaart');
+}
+function cancelMenuFlow() {
+  clearDraftThumbs();
+  draft = null;
+  showTab(currentVisit ? 'toevoegen' : 'overzicht');
+}
+function skipMenu() {
+  if (!draft) draft = newDraft('new');
+  openReview();
+}
+function renderSavedList() {
+  const card = document.getElementById('savedCard');
+  const list = document.getElementById('savedList');
+  const sorted = menus.slice().sort((a, b) => (a.updated < b.updated ? 1 : -1));
+  if (!sorted.length || (draft && draft.mode === 'edit')) { card.classList.add('hidden'); return; }
+  card.classList.remove('hidden');
+  list.innerHTML = sorted.map(m => `<div class="saved-rest"><button class="pick" data-pick="${escapeHtml(m.id)}"><div class="item-name">${escapeHtml(m.name || 'Restaurant')}</div><div class="small-text">${(m.items || []).length} gerechten · ${m.updated ? new Date(m.updated).toLocaleDateString('nl-NL') : ''}</div></button><button class="qty-btn remove" data-delrest="${escapeHtml(m.id)}" aria-label="Verwijderen">✕</button></div>`).join('');
+}
+document.getElementById('savedList').addEventListener('click', e => {
+  const pick = e.target.closest('[data-pick]');
+  const del = e.target.closest('[data-delrest]');
+  if (del) {
+    const id = del.getAttribute('data-delrest');
+    const m = menus.filter(x => String(x.id) === id)[0];
+    if (m && confirm('Bewaarde menukaart van "' + (m.name || 'restaurant') + '" verwijderen?')) {
+      menus = menus.filter(x => String(x.id) !== id);
+      saveMenus();
+      renderSavedList();
+    }
+    return;
+  }
+  if (pick) {
+    const m = menus.filter(x => String(x.id) === pick.getAttribute('data-pick'))[0];
+    if (!m) return;
+    if (!draft) draft = newDraft('new');
+    draft.name = m.name || '';
+    draft.restaurantId = m.id;
+    draft.items = (m.items || []).map(it => ({ name: it.name, price: it.price, category: it.category }));
+    openReview();
+  }
+});
+
+// ---------- Tekstherkenning (Tesseract.js, gratis, in de browser) ----------
+const TESS_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+let tessScriptPromise = null, workerPromise = null, ocrProgress = null;
+function loadTesseract() {
+  if (window.Tesseract) return Promise.resolve();
+  if (tessScriptPromise) return tessScriptPromise;
+  tessScriptPromise = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = TESS_URL;
+    s.onload = () => resolve();
+    s.onerror = () => { tessScriptPromise = null; s.remove(); reject(new Error('Tekstherkenning kon niet geladen worden')); };
+    document.head.appendChild(s);
+  });
+  return tessScriptPromise;
+}
+function getWorker() {
+  if (workerPromise) return workerPromise;
+  workerPromise = loadTesseract()
+    .then(() => Tesseract.createWorker(['nld', 'eng'], 1, { logger: m => { if (ocrProgress) ocrProgress(m); } }))
+    .then(w => w.setParameters({ preserve_interword_spaces: '1' }).then(() => w))
+    .catch(err => { workerPromise = null; throw err; });
+  return workerPromise;
+}
+// Afbeelding geschikt maken voor OCR: kleine screenshots vergroten, grote camerafoto's verkleinen
+function prepareForOcr(file) {
+  return loadImage(file).then(img => {
+    const w = img.naturalWidth, h = img.naturalHeight;
+    let scale = 1;
+    if (w < 1100) scale = Math.min(2.5, 1600 / w);
+    else if (w > 2000) scale = 2000 / w;
+    const maxPixels = 12000000; // iOS canvas-limiet ruim ontwijken
+    if (w * scale * h * scale > maxPixels) scale = Math.sqrt(maxPixels / (w * h));
+    const c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(w * scale)); c.height = Math.max(1, Math.round(h * scale));
+    const ctx = c.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    if ('imageSmoothingQuality' in ctx) ctx.imageSmoothingQuality = 'high';
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+    ctx.drawImage(img, 0, 0, c.width, c.height);
+    return c;
+  });
+}
+const OCR_STATUS = {
+  'loading tesseract core': 'Tekstherkenning laden…',
+  'initializing tesseract': 'Tekstherkenning starten…',
+  'initialized tesseract': 'Tekstherkenning gestart',
+  'loading language traineddata': 'Taalgegevens laden (Nederlands + Engels)…',
+  'loading language traineddata (from cache)': 'Taalgegevens laden…',
+  'loaded language traineddata': 'Taalgegevens geladen',
+  'initializing api': 'Voorbereiden…',
+  'initialized api': 'Voorbereiden…',
+  'recognizing text': 'Tekst lezen'
+};
+// Leest alle foto's na elkaar; geeft { name, items } terug
+function ocrFiles(files, ui) {
+  const result = { name: '', items: [] };
+  const seen = {};
+  const n = files.length;
+  let current = 0, pass = '';
+  ocrProgress = m => {
+    const label = OCR_STATUS[m.status] || 'Bezig…';
+    if (m.status === 'recognizing text') {
+      const p = (current + (m.progress || 0)) / n;
+      ui(label + (n > 1 ? ' – foto ' + (current + 1) + ' van ' + n : '') + pass + ' (' + Math.round((m.progress || 0) * 100) + '%)', p);
+    } else {
+      ui(label + (m.progress ? ' ' + Math.round(m.progress * 100) + '%' : ''), null);
+    }
+  };
+  ui('Tekstherkenning laden…', 0);
+  return getWorker().then(worker => files.reduce((chain, file, i) => chain.then(() => {
+    current = i; pass = '';
+    ui('Foto ' + (i + 1) + ' van ' + n + ' voorbereiden…', i / n);
+    return prepareForOcr(file)
+      .then(canvas => worker.setParameters({ tessedit_pageseg_mode: '3' })
+        .then(() => worker.recognize(canvas))
+        .then(res => {
+          const r = parseMenuText(ocrDataToText(res.data));
+          // Zwak resultaat (veel namen zonder prijs)? Nog een keer lezen als één tekstblok.
+          if (r.items.length < 3 || r.unpriced > Math.max(2, 0.25 * r.items.length)) {
+            pass = ', tweede poging';
+            return worker.setParameters({ tessedit_pageseg_mode: '6' })
+              .then(() => worker.recognize(canvas))
+              .then(res2 => { const r2 = parseMenuText(ocrDataToText(res2.data)); return r2.items.length > r.items.length ? r2 : r; });
+          }
+          return r;
+        }))
+      .then(r => {
+        if (!result.name && r.name) result.name = r.name;
+        r.items.forEach(it => {
+          const key = it.name.toLowerCase() + '|' + it.price.toFixed(2);
+          if (!seen[key]) { seen[key] = true; result.items.push(it); }
+        });
+      })
+      .catch(err => { console.warn('OCR foto mislukt', err); result.failed = (result.failed || 0) + 1; });
+  }), Promise.resolve())).then(() => { ocrProgress = null; ui('Klaar', 1); return result; },
+    err => { ocrProgress = null; throw err; });
+}
+function setOcrBusy(busy, which) {
+  const suffix = which === 2 ? '2' : '';
+  document.getElementById('ocrBox' + suffix).classList.toggle('hidden', !busy);
+  if (which !== 2) {
+    document.getElementById('menuPickBtn').disabled = busy;
+    document.getElementById('skipBtn').disabled = busy;
+    document.getElementById('savedCard').style.opacity = busy ? '0.4' : '';
+    document.getElementById('savedCard').style.pointerEvents = busy ? 'none' : '';
+  }
+}
+function ocrUi(which) {
+  const suffix = which === 2 ? '2' : '';
+  return (text, p) => {
+    document.getElementById('ocrStatus' + suffix).textContent = text;
+    if (p !== null && p !== undefined) document.getElementById('ocrBar' + suffix).style.width = Math.round(p * 100) + '%';
+  };
+}
+function addDraftFiles(files) {
+  files.forEach(f => { draft.files.push(f); try { draft.thumbs.push(URL.createObjectURL(f)); } catch(e) {} });
+}
+function clearDraftThumbs() {
+  if (draft && draft.thumbs) draft.thumbs.forEach(u => { try { URL.revokeObjectURL(u); } catch(e) {} });
+}
+let ocrNotice = '';
+function handleMenuFiles(input) {
+  const files = Array.from(input.files || []);
+  input.value = '';
+  if (!files.length) return;
+  if (!draft) draft = newDraft('new');
+  addDraftFiles(files);
+  setOcrBusy(true);
+  ocrFiles(files, ocrUi(1)).then(res => {
+    if (res.name && !draft.name) draft.name = res.name;
+    draft.items = draft.items.concat(res.items);
+    ocrNotice = res.items.length ? '' : 'Er zijn geen gerechten met prijzen herkend. Vul ze zelf in, of probeer een scherpere foto of een screenshot.';
+    if (res.failed) ocrNotice += (ocrNotice ? ' ' : '') + res.failed + ' foto(\'s) konden niet gelezen worden.';
+    setOcrBusy(false);
+    openReview();
+  }).catch(err => {
+    setOcrBusy(false);
+    ocrNotice = 'Tekstherkenning werkt nu niet (geen internet?). De foto\'s worden wel bewaard; vul de gerechten zelf in.';
+    openReview();
+  });
+}
+function handleMoreMenuFiles(input) {
+  const files = Array.from(input.files || []);
+  input.value = '';
+  if (!files.length || !draft) return;
+  readDraftInputs();
+  addDraftFiles(files);
+  setOcrBusy(true, 2);
+  ocrFiles(files, ocrUi(2)).then(res => {
+    const have = {};
+    draft.items.forEach(it => { have[String(it.name).toLowerCase() + '|' + (Number(it.price) || 0).toFixed(2)] = true; });
+    const fresh = res.items.filter(it => !have[it.name.toLowerCase() + '|' + it.price.toFixed(2)]);
+    draft.items = draft.items.concat(fresh);
+    if (res.name && !draft.name) draft.name = res.name;
+    ocrNotice = fresh.length + ' gerecht(en) toegevoegd uit de nieuwe foto.';
+    setOcrBusy(false, 2);
+    openReview();
+  }).catch(() => {
+    setOcrBusy(false, 2);
+    ocrNotice = 'Tekstherkenning werkt nu niet (geen internet?).';
+    openReview();
+  });
+}
+
+// ---------- Stap 2: controleren en aanpassen ----------
+function openReview() {
+  renderReview();
+  showTab('controle');
+}
+function setDraftEstimate(v) {
+  draft.isEstimate = v;
+  document.getElementById('segEstimate').classList.toggle('active', v);
+  document.getElementById('segReal').classList.toggle('active', !v);
+}
+function renderReview() {
+  const isEdit = draft.mode === 'edit';
+  document.getElementById('reviewTitle').textContent = isEdit ? 'Menukaart aanpassen' : 'Controleer de menukaart';
+  document.getElementById('reviewStartBtn').textContent = isEdit ? 'Opslaan' : 'Bezoek starten';
+  document.getElementById('estimateChoice').classList.toggle('hidden', isEdit);
+  document.getElementById('reviewName').value = draft.name || '';
+  setDraftEstimate(!!draft.isEstimate);
+  document.getElementById('reviewNotice').innerHTML = ocrNotice ? '<div class="notice">' + escapeHtml(ocrNotice) + '</div>' : '';
+  document.getElementById('reviewThumbs').innerHTML = draft.thumbs.map(u => '<img src="' + escapeHtml(u) + '" alt="">').join('');
+  document.getElementById('reviewCount').textContent = draft.items.length ? draft.items.length + ' gerechten' + (draft.files.length ? ' herkend' : '') : 'Gerechten';
+  const box = document.getElementById('reviewItems');
+  if (!draft.items.length) {
+    box.innerHTML = '<p class="small-text">Nog geen gerechten. Je kunt ze hier toevoegen, of later tijdens het bezoek invullen.</p>';
+    return;
+  }
+  box.innerHTML = draft.items.map((it, i) => `<div class="edit-item" data-i="${i}">
+    <input type="text" data-f="name" value="${escapeHtml(it.name)}" placeholder="Naam gerecht">
+    <div class="edit-row">
+      <input class="price" type="text" inputmode="decimal" data-f="price" value="${it.price === '' || it.price == null ? '' : escapeHtml(priceToInput(it.price))}" placeholder="Prijs">
+      <select class="cat" data-f="category">
+        <option value="eten"${it.category === 'eten' ? ' selected' : ''}>Eten</option>
+        <option value="drinken"${it.category === 'drinken' ? ' selected' : ''}>Drinken</option>
+        <option value="extra"${it.category === 'extra' ? ' selected' : ''}>Extra</option>
+      </select>
+      <button class="del-btn" data-del="${i}" aria-label="Verwijderen">✕</button>
+    </div></div>`).join('');
+}
+// Waarden uit de invoervelden terug in draft zetten
+function readDraftInputs() {
+  if (!draft) return;
+  draft.name = document.getElementById('reviewName').value;
+  document.querySelectorAll('#reviewItems .edit-item').forEach(el => {
+    const it = draft.items[Number(el.getAttribute('data-i'))];
+    if (!it) return;
+    it.name = el.querySelector('[data-f="name"]').value;
+    const raw = el.querySelector('[data-f="price"]').value;
+    const p = parsePrice(raw);
+    it.price = isNaN(p) ? (raw.trim() === '' ? '' : it.price) : p;
+    it.category = el.querySelector('[data-f="category"]').value;
+  });
+}
+document.getElementById('reviewItems').addEventListener('click', e => {
+  const del = e.target.closest('[data-del]');
+  if (!del) return;
+  readDraftInputs();
+  draft.items.splice(Number(del.getAttribute('data-del')), 1);
+  renderReview();
+});
+function addDraftItem() {
+  readDraftInputs();
+  draft.items.push({ name: '', price: '', category: 'eten' });
+  renderReview();
+  const inputs = document.querySelectorAll('#reviewItems .edit-item input[data-f="name"]');
+  const last = inputs[inputs.length - 1];
+  if (last) { last.focus(); last.scrollIntoView({ block: 'center' }); }
+}
+function reviewBack() {
+  readDraftInputs();
+  if (draft.mode === 'edit' && (currentVisit && (currentVisit.menu || []).length)) { cancelMenuFlow(); return; }
+  openMenuStep();
+}
+// Menu-foto's opslaan in IndexedDB, gekoppeld aan bezoek en restaurant
+function saveDraftPhotos(visitId, restaurantName) {
+  const files = draft.files.slice();
+  const ids = [];
+  return files.reduce((chain, file) => chain.then(() =>
+    resizeImage(file, 1600, 0.8).then(data => {
+      const p = { id: Date.now() + Math.random(), data: data, date: new Date().toISOString(), kind: 'menu', visitId: visitId, restaurant: restaurantName };
+      return savePhoto(p).then(() => { photos.push(p); ids.push(p.id); });
+    }).catch(() => {})
+  ), Promise.resolve()).then(() => ids);
+}
+function upsertRestaurantMenu(name, items, photoIds) {
+  let m = null;
+  if (draft.restaurantId) m = menus.filter(x => x.id === draft.restaurantId)[0] || null;
+  const key = name.trim().toLowerCase();
+  if (!m && key && key !== 'restaurantbezoek') m = menus.filter(x => (x.name || '').trim().toLowerCase() === key)[0] || null;
+  if (!m) {
+    if (!items.length && !photoIds.length) return null;
+    m = { id: 'r' + Date.now(), name: name, items: [], photoIds: [], updated: '' };
+    menus.push(m);
+  }
+  m.name = name;
+  m.items = items.map(it => ({ name: it.name, price: it.price, category: it.category }));
+  m.photoIds = (m.photoIds || []).concat(photoIds);
+  m.updated = new Date().toISOString();
+  saveMenus();
+  return m.id;
+}
+function confirmDraft() {
+  readDraftInputs();
+  const name = (draft.name || '').trim() || 'Restaurantbezoek';
+  // Alleen gerechten met naam en geldige prijs bewaren
+  const bad = draft.items.filter(it => String(it.name).trim() && (it.price === '' || isNaN(Number(it.price))));
+  if (bad.length && !confirm(bad.length + ' gerecht(en) zonder geldige prijs worden weggelaten. Doorgaan?')) return;
+  const items = draft.items
+    .filter(it => String(it.name).trim() && it.price !== '' && !isNaN(Number(it.price)))
+    .map(it => ({ name: String(it.name).trim(), price: Math.round(Number(it.price) * 100) / 100, category: it.category || 'eten' }));
+  const btn = document.getElementById('reviewStartBtn');
+  btn.disabled = true;
+  const isEdit = draft.mode === 'edit' && currentVisit;
+  const visitId = isEdit ? currentVisit.id : Date.now();
+  saveDraftPhotos(visitId, name).then(photoIds => {
+    const restaurantId = upsertRestaurantMenu(name, items, photoIds);
+    if (isEdit) {
+      currentVisit.name = name;
+      currentVisit.menu = items;
+      currentVisit.restaurantId = restaurantId;
+      currentVisit.menuPhotoIds = (currentVisit.menuPhotoIds || []).concat(photoIds);
+    } else {
+      currentVisit = { id: visitId, name: name, date: new Date().toISOString(), items: [], isEstimate: !!draft.isEstimate, finished: false,
+        menu: items, restaurantId: restaurantId, menuPhotoIds: photoIds };
+    }
+    saveData();
+    clearDraftThumbs();
+    draft = null; ocrNotice = '';
+    btn.disabled = false;
+    menuSearch = '';
+    renderCurrentVisit();
+    showTab('toevoegen');
+    showToast(isEdit ? 'Menukaart opgeslagen' : 'Bezoek gestart');
+  }).catch(err => { btn.disabled = false; alert('Opslaan mislukt: ' + (err && err.message ? err.message : err)); });
+}
+
+// ---------- Toevoegen: menukaart om op te tikken ----------
+let menuSearch = '';
+function orderedCount(mi) {
+  if (!currentVisit) return 0;
+  return currentVisit.items.reduce((s, it) => s + (it.name === mi.name && Number(it.price) === Number(mi.price) ? (Number(it.qty) || 1) : 0), 0);
+}
+function renderMenuCard() {
+  const card = document.getElementById('menuCard');
+  if (!card) return;
+  if (!currentVisit) {
+    card.innerHTML = '<div class="section-title">Menukaart</div><p class="small-text">Start eerst een bezoek. Dan kun je een foto van de menukaart kiezen.</p><button class="big-button" onclick="startNewVisit()">Nieuw restaurantbezoek starten</button>';
+    return;
+  }
+  const menu = currentVisit.menu || [];
+  if (!menu.length) {
+    card.innerHTML = '<div class="section-title">Menukaart</div><p class="small-text">Dit bezoek heeft nog geen menukaart.</p><button class="big-button secondary" onclick="editCurrentMenu()">📷 Menukaart toevoegen</button>';
+    return;
+  }
+  const hadFocus = document.activeElement && document.activeElement.id === 'menuSearch';
+  card.innerHTML = '<div class="section-title">Menukaart</div>' +
+    '<input type="search" id="menuSearch" placeholder="Zoeken op de kaart…" autocomplete="off" value="' + escapeHtml(menuSearch) + '">' +
+    '<div id="menuList"></div>' +
+    '<button class="link-button" onclick="editCurrentMenu()">Menukaart aanpassen</button>';
+  document.getElementById('menuSearch').addEventListener('input', e => { menuSearch = e.target.value; renderMenuList(); });
+  if (hadFocus) { const s = document.getElementById('menuSearch'); s.focus(); try { s.setSelectionRange(s.value.length, s.value.length); } catch(e) {} }
+  renderMenuList();
+}
+function renderMenuList() {
+  const list = document.getElementById('menuList');
+  if (!list || !currentVisit) return;
+  const menu = currentVisit.menu || [];
+  const q = menuSearch.trim().toLowerCase();
+  const groups = [['eten', 'Eten'], ['drinken', 'Drinken'], ['extra', 'Extra']];
+  let html = '', shown = 0;
+  groups.forEach(g => {
+    const rows = [];
+    menu.forEach((mi, idx) => {
+      if ((mi.category || 'eten') !== g[0]) return;
+      if (q && String(mi.name).toLowerCase().indexOf(q) < 0) return;
+      const c = orderedCount(mi);
+      rows.push(`<button class="menu-item" data-mi="${idx}"><span class="item-name">${escapeHtml(mi.name)}${c ? '<span class="count">' + c + '×</span>' : ''}</span><span class="item-price">${formatEuro(mi.price)}</span></button>`);
+    });
+    if (rows.length) { html += '<div class="menu-group">' + g[1] + '</div>' + rows.join(''); shown += rows.length; }
+  });
+  list.innerHTML = shown ? html : '<p class="small-text">Niets gevonden voor "' + escapeHtml(menuSearch) + '".</p>';
+}
+document.getElementById('menuCard').addEventListener('click', e => {
+  const btn = e.target.closest('[data-mi]');
+  if (!btn || !currentVisit) return;
+  const mi = (currentVisit.menu || [])[Number(btn.getAttribute('data-mi'))];
+  if (!mi) return;
+  addMenuItemToBill(mi);
+  const idx = btn.getAttribute('data-mi');
+  renderMenuList();
+  const again = document.querySelector('#menuList [data-mi="' + idx + '"]');
+  if (again) { again.classList.add('flash'); setTimeout(() => again.classList.remove('flash'), 400); }
+});
+function addMenuItemToBill(mi) {
+  const existing = currentVisit.items.filter(it => it.name === mi.name && Number(it.price) === Number(mi.price))[0];
+  if (existing) existing.qty = (Number(existing.qty) || 1) + 1;
+  else currentVisit.items.push({ name: mi.name, price: Number(mi.price), category: mi.category || 'eten', qty: 1, fromMenu: true });
+  saveData();
+  const c = orderedCount(mi);
+  updateTotal();
+  renderCurrentVisitList();
+  if (navigator.vibrate) { try { navigator.vibrate(15); } catch(e) {} }
+  showToast('✓ ' + mi.name + ' toegevoegd' + (c > 1 ? ' (' + c + '× besteld)' : ''));
+}
+// Alleen de lijst in Overzicht bijwerken (zonder de menukaart opnieuw te tekenen)
+function renderCurrentVisitList() { renderCurrentVisit(true); }
+
 function addItem() {
   if (!currentVisit) { alert('Start eerst een bezoek'); return; }
   const name = document.getElementById('itemName').value.trim();
-  const price = parseFloat(document.getElementById('itemPrice').value);
+  const price = parsePrice(document.getElementById('itemPrice').value);
   const category = document.getElementById('itemCategory').value;
   const qty = parseInt(document.getElementById('itemQty').value) || 1;
   if (!name || isNaN(price)) { alert('Vul naam en prijs in'); return; }
@@ -255,7 +1055,7 @@ function addItem() {
 function addQuickItem() {
   if (!currentVisit) { alert('Start eerst een bezoek'); return; }
   const name = document.getElementById('quickName').value.trim() || 'Extra';
-  const price = parseFloat(document.getElementById('quickPrice').value);
+  const price = parsePrice(document.getElementById('quickPrice').value);
   if (isNaN(price)) { alert('Vul een prijs in'); return; }
   currentVisit.items.push({ name, price, category: 'extra', qty: 1 });
   saveData();
@@ -284,6 +1084,7 @@ function showTab(tab) {
   window.scrollTo(0, 0);
   if (tab === 'fotos') renderPhotos();
   if (tab === 'geschiedenis') renderHistory();
+  if (tab === 'toevoegen') renderMenuCard();
 }
 function handlePhotos(input) {
   const files = Array.from(input.files);
@@ -291,6 +1092,7 @@ function handlePhotos(input) {
   files.reduce((chain, file) => chain.then(() =>
     resizeImage(file, 1600, 0.8).then(data => {
       const p = { id: Date.now() + Math.random(), data: data, date: new Date().toISOString() };
+      if (currentVisit) { p.visitId = currentVisit.id; p.restaurant = currentVisit.name; }
       return savePhoto(p).then(() => { photos.push(p); renderPhotos(); });
     }).catch(() => alert('Foto kon niet worden opgeslagen'))
   ), Promise.resolve());
@@ -303,6 +1105,13 @@ function renderPhotos() {
     return;
   }
   photos.forEach((p) => {
+    if (p.kind === 'menu' || p.restaurant) {
+      const cap = document.createElement('div');
+      cap.className = 'small-text';
+      cap.style.marginTop = '10px';
+      cap.textContent = (p.kind === 'menu' ? 'Menukaart' : 'Foto') + (p.restaurant ? ' · ' + p.restaurant : '');
+      container.appendChild(cap);
+    }
     const img = document.createElement('img');
     img.src = p.data;
     img.className = 'photo-preview';
@@ -317,7 +1126,7 @@ function renderHistory() {
     return;
   }
   visits.forEach(v => {
-    const total = v.items.reduce((s, it) => s + it.price * it.qty, 0);
+    const total = (v.items || []).reduce((s, it) => s + it.price * it.qty, 0);
     const div = document.createElement('div');
     div.className = 'history-item';
     div.innerHTML = `<div style="font-weight:700;">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Inschatting' : ''}</div><div style="margin-top:6px; font-weight:700; color:#1a73e8;">${formatEuro(total)}</div>`;
@@ -325,10 +1134,12 @@ function renderHistory() {
   });
 }
 function clearAllHistory() {
-  if (!confirm('Alles wissen? Dit kan niet ongedaan worden gemaakt.')) return;
+  if (!confirm('Alle bezoeken en foto\'s wissen? Dit kan niet ongedaan worden gemaakt.\n(Bewaarde menukaarten blijven bewaard.)')) return;
   visits = [];
   photos = [];
   currentVisit = null;
+  menus.forEach(m => { m.photoIds = []; });
+  saveMenus();
   saveData();
   clearPhotos().catch(() => {});
   renderCurrentVisit();
