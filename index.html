@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hapje/Drankje">
+<meta name="theme-color" content="#1a73e8">
+<title>Hapje/Drankje</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
+  body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+    margin: 0; padding: 0; background: #f5f5f7; color: #1d1d1f; 
+    font-size: 17px; line-height: 1.4; 
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .header { 
+    background: #1a73e8; color: white; padding: 12px 16px 10px; text-align: center; 
+    position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding-top: calc(12px + env(safe-area-inset-top));
+  }
+  .header h1 { margin: 0 0 4px; font-size: 22px; font-weight: 700; }
+  .total-display { font-size: 36px; font-weight: 800; letter-spacing: -1px; }
+  .total-label { font-size: 14px; opacity: 0.9; }
+  .tabs { display: flex; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 99; }
+  .tab { flex: 1; padding: 14px 4px; text-align: center; font-size: 14px; font-weight: 600; background: none; border: none; color: #666; }
+  .tab.active { color: #1a73e8; border-bottom: 3px solid #1a73e8; }
+  .content { padding: 12px; max-width: 600px; margin: 0 auto; }
+  .card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
+  .big-button { 
+    width: 100%; padding: 16px; font-size: 18px; font-weight: 700; border: none; border-radius: 12px; 
+    background: #1a73e8; color: white; margin-bottom: 10px; 
+  }
+  .big-button.secondary { background: #f0f0f0; color: #1d1d1f; }
+  .big-button:active { opacity: 0.75; }
+  input, select { 
+    width: 100%; padding: 14px; font-size: 17px; border: 1px solid #ccc; border-radius: 10px; 
+    margin-bottom: 10px; background: white; -webkit-appearance: none;
+  }
+  .item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+  .item-row:last-child { border-bottom: none; }
+  .item-name { font-weight: 600; }
+  .item-price { font-weight: 700; color: #1a73e8; }
+  .photo-preview { max-width: 100%; border-radius: 10px; margin: 8px 0; display: block; }
+  .small-text { font-size: 14px; color: #666; margin-top: 2px; }
+  .section-title { font-size: 20px; font-weight: 700; margin: 8px 0 10px; }
+  .hidden { display: none !important; }
+  .estimate-badge { background: #ff9500; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .history-item { background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Hapje/Drankje</h1>
+  <div class="total-label">Lopende totaal</div>
+  <div class="total-display" id="totalDisplay">€ 0,00</div>
+</div>
+<div class="tabs">
+  <button class="tab active" data-tab="overzicht" onclick="showTab('overzicht')">Overzicht</button>
+  <button class="tab" data-tab="toevoegen" onclick="showTab('toevoegen')">Toevoegen</button>
+  <button class="tab" data-tab="fotos" onclick="showTab('fotos')">Foto's</button>
+  <button class="tab" data-tab="geschiedenis" onclick="showTab('geschiedenis')">Geschiedenis</button>
+</div>
+<div class="content">
+  <div id="tab-overzicht">
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-size:18px; font-weight:700;" id="visitName">Geen actief bezoek</div>
+          <div class="small-text" id="visitDate"></div>
+        </div>
+        <span class="estimate-badge" id="estimateBadge" style="display:none;">Inschatting</span>
+      </div>
+      <div id="itemsList" style="margin-top:12px;"></div>
+      <button class="big-button secondary" onclick="startNewVisit()" id="newVisitBtn">Nieuw restaurantbezoek starten</button>
+      <button class="big-button" onclick="finishVisit()" id="finishBtn" style="display:none;">Bezoek afronden</button>
+    </div>
+  </div>
+  <div id="tab-toevoegen" class="hidden">
+    <div class="card">
+      <div class="section-title">Item toevoegen</div>
+      <input type="text" id="itemName" placeholder="Naam van het gerecht of drankje">
+      <input type="number" id="itemPrice" placeholder="Prijs in euro's (bijv. 12.50)" step="0.01" min="0" inputmode="decimal">
+      <select id="itemCategory">
+        <option value="eten">Eten</option>
+        <option value="drinken">Drinken</option>
+        <option value="extra">Buiten de kaart / extra</option>
+      </select>
+      <input type="number" id="itemQty" value="1" min="1" placeholder="Aantal">
+      <button class="big-button" onclick="addItem()">Toevoegen aan rekening</button>
+    </div>
+    <div class="card">
+      <div class="section-title">Snel toevoegen</div>
+      <input type="text" id="quickName" placeholder="Bijv. fooi, extra saus...">
+      <input type="number" id="quickPrice" placeholder="Prijs" step="0.01" min="0" inputmode="decimal">
+      <button class="big-button secondary" onclick="addQuickItem()">Snel toevoegen</button>
+    </div>
+  </div>
+  <div id="tab-fotos" class="hidden">
+    <div class="card">
+      <div class="section-title">Foto's van de menukaart</div>
+      <p class="small-text">Maak een foto of kies een screenshot.</p>
+      <input type="file" id="photoInput" accept="image/*" capture="environment" multiple style="display:none;" onchange="handlePhotos(this)">
+      <button class="big-button" onclick="document.getElementById('photoInput').click()">Foto of screenshot toevoegen</button>
+      <div id="photosContainer"></div>
+    </div>
+  </div>
+  <div id="tab-geschiedenis" class="hidden">
+    <div class="section-title">Eerdere bezoeken</div>
+    <div id="historyList"></div>
+    <button class="big-button secondary" onclick="clearAllHistory()">Alles wissen</button>
+  </div>
+</div>
+<script>
+let currentVisit = null;
+let visits = [];
+let photos = [];
+try {
+  visits = JSON.parse(localStorage.getItem('hapjeDrankjeVisits') || '[]');
+  currentVisit = JSON.parse(localStorage.getItem('hapjeDrankjeCurrent') || 'null');
+} catch(e) { visits = []; currentVisit = null; }
+
+// Foto's in IndexedDB (veel meer ruimte dan localStorage)
+const DB_NAME = 'hapjeDrankjeDB';
+let dbPromise = null;
+function openDB() {
+  if (dbPromise) return dbPromise;
+  dbPromise = new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, 1);
+    req.onupgradeneeded = () => { req.result.createObjectStore('photos', { keyPath: 'id' }); };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+  return dbPromise;
+}
+function dbTx(mode, fn) {
+  return openDB().then(db => new Promise((resolve, reject) => {
+    const tx = db.transaction('photos', mode);
+    const store = tx.objectStore('photos');
+    const result = fn(store);
+    tx.oncomplete = () => resolve(result && result.result !== undefined ? result.result : undefined);
+    tx.onerror = () => reject(tx.error);
+  }));
+}
+function loadPhotos() {
+  return dbTx('readonly', s => s.getAll()).then(list => {
+    photos = (list || []).sort((a, b) => (a.date < b.date ? -1 : 1));
+  }).catch(() => { photos = []; });
+}
+function savePhoto(p) { return dbTx('readwrite', s => s.put(p)); }
+function clearPhotos() { return dbTx('readwrite', s => s.clear()); }
+function migrateOldPhotos() {
+  // Oude foto's uit localStorage overzetten naar IndexedDB
+  let old = [];
+  try { old = JSON.parse(localStorage.getItem('hapjeDrankjePhotos') || '[]'); } catch(e) {}
+  if (!old.length) return Promise.resolve();
+  return Promise.all(old.map(savePhoto)).then(() => localStorage.removeItem('hapjeDrankjePhotos')).catch(() => {});
+}
+// Foto verkleinen zodat hij weinig ruimte inneemt
+function resizeImage(file, maxSize, quality) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      let w = img.naturalWidth, h = img.naturalHeight;
+      const scale = Math.min(1, maxSize / Math.max(w, h));
+      w = Math.round(w * scale); h = Math.round(h * scale);
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      resolve(c.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Kan foto niet lezen')); };
+    img.src = url;
+  });
+}
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function formatEuro(amount) { return '€ ' + (Number(amount) || 0).toFixed(2).replace('.', ','); }
+function saveData() { 
+  try {
+    localStorage.setItem('hapjeDrankjeVisits', JSON.stringify(visits));
+    if (currentVisit) localStorage.setItem('hapjeDrankjeCurrent', JSON.stringify(currentVisit));
+    else localStorage.removeItem('hapjeDrankjeCurrent');
+  } catch(e) { alert('Opslag vol of niet beschikbaar'); }
+}
+function updateTotal() {
+  if (!currentVisit) { document.getElementById('totalDisplay').textContent = '€ 0,00'; return; }
+  const total = currentVisit.items.reduce((sum, item) => sum + (Number(item.price) * Number(item.qty)), 0);
+  document.getElementById('totalDisplay').textContent = formatEuro(total);
+}
+function renderCurrentVisit() {
+  const nameEl = document.getElementById('visitName');
+  const dateEl = document.getElementById('visitDate');
+  const itemsEl = document.getElementById('itemsList');
+  const finishBtn = document.getElementById('finishBtn');
+  const newBtn = document.getElementById('newVisitBtn');
+  const badge = document.getElementById('estimateBadge');
+  if (!currentVisit) {
+    nameEl.textContent = 'Geen actief bezoek';
+    dateEl.textContent = '';
+    itemsEl.innerHTML = '<p class="small-text">Start een nieuw bezoek om te beginnen.</p>';
+    finishBtn.style.display = 'none';
+    newBtn.style.display = 'block';
+    badge.style.display = 'none';
+    updateTotal();
+    return;
+  }
+  nameEl.textContent = currentVisit.name || 'Restaurantbezoek';
+  dateEl.textContent = new Date(currentVisit.date).toLocaleString('nl-NL');
+  badge.style.display = currentVisit.isEstimate ? 'inline' : 'none';
+  itemsEl.innerHTML = '';
+  if (currentVisit.items.length === 0) {
+    itemsEl.innerHTML = '<p class="small-text">Nog geen items toegevoegd.</p>';
+  } else {
+    currentVisit.items.forEach((item) => {
+      const row = document.createElement('div');
+      row.className = 'item-row';
+      row.innerHTML = `<div><div class="item-name">${escapeHtml(item.name)} ${item.qty > 1 ? '×' + item.qty : ''}</div><div class="small-text">${item.category}</div></div><div class="item-price">${formatEuro(item.price * item.qty)}</div>`;
+      itemsEl.appendChild(row);
+    });
+  }
+  finishBtn.style.display = 'block';
+  newBtn.style.display = 'none';
+  updateTotal();
+}
+function startNewVisit() {
+  const name = prompt('Naam van het restaurant (optioneel):') || 'Restaurantbezoek';
+  const isEstimate = confirm('Is dit een inschatting van tevoren?\n\nOK = inschatting\nAnnuleren = echte rekening');
+  currentVisit = { id: Date.now(), name: name, date: new Date().toISOString(), items: [], isEstimate: isEstimate, finished: false };
+  saveData();
+  renderCurrentVisit();
+  showTab('toevoegen');
+}
+function addItem() {
+  if (!currentVisit) { alert('Start eerst een bezoek'); return; }
+  const name = document.getElementById('itemName').value.trim();
+  const price = parseFloat(document.getElementById('itemPrice').value);
+  const category = document.getElementById('itemCategory').value;
+  const qty = parseInt(document.getElementById('itemQty').value) || 1;
+  if (!name || isNaN(price)) { alert('Vul naam en prijs in'); return; }
+  currentVisit.items.push({ name, price, category, qty });
+  saveData();
+  document.getElementById('itemName').value = '';
+  document.getElementById('itemPrice').value = '';
+  document.getElementById('itemQty').value = '1';
+  renderCurrentVisit();
+  showTab('overzicht');
+}
+function addQuickItem() {
+  if (!currentVisit) { alert('Start eerst een bezoek'); return; }
+  const name = document.getElementById('quickName').value.trim() || 'Extra';
+  const price = parseFloat(document.getElementById('quickPrice').value);
+  if (isNaN(price)) { alert('Vul een prijs in'); return; }
+  currentVisit.items.push({ name, price, category: 'extra', qty: 1 });
+  saveData();
+  document.getElementById('quickName').value = '';
+  document.getElementById('quickPrice').value = '';
+  renderCurrentVisit();
+  showTab('overzicht');
+}
+function finishVisit() {
+  if (!currentVisit) return;
+  if (!confirm('Bezoek afronden en opslaan?')) return;
+  currentVisit.finished = true;
+  visits.unshift(currentVisit);
+  currentVisit = null;
+  saveData();
+  renderCurrentVisit();
+  renderHistory();
+  alert('Bezoek opgeslagen!');
+}
+function showTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('[id^="tab-"]').forEach(d => d.classList.add('hidden'));
+  document.getElementById('tab-' + tab).classList.remove('hidden');
+  const btn = document.querySelector('.tab[data-tab="' + tab + '"]');
+  if (btn) btn.classList.add('active');
+  window.scrollTo(0, 0);
+  if (tab === 'fotos') renderPhotos();
+  if (tab === 'geschiedenis') renderHistory();
+}
+function handlePhotos(input) {
+  const files = Array.from(input.files);
+  input.value = '';
+  files.reduce((chain, file) => chain.then(() =>
+    resizeImage(file, 1600, 0.8).then(data => {
+      const p = { id: Date.now() + Math.random(), data: data, date: new Date().toISOString() };
+      return savePhoto(p).then(() => { photos.push(p); renderPhotos(); });
+    }).catch(() => alert('Foto kon niet worden opgeslagen'))
+  ), Promise.resolve());
+}
+function renderPhotos() {
+  const container = document.getElementById('photosContainer');
+  container.innerHTML = '';
+  if (photos.length === 0) {
+    container.innerHTML = '<p class="small-text">Nog geen foto\'s.</p>';
+    return;
+  }
+  photos.forEach((p) => {
+    const img = document.createElement('img');
+    img.src = p.data;
+    img.className = 'photo-preview';
+    container.appendChild(img);
+  });
+}
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  list.innerHTML = '';
+  if (visits.length === 0) {
+    list.innerHTML = '<p class="small-text">Nog geen eerdere bezoeken.</p>';
+    return;
+  }
+  visits.forEach(v => {
+    const total = v.items.reduce((s, it) => s + it.price * it.qty, 0);
+    const div = document.createElement('div');
+    div.className = 'history-item';
+    div.innerHTML = `<div style="font-weight:700;">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Inschatting' : ''}</div><div style="margin-top:6px; font-weight:700; color:#1a73e8;">${formatEuro(total)}</div>`;
+    list.appendChild(div);
+  });
+}
+function clearAllHistory() {
+  if (!confirm('Alles wissen? Dit kan niet ongedaan worden gemaakt.')) return;
+  visits = [];
+  photos = [];
+  currentVisit = null;
+  saveData();
+  clearPhotos().catch(() => {});
+  renderCurrentVisit();
+  renderHistory();
+  renderPhotos();
+}
+renderCurrentVisit();
+renderHistory();
+migrateOldPhotos().then(loadPhotos).then(renderPhotos);
+</script>
+</body>
+</html>
