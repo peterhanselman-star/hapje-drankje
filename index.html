@@ -188,6 +188,16 @@
   .undo-bar span { min-width: 0; overflow-wrap: anywhere; }
   .undo-bar button { min-height: 2.5rem; background: #ffd54f; color: #111; border: none; border-radius: 0.5rem; font-size: 1rem; font-weight: 800; padding: 0.3rem 0.7rem; margin-left: auto; }
   .update-bar { background: #e3edfd; border: 3px solid #0b57d0; }
+  .persons { margin-top: 0.9rem; padding-top: 0.7rem; border-top: 2px solid #ccc; }
+  .persons-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
+  .persons-lbl { font-size: 1.2rem; font-weight: 800; }
+  .persons-view { font-size: 1.5rem; font-weight: 800; }
+  .pp-box { margin-top: 0.7rem; border-radius: 0.6rem; padding: 0.6rem 0.7rem; background: #e8f0fe; border: 3px solid #0b57d0; }
+  .pp-box.rest { background: #fff6d6; border-color: #b58100; }
+  .pp-lbl { display: block; font-size: 1.15rem; font-weight: 800; line-height: 1.25; }
+  .pp-amt { display: block; font-size: 2.4rem; font-weight: 900; line-height: 1.15; text-align: right; letter-spacing: -0.5px; }
+  .pp-note { display: block; font-size: 1rem; font-weight: 700; color: #333; margin-top: 0.15rem; }
+  .h-persons { display: block; margin-top: 0.2rem; font-size: 1.05rem; font-weight: 700; color: #333; }
 </style>
 </head>
 <body>
@@ -336,7 +346,7 @@
     <div class="section-title" id="qtyTitle" style="margin-top:0; overflow-wrap:anywhere;"></div>
     <label for="qtyInput" style="font-weight:800; margin-bottom:0.3rem;">Hoeveel?</label>
     <input type="text" id="qtyInput" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="3">
-    <p class="small-text" style="margin-top:0;">0 = regel weghalen</p>
+    <p class="small-text" style="margin-top:0;" id="qtyHint">0 = regel weghalen</p>
     <div class="dlg-btns">
       <button type="button" class="big-button secondary" onclick="closeQtyDialog(false)">Annuleren</button>
       <button type="button" class="big-button" id="qtyOk" onclick="closeQtyDialog(true)">OK</button>
@@ -1087,8 +1097,9 @@ function undoRemove() {
 }
 // Getal typen
 let qtyCallback = null;
-function openQtyDialog(name, q, cb) {
+function openQtyDialog(name, q, cb, hint) {
   qtyCallback = cb;
+  document.getElementById('qtyHint').textContent = hint || '0 = regel weghalen';
   document.getElementById('qtyTitle').textContent = name;
   const inp = document.getElementById('qtyInput');
   inp.value = q > 0 ? String(q) : '';
@@ -1429,6 +1440,8 @@ function renderHistory() {
       const d = Math.round(v.billAmount * 100) - cents(total);
       check = '<span class="h-check ' + (d === 0 ? 'ok-text">✓ Klopt' : d > 0 ? 'diff-text">Rekening is ' + formatEuro(d / 100) + ' hoger' : 'lower-text">Rekening is ' + formatEuro(-d / 100) + ' lager') + '</span>';
     }
+    const np = visitPersons(v);
+    if (np > 1) check += '<span class="h-persons">' + np + ' personen · ' + formatEuro(splitCents(typeof v.billAmount === 'number' ? Math.round(v.billAmount * 100) : cents(total), np).per / 100) + ' per persoon</span>';
     div.innerHTML = `<div class="item-name">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Inschatting' : ''}</div><div class="h-row"><span class="h-total">${formatEuro(total)}</span><span style="color:#0b57d0; font-weight:800;">Rekening ›</span></div>${check}`;
     list.appendChild(div);
   });
@@ -1470,7 +1483,7 @@ function renderBill() {
   const qv = fromHistory ? escapeHtml(String(v.id)) : 'cur';
   if (fromHistory && items.length) html += billEdit
     ? '<div class="notice bill-edit-bar"><span>Je past een afgerond bezoek aan.</span><button class="edit-toggle on" onclick="billEdit = false; renderBill();">✓ Klaar</button></div>'
-    : '<div class="bill-edit-bar"><span class="small-text">Afgerond bezoek</span><button class="edit-toggle" id="billEditBtn" onclick="billEdit = true; renderBill();">✏️ Aantallen aanpassen</button></div>';
+    : '<div class="bill-edit-bar"><span class="small-text">Afgerond bezoek</span><button class="edit-toggle" id="billEditBtn" onclick="billEdit = true; renderBill();">✏️ Aanpassen (aantallen, personen)</button></div>';
   if (!items.length) {
     html += '<p class="small-text">Nog niets besteld.</p></div>';
     box.innerHTML = html;
@@ -1500,6 +1513,14 @@ function renderBill() {
   const pieces = items.reduce((s, it) => s + (Number(it.qty) || 1), 0);
   html += '<div class="grand"><span class="lbl">Totaal</span><span class="amt">' + formatEuro(total) + '</span></div>';
   html += '<div class="small-text bill-count" style="text-align:right;">' + pieces + ' stuks · ' + ticked + ' van ' + items.length + ' regels afgevinkt</div>';
+  const np = visitPersons(v);
+  html += '<div class="persons" id="personsBox"><div class="persons-row"><span class="persons-lbl">Aantal personen</span>' +
+    (editable ? '<div class="qty-controls">' +
+      '<button type="button" class="qty-btn" data-p="minus"' + (np > 1 ? '' : ' disabled') + ' aria-label="Eén persoon minder">−</button>' +
+      '<button type="button" class="qty-num" data-p="set" id="personsNum" aria-label="' + np + ' personen, tik om te typen">' + np + '</button>' +
+      '<button type="button" class="qty-btn" data-p="plus"' + (np < MAX_PERSONS ? '' : ' disabled') + ' aria-label="Eén persoon meer">+</button></div>'
+      : '<span class="persons-view" id="personsNum">' + np + '</span>') +
+    '</div><div id="perPerson"></div></div>';
   html += '</div>';
   // Vergelijken met de echte rekening
   html += '<div class="card"><label class="section-title" for="billAmount">Bedrag op de rekening van het restaurant</label>' +
@@ -1515,9 +1536,69 @@ function renderBill() {
     if (e.target.value.trim() === '' || isNaN(p)) delete vv.billAmount; else vv.billAmount = p;
     saveBillVisit();
     renderBillCheck();
+    renderPerPerson();
   });
   renderBillCheck();
+  renderPerPerson();
 }
+// ---------- Aantal personen en bedrag per persoon ----------
+const MAX_PERSONS = 50;
+function visitPersons(v) {
+  const n = Math.floor(Number(v && v.persons) || 1);
+  return Math.min(MAX_PERSONS, Math.max(1, n));
+}
+// Bedrag in centen delen; naar boven afronden op hele centen
+function splitCents(totalCents, n) {
+  const per = Math.ceil(totalCents / n);
+  return { per: per, extra: per * n - totalCents };
+}
+function ppBoxHtml(label, totalCents, n, cls) {
+  const r = splitCents(totalCents, n);
+  return '<div class="pp-box' + (cls ? ' ' + cls : '') + '"><span class="pp-lbl">' + label + '</span>' +
+    '<span class="pp-amt">' + formatEuro(r.per / 100) + '</span>' +
+    '<span class="pp-note">' + formatEuro(totalCents / 100) + ' gedeeld door ' + n + (n === 1 ? ' persoon' : ' personen') + '</span>' +
+    (r.extra ? '<span class="pp-note pp-round">afgerond; samen ' + formatEuro(r.extra / 100) + ' meer dan het totaal</span>' : '') + '</div>';
+}
+function renderPerPerson() {
+  const el = document.getElementById('perPerson');
+  const v = billVisit();
+  if (!el || !v) return;
+  const n = visitPersons(v);
+  const mine = cents(visitTotal(v));
+  const hasBill = typeof v.billAmount === 'number';
+  const rest = hasBill ? Math.round(v.billAmount * 100) : null;
+  if (!hasBill || rest === mine) {
+    el.innerHTML = ppBoxHtml('Per persoon:', mine, n, '') +
+      (hasBill ? '<p class="small-text">Dit klopt met de rekening van het restaurant.</p>'
+               : '<p class="small-text">Op basis van onze telling. Vul hieronder het bedrag van het restaurant in, dan rekenen we dat ook uit.</p>');
+  } else {
+    el.innerHTML = ppBoxHtml('Per persoon (volgens rekening restaurant):', rest, n, 'rest') +
+      '<p class="small-text">Dit is wat ieder echt betaalt.</p>' +
+      ppBoxHtml('Per persoon (volgens onze telling):', mine, n, '');
+  }
+}
+function setPersons(n) {
+  const v = billVisit();
+  if (!v) return;
+  n = Math.min(MAX_PERSONS, Math.max(1, Math.floor(Number(n) || 1)));
+  if (n === 1) delete v.persons; else v.persons = n;
+  saveBillVisit();
+  const y = window.scrollY;
+  renderBill();
+  if (isShown('tab-geschiedenis')) renderHistory();
+  window.scrollTo(0, y);
+}
+document.getElementById('billView').addEventListener('click', e => {
+  const b = e.target.closest('[data-p]');
+  if (!b || b.disabled) return;
+  const v = billVisit();
+  if (!v) return;
+  const n = visitPersons(v);
+  const act = b.getAttribute('data-p');
+  if (act === 'plus') setPersons(n + 1);
+  else if (act === 'minus') setPersons(n - 1);
+  else openQtyDialog('Aantal personen', n, setPersons, 'Van 1 tot ' + MAX_PERSONS + ' personen');
+});
 function renderBillCheck() {
   const el = document.getElementById('billCheck');
   const v = billVisit();
@@ -1581,7 +1662,7 @@ function changeTextSize(d) {
 }
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '6';
+const APP_VERSION = '7';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
