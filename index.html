@@ -111,6 +111,13 @@
     background: rgba(17,17,17,0.94); color: white; padding: 0.6rem 0.9rem; border-radius: 0.7rem; font-size: 1rem; font-weight: 800;
     z-index: 200; width: max-content; max-width: 92%; text-align: center; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
   .toast.show { opacity: 1; }
+  a.big-button { text-align: center; text-decoration: none; box-sizing: border-box; }
+  .search-btn { background: #0b57d0; }
+  .search-hint { font-size: 1.1rem; font-weight: 700; color: #111; line-height: 1.35; margin: 0.1rem 0 0.4rem; }
+  .search-tip { font-size: 1.05rem; color: #111; line-height: 1.35; background: #eef4ff; border-left: 5px solid #1a73e8; border-radius: 0.4rem; padding: 0.45rem 0.6rem; margin: 0 0 0.7rem; }
+  .name-msg { background: #fde8e7; border: 2px solid #c5221f; color: #8c1d18; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font-size: 1.1rem; font-weight: 800; margin: 0 0 0.5rem; }
+  .head-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
+  a.edit-toggle { display: inline-flex; align-items: center; text-decoration: none; box-sizing: border-box; }
   .notice { background: #fff1db; border: 2px solid #e8a33d; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font-size: 0.95rem; margin-bottom: 0.5rem; color: #111; }
   /* compacte categoriekeuze 🍽 / 🥤 / ➕ */
   .cat-pills { display: inline-flex; flex: 0 0 auto; background: #e4e7ec; border-radius: 0.55rem; padding: 0.15rem; gap: 0.1rem; align-items: center; }
@@ -277,6 +284,12 @@
   <div id="tab-menukaart" class="hidden">
     <div class="card">
       <div class="section-title" id="menuStepTitle">Menukaart</div>
+      <label class="small-text" for="newName" style="font-weight:800; margin:0 0 0.2rem;">Restaurant</label>
+      <input type="text" id="newName" placeholder="Naam van het restaurant" autocomplete="off">
+      <div id="newNameMsg" class="name-msg hidden" role="alert"></div>
+      <a class="big-button huge search-btn" id="kaartZoekenBtn" href="https://www.google.com/search?q=menukaart" target="_blank" rel="noopener" onclick="return kaartZoeken(event, 'newName', 'newNameMsg', this)">🔎 Kaart zoeken</a>
+      <p class="search-hint" id="kaartZoekenHint">Maak een schermafbeelding van de kaart die je vindt en laad die hier in.</p>
+      <p class="search-tip" id="kaartZoekenTip">💡 Tip: snijd de schermafbeelding bij, zodat alleen de kaart erop staat.</p>
       <p class="small-text" style="margin-top:0;">Kies een of meer foto's of schermafbeeldingen van de menukaart. De app leest de gerechten en prijzen, daarna kun je alles nog aanpassen.</p>
       <input type="file" id="menuInput" accept="image/*" multiple style="display:none;" onchange="handleMenuFiles(this)">
       <button class="big-button huge" id="menuPickBtn" onclick="document.getElementById('menuInput').click()">📷 Foto's of screenshots van de menukaart kiezen</button>
@@ -300,6 +313,7 @@
     <div class="card hidden" id="orderHead">
       <label class="small-text" for="orderName" style="font-weight:800; margin:0 0 0.2rem;">Restaurant</label>
       <input type="text" id="orderName" placeholder="Naam van het restaurant" autocomplete="off">
+      <div id="orderNameMsg" class="name-msg hidden" role="alert"></div>
       <div class="seg compact">
         <button type="button" id="segEstimate" onclick="setVisitEstimate(true)">Inschatting vooraf</button>
         <button type="button" id="segReal" onclick="setVisitEstimate(false)">Echte rekening</button>
@@ -816,14 +830,40 @@ function openMenuStep() {
   document.getElementById('menuStepTitle').textContent = 'Nieuw bezoek: menukaart';
   document.getElementById('skipBtn').textContent = 'Overslaan – zonder menukaart beginnen';
   setOcrBusy(false);
+  document.getElementById('newName').value = '';
+  document.getElementById('newNameMsg').classList.add('hidden');
   renderSavedList();
   showTab('menukaart');
 }
+// "🔎 Kaart zoeken": Google-zoekopdracht '<naam> menukaart' in Safari / nieuw tabblad.
+// Een echte <a target="_blank"> opent ook vanuit de beginscherm-app (standalone) buiten de app.
+function kaartZoekUrl(name) {
+  return 'https://www.google.com/search?q=' + encodeURIComponent(((name || '').trim().replace(/\s+/g, ' ') + ' menukaart').trim());
+}
+function kaartZoeken(ev, inputId, msgId, link) {
+  const inp = document.getElementById(inputId);
+  const msg = document.getElementById(msgId);
+  const name = (inp.value || '').trim();
+  if (!name) {
+    if (ev) ev.preventDefault();
+    msg.textContent = 'Vul eerst de naam van het restaurant in.';
+    msg.classList.remove('hidden');
+    inp.focus();
+    inp.scrollIntoView({ block: 'center' });
+    return false;
+  }
+  msg.classList.add('hidden');
+  link.href = kaartZoekUrl(name); // standaardactie van de link opent dit adres
+  return true;
+}
+['newName', 'orderName'].forEach(id => document.getElementById(id).addEventListener('input', () =>
+  document.getElementById(id === 'newName' ? 'newNameMsg' : 'orderNameMsg').classList.add('hidden')));
 function cancelMenuFlow() {
   showTab(currentVisit ? 'toevoegen' : 'overzicht');
 }
 function skipMenu() {
-  createVisit('', [], [], null, 'Zonder menukaart begonnen. Vul de naam van het restaurant in. Bestellen kan via ‘Buiten de kaart’ hieronder, of scan alsnog de kaart.');
+  const nm = document.getElementById('newName').value.trim();
+  createVisit(nm, [], [], null, 'Zonder menukaart begonnen. ' + (nm ? '' : 'Vul de naam van het restaurant in. ') + 'Bestellen kan via ‘Buiten de kaart’ hieronder, of scan alsnog de kaart.');
 }
 function renderSavedList() {
   const card = document.getElementById('savedCard');
@@ -972,6 +1012,7 @@ function handleMenuFiles(input) {
   const files = Array.from(input.files || []);
   input.value = '';
   if (!files.length) return;
+  const typedName = document.getElementById('newName').value.trim();
   setOcrBusy(true);
   ocrFiles(files, ocrUi(1)).then(res => {
     let notice = res.items.length
@@ -979,10 +1020,10 @@ function handleMenuFiles(input) {
       : 'Er zijn geen gerechten met prijzen herkend. Tik op ✏️ Aanpassen om ze zelf in te vullen, of scan een scherpere foto.';
     if (res.failed) notice += ' ' + res.failed + ' foto(\'s) konden niet gelezen worden.';
     setOcrBusy(false);
-    createVisit(res.name || '', res.items, files, null, notice);
+    createVisit(typedName || res.name || '', res.items, files, null, notice);
   }).catch(() => {
     setOcrBusy(false);
-    createVisit('', [], files, null, 'Tekstherkenning werkt nu niet (geen internet?). De foto\'s zijn bewaard. Tik op ✏️ Aanpassen om gerechten zelf in te vullen.');
+    createVisit(typedName, [], files, null, 'Tekstherkenning werkt nu niet (geen internet?). De foto\'s zijn bewaard. Tik op ✏️ Aanpassen om gerechten zelf in te vullen.');
   });
 }
 function handleMoreMenuFiles(input) {
@@ -1231,8 +1272,9 @@ function renderMenuCard() {
   const menu = currentVisit.menu || [];
   const hadFocus = document.activeElement && document.activeElement.id === 'menuSearch';
   let html = orderNotice ? '<div class="notice">' + escapeHtml(orderNotice) + '</div>' : '';
-  html += '<div class="menu-head"><div class="section-title">Menukaart</div>' +
-    (menu.length || menuEditMode ? '<button type="button" class="edit-toggle' + (menuEditMode ? ' on' : '') + '" onclick="toggleMenuEdit()">' + (menuEditMode ? '✓ Klaar' : '✏️ Aanpassen') + '</button>' : '') + '</div>';
+  html += '<div class="menu-head"><div class="section-title">Menukaart</div><div class="head-btns">' +
+    (menu.length || menuEditMode ? '<button type="button" class="edit-toggle' + (menuEditMode ? ' on' : '') + '" onclick="toggleMenuEdit()">' + (menuEditMode ? '✓ Klaar' : '✏️ Aanpassen') + '</button>' : '') +
+    (menuEditMode ? '' : '<a class="edit-toggle" id="kaartZoekenBtn2" href="' + escapeHtml(kaartZoekUrl(currentVisit.name)) + '" target="_blank" rel="noopener" onclick="return kaartZoeken(event, \'orderName\', \'orderNameMsg\', this)">🔎 Kaart zoeken</a>') + '</div></div>';
   if (menuEditMode) {
     html += '<p class="small-text" style="margin-top:0;">Pas naam, prijs of soort aan, of haal een gerecht weg met ✕. Tik daarna op <b>Klaar</b>.</p>' +
       '<div id="menuList"></div>' +
@@ -1875,7 +1917,7 @@ function changeTextSize(d) {
 }
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '8';
+const APP_VERSION = '9';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
