@@ -112,10 +112,16 @@
     z-index: 200; width: max-content; max-width: 92%; text-align: center; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
   .toast.show { opacity: 1; }
   a.big-button { text-align: center; text-decoration: none; box-sizing: border-box; }
-  .search-btn { background: #0b57d0; }
-  .search-hint { font-size: 1.1rem; font-weight: 700; color: #111; line-height: 1.35; margin: 0.1rem 0 0.4rem; }
   .search-tip { font-size: 1.05rem; color: #111; line-height: 1.35; background: #eef4ff; border-left: 5px solid #1a73e8; border-radius: 0.4rem; padding: 0.45rem 0.6rem; margin: 0 0 0.7rem; }
-  .name-msg { background: #fde8e7; border: 2px solid #c5221f; color: #8c1d18; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font-size: 1.1rem; font-weight: 800; margin: 0 0 0.5rem; }
+  .web-btn { display: block; width: 100%; text-align: left; background: #e8f0fe; color: #0b3d91; border: 3px solid #0b57d0; border-radius: 0.7rem; padding: 0.7rem 0.8rem; margin: 0 0 0.6rem; font-size: 1.3rem; font-weight: 800; line-height: 1.3; min-height: 3.6rem; overflow-wrap: anywhere; }
+  .web-btn .wb-sub { display: block; font-size: 1rem; font-weight: 700; color: #333; margin-top: 0.15rem; }
+  .web-btn:disabled { opacity: 0.5; }
+  .web-msg { font-size: 1.05rem; font-weight: 700; color: #111; margin: 0 0 0.5rem; }
+  .web-note { background: #e8f0fe; border: 2px solid #0b57d0; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font-size: 1.05rem; font-weight: 800; color: #0b3d91; margin-bottom: 0.5rem; line-height: 1.35; }
+  .jump-bar { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0 0 0.5rem; }
+  .jump-bar button { flex: 1 1 auto; min-height: 3.25rem; border: 2px solid #0b57d0; background: #fff; color: #0b3d91; border-radius: 0.6rem; font-size: 1.05rem; font-weight: 800; padding: 0.3rem 0.6rem; }
+  .confirm-text { font-size: 1.45rem; font-weight: 800; line-height: 1.35; color: #111; margin: 0 0 0.6rem; overflow-wrap: anywhere; }
+  .dlg-btns.stack { flex-direction: column; } .dlg-btns.stack .big-button { margin-bottom: 0; }
   .head-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
   a.edit-toggle { display: inline-flex; align-items: center; text-decoration: none; box-sizing: border-box; }
   .notice { background: #fff1db; border: 2px solid #e8a33d; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font-size: 0.95rem; margin-bottom: 0.5rem; color: #111; }
@@ -282,15 +288,18 @@
 
   <!-- Stap 1: menukaart kiezen -->
   <div id="tab-menukaart" class="hidden">
+    <div class="card hidden" id="webMenus">
+      <div class="section-title">Kaarten klaargezet</div>
+      <p class="small-text" style="margin-top:0;">Tik op een kaart en je kunt meteen bestellen.</p>
+      <div id="webMenuMsg" class="web-msg hidden" role="status"></div>
+      <div id="webMenuList"></div>
+    </div>
     <div class="card">
       <div class="section-title" id="menuStepTitle">Menukaart</div>
       <label class="small-text" for="newName" style="font-weight:800; margin:0 0 0.2rem;">Restaurant</label>
       <input type="text" id="newName" placeholder="Naam van het restaurant" autocomplete="off">
-      <div id="newNameMsg" class="name-msg hidden" role="alert"></div>
-      <a class="big-button huge search-btn" id="kaartZoekenBtn" href="https://www.google.com/search?q=menukaart" target="_blank" rel="noopener" onclick="return kaartZoeken(event, 'newName', 'newNameMsg', this)">🔎 Kaart zoeken</a>
-      <p class="search-hint" id="kaartZoekenHint">Maak een schermafbeelding van de kaart die je vindt en laad die hier in.</p>
-      <p class="search-tip" id="kaartZoekenTip">💡 Tip: snijd de schermafbeelding bij, zodat alleen de kaart erop staat.</p>
       <p class="small-text" style="margin-top:0;">Kies een of meer foto's of schermafbeeldingen van de menukaart. De app leest de gerechten en prijzen, daarna kun je alles nog aanpassen.</p>
+      <p class="search-tip" id="cropTip">💡 Tip: snijd de foto of schermafbeelding bij, zodat alleen de kaart erop staat.</p>
       <input type="file" id="menuInput" accept="image/*" multiple style="display:none;" onchange="handleMenuFiles(this)">
       <button class="big-button huge" id="menuPickBtn" onclick="document.getElementById('menuInput').click()">📷 Foto's of screenshots van de menukaart kiezen</button>
       <div id="ocrBox" class="hidden">
@@ -313,7 +322,6 @@
     <div class="card hidden" id="orderHead">
       <label class="small-text" for="orderName" style="font-weight:800; margin:0 0 0.2rem;">Restaurant</label>
       <input type="text" id="orderName" placeholder="Naam van het restaurant" autocomplete="off">
-      <div id="orderNameMsg" class="name-msg hidden" role="alert"></div>
       <div class="seg compact">
         <button type="button" id="segEstimate" onclick="setVisitEstimate(true)">Inschatting vooraf</button>
         <button type="button" id="segReal" onclick="setVisitEstimate(false)">Echte rekening</button>
@@ -383,6 +391,16 @@
 </nav>
 <div class="toast" id="toast"></div>
 <div class="undo-bar hidden" id="undoBar" role="status"><span id="undoText"></span><button type="button" onclick="undoRemove()">↩ Ongedaan maken</button></div>
+<div class="dialog-backdrop hidden" id="kaartConfirm">
+  <div class="dialog" role="alertdialog" aria-labelledby="kaartConfirmText">
+    <p class="confirm-text" id="kaartConfirmText"></p>
+    <p class="small-text" style="margin-top:0;">Het bezoek dat nu loopt wordt dan niet bewaard.</p>
+    <div class="dlg-btns stack">
+      <button type="button" class="big-button" id="kaartConfirmYes">Ja, nieuw bezoek starten</button>
+      <button type="button" class="big-button secondary" id="kaartConfirmNo">Nee, huidig bezoek houden</button>
+    </div>
+  </div>
+</div>
 <div class="dialog-backdrop hidden" id="qtyDialog">
   <div class="dialog" role="dialog" aria-labelledby="qtyTitle">
     <div class="section-title" id="qtyTitle" style="margin-top:0; overflow-wrap:anywhere;"></div>
@@ -831,33 +849,10 @@ function openMenuStep() {
   document.getElementById('skipBtn').textContent = 'Overslaan – zonder menukaart beginnen';
   setOcrBusy(false);
   document.getElementById('newName').value = '';
-  document.getElementById('newNameMsg').classList.add('hidden');
   renderSavedList();
+  loadWebMenuIndex();
   showTab('menukaart');
 }
-// "🔎 Kaart zoeken": Google-zoekopdracht '<naam> menukaart' in Safari / nieuw tabblad.
-// Een echte <a target="_blank"> opent ook vanuit de beginscherm-app (standalone) buiten de app.
-function kaartZoekUrl(name) {
-  return 'https://www.google.com/search?q=' + encodeURIComponent(((name || '').trim().replace(/\s+/g, ' ') + ' menukaart').trim());
-}
-function kaartZoeken(ev, inputId, msgId, link) {
-  const inp = document.getElementById(inputId);
-  const msg = document.getElementById(msgId);
-  const name = (inp.value || '').trim();
-  if (!name) {
-    if (ev) ev.preventDefault();
-    msg.textContent = 'Vul eerst de naam van het restaurant in.';
-    msg.classList.remove('hidden');
-    inp.focus();
-    inp.scrollIntoView({ block: 'center' });
-    return false;
-  }
-  msg.classList.add('hidden');
-  link.href = kaartZoekUrl(name); // standaardactie van de link opent dit adres
-  return true;
-}
-['newName', 'orderName'].forEach(id => document.getElementById(id).addEventListener('input', () =>
-  document.getElementById(id === 'newName' ? 'newNameMsg' : 'orderNameMsg').classList.add('hidden')));
 function cancelMenuFlow() {
   showTab(currentVisit ? 'toevoegen' : 'overzicht');
 }
@@ -889,9 +884,145 @@ document.getElementById('savedList').addEventListener('click', e => {
   if (pick) {
     const m = menus.filter(x => String(x.id) === pick.getAttribute('data-pick'))[0];
     if (!m) return;
-    createVisit(m.name || '', (m.items || []).map(it => ({ name: it.name, price: it.price, category: it.category })), [], m.id, '');
+    createVisit(m.name || '', (m.items || []).map(it => ({ name: it.name, price: it.price, category: it.category })), [], m.id, '', m.retrieved ? { webRetrieved: m.retrieved } : null);
   }
 });
+
+// ---------- Kaarten klaargezet (menus/index.json + menus/<id>.json in dezelfde map als de app) ----------
+const WEB_MENU_INDEX = 'menus/index.json';
+const NL_MONTHS = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+let webMenuList = [];
+let webMenuBusy = false;
+function shortDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso || ''));
+  if (!m || Number(m[2]) < 1 || Number(m[2]) > 12) return '';
+  return Number(m[3]) + ' ' + NL_MONTHS[Number(m[2]) - 1];
+}
+function cleanWebId(id) { return String(id || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g, ''); }
+function webMenuLocalId(id) { return 'web-' + cleanWebId(id); }
+function fetchJson(url) {
+  return fetch(url, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+}
+// Lijst ophalen. Mislukt of leeg: sectie stil verbergen.
+function loadWebMenuIndex() {
+  if (!window.fetch || location.protocol.indexOf('http') !== 0) { renderWebMenus(); return Promise.resolve([]); }
+  return fetchJson(WEB_MENU_INDEX + '?t=' + Date.now()).then(d => {
+    webMenuList = (d && Array.isArray(d.menus) ? d.menus : []).filter(m => m && cleanWebId(m.id) && m.name)
+      .map(m => ({ id: cleanWebId(m.id), name: String(m.name), place: m.place ? String(m.place) : '', retrieved: m.retrieved ? String(m.retrieved) : '',
+        file: m.file ? String(m.file) : 'menus/' + cleanWebId(m.id) + '.json' }));
+    renderWebMenus();
+    return webMenuList;
+  }).catch(() => { webMenuList = []; renderWebMenus(); return []; });
+}
+function renderWebMenus() {
+  const card = document.getElementById('webMenus');
+  if (!webMenuList.length) { card.classList.add('hidden'); return; }
+  card.classList.remove('hidden');
+  document.getElementById('webMenuList').innerHTML = webMenuList.map(m => {
+    const d = shortDate(m.retrieved);
+    const local = menus.some(x => x.id === webMenuLocalId(m.id));
+    const sub = [m.place, local ? 'al bewaard – tik om bij te werken' : ''].filter(Boolean).join(' · ');
+    return '<button type="button" class="web-btn" data-web="' + escapeHtml(m.id) + '"' + (webMenuBusy ? ' disabled' : '') + '>' + escapeHtml(m.name) + (d ? ' — kaart van ' + d : '') +
+      (sub ? '<span class="wb-sub">' + escapeHtml(sub) + '</span>' : '') + '</button>';
+  }).join('');
+}
+document.getElementById('webMenuList').addEventListener('click', e => {
+  const b = e.target.closest('[data-web]');
+  if (b && !webMenuBusy) startWebMenu(b.getAttribute('data-web'));
+});
+function setWebMsg(t) {
+  const el = document.getElementById('webMenuMsg');
+  el.textContent = t || '';
+  el.classList.toggle('hidden', !t);
+}
+function webCat(c) {
+  c = String(c || '').toLowerCase();
+  return c === 'drinken' || c === 'drink' || c === 'drinks' ? 'drinken' : c === 'extra' ? 'extra' : 'eten';
+}
+// menu-bestand -> items in het formaat van de app
+function convertWebItems(list) {
+  return (Array.isArray(list) ? list : []).map(it => {
+    if (!it || !String(it.name || '').trim()) return null;
+    const p = typeof it.price === 'number' ? it.price : parsePrice(it.price);
+    if (!isFinite(p) || p < 0) return null;
+    return { name: String(it.name).trim(), price: Math.round(p * 100) / 100, category: webCat(it.cat || it.category) };
+  }).filter(Boolean);
+}
+function webNotice(retrieved) {
+  const d = shortDate(retrieved);
+  return '🌐 Kaart van internet' + (d ? ', prijzen van ' + d : '') + ' — controleer ze even.';
+}
+// Online kaart ophalen, bewaren (of bijwerken) in hapjeDrankjeMenus en het bezoek starten
+function startWebMenu(id) {
+  id = cleanWebId(id);
+  if (!id) return Promise.resolve(false);
+  const entry = webMenuList.filter(m => m.id === id)[0] || { id: id, name: '', file: 'menus/' + id + '.json', retrieved: '' };
+  webMenuBusy = true; renderWebMenus(); setWebMsg('Kaart ophalen…');
+  const done = () => { webMenuBusy = false; renderWebMenus(); };
+  return fetchJson(entry.file + (entry.file.indexOf('?') < 0 ? '?t=' : '&t=') + Date.now()).then(d => {
+    const items = convertWebItems(d && d.items);
+    if (!items.length) throw new Error('leeg');
+    const name = String((d && d.name) || entry.name || 'Restaurant').trim();
+    const retrieved = String((d && d.retrieved) || entry.retrieved || '');
+    const lid = webMenuLocalId(id);
+    let m = menus.filter(x => x.id === lid)[0];
+    if (!m) { m = { id: lid, name: name, items: [], photoIds: [], updated: '' }; menus.push(m); }
+    m.name = name; m.items = items; m.online = id; m.retrieved = retrieved; m.source = (d && d.source) || '';
+    m.updated = new Date().toISOString();
+    saveMenus();
+    done(); setWebMsg('');
+    return createVisit(name, items, [], lid, items.length + ' gerechten en drankjes geladen. Tik op een gerecht of op + om te bestellen.', { webRetrieved: retrieved || 'onbekend' }).then(() => true);
+  }).catch(() => {
+    done();
+    const m = menus.filter(x => x.id === webMenuLocalId(id))[0];
+    if (m && (m.items || []).length) {
+      setWebMsg('');
+      return createVisit(m.name || '', m.items.map(it => ({ name: it.name, price: it.price, category: it.category })), [], m.id,
+        'De kaart kon nu niet worden opgehaald; de bewaarde kaart wordt gebruikt.', m.retrieved ? { webRetrieved: m.retrieved } : null).then(() => true);
+    }
+    setWebMsg('Deze kaart kon nu niet worden opgehaald. Probeer het later nog eens.');
+    showToast('Kaart niet gevonden');
+    return false;
+  });
+}
+// Link ?kaart=<id> of #kaart=<id>
+function kaartParam() {
+  let id = '';
+  try { id = new URLSearchParams(location.search).get('kaart') || ''; } catch (e) {}
+  if (!id) { const m = /(?:^#|[#&])kaart=([^&]*)/.exec(location.hash || ''); if (m) id = decodeURIComponent(m[1]); }
+  return cleanWebId(id);
+}
+function clearKaartParam() {
+  try {
+    const u = new URL(location.href);
+    u.searchParams.delete('kaart');
+    let h = u.hash.replace(/^#/, '').split('&').filter(x => x && x.indexOf('kaart=') !== 0).join('&');
+    u.hash = h ? '#' + h : '';
+    history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+  } catch (e) {}
+}
+function askBig(text) {
+  return new Promise(resolve => {
+    const dlg = document.getElementById('kaartConfirm');
+    document.getElementById('kaartConfirmText').textContent = text;
+    dlg.classList.remove('hidden');
+    const close = v => { dlg.classList.add('hidden'); document.getElementById('kaartConfirmYes').onclick = null; document.getElementById('kaartConfirmNo').onclick = null; resolve(v); };
+    document.getElementById('kaartConfirmYes').onclick = () => close(true);
+    document.getElementById('kaartConfirmNo').onclick = () => close(false);
+    document.getElementById('kaartConfirmYes').focus();
+  });
+}
+function handleKaartLink() {
+  const id = kaartParam();
+  if (!id) return Promise.resolve(false);
+  clearKaartParam(); // herladen herhaalt het niet
+  return loadWebMenuIndex().then(list => {
+    const e = list.filter(m => m.id === id)[0];
+    const name = e ? e.name : id;
+    if (currentVisit) return askBig('Nieuw bezoek starten met de kaart van ' + name + '?');
+    return true;
+  }).then(yes => (yes ? startWebMenu(id) : false));
+}
 
 // ---------- Tekstherkenning (Tesseract.js, gratis, in de browser) ----------
 const TESS_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
@@ -1092,12 +1223,13 @@ function syncRestaurant(photoIds) {
   if (id) currentVisit.restaurantId = id;
   saveData();
 }
-function createVisit(name, items, files, restaurantId, notice) {
+function createVisit(name, items, files, restaurantId, notice, extra) {
   const visitId = Date.now();
   const menu = (items || []).map(it => ({ name: it.name, price: it.price, category: it.category || 'eten' }));
   return savePhotoFiles(files || [], visitId, name).then(photoIds => {
     currentVisit = { id: visitId, name: name, date: new Date().toISOString(), items: [], isEstimate: false, finished: false,
       menu: menu, restaurantId: restaurantId || null, menuPhotoIds: photoIds };
+    if (extra) Object.assign(currentVisit, extra);
     const rid = upsertRestaurantMenu(name, validMenuItems(menu), photoIds, restaurantId);
     if (rid) currentVisit.restaurantId = rid;
     saveData();
@@ -1272,9 +1404,10 @@ function renderMenuCard() {
   const menu = currentVisit.menu || [];
   const hadFocus = document.activeElement && document.activeElement.id === 'menuSearch';
   let html = orderNotice ? '<div class="notice">' + escapeHtml(orderNotice) + '</div>' : '';
+  if (currentVisit.webRetrieved && menu.length) html += '<div class="web-note" id="webNote">' + escapeHtml(webNotice(currentVisit.webRetrieved)) + '</div>';
   html += '<div class="menu-head"><div class="section-title">Menukaart</div><div class="head-btns">' +
     (menu.length || menuEditMode ? '<button type="button" class="edit-toggle' + (menuEditMode ? ' on' : '') + '" onclick="toggleMenuEdit()">' + (menuEditMode ? '✓ Klaar' : '✏️ Aanpassen') + '</button>' : '') +
-    (menuEditMode ? '' : '<a class="edit-toggle" id="kaartZoekenBtn2" href="' + escapeHtml(kaartZoekUrl(currentVisit.name)) + '" target="_blank" rel="noopener" onclick="return kaartZoeken(event, \'orderName\', \'orderNameMsg\', this)">🔎 Kaart zoeken</a>') + '</div></div>';
+    '</div></div>';
   if (menuEditMode) {
     html += '<p class="small-text" style="margin-top:0;">Pas naam, prijs of soort aan, of haal een gerecht weg met ✕. Tik daarna op <b>Klaar</b>.</p>' +
       '<div id="menuList"></div>' +
@@ -1286,7 +1419,10 @@ function renderMenuCard() {
       '<button class="big-button secondary" onclick="menuEditMode = true; addMenuRow();">✏️ Zelf gerechten op de kaart zetten</button>' +
       '<div id="menuList"></div>';
   } else {
+    const hasE = menu.some(mi => (mi.category || 'eten') === 'eten'), hasD = menu.some(mi => mi.category === 'drinken');
     html += (menu.length > 6 ? '<input type="search" id="menuSearch" placeholder="Zoeken op de kaart…" autocomplete="off" value="' + escapeHtml(menuSearch) + '">' : '') +
+      (menu.length > 20 ? '<div class="jump-bar" id="jumpBar">' + (hasE ? '<button type="button" data-jump="grp-eten">🍽 Eten</button>' : '') +
+        (hasD ? '<button type="button" data-jump="drinkSection">🥤 Drinken</button>' : '') + '<button type="button" data-jump="grp-zelf">✍️ Zelf invullen</button></div>' : '') +
       '<div id="menuList"></div>' +
       '<button class="big-button secondary" onclick="document.getElementById(\'moreMenuInput\').click()">📷 Nog een foto scannen</button>';
   }
@@ -1298,6 +1434,13 @@ function renderMenuCard() {
   } else menuSearch = '';
   renderMenuList();
 }
+document.getElementById('menuCard').addEventListener('click', e => {
+  const b = e.target.closest('[data-jump]');
+  if (!b) return;
+  if (menuSearch) { menuSearch = ''; const s = document.getElementById('menuSearch'); if (s) s.value = ''; renderMenuList(); }
+  const t = document.getElementById(b.getAttribute('data-jump'));
+  if (t) t.scrollIntoView({ block: 'start' });
+});
 function renderMenuList() {
   const list = document.getElementById('menuList');
   if (!list || !currentVisit) return;
@@ -1328,7 +1471,7 @@ function renderMenuList() {
         `<div class="or-line">` + (priced ? `<button type="button" class="or-price" data-madd="${idx}">${formatEuro(mi.price)}</button>` + qtyCtlHtml(c, 'data-qm="' + idx + '"')
           : `<button type="button" class="or-price unpriced" data-madd="${idx}">Prijs ontbreekt – tik hier</button>`) + `</div></div>`);
     });
-    if (rows.length) { parts[g[0]] = '<div class="menu-group">' + g[1] + '</div>' + rows.join(''); shown += rows.length; }
+    if (rows.length) { parts[g[0]] = '<div class="menu-group" id="grp-' + g[0] + '">' + g[1] + '</div>' + rows.join(''); shown += rows.length; }
   });
   if (!shown && menu.length) html = '<p class="small-text">Niets gevonden voor "' + escapeHtml(menuSearch) + '".</p>';
   html += parts.eten + drinkSectionHtml(parts.drinken) + parts.extra;
@@ -1465,8 +1608,8 @@ function drinkRowHtml(v, row) {
 function drinkSectionHtml(recognized) {
   const v = currentVisit;
   const rows = ensureDrinkRows(v);
-  return '<div id="drinkSection">' + (recognized || '<div class="menu-group">Drinken</div>') +
-    (recognized ? '<div class="menu-group">Drinken zelf invullen</div>' : '') +
+  return '<div id="drinkSection">' + (recognized || '<div class="menu-group" id="grp-zelf">Drinken</div>') +
+    (recognized ? '<div class="menu-group" id="grp-zelf">Drinken zelf invullen</div>' : '') +
     '<p class="small-text dr-hint">Typ naam en prijs, en tik op + . Dan staat het meteen op de rekening.</p>' +
     rows.map(r => drinkRowHtml(v, r)).join('') +
     '<button type="button" class="big-button secondary" id="addDrinkRowBtn" onclick="addDrinkRow()">+ Nog een regel</button></div>';
@@ -1917,7 +2060,7 @@ function changeTextSize(d) {
 }
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '9';
+const APP_VERSION = '10';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
@@ -1946,6 +2089,7 @@ renderItemCatPills();
 renderCurrentVisit();
 renderHistory();
 migrateOldPhotos().then(loadPhotos).then(renderPhotos);
+handleKaartLink();
 </script>
 </body>
 </html>
