@@ -8,153 +8,194 @@
 <meta name="apple-mobile-web-app-title" content="Hapje/Drankje">
 <meta name="theme-color" content="#1a73e8">
 <title>Hapje/Drankje</title>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<script>(function(){try{var s=localStorage.getItem('hapjeDrankjeTextSize');if(s==='extra'||s==='enorm')document.documentElement.className='ts-'+s;}catch(e){}})();</script>
 <style>
+  /* v5: alles in rem; de lettergrootte (Groot / Extra groot / Enorm) zit op <html> */
+  html { font-size: 22px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 6rem; scroll-padding-bottom: 6rem; }
+  html.ts-extra { font-size: 25px; }
+  html.ts-enorm { font-size: 28px; }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body { height: 100%; }
-  body { 
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-    margin: 0; padding: 0; background: #f5f5f7; color: #1d1d1f; 
-    font-size: 17px; line-height: 1.4; 
-    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  html, body { min-height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; padding: 0; background: #eef0f4; color: #111;
+    font-size: 1rem; line-height: 1.35;
+    padding-bottom: calc(5.2rem + env(safe-area-inset-bottom));
     padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);
+    overflow-x: hidden;
   }
-  .header { 
-    background: #1a73e8; color: white; padding: 12px 16px 10px; text-align: center; 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    padding-top: calc(12px + env(safe-area-inset-top));
-  }
-  .header h1 { margin: 0 0 4px; font-size: 22px; font-weight: 700; }
-  .total-display { font-size: 36px; font-weight: 800; letter-spacing: -1px; }
-  .total-label { font-size: 14px; opacity: 0.9; }
+  button, input, select { font-family: inherit; }
   .topbar { position: sticky; top: 0; z-index: 100; }
-  .tabs { display: flex; background: white; border-bottom: 1px solid #ddd; }
-  .tab { flex: 1; min-width: 0; padding: 8px 1px 9px; text-align: center; font-size: 13px; font-weight: 700; background: none; border: none; color: #555; line-height: 1.15; }
-  .tab .ic { display: block; font-size: 21px; line-height: 1.2; margin-bottom: 1px; }
-  .tab.active { color: #1a73e8; border-bottom: 3px solid #1a73e8; }
-  .content { padding: 12px; max-width: 600px; margin: 0 auto; }
-  .card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
-  .big-button { 
-    width: 100%; padding: 16px; font-size: 18px; font-weight: 700; border: none; border-radius: 12px; 
-    background: #1a73e8; color: white; margin-bottom: 10px; 
+  .header {
+    background: #1a73e8; color: white; padding: 0.35rem 0.6rem 0.45rem;
+    padding-top: calc(0.35rem + env(safe-area-inset-top));
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
-  .big-button.secondary { background: #f0f0f0; color: #1d1d1f; }
-  .big-button.huge { padding: 26px 16px; font-size: 20px; }
+  .header-row { display: flex; align-items: center; justify-content: space-between; gap: 0.4rem; }
+  .header h1 { margin: 0; font-size: 0.95rem; font-weight: 800; }
+  .ts-btns { display: flex; gap: 0.3rem; }
+  .ts-btn { min-width: 2.5rem; height: 2.5rem; border-radius: 0.6rem; border: 2px solid rgba(255,255,255,0.8); background: rgba(255,255,255,0.15); color: white; font-size: 0.9rem; font-weight: 800; padding: 0 0.3rem; }
+  .ts-btn:active { background: rgba(255,255,255,0.35); }
+  .total-line { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.1rem; }
+  .total-label { font-size: 0.9rem; font-weight: 700; }
+  .total-display { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; }
+  /* tabbalk onderaan, grote vakken */
+  .tabs { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 100; background: white; border-top: 2px solid #c8ccd4;
+    padding-bottom: env(safe-area-inset-bottom); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); box-shadow: 0 -2px 8px rgba(0,0,0,0.08); }
+  .tab { flex: 1 1 0; min-width: 0; min-height: 4rem; padding: 0.3rem 0.1rem 0.35rem; text-align: center; font-size: min(0.8rem, 4.6vw); font-weight: 800; background: none; border: none; color: #333; line-height: 1.1; white-space: nowrap; overflow: hidden; }
+  .tab .ic { display: block; font-size: min(1.25rem, 32px); line-height: 1.15; margin-bottom: 0.1rem; }
+  .tab.active { color: #0b57d0; background: #e3edfd; box-shadow: inset 0 4px 0 #0b57d0; }
+  .content { padding: 0.5rem; max-width: 820px; margin: 0 auto; }
+  .card { background: white; border-radius: 0.75rem; padding: 0.75rem; margin-bottom: 0.6rem; box-shadow: 0 1px 6px rgba(0,0,0,0.1); }
+  .big-button {
+    display: block; width: 100%; min-height: 2.6rem; padding: 0.6rem 0.7rem; font-size: 1.05rem; font-weight: 800; border: none; border-radius: 0.6rem;
+    background: #1a73e8; color: white; margin-bottom: 0.5rem; line-height: 1.2;
+  }
+  .big-button.secondary { background: #e4e7ec; color: #111; }
+  .big-button.huge { padding: 1rem 0.7rem; font-size: 1.15rem; }
   .big-button:active { opacity: 0.75; }
   .big-button:disabled { opacity: 0.5; }
-  .link-button { background: none; border: none; color: #1a73e8; font-size: 16px; font-weight: 600; padding: 12px 4px; }
-  input, select { 
-    width: 100%; padding: 14px; font-size: 17px; border: 1px solid #ccc; border-radius: 10px; 
-    margin-bottom: 10px; background: white; -webkit-appearance: none; color: #1d1d1f;
+  .link-button { background: none; border: none; color: #0b57d0; font-size: 1rem; font-weight: 800; padding: 0.55rem 0.2rem; min-height: 2.4rem; text-decoration: underline; }
+  input, select {
+    width: 100%; min-height: 2.5rem; padding: 0.45rem 0.6rem; font-size: 1.05rem; border: 2px solid #8a8f98; border-radius: 0.5rem;
+    margin-bottom: 0.5rem; background: white; -webkit-appearance: none; color: #111;
   }
-  .item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; gap: 8px; }
+  input::placeholder { color: #6b6f76; }
+  input:focus { outline: none; border-color: #1a73e8; box-shadow: 0 0 0 3px rgba(26,115,232,0.25); }
+  label { display: block; }
+  .item-row { padding: 0.55rem 0; border-bottom: 2px solid #e3e5ea; }
   .item-row:last-child { border-bottom: none; }
-  .item-name { font-weight: 600; }
-  .item-price { font-weight: 700; color: #1a73e8; white-space: nowrap; }
-  .photo-preview { max-width: 100%; border-radius: 10px; margin: 8px 0; display: block; }
-  .small-text { font-size: 15px; color: #555; margin-top: 2px; }
-  .section-title { font-size: 20px; font-weight: 700; margin: 8px 0 10px; }
+  .item-row .row2 { display: flex; justify-content: space-between; align-items: center; gap: 0.4rem; margin-top: 0.2rem; flex-wrap: wrap; }
+  .item-name { font-weight: 800; font-size: 1.08rem; overflow-wrap: anywhere; }
+  .item-price { font-weight: 800; color: #111; white-space: nowrap; }
+  .calc { font-size: 1rem; color: #111; white-space: nowrap; }
+  .photo-preview { max-width: 100%; border-radius: 0.5rem; margin: 0.4rem 0; display: block; }
+  .small-text { font-size: 0.9rem; color: #333; margin-top: 0.1rem; }
+  .section-title { font-size: 1.2rem; font-weight: 800; margin: 0.3rem 0 0.5rem; }
+  .visit-name { font-size: 1.15rem; font-weight: 800; overflow-wrap: anywhere; }
   .hidden { display: none !important; }
-  .estimate-badge { background: #ff9500; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
-  .history-item { background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; }
-  /* v3 */
-  .qty-controls { display: flex; align-items: center; gap: 6px; }
-  .qty-btn { width: 44px; height: 44px; border-radius: 22px; border: none; background: #f0f0f0; font-size: 22px; font-weight: 700; color: #1d1d1f; padding: 0; }
-  .qty-btn.remove { font-size: 18px; color: #d93025; }
-  .qty-btn:active { opacity: 0.6; }
-  .menu-item { display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 10px; text-align: left;
-    background: #f7f9fc; border: 1px solid #e3e8f0; border-radius: 12px; padding: 16px 14px; margin-bottom: 8px; font-size: 17px; color: #1d1d1f; min-height: 58px; }
+  .estimate-badge { display: inline-block; background: #c25400; color: white; padding: 0.15rem 0.5rem; border-radius: 0.6rem; font-size: 0.85rem; font-weight: 800; white-space: nowrap; }
+  .qty-controls { display: flex; align-items: center; gap: 0.4rem; }
+  .qty-btn { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2px solid #8a8f98; background: white; font-size: 1.3rem; font-weight: 800; color: #111; padding: 0; line-height: 1; }
+  .qty-btn.remove { font-size: 1.05rem; color: #b3261e; border-color: #b3261e; }
+  .qty-btn:active { background: #e4e7ec; }
+  .menu-item { display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 0.5rem; text-align: left;
+    background: #f4f7fc; border: 2px solid #c9d4e6; border-radius: 0.6rem; padding: 0.6rem 0.6rem; margin-bottom: 0.4rem; font-size: 1.05rem; color: #111; min-height: 2.6rem; }
+  .menu-item .item-name { font-size: 1.05rem; }
+  .menu-item .item-price { color: #0b57d0; }
   .menu-item:active { background: #dbe8fd; }
-  .menu-item.flash { background: #d7f5dd; border-color: #34a853; }
-  .menu-item .count { background: #1a73e8; color: white; border-radius: 12px; padding: 2px 9px; font-size: 14px; font-weight: 700; margin-left: 6px; }
-  .menu-group { font-size: 15px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin: 14px 2px 8px; }
-  .seg { display: flex; background: #f0f0f0; border-radius: 12px; padding: 4px; margin-bottom: 12px; }
-  .seg button { flex: 1; border: none; background: none; padding: 14px 6px; font-size: 16px; font-weight: 600; border-radius: 9px; color: #444; }
-  .seg button.active { background: white; color: #1a73e8; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
-  .edit-item { border: 1px solid #e3e8f0; border-radius: 12px; padding: 10px; margin-bottom: 10px; background: #fafbfd; }
-  .edit-item input, .edit-item select { margin-bottom: 8px; padding: 12px; }
-  .edit-item input[data-f="name"] { font-size: 18px; font-weight: 600; }
-  .edit-row { display: flex; gap: 8px; align-items: flex-start; }
-  .edit-row .price { flex: 1; min-width: 0; font-size: 18px; font-weight: 600; }
-  .del-btn { flex: 0 0 48px; height: 48px; border: none; border-radius: 10px; background: #fde8e7; color: #d93025; font-size: 20px; font-weight: 700; }
-  .progress { height: 12px; background: #e6e6e6; border-radius: 6px; overflow: hidden; margin: 10px 0 6px; }
+  .menu-item.flash { background: #d7f5dd; border-color: #188038; }
+  .menu-item .count { display: inline-block; background: #0b57d0; color: white; border-radius: 0.6rem; padding: 0 0.4rem; font-size: 0.9rem; font-weight: 800; margin-left: 0.3rem; }
+  .menu-group { font-size: 1rem; font-weight: 800; color: #111; text-transform: uppercase; letter-spacing: 0.5px; margin: 0.7rem 0.1rem 0.4rem; }
+  .seg { display: flex; flex-wrap: wrap; background: #e4e7ec; border-radius: 0.6rem; padding: 0.2rem; margin-bottom: 0.6rem; gap: 0.2rem; }
+  .seg button { flex: 1 1 6rem; border: none; background: none; min-height: 2.5rem; padding: 0.4rem 0.3rem; font-size: 1rem; font-weight: 800; border-radius: 0.45rem; color: #222; }
+  .seg button.active { background: white; color: #0b57d0; box-shadow: inset 0 0 0 3px #0b57d0; }
+  .edit-item { border: 2px solid #d5dbe5; border-radius: 0.6rem; padding: 0.5rem; margin-bottom: 0.5rem; background: #fafbfd; }
+  .edit-item input { margin-bottom: 0.4rem; }
+  .edit-item input[data-f="name"] { font-weight: 800; }
+  .edit-row { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
+  .edit-row .price { flex: 1 1 4.5em; min-width: 4.5em; margin-bottom: 0; font-weight: 800; }
+  .del-btn { flex: 0 0 auto; width: 2.5rem; height: 2.5rem; border: 2px solid #b3261e; border-radius: 0.5rem; background: #fde8e7; color: #b3261e; font-size: 1.05rem; font-weight: 800; padding: 0; }
+  .progress { height: 0.6rem; background: #d5d8de; border-radius: 0.3rem; overflow: hidden; margin: 0.5rem 0 0.3rem; }
   .progress > div { height: 100%; width: 0; background: #1a73e8; transition: width 0.3s; }
-  .thumbs { display: flex; gap: 8px; overflow-x: auto; margin: 8px 0; -webkit-overflow-scrolling: touch; }
-  .thumbs img { height: 80px; border-radius: 8px; border: 1px solid #ddd; }
-  .saved-rest { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #eee; }
+  .thumbs { display: flex; gap: 0.4rem; overflow-x: auto; margin: 0.4rem 0; -webkit-overflow-scrolling: touch; }
+  .thumbs img { height: 4rem; border-radius: 0.4rem; border: 1px solid #aaa; }
+  .saved-rest { display: flex; align-items: center; gap: 0.4rem; border-bottom: 2px solid #e3e5ea; }
   .saved-rest:last-child { border-bottom: none; }
-  .saved-rest .pick { flex: 1; text-align: left; background: none; border: none; padding: 14px 4px; font-size: 17px; color: #1d1d1f; }
-  .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); transform: translateX(-50%);
-    background: rgba(30,30,30,0.92); color: white; padding: 14px 20px; border-radius: 14px; font-size: 16px; font-weight: 600;
-    z-index: 200; max-width: 90%; text-align: center; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+  .saved-rest .pick { flex: 1; min-width: 0; text-align: left; background: none; border: none; padding: 0.6rem 0.2rem; font-size: 1rem; color: #111; min-height: 2.6rem; }
+  .toast { position: fixed; left: 50%; bottom: calc(5rem + env(safe-area-inset-bottom)); transform: translateX(-50%);
+    background: rgba(17,17,17,0.94); color: white; padding: 0.6rem 0.9rem; border-radius: 0.7rem; font-size: 1rem; font-weight: 800;
+    z-index: 200; width: max-content; max-width: 92%; text-align: center; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
   .toast.show { opacity: 1; }
-  /* v4: compacte categoriekeuze */
-  .cat-pills { display: inline-flex; flex: 0 0 auto; background: #f0f0f0; border-radius: 10px; padding: 3px; gap: 2px; height: 48px; align-items: center; }
-  .cat-pills button { min-width: 40px; height: 40px; border: none; background: none; border-radius: 8px; font-size: 20px; padding: 0 6px; color: #333; }
-  .cat-pills button.active { background: #d2e3fc; box-shadow: inset 0 0 0 2px #1a73e8; }
-  .cat-pills .lbl { font-size: 14px; font-weight: 600; margin-left: 3px; }
-  .add-row { display: flex; gap: 8px; align-items: flex-start; }
+  .notice { background: #fff1db; border: 2px solid #e8a33d; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font-size: 0.95rem; margin-bottom: 0.5rem; color: #111; }
+  /* compacte categoriekeuze 🍽 / 🥤 / ➕ */
+  .cat-pills { display: inline-flex; flex: 0 0 auto; background: #e4e7ec; border-radius: 0.55rem; padding: 0.15rem; gap: 0.1rem; align-items: center; }
+  .cat-pills button { min-width: 2.4rem; height: 2.4rem; border: none; background: none; border-radius: 0.45rem; font-size: 1.1rem; padding: 0 0.25rem; color: #111; }
+  .cat-pills button.active { background: #d2e3fc; box-shadow: inset 0 0 0 3px #0b57d0; }
+  .cat-pills .lbl { font-size: 0.85rem; font-weight: 800; margin-left: 0.15rem; }
+  .cat-host { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+  .add-row { display: flex; gap: 0.4rem; align-items: flex-start; }
   .add-row input { flex: 1; min-width: 0; }
-  .add-row .qty { flex: 0 0 76px; text-align: center; }
-  /* v4: voorlopige rekening */
-  .bill-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
-  .bill-title { font-size: 22px; font-weight: 800; }
-  .bill { width: 100%; border-collapse: collapse; table-layout: fixed; font-variant-numeric: tabular-nums; }
-  .bill th { font-size: 14px; color: #555; font-weight: 700; text-align: right; padding: 6px 2px; border-bottom: 2px solid #1d1d1f; }
-  .bill th.l, .bill td.l { text-align: left; }
-  .bill td { font-size: 17px; padding: 9px 2px; border-bottom: 1px solid #e5e5e5; vertical-align: top; text-align: right; white-space: nowrap; }
-  .bill td.l { white-space: normal; word-break: break-word; overflow-wrap: anywhere; font-weight: 600; }
-  .bill td.tot { font-weight: 800; }
-  .bill col.c-tick { width: 38px; } .bill col.c-price { width: 56px; } .bill col.c-qty { width: 34px; } .bill col.c-tot { width: 68px; }
-  .card.bill-card { padding: 14px 12px; }
-  .bill td.qty, .bill th.qty { text-align: center; }
-  .bill tr.group td { font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #1a73e8; border-bottom: none; padding-top: 16px; text-align: left; }
-  .bill tr.sub td { font-weight: 700; color: #333; border-bottom: 2px solid #ccc; font-size: 16px; }
-  .bill tr.done td { background: #eaf7ed; }
-  .tick { width: 34px; height: 34px; border-radius: 8px; border: 2px solid #999; background: white; font-size: 20px; font-weight: 800; color: white; padding: 0; line-height: 1; }
+  .add-row .qty { flex: 0 0 3.6rem; text-align: center; }
+  /* voorlopige rekening: één blok per regel */
+  .bill-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.4rem; margin-bottom: 0.3rem; flex-wrap: wrap; }
+  .bill-title { font-size: 1.25rem; font-weight: 800; overflow-wrap: anywhere; }
+  .bill-group { font-size: 1.1rem; font-weight: 800; color: #0b57d0; text-transform: uppercase; letter-spacing: 0.5px; margin: 0.9rem 0 0.2rem; padding-bottom: 0.2rem; border-bottom: 3px solid #0b57d0; }
+  .bill-line { display: flex; gap: 0.55rem; align-items: flex-start; padding: 0.55rem 0.2rem; border-bottom: 2px solid #e3e5ea; }
+  .bill-line.done { background: #e3f4e7; }
+  .bill-line .bl-main { flex: 1; min-width: 0; }
+  .bill-line .bl-name { font-size: 1.08rem; font-weight: 800; overflow-wrap: anywhere; }
+  .bill-line .bl-calc { display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.15rem; font-size: 1.05rem; }
+  .bill-line .bl-tot { font-weight: 800; white-space: nowrap; margin-left: auto; }
+  .tick { flex: 0 0 auto; width: 2.5rem; height: 2.5rem; border-radius: 0.45rem; border: 3px solid #555; background: white; font-size: 1.4rem; font-weight: 800; color: white; padding: 0; line-height: 1; }
   .tick.on { background: #188038; border-color: #188038; }
-  .grand { display: flex; justify-content: space-between; align-items: baseline; border-top: 3px double #1d1d1f; margin-top: 12px; padding-top: 12px; }
-  .grand .lbl { font-size: 20px; font-weight: 800; }
-  .grand .amt { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
-  .check-result { border-radius: 12px; padding: 14px; font-size: 20px; font-weight: 800; text-align: center; margin-top: 4px; }
-  .check-result.ok { background: #e6f4ea; color: #137333; }
-  .check-result.diff { background: #fdeee0; color: #b3261e; }
-  .check-result .small { display: block; font-size: 15px; font-weight: 600; margin-top: 4px; color: #333; }
-  .history-item { display: block; width: 100%; text-align: left; border: none; font-size: 17px; color: #1d1d1f; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
-  .history-item:active { background: #eef3fd; }
-  .notice { background: #fff4e5; border-radius: 10px; padding: 10px 12px; font-size: 15px; margin-bottom: 10px; }
+  .bill-sub { display: flex; justify-content: space-between; gap: 0.4rem; flex-wrap: wrap; padding: 0.5rem 0.2rem 0.2rem; font-size: 1.05rem; font-weight: 800; }
+  .grand { border-top: 4px double #111; margin-top: 0.8rem; padding-top: 0.5rem; }
+  .grand .lbl, .grand .amt { display: block; }
+  .grand .lbl { font-size: 1.2rem; font-weight: 800; }
+  .grand .amt { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; text-align: right; }
+  .bill-amount { font-size: 1.45rem; font-weight: 800; min-height: 3rem; }
+  .check-result { border-radius: 0.6rem; padding: 0.6rem; font-size: 1.45rem; font-weight: 800; text-align: center; margin-top: 0.2rem; margin-bottom: 0.5rem; }
+  .check-result.ok { background: #d9f2df; color: #0b5e24; border: 3px solid #188038; }
+  .check-result.diff { background: #fde4dc; color: #a1150c; border: 3px solid #b3261e; }
+  .check-result .small { display: block; font-size: 1rem; font-weight: 700; margin-top: 0.2rem; color: #111; }
+  .history-item { display: block; width: 100%; text-align: left; background: white; border-radius: 0.7rem; padding: 0.7rem; margin-bottom: 0.5rem; border: none; font-size: 1rem; color: #111; box-shadow: 0 1px 6px rgba(0,0,0,0.1); }
+  .history-item:active { background: #e3edfd; }
+  .history-item .h-row { margin-top: 0.3rem; display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; }
+  .history-item .h-total { font-weight: 800; font-size: 1.15rem; }
+  .ok-text { color: #0b5e24; font-weight: 800; } .diff-text { color: #a1150c; font-weight: 800; }
+  .install-hint { background: #fff8d6; border: 3px solid #e0b400; }
+  .install-hint ol { margin: 0.3rem 0 0.5rem; padding-left: 1.3rem; }
+  .install-hint li { margin-bottom: 0.3rem; }
 </style>
 </head>
 <body>
 <div class="topbar">
 <div class="header">
-  <h1>Hapje/Drankje</h1>
-  <div class="total-label">Lopende totaal</div>
-  <div class="total-display" id="totalDisplay">€ 0,00</div>
-</div>
-<div class="tabs">
-  <button class="tab active" data-tab="overzicht" onclick="showTab('overzicht')"><span class="ic">🏠</span>Overzicht</button>
-  <button class="tab" data-tab="toevoegen" onclick="showTab('toevoegen')"><span class="ic">➕</span>Toevoegen</button>
-  <button class="tab" data-tab="rekening" onclick="openBill(null)"><span class="ic">🧾</span>Rekening</button>
-  <button class="tab" data-tab="fotos" onclick="showTab('fotos')"><span class="ic">📷</span>Foto's</button>
-  <button class="tab" data-tab="geschiedenis" onclick="showTab('geschiedenis')"><span class="ic">🕘</span>Eerder</button>
+  <div class="header-row">
+    <h1>Hapje/Drankje</h1>
+    <div class="ts-btns" role="group" aria-label="Lettergrootte">
+      <button type="button" class="ts-btn" id="tsMinus" onclick="changeTextSize(-1)" aria-label="Kleinere letters">A−</button>
+      <button type="button" class="ts-btn" id="tsPlus" onclick="changeTextSize(1)" aria-label="Grotere letters">A+</button>
+    </div>
+  </div>
+  <div class="total-line">
+    <div class="total-label">Lopend totaal</div>
+    <div class="total-display" id="totalDisplay">€ 0,00</div>
+  </div>
 </div>
 </div>
 <div class="content">
   <div id="tab-overzicht">
+    <div class="card install-hint hidden" id="installHint">
+      <div class="section-title">📱 Als plaatje op je beginscherm</div>
+      <p style="margin:0.2rem 0;">Dan open je Hapje/Drankje met één tik, net als een gewone app.</p>
+      <ol>
+        <li>Open deze pagina in <b>Safari</b>.</li>
+        <li>Tik op de <b>deelknop</b> (vierkantje met pijl omhoog ⬆). Op de iPhone zit die onderaan, op de iPad bovenaan. Zie je hem niet? Tik eerst op <b>•••</b>.</li>
+        <li>Kies <b>‘Zet op beginscherm’</b> en tik op <b>‘Voeg toe’</b>.</li>
+      </ol>
+      <p class="small-text">Let op: wat je hier in Safari invoert, zie je niet in het plaatje (de iPhone bewaart dat apart). Gebruik daarna dus steeds het plaatje.</p>
+      <button class="big-button" onclick="dismissInstallHint()">Begrepen</button>
+    </div>
     <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div>
-          <div style="font-size:18px; font-weight:700;" id="visitName">Geen actief bezoek</div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.4rem; flex-wrap:wrap;">
+        <div style="min-width:0;">
+          <div class="visit-name" id="visitName">Geen actief bezoek</div>
           <div class="small-text" id="visitDate"></div>
         </div>
         <span class="estimate-badge" id="estimateBadge" style="display:none;">Inschatting</span>
       </div>
-      <div id="itemsList" style="margin-top:12px;"></div>
+      <div id="itemsList" style="margin-top:0.5rem;"></div>
       <button class="big-button secondary" onclick="startNewVisit()" id="newVisitBtn">Nieuw restaurantbezoek starten</button>
       <button class="big-button secondary" onclick="showTab('toevoegen')" id="toAddBtn" style="display:none;">+ Iets bestellen</button>
-      <button class="big-button secondary" onclick="openBill(null)" id="toBillBtn" style="display:none;">🧾 Voorlopige rekening bekijken</button>
+      <button class="big-button secondary" onclick="openBill(null)" id="toBillBtn" style="display:none;">🧾 Rekening bekijken</button>
       <button class="big-button" onclick="finishVisit()" id="finishBtn" style="display:none;">Bezoek afronden</button>
     </div>
+    <button class="big-button secondary" onclick="showTab('fotos')">📷 Foto's</button>
   </div>
 
   <!-- Stap 1: menukaart kiezen -->
@@ -188,7 +229,7 @@
       <label class="small-text" for="reviewName">Naam van het restaurant</label>
       <input type="text" id="reviewName" placeholder="Naam van het restaurant" oninput="draft.name = this.value">
       <div id="estimateChoice">
-        <div class="small-text" style="margin-bottom:6px;">Soort bezoek</div>
+        <div class="small-text" style="margin-bottom:0.3rem;">Soort bezoek</div>
         <div class="seg">
           <button type="button" id="segEstimate" onclick="setDraftEstimate(true)">Inschatting vooraf</button>
           <button type="button" id="segReal" onclick="setDraftEstimate(false)">Echte rekening</button>
@@ -219,8 +260,8 @@
         <input type="text" id="itemPrice" placeholder="Prijs (bijv. 12,50)" inputmode="decimal" autocomplete="off">
         <input class="qty" type="number" id="itemQty" value="1" min="1" placeholder="Aantal" inputmode="numeric" aria-label="Aantal">
       </div>
-      <div class="cat-host" style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
-        <span class="small-text" style="margin:0;">Soort:</span>
+      <div class="cat-host">
+        <span style="font-weight:800;">Soort:</span>
         <input type="hidden" id="itemCategory" value="eten">
         <span id="itemCatPills"></span>
       </div>
@@ -237,6 +278,7 @@
     <div id="billView"></div>
   </div>
   <div id="tab-fotos" class="hidden">
+    <button class="link-button" onclick="showTab('overzicht')">← Terug naar overzicht</button>
     <div class="card">
       <div class="section-title">Foto's</div>
       <p class="small-text">Maak een foto of kies een screenshot. Foto's van de menukaart worden hier ook bewaard.</p>
@@ -247,11 +289,17 @@
   </div>
   <div id="tab-geschiedenis" class="hidden">
     <div class="section-title">Eerdere bezoeken</div>
-    <p class="small-text" style="margin-top:-4px;">Tik op een bezoek om de rekening te bekijken.</p>
+    <p class="small-text" style="margin-top:0;">Tik op een bezoek om de rekening te bekijken.</p>
     <div id="historyList"></div>
     <button class="big-button secondary" onclick="clearAllHistory()">Alles wissen</button>
   </div>
 </div>
+<nav class="tabs">
+  <button class="tab active" data-tab="overzicht" onclick="showTab('overzicht')"><span class="ic">🏠</span>Overzicht</button>
+  <button class="tab" data-tab="toevoegen" onclick="showTab('toevoegen')"><span class="ic">➕</span>Bestellen</button>
+  <button class="tab" data-tab="rekening" onclick="openBill(null)"><span class="ic">🧾</span>Rekening</button>
+  <button class="tab" data-tab="geschiedenis" onclick="showTab('geschiedenis')"><span class="ic">🕘</span>Eerder</button>
+</nav>
 <div class="toast" id="toast"></div>
 <script>
 // ==PARSER-START==
@@ -644,11 +692,11 @@ function renderCurrentVisit(skipMenuCard) {
       const row = document.createElement('div');
       row.className = 'item-row';
       const q = Number(item.qty) || 1;
-      row.innerHTML = `<div style="flex:1; min-width:0;"><div class="item-name">${escapeHtml(item.name)} ${q > 1 ? '×' + q : ''}</div><div class="small-text">${escapeHtml(categoryLabel(item.category))} · ${formatEuro(item.price)} p.st.</div><div class="item-price">${formatEuro(item.price * q)}</div></div>` +
+      row.innerHTML = `<div class="item-name">${escapeHtml(item.name)}</div><div class="row2"><div><div class="calc">${q} × ${formatEuro(item.price)}</div><div class="item-price">${formatEuro(item.price * q)}</div></div>` +
         `<div class="qty-controls">` +
         (q > 1 ? `<button class="qty-btn" data-act="minus" data-idx="${idx}" aria-label="Eén minder">−</button>`
                : `<button class="qty-btn remove" data-act="minus" data-idx="${idx}" aria-label="Verwijderen">✕</button>`) +
-        `<button class="qty-btn" data-act="plus" data-idx="${idx}" aria-label="Eén meer">+</button></div>`;
+        `<button class="qty-btn" data-act="plus" data-idx="${idx}" aria-label="Eén meer">+</button></div></div>`;
       itemsEl.appendChild(row);
     });
   }
@@ -1151,7 +1199,7 @@ function showTab(tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('[id^="tab-"]').forEach(d => d.classList.add('hidden'));
   document.getElementById('tab-' + tab).classList.remove('hidden');
-  const btn = document.querySelector('.tab[data-tab="' + tab + '"]');
+  const btn = document.querySelector('.tab[data-tab="' + (tab === 'fotos' ? 'overzicht' : tab) + '"]');
   if (btn) btn.classList.add('active');
   window.scrollTo(0, 0);
   if (tab === 'fotos') renderPhotos();
@@ -1181,7 +1229,7 @@ function renderPhotos() {
     if (p.kind === 'menu' || p.restaurant) {
       const cap = document.createElement('div');
       cap.className = 'small-text';
-      cap.style.marginTop = '10px';
+      cap.style.marginTop = '0.5rem';
       cap.textContent = (p.kind === 'menu' ? 'Menukaart' : 'Foto') + (p.restaurant ? ' · ' + p.restaurant : '');
       container.appendChild(cap);
     }
@@ -1206,9 +1254,9 @@ function renderHistory() {
     let check = '';
     if (typeof v.billAmount === 'number') {
       const d = Math.round(v.billAmount * 100) - cents(total);
-      check = d === 0 ? ' · <span style="color:#137333; font-weight:700;">Klopt ✓</span>' : ' · <span style="color:#b3261e; font-weight:700;">Verschil ' + formatEuro(Math.abs(d) / 100) + '</span>';
+      check = d === 0 ? ' · <span class="ok-text">Klopt ✓</span>' : ' · <span class="diff-text">Verschil ' + formatEuro(Math.abs(d) / 100) + '</span>';
     }
-    div.innerHTML = `<div style="font-weight:700;">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Inschatting' : ''}</div><div style="margin-top:6px; display:flex; justify-content:space-between; align-items:baseline;"><span style="font-weight:800; font-size:19px; color:#1a73e8;">${formatEuro(total)}${check}</span><span style="color:#1a73e8; font-weight:600;">Rekening ›</span></div>`;
+    div.innerHTML = `<div class="item-name">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Inschatting' : ''}</div><div class="h-row"><span class="h-total">${formatEuro(total)}${check}</span><span style="color:#0b57d0; font-weight:800;">Rekening ›</span></div>`;
     list.appendChild(div);
   });
 }
@@ -1240,16 +1288,14 @@ function renderBill() {
   const items = v.items || [];
   let html = '<div class="card bill-card">';
   if (fromHistory) html += '<button class="link-button" style="padding-top:0;" onclick="showTab(\'geschiedenis\')">← Terug naar eerdere bezoeken</button>';
-  html += '<div class="bill-head"><div><div class="small-text" style="margin:0;">Voorlopige rekening</div><div class="bill-title">' + escapeHtml(v.name || 'Restaurantbezoek') + '</div>' +
+  html += '<div class="bill-head"><div><div class="small-text" style="margin:0; font-weight:700;">Voorlopige rekening</div><div class="bill-title">' + escapeHtml(v.name || 'Restaurantbezoek') + '</div>' +
     '<div class="small-text">' + escapeHtml(new Date(v.date).toLocaleString('nl-NL')) + (fromHistory ? ' · afgerond' : '') + '</div></div>' +
-    (v.isEstimate ? '<span class="estimate-badge" style="font-size:14px; margin-top:4px;">Inschatting</span>' : '') + '</div>';
+    (v.isEstimate ? '<span class="estimate-badge">Inschatting</span>' : '') + '</div>';
   if (!items.length) {
     html += '<p class="small-text">Nog niets besteld.</p></div>';
     box.innerHTML = html;
     return;
   }
-  html += '<table class="bill"><colgroup><col class="c-tick"><col><col class="c-price"><col class="c-qty"><col class="c-tot"></colgroup>' +
-    '<thead><tr><th class="l" aria-label="Afgevinkt">✓</th><th class="l">Item</th><th>Prijs</th><th class="qty">Aantal</th><th>Totaal</th></tr></thead><tbody>';
   let ticked = 0;
   CATS.forEach(c => {
     const rows = [];
@@ -1260,22 +1306,23 @@ function renderBill() {
       const lineCents = cents(it.price) * q;
       sub += lineCents;
       if (it.checked) ticked++;
-      rows.push('<tr class="' + (it.checked ? 'done' : '') + '"><td class="l"><button class="tick' + (it.checked ? ' on' : '') + '" data-tick="' + idx + '" aria-label="Afvinken">' + (it.checked ? '✓' : '') + '</button></td>' +
-        '<td class="l">' + escapeHtml(it.name) + '</td><td>' + priceToInput(it.price) + '</td><td class="qty">' + q + '</td><td class="tot">' + priceToInput(lineCents / 100) + '</td></tr>');
+      rows.push('<div class="bill-line' + (it.checked ? ' done' : '') + '">' +
+        '<button class="tick' + (it.checked ? ' on' : '') + '" data-tick="' + idx + '" aria-label="Afvinken">' + (it.checked ? '✓' : '') + '</button>' +
+        '<div class="bl-main"><div class="bl-name">' + escapeHtml(it.name) + '</div>' +
+        '<div class="bl-calc"><span>' + q + ' × ' + formatEuro(it.price) + '</span><span class="bl-tot">' + formatEuro(lineCents / 100) + '</span></div></div></div>');
     });
     if (!rows.length) return;
-    html += '<tr class="group"><td colspan="5">' + c[1] + ' ' + (c[0] === 'extra' ? 'Extra / buiten de kaart' : c[2]) + '</td></tr>' + rows.join('') +
-      '<tr class="sub"><td></td><td class="l" colspan="2">Subtotaal ' + c[2].toLowerCase() + '</td><td colspan="2">' + formatEuro(sub / 100) + '</td></tr>';
+    html += '<div class="bill-group">' + c[1] + ' ' + (c[0] === 'extra' ? 'Extra' : c[2]) + '</div>' + rows.join('') +
+      '<div class="bill-sub"><span>Subtotaal ' + c[2].toLowerCase() + '</span><span>' + formatEuro(sub / 100) + '</span></div>';
   });
   const total = visitTotal(v);
   const pieces = items.reduce((s, it) => s + (Number(it.qty) || 1), 0);
-  html += '</tbody></table><div class="small-text" style="margin-top:6px;">Bedragen in euro\'s.</div>';
   html += '<div class="grand"><span class="lbl">Totaal</span><span class="amt">' + formatEuro(total) + '</span></div>';
-  html += '<div class="small-text" style="text-align:right;">' + pieces + ' stuks · ' + ticked + ' van ' + items.length + ' regels afgevinkt</div>';
+  html += '<div class="small-text bill-count" style="text-align:right;">' + pieces + ' stuks · ' + ticked + ' van ' + items.length + ' regels afgevinkt</div>';
   html += '</div>';
   // Vergelijken met de echte rekening
-  html += '<div class="card"><label class="section-title" for="billAmount" style="display:block; font-size:19px;">Bedrag op de rekening van het restaurant</label>' +
-    '<input type="text" id="billAmount" inputmode="decimal" autocomplete="off" placeholder="bijv. 54,50" style="font-size:22px; font-weight:700;" value="' +
+  html += '<div class="card"><label class="section-title" for="billAmount">Bedrag op de rekening van het restaurant</label>' +
+    '<input type="text" id="billAmount" inputmode="decimal" autocomplete="off" placeholder="bijv. 54,50" class="bill-amount" value="' +
     (typeof v.billAmount === 'number' ? escapeHtml(priceToInput(v.billAmount)) : '') + '">' +
     '<div id="billCheck"></div>' +
     '<p class="small-text">Vink tijdens het vergelijken elke regel af die ook op de rekening van het restaurant staat.</p></div>';
@@ -1296,7 +1343,7 @@ function renderBillCheck() {
   if (!el || !v) return;
   if (typeof v.billAmount !== 'number') { el.innerHTML = ''; return; }
   const diff = Math.round(v.billAmount * 100) - cents(visitTotal(v));
-  if (diff === 0) el.innerHTML = '<div class="check-result ok">Klopt ✓<span class="small">De rekening is gelijk aan jouw telling.</span></div>';
+  if (diff === 0) el.innerHTML = '<div class="check-result ok">✓ Klopt<span class="small">De rekening is gelijk aan jouw telling.</span></div>';
   else el.innerHTML = '<div class="check-result diff">Verschil: ' + formatEuro(Math.abs(diff) / 100) +
     '<span class="small">De rekening is ' + formatEuro(Math.abs(diff) / 100) + ' ' + (diff > 0 ? 'hóger' : 'lager') + ' dan jouw telling (' + formatEuro(visitTotal(v)) + ').</span></div>';
 }
@@ -1325,6 +1372,43 @@ function clearAllHistory() {
   renderHistory();
   renderPhotos();
 }
+// ---------- Lettergrootte (Groot / Extra groot / Enorm) ----------
+const TEXT_SIZES = [['groot', 'Groot'], ['extra', 'Extra groot'], ['enorm', 'Enorm']];
+function textSizeIndex() {
+  let s = 'groot';
+  try { s = localStorage.getItem('hapjeDrankjeTextSize') || 'groot'; } catch (e) {}
+  for (let i = 0; i < TEXT_SIZES.length; i++) if (TEXT_SIZES[i][0] === s) return i;
+  return 0;
+}
+function applyTextSize(i) {
+  const k = TEXT_SIZES[i][0];
+  document.documentElement.classList.remove('ts-extra', 'ts-enorm');
+  if (k !== 'groot') document.documentElement.classList.add('ts-' + k);
+  document.getElementById('tsMinus').disabled = i === 0;
+  document.getElementById('tsPlus').disabled = i === TEXT_SIZES.length - 1;
+  document.getElementById('tsMinus').style.opacity = i === 0 ? '0.4' : '1';
+  document.getElementById('tsPlus').style.opacity = i === TEXT_SIZES.length - 1 ? '0.4' : '1';
+}
+function changeTextSize(d) {
+  const i = Math.max(0, Math.min(TEXT_SIZES.length - 1, textSizeIndex() + d));
+  try { localStorage.setItem('hapjeDrankjeTextSize', TEXT_SIZES[i][0]); } catch (e) {}
+  applyTextSize(i);
+  showToast('Letters: ' + TEXT_SIZES[i][1]);
+}
+applyTextSize(textSizeIndex());
+// ---------- Tip: zet de app op het beginscherm ----------
+function isStandalone() {
+  return window.navigator.standalone === true || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+}
+function dismissInstallHint() {
+  try { localStorage.setItem('hapjeDrankjeInstallHint', 'weg'); } catch (e) {}
+  document.getElementById('installHint').classList.add('hidden');
+}
+(function () {
+  let weg = false;
+  try { weg = localStorage.getItem('hapjeDrankjeInstallHint') === 'weg'; } catch (e) {}
+  if (!isStandalone() && !weg) document.getElementById('installHint').classList.remove('hidden');
+})();
 renderItemCatPills();
 renderCurrentVisit();
 renderHistory();
