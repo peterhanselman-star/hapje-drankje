@@ -198,6 +198,28 @@
   .pp-amt { display: block; font-size: 2.4rem; font-weight: 900; line-height: 1.15; text-align: right; letter-spacing: -0.5px; }
   .pp-note { display: block; font-size: 1rem; font-weight: 700; color: #333; margin-top: 0.15rem; }
   .h-persons { display: block; margin-top: 0.2rem; font-size: 1.05rem; font-weight: 700; color: #333; }
+  .header-row { flex-wrap: wrap; }
+  .ts-btns { align-items: center; }
+  .ts-label { font-size: 0.8rem; font-weight: 800; margin-right: 0.1rem; }
+  .total-toggle { width: 100%; background: none; border: none; color: white; text-align: left; padding: 0.15rem 0; min-height: 2.5rem; font-family: inherit; cursor: pointer; }
+  .total-toggle .total-label { display: inline-block; }
+  .total-toggle.closed .total-label { border: 2px solid rgba(255,255,255,0.7); border-radius: 0.6rem; padding: 0.3rem 0.6rem; background: rgba(255,255,255,0.12); }
+  .total-hint { display: block; font-size: 0.75rem; font-weight: 700; opacity: 0.9; }
+  .dr-row { border: 2px dashed #9aa6b8; background: #fbfcfe; border-radius: 0.6rem; padding: 0.4rem 0.5rem; margin-bottom: 0.45rem; }
+  .dr-row.ordered { border-style: solid; background: #e3f4e7; border-color: #188038; box-shadow: inset 0.35rem 0 0 #188038; }
+  .dr-row input { margin-bottom: 0.35rem; font-weight: 700; }
+  .dr-line { display: flex; align-items: center; gap: 0.3rem; flex-wrap: wrap; }
+  .dr-line .dr-price { flex: 1 1 3rem; min-width: 0; width: auto; margin-bottom: 0; }
+  .dr-warn { font-size: 0.95rem; font-weight: 800; color: #a1150c; margin-top: 0.3rem; }
+  .dr-hint { margin: 0 0.1rem 0.4rem; }
+  .tip-box { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 2px solid #ccc; }
+  .tip-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
+  .tip-line { font-size: 1.25rem; font-weight: 800; }
+  .tip-btns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.4rem; margin-bottom: 0.4rem; }
+  .tip-btn { min-height: 2.5rem; border-radius: 0.6rem; border: 2px solid #8a8f98; background: white; color: #111; font-size: 1.05rem; font-weight: 800; padding: 0.2rem 0.3rem; line-height: 1.15; }
+  .tip-btn.wide { grid-column: span 2; }
+  .tip-btn.on { background: #1a73e8; border-color: #0b57d0; color: white; }
+  .grand .sub { display: block; text-align: right; font-size: 0.95rem; font-weight: 700; color: #333; }
 </style>
 </head>
 <body>
@@ -206,14 +228,15 @@
   <div class="header-row">
     <h1>Hapje/Drankje</h1>
     <div class="ts-btns" role="group" aria-label="Lettergrootte">
+      <span class="ts-label" aria-hidden="true">Letters</span>
       <button type="button" class="ts-btn" id="tsMinus" onclick="changeTextSize(-1)" aria-label="Kleinere letters">A−</button>
       <button type="button" class="ts-btn" id="tsPlus" onclick="changeTextSize(1)" aria-label="Grotere letters">A+</button>
     </div>
   </div>
-  <div class="total-line">
-    <div class="total-label">Lopend totaal</div>
-    <div class="total-display" id="totalDisplay">€ 0,00</div>
-  </div>
+  <button type="button" class="total-line total-toggle closed" id="totalToggle" onclick="toggleTotal()" aria-expanded="false">
+    <span class="total-label" id="totalLabel">👁 Totaal tonen</span>
+    <span class="total-display hidden" id="totalDisplay">€ 0,00</span>
+  </button>
 </div>
 </div>
 <div class="content">
@@ -304,9 +327,14 @@
       </div>
       <button class="big-button" onclick="addItem()">+ Gerecht toevoegen</button>
     </div>
+    <div class="card" id="tipShortcut">
+      <div class="section-title">💶 Fooi</div>
+      <p class="small-text" style="margin-top:0;">Fooi kies je op de rekening: geen, 5%, 10%, 15% of een eigen bedrag. Het wordt meteen meegeteld.</p>
+      <button class="big-button" onclick="goToTip()">💶 Fooi kiezen</button>
+    </div>
     <div class="card">
-      <div class="section-title">Fooi of extraatje</div>
-      <input type="text" id="quickName" placeholder="Bijv. fooi, extra saus...">
+      <div class="section-title">Iets extra's</div>
+      <input type="text" id="quickName" placeholder="Bijv. extra saus, brood...">
       <input type="text" id="quickPrice" placeholder="Prijs" inputmode="decimal" autocomplete="off">
       <button class="big-button secondary" onclick="addQuickItem()">Snel toevoegen</button>
     </div>
@@ -708,6 +736,19 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 1600);
 }
+// Totaal bovenaan standaard verborgen (niet zichtbaar voor gasten); tik = tonen, na 10 s weer weg
+let totalShown = false, totalTimer = null;
+function setTotalShown(on) {
+  totalShown = on;
+  clearTimeout(totalTimer);
+  const b = document.getElementById('totalToggle');
+  b.classList.toggle('closed', !on);
+  b.setAttribute('aria-expanded', on ? 'true' : 'false');
+  document.getElementById('totalDisplay').classList.toggle('hidden', !on);
+  document.getElementById('totalLabel').innerHTML = on ? 'Lopend totaal<span class="total-hint">tik om te verbergen</span>' : '👁 Totaal tonen';
+  if (on) totalTimer = setTimeout(() => setTotalShown(false), 10000);
+}
+function toggleTotal() { setTotalShown(!totalShown); }
 function updateTotal() {
   if (!currentVisit) { document.getElementById('totalDisplay').textContent = '€ 0,00'; return; }
   document.getElementById('totalDisplay').textContent = formatEuro(visitTotal(currentVisit));
@@ -1039,7 +1080,7 @@ function visitByKey(key) {
   if (key === 'cur') return currentVisit;
   return visits.filter(v => String(v.id) === String(key))[0] || null;
 }
-function sameDish(it, mi) { return it.name === mi.name && Number(it.price) === Number(mi.price); }
+function sameDish(it, mi) { return !it.drinkRow && it.name === mi.name && Number(it.price) === Number(mi.price); }
 function isShown(id) { const el = document.getElementById(id); return !!el && !el.classList.contains('hidden'); }
 // Alles opnieuw tekenen zonder te verspringen
 function refreshAll() {
@@ -1122,6 +1163,15 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-q]');
   if (!b || b.disabled) return;
   const act = b.getAttribute('data-q');
+  if (b.hasAttribute('data-qd')) {
+    const row = findDrinkRow(b.getAttribute('data-qd'));
+    if (!row) return;
+    const c = drinkQty(currentVisit, row);
+    if (act === 'plus') setDrinkQty(row, c + 1);
+    else if (act === 'minus') setDrinkQty(row, c - 1);
+    else openQtyDialog(String(row.name || '').trim() || 'Drankje', c, n => setDrinkQty(row, n));
+    return;
+  }
   if (b.hasAttribute('data-qm')) {
     if (!currentVisit) return;
     const mi = (currentVisit.menu || [])[Number(b.getAttribute('data-qm'))];
@@ -1223,7 +1273,9 @@ function renderMenuList() {
   const q = menuSearch.trim().toLowerCase();
   const groups = [['eten', 'Eten'], ['drinken', 'Drinken'], ['extra', 'Extra']];
   let html = '', shown = 0;
+  const parts = {};
   groups.forEach(g => {
+    parts[g[0]] = '';
     const rows = [];
     menu.forEach((mi, idx) => {
       if ((mi.category || 'eten') !== g[0]) return;
@@ -1234,13 +1286,14 @@ function renderMenuList() {
         `<div class="or-line">` + (priced ? `<button type="button" class="or-price" data-madd="${idx}">${formatEuro(mi.price)}</button>` + qtyCtlHtml(c, 'data-qm="' + idx + '"')
           : `<button type="button" class="or-price unpriced" data-madd="${idx}">Prijs ontbreekt – tik hier</button>`) + `</div></div>`);
     });
-    if (rows.length) { html += '<div class="menu-group">' + g[1] + '</div>' + rows.join(''); shown += rows.length; }
+    if (rows.length) { parts[g[0]] = '<div class="menu-group">' + g[1] + '</div>' + rows.join(''); shown += rows.length; }
   });
   if (!shown && menu.length) html = '<p class="small-text">Niets gevonden voor "' + escapeHtml(menuSearch) + '".</p>';
+  html += parts.eten + drinkSectionHtml(parts.drinken) + parts.extra;
   // Bestellingen die niet op de kaart staan
   const offRows = [];
   currentVisit.items.forEach((it, idx) => {
-    if (menu.some(mi => sameDish(it, mi))) return;
+    if (it.drinkRow || menu.some(mi => sameDish(it, mi))) return;
     const n = Number(it.qty) || 1;
     offRows.push(`<div class="order-row ordered"><div class="or-name static">${escapeHtml(it.name)}</div><div class="or-line"><span class="or-price">${formatEuro(it.price)}</span>` + qtyCtlHtml(n, 'data-qv="cur" data-qi="' + idx + '"') + '</div></div>');
   });
@@ -1333,6 +1386,85 @@ function addMenuItemToBill(mi, rowIdx) {
   const c = orderedCount(mi);
   showToast('✓ ' + mi.name + (c > 1 ? ' (' + c + '×)' : ''));
 }
+// ---------- Drinken: zelf in te vullen regels ----------
+function newDrinkRow() { return { id: 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: '', price: '', priceText: '', qty: 0 }; }
+function ensureDrinkRows(v) {
+  if (!Array.isArray(v.drinkRows)) { v.drinkRows = []; for (let i = 0; i < 6; i++) v.drinkRows.push(newDrinkRow()); }
+  return v.drinkRows;
+}
+function drinkLinked(v, row) { return v.items.findIndex(it => it.drinkRow === row.id); }
+function drinkComplete(row) { return !!String(row.name || '').trim() && typeof row.price === 'number' && !isNaN(row.price); }
+function drinkQty(v, row) {
+  const i = drinkLinked(v, row);
+  if (i >= 0) return Number(v.items[i].qty) || 1;
+  if (drinkComplete(row)) row.qty = 0;
+  return Number(row.qty) || 0;
+}
+// Regel en rekening gelijk houden
+function syncDrink(v, row) {
+  const i = drinkLinked(v, row);
+  if (drinkComplete(row) && (i >= 0 || row.qty > 0)) {
+    if (i >= 0) { v.items[i].name = row.name.trim(); v.items[i].price = row.price; v.items[i].category = 'drinken'; }
+    else v.items.push({ name: row.name.trim(), price: row.price, category: 'drinken', qty: row.qty, drinkRow: row.id });
+  } else if (i >= 0) {
+    row.qty = Number(v.items[i].qty) || 1;
+    v.items.splice(i, 1);
+  }
+}
+function drinkRowHtml(v, row) {
+  const q = drinkQty(v, row);
+  const done = drinkComplete(row);
+  return '<div class="dr-row' + (done && q > 0 ? ' ordered' : '') + '" data-dr="' + row.id + '">' +
+    '<input type="text" data-drf="name" placeholder="Drankje, bijv. Spa rood" autocomplete="off" value="' + escapeHtml(row.name || '') + '" aria-label="Naam drankje">' +
+    '<div class="dr-line"><input type="text" class="dr-price" data-drf="price" inputmode="decimal" autocomplete="off" placeholder="Prijs" value="' + escapeHtml(row.priceText != null && row.priceText !== '' ? row.priceText : (typeof row.price === 'number' ? priceToInput(row.price) : '')) + '" aria-label="Prijs drankje">' +
+    qtyCtlHtml(q, 'data-qd="' + row.id + '"') + '</div>' +
+    '<div class="dr-warn' + (q > 0 && !done ? '' : ' hidden') + '">Nog niet op de rekening: vul naam en prijs in.</div></div>';
+}
+function drinkSectionHtml(recognized) {
+  const v = currentVisit;
+  const rows = ensureDrinkRows(v);
+  return '<div id="drinkSection">' + (recognized || '<div class="menu-group">Drinken</div>') +
+    (recognized ? '<div class="menu-group">Drinken zelf invullen</div>' : '') +
+    '<p class="small-text dr-hint">Typ naam en prijs, en tik op + . Dan staat het meteen op de rekening.</p>' +
+    rows.map(r => drinkRowHtml(v, r)).join('') +
+    '<button type="button" class="big-button secondary" id="addDrinkRowBtn" onclick="addDrinkRow()">+ Nog een regel</button></div>';
+}
+function addDrinkRow() {
+  if (!currentVisit) return;
+  ensureDrinkRows(currentVisit).push(newDrinkRow());
+  saveData();
+  renderMenuList();
+  const rows = document.querySelectorAll('#menuList .dr-row');
+  const last = rows[rows.length - 1];
+  if (last) { last.scrollIntoView({ block: 'center' }); last.querySelector('input').focus(); }
+}
+function findDrinkRow(id) { return currentVisit ? ensureDrinkRows(currentVisit).filter(r => r.id === id)[0] : null; }
+function setDrinkQty(row, n) {
+  const v = currentVisit;
+  n = Math.max(0, Math.floor(Number(n) || 0));
+  const i = drinkLinked(v, row);
+  row.qty = n;
+  if (i >= 0) { setLineQty(v, i, n); return; }
+  syncDrink(v, row);
+  saveData();
+  refreshAll();
+  if (n > 0 && !drinkComplete(row)) showToast('Vul nog naam en prijs in');
+}
+document.getElementById('menuCard').addEventListener('input', e => {
+  const inp = e.target.closest('[data-drf]');
+  if (!inp || !currentVisit) return;
+  const el = inp.closest('.dr-row');
+  const row = findDrinkRow(el.getAttribute('data-dr'));
+  if (!row) return;
+  if (inp.getAttribute('data-drf') === 'name') row.name = inp.value;
+  else { row.priceText = inp.value; const p = parsePrice(inp.value); row.price = inp.value.trim() === '' || isNaN(p) ? '' : p; }
+  syncDrink(currentVisit, row);
+  saveData();
+  renderCurrentVisit(true);
+  const q = drinkQty(currentVisit, row), done = drinkComplete(row);
+  el.classList.toggle('ordered', done && q > 0);
+  el.querySelector('.dr-warn').classList.toggle('hidden', !(q > 0 && !done));
+});
 // Alleen de lijst in Overzicht bijwerken (zonder de menukaart opnieuw te tekenen)
 function renderCurrentVisitList() { renderCurrentVisit(true); }
 
@@ -1440,8 +1572,10 @@ function renderHistory() {
       const d = Math.round(v.billAmount * 100) - cents(total);
       check = '<span class="h-check ' + (d === 0 ? 'ok-text">✓ Klopt' : d > 0 ? 'diff-text">Rekening is ' + formatEuro(d / 100) + ' hoger' : 'lower-text">Rekening is ' + formatEuro(-d / 100) + ' lager') + '</span>';
     }
-    const np = visitPersons(v);
-    if (np > 1) check += '<span class="h-persons">' + np + ' personen · ' + formatEuro(splitCents(typeof v.billAmount === 'number' ? Math.round(v.billAmount * 100) : cents(total), np).per / 100) + ' per persoon</span>';
+    const np = visitPersons(v), tp = tipCents(v);
+    const payC = (typeof v.billAmount === 'number' ? Math.round(v.billAmount * 100) : cents(total)) + tp;
+    if (tp) check += '<span class="h-persons">' + tipText(v) + ' · te betalen ' + formatEuro(payC / 100) + '</span>';
+    if (np > 1) check += '<span class="h-persons">' + np + ' personen · ' + formatEuro(splitCents(payC, np).per / 100) + ' per persoon</span>';
     div.innerHTML = `<div class="item-name">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Inschatting' : ''}</div><div class="h-row"><span class="h-total">${formatEuro(total)}</span><span style="color:#0b57d0; font-weight:800;">Rekening ›</span></div>${check}`;
     list.appendChild(div);
   });
@@ -1511,7 +1645,8 @@ function renderBill() {
   });
   const total = visitTotal(v);
   const pieces = items.reduce((s, it) => s + (Number(it.qty) || 1), 0);
-  html += '<div class="grand"><span class="lbl">Totaal</span><span class="amt">' + formatEuro(total) + '</span></div>';
+  html += tipBoxHtml(v, editable);
+  html += '<div class="grand"><span class="lbl" id="grandLbl">Totaal</span><span class="amt" id="grandAmt">' + formatEuro(total) + '</span><span class="sub" id="grandSub"></span></div>';
   html += '<div class="small-text bill-count" style="text-align:right;">' + pieces + ' stuks · ' + ticked + ' van ' + items.length + ' regels afgevinkt</div>';
   const np = visitPersons(v);
   html += '<div class="persons" id="personsBox"><div class="persons-row"><span class="persons-lbl">Aantal personen</span>' +
@@ -1523,7 +1658,7 @@ function renderBill() {
     '</div><div id="perPerson"></div></div>';
   html += '</div>';
   // Vergelijken met de echte rekening
-  html += '<div class="card"><label class="section-title" for="billAmount">Bedrag op de rekening van het restaurant</label>' +
+  html += '<div class="card"><label class="section-title" for="billAmount">Bedrag op de rekening van het restaurant <span style="font-weight:700;">(zonder fooi)</span></label>' +
     '<input type="text" id="billAmount" inputmode="decimal" autocomplete="off" placeholder="bijv. 54,50" class="bill-amount" value="' +
     (typeof v.billAmount === 'number' ? escapeHtml(priceToInput(v.billAmount)) : '') + '">' +
     '<div id="billCheck"></div>' +
@@ -1536,10 +1671,85 @@ function renderBill() {
     if (e.target.value.trim() === '' || isNaN(p)) delete vv.billAmount; else vv.billAmount = p;
     saveBillVisit();
     renderBillCheck();
-    renderPerPerson();
+    renderTotals();
+  });
+  const ta = document.getElementById('tipAmount');
+  if (ta) ta.addEventListener('input', e => {
+    const vv = billVisit();
+    if (!vv) return;
+    const p = parsePrice(e.target.value);
+    vv.tip = { amount: e.target.value.trim() === '' || isNaN(p) ? 0 : Math.max(0, p) };
+    saveBillVisit();
+    renderTotals();
   });
   renderBillCheck();
+  renderTotals();
+}
+// ---------- Fooi ----------
+function billCents(v) { return typeof v.billAmount === 'number' ? Math.round(v.billAmount * 100) : null; }
+// Fooi in centen; procent van de rekening van het restaurant als die is ingevuld, anders van onze telling
+function tipCents(v) {
+  const t = v && v.tip;
+  if (!t) return 0;
+  if (typeof t.pct === 'number') {
+    const b = billCents(v);
+    return Math.round((b !== null ? b : cents(visitTotal(v))) * t.pct / 100);
+  }
+  return Math.max(0, cents(t.amount));
+}
+function tipText(v) {
+  const t = v && v.tip;
+  if (!t) return 'Geen fooi';
+  return 'Fooi' + (typeof t.pct === 'number' ? ' ' + t.pct + '%' : '') + ': ' + formatEuro(tipCents(v) / 100);
+}
+function tipBoxHtml(v, editable) {
+  const t = v.tip;
+  const mode = !t ? 'none' : typeof t.pct === 'number' ? String(t.pct) : 'own';
+  let h = '<div class="tip-box" id="tipBox"><div class="tip-head"><span class="persons-lbl">Fooi</span><span class="tip-line" id="tipLine"></span></div>';
+  if (editable) {
+    h += '<div class="tip-btns" role="group" aria-label="Fooi kiezen">' +
+      [['none', 'Geen'], ['5', '5%'], ['10', '10%'], ['15', '15%'], ['own', 'Eigen bedrag']].map(o =>
+        '<button type="button" class="tip-btn' + (o[0] === 'own' ? ' wide' : '') + (mode === o[0] ? ' on' : '') + '" data-tip="' + o[0] + '">' + o[1] + '</button>').join('') + '</div>';
+    if (mode === 'own') h += '<input type="text" id="tipAmount" inputmode="decimal" autocomplete="off" placeholder="Fooi in euro, bijv. 5,00" aria-label="Eigen bedrag fooi" value="' + (t.amount ? escapeHtml(priceToInput(t.amount)) : '') + '">';
+  }
+  return h + '<div class="small-text" id="tipBase"></div></div>';
+}
+function renderTotals() {
+  const v = billVisit();
+  if (!v || !document.getElementById('grandAmt')) { renderPerPerson(); return; }
+  const mine = cents(visitTotal(v)), tip = tipCents(v), b = billCents(v);
+  document.getElementById('tipLine').textContent = tipText(v);
+  let base = '';
+  if (v.tip && typeof v.tip.pct === 'number') base = v.tip.pct + '% van ' + (b !== null ? 'de rekening van het restaurant (' + formatEuro(b / 100) + ')' : 'je telling (' + formatEuro(mine / 100) + ')');
+  document.getElementById('tipBase').textContent = base;
+  document.getElementById('grandLbl').textContent = tip ? 'Te betalen incl. fooi' : 'Totaal';
+  document.getElementById('grandAmt').textContent = formatEuro((mine + tip) / 100);
+  let sub = tip ? formatEuro(mine / 100) + ' + fooi ' + formatEuro(tip / 100) : '';
+  if (tip && b !== null && b !== mine) sub += ' · volgens rekening restaurant: ' + formatEuro((b + tip) / 100);
+  document.getElementById('grandSub').textContent = sub;
   renderPerPerson();
+}
+document.getElementById('billView').addEventListener('click', e => {
+  const btn = e.target.closest('[data-tip]');
+  if (!btn) return;
+  const v = billVisit();
+  if (!v) return;
+  const m = btn.getAttribute('data-tip');
+  if (m === 'none') delete v.tip;
+  else if (m === 'own') v.tip = { amount: v.tip && typeof v.tip.amount === 'number' ? v.tip.amount : 0 };
+  else v.tip = { pct: Number(m) };
+  saveBillVisit();
+  const y = window.scrollY;
+  renderBill();
+  if (isShown('tab-geschiedenis')) renderHistory();
+  window.scrollTo(0, y);
+  const ta = document.getElementById('tipAmount');
+  if (m === 'own' && ta) ta.focus();
+});
+function goToTip() {
+  if (!currentVisit) return;
+  openBill(null);
+  setTimeout(() => { const t = document.getElementById('tipBox'); if (t) t.scrollIntoView({ block: 'center' }); }, 30);
 }
 // ---------- Aantal personen en bedrag per persoon ----------
 const MAX_PERSONS = 50;
@@ -1564,17 +1774,20 @@ function renderPerPerson() {
   const v = billVisit();
   if (!el || !v) return;
   const n = visitPersons(v);
-  const mine = cents(visitTotal(v));
+  const tip = tipCents(v), inc = tip ? ', incl. fooi' : '';
+  const mine0 = cents(visitTotal(v));
+  const mine = mine0 + tip;
   const hasBill = typeof v.billAmount === 'number';
-  const rest = hasBill ? Math.round(v.billAmount * 100) : null;
-  if (!hasBill || rest === mine) {
-    el.innerHTML = ppBoxHtml('Per persoon:', mine, n, '') +
+  const rest0 = hasBill ? Math.round(v.billAmount * 100) : null;
+  const rest = hasBill ? rest0 + tip : null;
+  if (!hasBill || rest0 === mine0) {
+    el.innerHTML = ppBoxHtml(tip ? 'Per persoon (incl. fooi):' : 'Per persoon:', mine, n, '') +
       (hasBill ? '<p class="small-text">Dit klopt met de rekening van het restaurant.</p>'
                : '<p class="small-text">Op basis van onze telling. Vul hieronder het bedrag van het restaurant in, dan rekenen we dat ook uit.</p>');
   } else {
-    el.innerHTML = ppBoxHtml('Per persoon (volgens rekening restaurant):', rest, n, 'rest') +
+    el.innerHTML = ppBoxHtml('Per persoon (volgens rekening restaurant' + inc + '):', rest, n, 'rest') +
       '<p class="small-text">Dit is wat ieder echt betaalt.</p>' +
-      ppBoxHtml('Per persoon (volgens onze telling):', mine, n, '');
+      ppBoxHtml('Per persoon (volgens onze telling' + inc + '):', mine, n, '');
   }
 }
 function setPersons(n) {
@@ -1605,7 +1818,7 @@ function renderBillCheck() {
   if (!el || !v) return;
   if (typeof v.billAmount !== 'number') { el.innerHTML = ''; return; }
   const diff = Math.round(v.billAmount * 100) - cents(visitTotal(v));
-  const mine = formatEuro(visitTotal(v));
+  const mine = formatEuro(visitTotal(v)) + (tipCents(v) ? ', zonder fooi' : '');
   if (diff === 0) el.innerHTML = '<div class="check-result ok">✓ Klopt<span class="small">De rekening is gelijk aan jouw telling (' + mine + ').</span></div>';
   else if (diff > 0) el.innerHTML = '<div class="check-result diff">Rekening is ' + formatEuro(diff / 100) + ' hoger' +
     '<span class="small">dan jouw telling (' + mine + '). Kijk welke regel niet klopt.</span></div>';
@@ -1662,7 +1875,7 @@ function changeTextSize(d) {
 }
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '7';
+const APP_VERSION = '8';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
