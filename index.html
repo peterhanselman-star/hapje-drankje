@@ -20,14 +20,16 @@
   }
   .header { 
     background: #1a73e8; color: white; padding: 12px 16px 10px; text-align: center; 
-    position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     padding-top: calc(12px + env(safe-area-inset-top));
   }
   .header h1 { margin: 0 0 4px; font-size: 22px; font-weight: 700; }
   .total-display { font-size: 36px; font-weight: 800; letter-spacing: -1px; }
   .total-label { font-size: 14px; opacity: 0.9; }
-  .tabs { display: flex; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 99; }
-  .tab { flex: 1; padding: 14px 4px; text-align: center; font-size: 14px; font-weight: 600; background: none; border: none; color: #666; }
+  .topbar { position: sticky; top: 0; z-index: 100; }
+  .tabs { display: flex; background: white; border-bottom: 1px solid #ddd; }
+  .tab { flex: 1; min-width: 0; padding: 8px 1px 9px; text-align: center; font-size: 13px; font-weight: 700; background: none; border: none; color: #555; line-height: 1.15; }
+  .tab .ic { display: block; font-size: 21px; line-height: 1.2; margin-bottom: 1px; }
   .tab.active { color: #1a73e8; border-bottom: 3px solid #1a73e8; }
   .content { padding: 12px; max-width: 600px; margin: 0 auto; }
   .card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
@@ -49,7 +51,7 @@
   .item-name { font-weight: 600; }
   .item-price { font-weight: 700; color: #1a73e8; white-space: nowrap; }
   .photo-preview { max-width: 100%; border-radius: 10px; margin: 8px 0; display: block; }
-  .small-text { font-size: 14px; color: #666; margin-top: 2px; }
+  .small-text { font-size: 15px; color: #555; margin-top: 2px; }
   .section-title { font-size: 20px; font-weight: 700; margin: 8px 0 10px; }
   .hidden { display: none !important; }
   .estimate-badge { background: #ff9500; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
@@ -70,9 +72,9 @@
   .seg button.active { background: white; color: #1a73e8; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
   .edit-item { border: 1px solid #e3e8f0; border-radius: 12px; padding: 10px; margin-bottom: 10px; background: #fafbfd; }
   .edit-item input, .edit-item select { margin-bottom: 8px; padding: 12px; }
+  .edit-item input[data-f="name"] { font-size: 18px; font-weight: 600; }
   .edit-row { display: flex; gap: 8px; align-items: flex-start; }
-  .edit-row .price { flex: 0 0 34%; }
-  .edit-row .cat { flex: 1; }
+  .edit-row .price { flex: 1; min-width: 0; font-size: 18px; font-weight: 600; }
   .del-btn { flex: 0 0 48px; height: 48px; border: none; border-radius: 10px; background: #fde8e7; color: #d93025; font-size: 20px; font-weight: 700; }
   .progress { height: 12px; background: #e6e6e6; border-radius: 6px; overflow: hidden; margin: 10px 0 6px; }
   .progress > div { height: 100%; width: 0; background: #1a73e8; transition: width 0.3s; }
@@ -85,20 +87,57 @@
     background: rgba(30,30,30,0.92); color: white; padding: 14px 20px; border-radius: 14px; font-size: 16px; font-weight: 600;
     z-index: 200; max-width: 90%; text-align: center; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
   .toast.show { opacity: 1; }
+  /* v4: compacte categoriekeuze */
+  .cat-pills { display: inline-flex; flex: 0 0 auto; background: #f0f0f0; border-radius: 10px; padding: 3px; gap: 2px; height: 48px; align-items: center; }
+  .cat-pills button { min-width: 40px; height: 40px; border: none; background: none; border-radius: 8px; font-size: 20px; padding: 0 6px; color: #333; }
+  .cat-pills button.active { background: #d2e3fc; box-shadow: inset 0 0 0 2px #1a73e8; }
+  .cat-pills .lbl { font-size: 14px; font-weight: 600; margin-left: 3px; }
+  .add-row { display: flex; gap: 8px; align-items: flex-start; }
+  .add-row input { flex: 1; min-width: 0; }
+  .add-row .qty { flex: 0 0 76px; text-align: center; }
+  /* v4: voorlopige rekening */
+  .bill-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+  .bill-title { font-size: 22px; font-weight: 800; }
+  .bill { width: 100%; border-collapse: collapse; table-layout: fixed; font-variant-numeric: tabular-nums; }
+  .bill th { font-size: 14px; color: #555; font-weight: 700; text-align: right; padding: 6px 2px; border-bottom: 2px solid #1d1d1f; }
+  .bill th.l, .bill td.l { text-align: left; }
+  .bill td { font-size: 17px; padding: 9px 2px; border-bottom: 1px solid #e5e5e5; vertical-align: top; text-align: right; white-space: nowrap; }
+  .bill td.l { white-space: normal; word-break: break-word; overflow-wrap: anywhere; font-weight: 600; }
+  .bill td.tot { font-weight: 800; }
+  .bill col.c-tick { width: 38px; } .bill col.c-price { width: 56px; } .bill col.c-qty { width: 34px; } .bill col.c-tot { width: 68px; }
+  .card.bill-card { padding: 14px 12px; }
+  .bill td.qty, .bill th.qty { text-align: center; }
+  .bill tr.group td { font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #1a73e8; border-bottom: none; padding-top: 16px; text-align: left; }
+  .bill tr.sub td { font-weight: 700; color: #333; border-bottom: 2px solid #ccc; font-size: 16px; }
+  .bill tr.done td { background: #eaf7ed; }
+  .tick { width: 34px; height: 34px; border-radius: 8px; border: 2px solid #999; background: white; font-size: 20px; font-weight: 800; color: white; padding: 0; line-height: 1; }
+  .tick.on { background: #188038; border-color: #188038; }
+  .grand { display: flex; justify-content: space-between; align-items: baseline; border-top: 3px double #1d1d1f; margin-top: 12px; padding-top: 12px; }
+  .grand .lbl { font-size: 20px; font-weight: 800; }
+  .grand .amt { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
+  .check-result { border-radius: 12px; padding: 14px; font-size: 20px; font-weight: 800; text-align: center; margin-top: 4px; }
+  .check-result.ok { background: #e6f4ea; color: #137333; }
+  .check-result.diff { background: #fdeee0; color: #b3261e; }
+  .check-result .small { display: block; font-size: 15px; font-weight: 600; margin-top: 4px; color: #333; }
+  .history-item { display: block; width: 100%; text-align: left; border: none; font-size: 17px; color: #1d1d1f; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
+  .history-item:active { background: #eef3fd; }
   .notice { background: #fff4e5; border-radius: 10px; padding: 10px 12px; font-size: 15px; margin-bottom: 10px; }
 </style>
 </head>
 <body>
+<div class="topbar">
 <div class="header">
   <h1>Hapje/Drankje</h1>
   <div class="total-label">Lopende totaal</div>
   <div class="total-display" id="totalDisplay">€ 0,00</div>
 </div>
 <div class="tabs">
-  <button class="tab active" data-tab="overzicht" onclick="showTab('overzicht')">Overzicht</button>
-  <button class="tab" data-tab="toevoegen" onclick="showTab('toevoegen')">Toevoegen</button>
-  <button class="tab" data-tab="fotos" onclick="showTab('fotos')">Foto's</button>
-  <button class="tab" data-tab="geschiedenis" onclick="showTab('geschiedenis')">Geschiedenis</button>
+  <button class="tab active" data-tab="overzicht" onclick="showTab('overzicht')"><span class="ic">🏠</span>Overzicht</button>
+  <button class="tab" data-tab="toevoegen" onclick="showTab('toevoegen')"><span class="ic">➕</span>Toevoegen</button>
+  <button class="tab" data-tab="rekening" onclick="openBill(null)"><span class="ic">🧾</span>Rekening</button>
+  <button class="tab" data-tab="fotos" onclick="showTab('fotos')"><span class="ic">📷</span>Foto's</button>
+  <button class="tab" data-tab="geschiedenis" onclick="showTab('geschiedenis')"><span class="ic">🕘</span>Eerder</button>
+</div>
 </div>
 <div class="content">
   <div id="tab-overzicht">
@@ -113,6 +152,7 @@
       <div id="itemsList" style="margin-top:12px;"></div>
       <button class="big-button secondary" onclick="startNewVisit()" id="newVisitBtn">Nieuw restaurantbezoek starten</button>
       <button class="big-button secondary" onclick="showTab('toevoegen')" id="toAddBtn" style="display:none;">+ Iets bestellen</button>
+      <button class="big-button secondary" onclick="openBill(null)" id="toBillBtn" style="display:none;">🧾 Voorlopige rekening bekijken</button>
       <button class="big-button" onclick="finishVisit()" id="finishBtn" style="display:none;">Bezoek afronden</button>
     </div>
   </div>
@@ -175,13 +215,15 @@
     <div class="card">
       <div class="section-title">Item toevoegen</div>
       <input type="text" id="itemName" placeholder="Naam van het gerecht of drankje">
-      <input type="text" id="itemPrice" placeholder="Prijs in euro's (bijv. 12,50)" inputmode="decimal" autocomplete="off">
-      <select id="itemCategory">
-        <option value="eten">Eten</option>
-        <option value="drinken">Drinken</option>
-        <option value="extra">Buiten de kaart / extra</option>
-      </select>
-      <input type="number" id="itemQty" value="1" min="1" placeholder="Aantal" inputmode="numeric">
+      <div class="add-row">
+        <input type="text" id="itemPrice" placeholder="Prijs (bijv. 12,50)" inputmode="decimal" autocomplete="off">
+        <input class="qty" type="number" id="itemQty" value="1" min="1" placeholder="Aantal" inputmode="numeric" aria-label="Aantal">
+      </div>
+      <div class="cat-host" style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+        <span class="small-text" style="margin:0;">Soort:</span>
+        <input type="hidden" id="itemCategory" value="eten">
+        <span id="itemCatPills"></span>
+      </div>
       <button class="big-button" onclick="addItem()">Toevoegen aan rekening</button>
     </div>
     <div class="card">
@@ -190,6 +232,9 @@
       <input type="text" id="quickPrice" placeholder="Prijs" inputmode="decimal" autocomplete="off">
       <button class="big-button secondary" onclick="addQuickItem()">Snel toevoegen</button>
     </div>
+  </div>
+  <div id="tab-rekening" class="hidden">
+    <div id="billView"></div>
   </div>
   <div id="tab-fotos" class="hidden">
     <div class="card">
@@ -202,6 +247,7 @@
   </div>
   <div id="tab-geschiedenis" class="hidden">
     <div class="section-title">Eerdere bezoeken</div>
+    <p class="small-text" style="margin-top:-4px;">Tik op een bezoek om de rekening te bekijken.</p>
     <div id="historyList"></div>
     <button class="big-button secondary" onclick="clearAllHistory()">Alles wissen</button>
   </div>
@@ -517,6 +563,31 @@ function parsePrice(str) {
   if (!/^\d*\.?\d+$|^\d+\.$/.test(s)) return NaN;
   return Math.round(parseFloat(s) * 100) / 100;
 }
+const CATS = [['eten', '🍽', 'Eten'], ['drinken', '🥤', 'Drinken'], ['extra', '➕', 'Extra']];
+// Kleine keuzeknopjes 🍽 / 🥤 / ➕ in plaats van een groot keuzeveld
+function catPillsHtml(cat, withLabels) {
+  cat = cat || 'eten';
+  return '<span class="cat-pills" role="group" aria-label="Soort">' + CATS.map(c =>
+    '<button type="button" data-cat="' + c[0] + '" class="' + (c[0] === cat ? 'active' : '') + '" aria-label="' + c[2] + '" title="' + c[2] + '">' + c[1] +
+    (withLabels && c[0] === cat ? '<span class="lbl">' + c[2] + '</span>' : '') + '</button>').join('') + '</span>';
+}
+// Klik op een pill: verborgen veld ernaast bijwerken
+document.addEventListener('click', e => {
+  const b = e.target.closest('.cat-pills button[data-cat]');
+  if (!b) return;
+  const group = b.parentNode;
+  const host = b.closest('.edit-row') || b.closest('.cat-host');
+  const hidden = host ? host.querySelector('input[type="hidden"]') : null;
+  const cat = b.getAttribute('data-cat');
+  if (hidden) hidden.value = cat;
+  const withLabels = !!group.querySelector('.lbl');
+  group.outerHTML = catPillsHtml(cat, withLabels);
+});
+function renderItemCatPills() {
+  document.getElementById('itemCatPills').innerHTML = catPillsHtml(document.getElementById('itemCategory').value, true);
+}
+function cents(x) { return Math.round((Number(x) || 0) * 100); }
+function visitTotal(v) { return (v && v.items ? v.items : []).reduce((s, it) => s + cents(it.price) * (Number(it.qty) || 1), 0) / 100; }
 function categoryLabel(c) { return c === 'drinken' ? 'Drinken' : c === 'extra' ? 'Extra' : 'Eten'; }
 function saveData() { 
   try {
@@ -539,8 +610,7 @@ function showToast(msg) {
 }
 function updateTotal() {
   if (!currentVisit) { document.getElementById('totalDisplay').textContent = '€ 0,00'; return; }
-  const total = currentVisit.items.reduce((sum, item) => sum + (Number(item.price) * Number(item.qty)), 0);
-  document.getElementById('totalDisplay').textContent = formatEuro(total);
+  document.getElementById('totalDisplay').textContent = formatEuro(visitTotal(currentVisit));
 }
 function renderCurrentVisit(skipMenuCard) {
   const nameEl = document.getElementById('visitName');
@@ -556,6 +626,7 @@ function renderCurrentVisit(skipMenuCard) {
     itemsEl.innerHTML = '<p class="small-text">Start een nieuw bezoek om te beginnen.</p>';
     finishBtn.style.display = 'none';
     toAddBtn.style.display = 'none';
+    document.getElementById('toBillBtn').style.display = 'none';
     newBtn.style.display = 'block';
     badge.style.display = 'none';
     updateTotal();
@@ -583,9 +654,11 @@ function renderCurrentVisit(skipMenuCard) {
   }
   finishBtn.style.display = 'block';
   toAddBtn.style.display = 'block';
+  document.getElementById('toBillBtn').style.display = currentVisit.items.length ? 'block' : 'none';
   newBtn.style.display = 'none';
   updateTotal();
   if (!skipMenuCard) renderMenuCard();
+  if (!document.getElementById('tab-rekening').classList.contains('hidden')) renderBill();
 }
 document.getElementById('itemsList').addEventListener('click', e => {
   const btn = e.target.closest('button[data-act]');
@@ -861,11 +934,7 @@ function renderReview() {
     <input type="text" data-f="name" value="${escapeHtml(it.name)}" placeholder="Naam gerecht">
     <div class="edit-row">
       <input class="price" type="text" inputmode="decimal" data-f="price" value="${it.price === '' || it.price == null ? '' : escapeHtml(priceToInput(it.price))}" placeholder="Prijs">
-      <select class="cat" data-f="category">
-        <option value="eten"${it.category === 'eten' ? ' selected' : ''}>Eten</option>
-        <option value="drinken"${it.category === 'drinken' ? ' selected' : ''}>Drinken</option>
-        <option value="extra"${it.category === 'extra' ? ' selected' : ''}>Extra</option>
-      </select>
+      <input type="hidden" data-f="category" value="${escapeHtml(it.category || 'eten')}">${catPillsHtml(it.category, false)}
       <button class="del-btn" data-del="${i}" aria-label="Verwijderen">✕</button>
     </div></div>`).join('');
 }
@@ -1049,6 +1118,8 @@ function addItem() {
   document.getElementById('itemName').value = '';
   document.getElementById('itemPrice').value = '';
   document.getElementById('itemQty').value = '1';
+  document.getElementById('itemCategory').value = 'eten';
+  renderItemCatPills();
   renderCurrentVisit();
   showTab('overzicht');
 }
@@ -1068,6 +1139,7 @@ function finishVisit() {
   if (!currentVisit) return;
   if (!confirm('Bezoek afronden en opslaan?')) return;
   currentVisit.finished = true;
+  currentVisit.finishedAt = new Date().toISOString();
   visits.unshift(currentVisit);
   currentVisit = null;
   saveData();
@@ -1085,6 +1157,7 @@ function showTab(tab) {
   if (tab === 'fotos') renderPhotos();
   if (tab === 'geschiedenis') renderHistory();
   if (tab === 'toevoegen') renderMenuCard();
+  if (tab === 'rekening') renderBill();
 }
 function handlePhotos(input) {
   const files = Array.from(input.files);
@@ -1126,13 +1199,119 @@ function renderHistory() {
     return;
   }
   visits.forEach(v => {
-    const total = (v.items || []).reduce((s, it) => s + it.price * it.qty, 0);
-    const div = document.createElement('div');
+    const total = visitTotal(v);
+    const div = document.createElement('button');
     div.className = 'history-item';
-    div.innerHTML = `<div style="font-weight:700;">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Inschatting' : ''}</div><div style="margin-top:6px; font-weight:700; color:#1a73e8;">${formatEuro(total)}</div>`;
+    div.setAttribute('data-visit', String(v.id));
+    let check = '';
+    if (typeof v.billAmount === 'number') {
+      const d = Math.round(v.billAmount * 100) - cents(total);
+      check = d === 0 ? ' · <span style="color:#137333; font-weight:700;">Klopt ✓</span>' : ' · <span style="color:#b3261e; font-weight:700;">Verschil ' + formatEuro(Math.abs(d) / 100) + '</span>';
+    }
+    div.innerHTML = `<div style="font-weight:700;">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Inschatting' : ''}</div><div style="margin-top:6px; display:flex; justify-content:space-between; align-items:baseline;"><span style="font-weight:800; font-size:19px; color:#1a73e8;">${formatEuro(total)}${check}</span><span style="color:#1a73e8; font-weight:600;">Rekening ›</span></div>`;
     list.appendChild(div);
   });
 }
+document.getElementById('historyList').addEventListener('click', e => {
+  const b = e.target.closest('[data-visit]');
+  if (b) openBill(b.getAttribute('data-visit'));
+});
+
+// ---------- Voorlopige rekening (pro forma) ----------
+let billVisitId = null; // null = huidig bezoek, anders id van een afgerond bezoek
+function billVisit() {
+  if (billVisitId === null) return currentVisit;
+  return visits.filter(v => String(v.id) === String(billVisitId))[0] || null;
+}
+function openBill(visitId) {
+  billVisitId = visitId === null || visitId === undefined ? null : visitId;
+  showTab('rekening');
+}
+function saveBillVisit() { saveData(); }
+function renderBill() {
+  const box = document.getElementById('billView');
+  const v = billVisit();
+  const fromHistory = billVisitId !== null;
+  if (!v) {
+    box.innerHTML = '<div class="card"><div class="section-title">Voorlopige rekening</div><p class="small-text">Er is geen actief bezoek. Start een nieuw bezoek, of kies bij <b>Eerder</b> een afgerond bezoek om de rekening te bekijken.</p>' +
+      '<button class="big-button secondary" onclick="showTab(\'geschiedenis\')">Eerdere bezoeken</button></div>';
+    return;
+  }
+  const items = v.items || [];
+  let html = '<div class="card bill-card">';
+  if (fromHistory) html += '<button class="link-button" style="padding-top:0;" onclick="showTab(\'geschiedenis\')">← Terug naar eerdere bezoeken</button>';
+  html += '<div class="bill-head"><div><div class="small-text" style="margin:0;">Voorlopige rekening</div><div class="bill-title">' + escapeHtml(v.name || 'Restaurantbezoek') + '</div>' +
+    '<div class="small-text">' + escapeHtml(new Date(v.date).toLocaleString('nl-NL')) + (fromHistory ? ' · afgerond' : '') + '</div></div>' +
+    (v.isEstimate ? '<span class="estimate-badge" style="font-size:14px; margin-top:4px;">Inschatting</span>' : '') + '</div>';
+  if (!items.length) {
+    html += '<p class="small-text">Nog niets besteld.</p></div>';
+    box.innerHTML = html;
+    return;
+  }
+  html += '<table class="bill"><colgroup><col class="c-tick"><col><col class="c-price"><col class="c-qty"><col class="c-tot"></colgroup>' +
+    '<thead><tr><th class="l" aria-label="Afgevinkt">✓</th><th class="l">Item</th><th>Prijs</th><th class="qty">Aantal</th><th>Totaal</th></tr></thead><tbody>';
+  let ticked = 0;
+  CATS.forEach(c => {
+    const rows = [];
+    let sub = 0;
+    items.forEach((it, idx) => {
+      if ((it.category || 'eten') !== c[0]) return;
+      const q = Number(it.qty) || 1;
+      const lineCents = cents(it.price) * q;
+      sub += lineCents;
+      if (it.checked) ticked++;
+      rows.push('<tr class="' + (it.checked ? 'done' : '') + '"><td class="l"><button class="tick' + (it.checked ? ' on' : '') + '" data-tick="' + idx + '" aria-label="Afvinken">' + (it.checked ? '✓' : '') + '</button></td>' +
+        '<td class="l">' + escapeHtml(it.name) + '</td><td>' + priceToInput(it.price) + '</td><td class="qty">' + q + '</td><td class="tot">' + priceToInput(lineCents / 100) + '</td></tr>');
+    });
+    if (!rows.length) return;
+    html += '<tr class="group"><td colspan="5">' + c[1] + ' ' + (c[0] === 'extra' ? 'Extra / buiten de kaart' : c[2]) + '</td></tr>' + rows.join('') +
+      '<tr class="sub"><td></td><td class="l" colspan="2">Subtotaal ' + c[2].toLowerCase() + '</td><td colspan="2">' + formatEuro(sub / 100) + '</td></tr>';
+  });
+  const total = visitTotal(v);
+  const pieces = items.reduce((s, it) => s + (Number(it.qty) || 1), 0);
+  html += '</tbody></table><div class="small-text" style="margin-top:6px;">Bedragen in euro\'s.</div>';
+  html += '<div class="grand"><span class="lbl">Totaal</span><span class="amt">' + formatEuro(total) + '</span></div>';
+  html += '<div class="small-text" style="text-align:right;">' + pieces + ' stuks · ' + ticked + ' van ' + items.length + ' regels afgevinkt</div>';
+  html += '</div>';
+  // Vergelijken met de echte rekening
+  html += '<div class="card"><label class="section-title" for="billAmount" style="display:block; font-size:19px;">Bedrag op de rekening van het restaurant</label>' +
+    '<input type="text" id="billAmount" inputmode="decimal" autocomplete="off" placeholder="bijv. 54,50" style="font-size:22px; font-weight:700;" value="' +
+    (typeof v.billAmount === 'number' ? escapeHtml(priceToInput(v.billAmount)) : '') + '">' +
+    '<div id="billCheck"></div>' +
+    '<p class="small-text">Vink tijdens het vergelijken elke regel af die ook op de rekening van het restaurant staat.</p></div>';
+  box.innerHTML = html;
+  document.getElementById('billAmount').addEventListener('input', e => {
+    const p = parsePrice(e.target.value);
+    const vv = billVisit();
+    if (!vv) return;
+    if (e.target.value.trim() === '' || isNaN(p)) delete vv.billAmount; else vv.billAmount = p;
+    saveBillVisit();
+    renderBillCheck();
+  });
+  renderBillCheck();
+}
+function renderBillCheck() {
+  const el = document.getElementById('billCheck');
+  const v = billVisit();
+  if (!el || !v) return;
+  if (typeof v.billAmount !== 'number') { el.innerHTML = ''; return; }
+  const diff = Math.round(v.billAmount * 100) - cents(visitTotal(v));
+  if (diff === 0) el.innerHTML = '<div class="check-result ok">Klopt ✓<span class="small">De rekening is gelijk aan jouw telling.</span></div>';
+  else el.innerHTML = '<div class="check-result diff">Verschil: ' + formatEuro(Math.abs(diff) / 100) +
+    '<span class="small">De rekening is ' + formatEuro(Math.abs(diff) / 100) + ' ' + (diff > 0 ? 'hóger' : 'lager') + ' dan jouw telling (' + formatEuro(visitTotal(v)) + ').</span></div>';
+}
+document.getElementById('billView').addEventListener('click', e => {
+  const b = e.target.closest('[data-tick]');
+  if (!b) return;
+  const v = billVisit();
+  const it = v && v.items[Number(b.getAttribute('data-tick'))];
+  if (!it) return;
+  if (it.checked) delete it.checked; else it.checked = true;
+  saveBillVisit();
+  const y = window.scrollY;
+  renderBill();
+  window.scrollTo(0, y);
+});
 function clearAllHistory() {
   if (!confirm('Alle bezoeken en foto\'s wissen? Dit kan niet ongedaan worden gemaakt.\n(Bewaarde menukaarten blijven bewaard.)')) return;
   visits = [];
@@ -1146,6 +1325,7 @@ function clearAllHistory() {
   renderHistory();
   renderPhotos();
 }
+renderItemCatPills();
 renderCurrentVisit();
 renderHistory();
 migrateOldPhotos().then(loadPhotos).then(renderPhotos);
