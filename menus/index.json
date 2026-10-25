@@ -1,0 +1,11 @@
+{
+  "menus": [
+    {
+      "id": "verlan-amsterdam",
+      "name": "Verlan Amsterdam",
+      "place": "Amsterdam",
+      "retrieved": "2026-10-25",
+      "file": "menus/verlan-amsterdam.json"
+    }
+  ]
+}
