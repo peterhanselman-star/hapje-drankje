@@ -242,6 +242,17 @@
   .web-note.card-note { background: #e6f4ea; border-color: #188038; color: #0b5e24; }
   .web-btn .wb-sub.wb-newer { color: #8a3b00; }
   .new-card-btn { margin-top: 0.2rem; }
+  /* v12: naam en prijs direct op de kaart veranderen */
+  .menu-tip { font-size: 0.95rem; color: #333; margin: 0 0 0.45rem; }
+  .or-pen { color: #6b6f76; font-weight: 400; font-size: 0.95rem; margin-left: 0.35rem; }
+  .order-row.inline-edit { display: block; background: #fff8e1; border-color: #b06000; box-shadow: inset 0.35rem 0 0 #b06000; padding: 0.5rem 0.6rem 0.6rem; }
+  .inline-edit .ie-lbl { display: block; font-size: 0.95rem; font-weight: 800; color: #333; margin: 0.15rem 0 0.15rem; }
+  .inline-edit input { font-size: 1.15rem; min-height: 2.9rem; }
+  .inline-edit input.ie-name { font-weight: 800; }
+  .inline-edit input.ie-price { max-width: 10rem; font-weight: 800; }
+  .inline-edit .ie-msg { font-size: 1rem; font-weight: 800; color: #a1150c; background: #fdecea; border-radius: 0.4rem; padding: 0.35rem 0.5rem; margin: 0 0 0.5rem; }
+  .inline-edit .dlg-btns { flex-wrap: wrap; }
+  .inline-edit .dlg-btns .big-button { min-height: 3rem; flex: 1 1 6rem; }
 </style>
 </head>
 <body>
@@ -932,6 +943,7 @@ function renderCurrentVisit(skipMenuCard) {
 // ---------- Nieuw bezoek: menukaart kiezen (daarna direct de bestelkaart) ----------
 let menuEditMode = false;
 let newMenuItems = []; // in de aanpas-stand net toegevoegde gerechten (staan bovenaan tot 'Klaar')
+let inlineEdit = null; // v12: { mi, focus:'name'|'price', dName, dPrice, msg } – één regel op Bestellen in de veranderstand
 let orderNotice = '';
 function startNewVisit() {
   if (currentVisit && !confirm('Er loopt al een bezoek. Toch een nieuw bezoek starten? Het huidige bezoek wordt dan niet opgeslagen.')) return;
@@ -1762,6 +1774,7 @@ function renderMenuCard() {
       '<div id="menuList"></div>';
   } else {
     html += '<button class="big-button new-card-btn" id="newCardBtn" onclick="pickNewCard()">📷 Nieuwe kaart (foto of PDF)</button>' +
+      '<p class="menu-tip" id="menuTip">Tik op een naam of prijs om die te veranderen.</p>' +
       searchHtml + jumpHtml +
       '<div id="menuList"></div>' +
       '<button class="big-button secondary" id="moreMenuBtn" onclick="document.getElementById(\'moreMenuInput\').click()">➕ Nog een foto of PDF bij deze kaart</button>';
@@ -1830,6 +1843,8 @@ function renderMenuList() {
     list.innerHTML = h;
     return;
   }
+  keepInlineDraft();
+  if (inlineEdit && menu.indexOf(inlineEdit.mi) < 0) inlineEdit = null;
   const groups = menuGroups(menu);
   let html = '', shown = 0;
   const parts = { drinken: '', extra: '' };
@@ -1841,9 +1856,10 @@ function renderMenuList() {
       if (q && String(mi.name).toLowerCase().indexOf(q) < 0) return;
       const priced = mi.price !== '' && mi.price != null && !isNaN(Number(mi.price));
       const c = priced ? orderedCount(mi) : 0;
-      rows.push(`<div class="order-row${c ? ' ordered' : ''}" data-row="${idx}"><button type="button" class="or-name" data-madd="${idx}">${escapeHtml(mi.name)}</button>` +
-        `<div class="or-line">` + (priced ? `<button type="button" class="or-price" data-madd="${idx}">${formatEuro(mi.price)}</button>` + qtyCtlHtml(c, 'data-qm="' + idx + '"')
-          : `<button type="button" class="or-price unpriced" data-madd="${idx}">Prijs ontbreekt – tik hier</button>`) + `</div></div>`);
+      if (inlineEdit && inlineEdit.mi === mi) { rows.push(inlineEditHtml(mi, idx, c)); return; }
+      rows.push(`<div class="order-row${c ? ' ordered' : ''}" data-row="${idx}"><button type="button" class="or-name" data-medit="${idx}" data-ef="name" aria-label="${escapeHtml(mi.name)} – tik om te veranderen">${escapeHtml(mi.name)}</button>` +
+        `<div class="or-line">` + (priced ? `<button type="button" class="or-price" data-medit="${idx}" data-ef="price" aria-label="Prijs ${formatEuro(mi.price)} – tik om te veranderen">${formatEuro(mi.price)}<span class="or-pen" aria-hidden="true">✎</span></button>` + qtyCtlHtml(c, 'data-qm="' + idx + '"')
+          : `<button type="button" class="or-price unpriced" data-medit="${idx}" data-ef="price">Prijs ontbreekt – tik hier</button>`) + `</div></div>`);
     });
     if (!rows.length) return;
     const part = '<div class="menu-group" id="grp-' + g[0] + '">' + escapeHtml(g[1]) + '</div>' + rows.join('');
@@ -1863,6 +1879,111 @@ function renderMenuList() {
   if (offRows.length) html += '<div class="menu-group" id="grp-los">Besteld, niet (meer) op de kaart</div><p class="small-text dr-hint">Deze regels staan op de rekening met hun eigen naam en prijs.</p>' + offRows.join('');
   list.innerHTML = html;
 }
+// ---------- v12: naam en prijs direct op de kaart veranderen ----------
+function inlineEditHtml(mi, idx, c) {
+  const e = inlineEdit;
+  const nameV = e.dName != null ? e.dName : mi.name;
+  const priceV = e.dPrice != null ? e.dPrice : (mi.price === '' || mi.price == null || isNaN(Number(mi.price)) ? '' : priceToInput(mi.price));
+  return `<div class="order-row inline-edit${c ? ' ordered' : ''}" data-row="${idx}" id="inlineEdit">` +
+    `<label class="ie-lbl" for="ieName">Naam</label><input type="text" class="ie-name" id="ieName" autocomplete="off" enterkeyhint="done" value="${escapeHtml(nameV)}" placeholder="Naam gerecht of drankje">` +
+    `<label class="ie-lbl" for="iePrice">Prijs in €</label><input type="text" class="ie-price" id="iePrice" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="${escapeHtml(priceV)}" placeholder="bv. 12,50">` +
+    (e.msg ? `<p class="ie-msg" id="ieMsg" role="alert">${escapeHtml(e.msg)}</p>` : '') +
+    `<div class="dlg-btns"><button type="button" class="big-button" data-ie="save" id="ieSave">✓ Klaar</button><button type="button" class="big-button secondary" data-ie="cancel" id="ieCancel">Annuleer</button></div></div>`;
+}
+function keepInlineDraft() {
+  if (!inlineEdit) return;
+  const n = document.getElementById('ieName'), p = document.getElementById('iePrice');
+  if (n) inlineEdit.dName = n.value;
+  if (p) inlineEdit.dPrice = p.value;
+}
+function focusInline(which) {
+  const el = document.getElementById(which === 'price' ? 'iePrice' : 'ieName');
+  if (!el) return;
+  el.focus();
+  try { if (which === 'price') el.select(); else el.setSelectionRange(el.value.length, el.value.length); } catch (e) {}
+  const r = document.getElementById('inlineEdit');
+  if (r) { const b = r.getBoundingClientRect(); if (b.top < 0 || b.bottom > window.innerHeight) r.scrollIntoView({ block: 'center' }); }
+}
+function openInlineEdit(idx, which) {
+  if (!currentVisit || menuEditMode) return;
+  const mi = (currentVisit.menu || [])[idx];
+  if (!mi) return;
+  const y = window.scrollY;
+  inlineEdit = { mi: mi, focus: which }; // een andere regel die open stond, gaat dicht (niet bewaard)
+  renderMenuList();
+  window.scrollTo(0, y);
+  focusInline(which);
+}
+function cancelInlineEdit() {
+  if (!inlineEdit) return;
+  const y = window.scrollY;
+  inlineEdit = null;
+  renderMenuList();
+  window.scrollTo(0, y);
+}
+// Bewaren zoals bij Aanpassen: kaart van het bezoek + bewaarde kaart, 'Eigen kaart, aangepast …'.
+// Al bestelde regels: nieuwe naam gaat mee (dan blijft het aantal bij − / + staan); de prijs alleen als je 'Ja' kiest.
+function saveInlineEdit() {
+  if (!inlineEdit || !currentVisit) return;
+  keepInlineDraft();
+  const e = inlineEdit, mi = e.mi;
+  const oldName = mi.name, oldPrice = mi.price;
+  const hadPrice = !(oldPrice === '' || oldPrice == null || isNaN(Number(oldPrice)));
+  let name = String(e.dName == null ? oldName : e.dName).trim();
+  const raw = String(e.dPrice == null ? '' : e.dPrice).trim();
+  let price = parsePrice(raw);
+  if (raw === '' && !hadPrice) price = '';
+  else if (isNaN(price) || price < 0 || price > 9999) {
+    e.msg = raw === '' ? 'Vul een prijs in, bijvoorbeeld 12,50.' : 'Dat is geen geldige prijs. Typ bijvoorbeeld 12,50.';
+    const y = window.scrollY; renderMenuList(); window.scrollTo(0, y); focusInline('price');
+    return;
+  }
+  const emptyName = !name;
+  if (emptyName) name = oldName;
+  const priceChanged = price !== oldPrice && !(hadPrice && Number(price) === Number(oldPrice));
+  const nameChanged = name !== oldName;
+  inlineEdit = null;
+  if (!priceChanged && !nameChanged) {
+    const y = window.scrollY; renderMenuList(); window.scrollTo(0, y);
+    if (emptyName) showToast('Naam mag niet leeg zijn – de oude naam blijft');
+    return;
+  }
+  const lines = hadPrice ? currentVisit.items.filter(it => sameDish(it, mi)) : [];
+  const qty = lines.reduce((s, it) => s + (Number(it.qty) || 1), 0);
+  mi.name = name; mi.price = price;
+  lines.forEach(it => { it.name = name; });
+  markHandEdited();
+  saveData();
+  syncRestaurant();
+  orderNotice = '';
+  const y = window.scrollY;
+  renderCurrentVisit(true);
+  renderMenuCard(); // notitie bovenaan ('✏️ Eigen kaart, aangepast …') bijwerken
+  window.scrollTo(0, y);
+  showToast(emptyName ? 'Naam mag niet leeg zijn – de oude naam blijft' : 'Bewaard op de kaart');
+  if (!priceChanged || !qty || price === '') return Promise.resolve(false);
+  return askBig('Ook de prijs van wat je al besteld hebt aanpassen?', {
+    sub: 'Je hebt ' + qty + '× ' + name + ' besteld voor ' + formatEuro(oldPrice) + '. Nieuwe prijs op de kaart: ' + formatEuro(price) + '.',
+    yes: 'Ja, ook wat besteld is wordt ' + formatEuro(price),
+    no: 'Nee, besteld blijft ' + formatEuro(oldPrice)
+  }).then(yes => {
+    if (yes) {
+      lines.forEach(it => { if (currentVisit.items.indexOf(it) >= 0) { it.price = Number(price); it.name = name; } });
+      saveData();
+      refreshAll();
+      showToast('Prijs aangepast, ook op de rekening');
+    }
+    return yes;
+  });
+}
+document.getElementById('menuCard').addEventListener('keydown', e => {
+  if (!e.target.closest || !e.target.closest('#inlineEdit')) return;
+  if (e.key === 'Enter') { e.preventDefault(); saveInlineEdit(); }
+  else if (e.key === 'Escape') { e.preventDefault(); cancelInlineEdit(); }
+});
+document.getElementById('menuCard').addEventListener('input', e => {
+  if (inlineEdit && inlineEdit.msg && e.target.id === 'iePrice') { inlineEdit.msg = ''; const m = document.getElementById('ieMsg'); if (m) m.remove(); }
+});
 // Waarden uit de aanpas-velden in de kaart zetten en meteen bij dit restaurant bewaren.
 // Al bestelde regels houden hun eigen naam en prijs (aanpassen kan op de rekening); alleen de soort gaat mee als naam en prijs gelijk blijven.
 function commitMenuEdits() {
@@ -1893,6 +2014,7 @@ function markHandEdited() {
 }
 function toggleMenuEdit() {
   if (!currentVisit) return;
+  inlineEdit = null;
   if (menuEditMode) {
     commitMenuEdits();
     currentVisit.menu = (currentVisit.menu || []).filter(it => String(it.name).trim());
@@ -1940,12 +2062,11 @@ document.getElementById('menuCard').addEventListener('click', e => {
     return;
   }
   if (e.target.closest('.cat-pills button[data-cat]')) { setTimeout(commitMenuEdits, 0); return; }
-  const add = e.target.closest('[data-madd]');
-  if (!add) return;
-  const mi = (currentVisit.menu || [])[Number(add.getAttribute('data-madd'))];
-  if (!mi) return;
-  if (mi.price === '' || mi.price == null || isNaN(Number(mi.price))) { showToast('Vul eerst de prijs in'); editCurrentMenu(); return; }
-  addMenuItemToBill(mi, add.getAttribute('data-madd'));
+  const ie = e.target.closest('[data-ie]');
+  if (ie) { if (ie.getAttribute('data-ie') === 'save') saveInlineEdit(); else cancelInlineEdit(); return; }
+  const ed = e.target.closest('[data-medit]');
+  if (!ed) return;
+  openInlineEdit(Number(ed.getAttribute('data-medit')), ed.getAttribute('data-ef') === 'price' ? 'price' : 'name');
 });
 function addMenuItemToBill(mi, rowIdx) {
   const existing = currentVisit.items.filter(it => sameDish(it, mi))[0];
@@ -2093,7 +2214,7 @@ function showTab(tab) {
   const btn = document.querySelector('.tab[data-tab="' + (tab === 'fotos' ? 'overzicht' : tab) + '"]');
   if (btn) btn.classList.add('active');
   window.scrollTo(0, 0);
-  if (tab !== 'toevoegen') { orderNotice = ''; if (menuEditMode) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); } }
+  if (tab !== 'toevoegen') { orderNotice = ''; inlineEdit = null; if (menuEditMode) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); } }
   if (tab === 'fotos') renderPhotos();
   if (tab === 'geschiedenis') renderHistory();
   if (tab === 'toevoegen') renderMenuCard();
@@ -2451,7 +2572,7 @@ function changeTextSize(d) {
 }
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '11';
+const APP_VERSION = '12';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
