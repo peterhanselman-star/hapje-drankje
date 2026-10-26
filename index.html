@@ -127,8 +127,17 @@
   .web-btn:disabled { opacity: 0.5; }
   .web-msg { font-size: 1.05rem; font-weight: 700; color: #111; margin: 0 0 0.5rem; }
   .web-note { background: #e8f0fe; border: 2px solid #0b57d0; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font-size: 1.05rem; font-weight: 800; color: #0b3d91; margin-bottom: 0.5rem; line-height: 1.35; }
-  .jump-bar { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0 0 0.5rem; }
-  .jump-bar button { flex: 1 1 auto; min-height: 3.25rem; border: 2px solid #0b57d0; background: #fff; color: #0b3d91; border-radius: 0.6rem; font-size: 1.05rem; font-weight: 800; padding: 0.3rem 0.6rem; }
+  /* v17: snelknoppen blijven bovenaan staan (onder de blauwe kop), één rij die zelf zijwaarts schuift */
+  .jump-bar { position: -webkit-sticky; position: sticky; top: var(--topbar-h, 0px); z-index: 60; display: flex; flex-wrap: nowrap; gap: 0.35rem;
+    overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; scrollbar-width: none;
+    background: white; margin: 0 -0.75rem 0.5rem; padding: 0.35rem 0.75rem; border-bottom: 2px solid #c9d4e6; box-shadow: 0 3px 6px -3px rgba(0,0,0,0.18); }
+  .jump-bar::-webkit-scrollbar { display: none; }
+  .jump-bar button { flex: 0 0 auto; min-height: max(52px, 2rem); border: 2px solid #0b57d0; background: #fff; color: #0b3d91; border-radius: 0.6rem;
+    font-size: min(1rem, 6vw); font-weight: 800; padding: 0.15rem 0.55rem; white-space: nowrap; line-height: 1.15; }
+  html .jump-bar button { min-height: max(52px, 2rem); } /* ook bij kleine letters (v16 zet daar 44px) */
+  .jump-bar button.on { background: #0b57d0; color: white; }
+  .jump-bar button.jb-top { background: #eef4ff; }
+  .jump-bar button.jb-top.on { background: #eef4ff; color: #0b3d91; }
   .confirm-text { font-size: 1.45rem; font-weight: 800; line-height: 1.35; color: #111; margin: 0 0 0.6rem; overflow-wrap: anywhere; }
   .dlg-btns.stack { flex-direction: column; } .dlg-btns.stack .big-button { margin-bottom: 0; }
   .head-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
@@ -1816,14 +1825,55 @@ function renderMenuCard() {
     if (hadFocus) { s.focus(); try { s.setSelectionRange(s.value.length, s.value.length); } catch(e) {} }
   } else menuSearch = '';
   renderMenuList();
+  syncTopbarHeight();
+  updateJumpActive();
 }
 document.getElementById('menuCard').addEventListener('click', e => {
   const b = e.target.closest('[data-jump]');
   if (!b) return;
   if (menuSearch) { if (menuEditMode) commitMenuEdits(); menuSearch = ''; const s = document.getElementById('menuSearch'); if (s) s.value = ''; renderMenuList(); }
-  const t = document.getElementById(b.getAttribute('data-jump'));
-  if (t) t.scrollIntoView({ block: 'start' });
+  const id = b.getAttribute('data-jump');
+  if (id === 'menuTop') { jumpLast = null; const c = document.getElementById('menuCard'); window.scrollTo(0, Math.max(0, c.getBoundingClientRect().top + window.pageYOffset - topbarHeight() - 4)); updateJumpActive(); return; }
+  const t = document.getElementById(id);
+  if (!t) return;
+  jumpLast = id;
+  const bar = document.getElementById('jumpBar');
+  const off = topbarHeight() + (bar ? bar.offsetHeight : 0) + 6;
+  window.scrollTo(0, Math.max(0, t.getBoundingClientRect().top + window.pageYOffset - off));
+  updateJumpActive();
 });
+// v17: hoogte van de blauwe kop (kan omslaan bij grote letters) → CSS-variabele voor de plakkende snelknoppen
+function topbarHeight() { const t = document.querySelector('.topbar'); return t ? t.getBoundingClientRect().height : 0; }
+function syncTopbarHeight() { document.documentElement.style.setProperty('--topbar-h', Math.round(topbarHeight()) + 'px'); }
+// v17: knop van het stuk dat nu in beeld is blauw maken
+var jumpLast = null, jumpRaf = 0;
+function updateJumpActive() {
+  const bar = document.getElementById('jumpBar');
+  if (!bar || !bar.offsetParent) return;
+  const line = bar.getBoundingClientRect().bottom + 12;
+  const btns = [...bar.querySelectorAll('[data-jump]')].filter(b => b.getAttribute('data-jump') !== 'menuTop');
+  let act = null;
+  btns.forEach(b => { const t = document.getElementById(b.getAttribute('data-jump')); if (t && t.getBoundingClientRect().top <= line) act = b; });
+  // onderaan de pagina kan het laatste stuk niet tot bovenaan schuiven: houd dan de aangetikte knop
+  const atEnd = window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight - 2;
+  if (atEnd && jumpLast) { const jb = btns.find(b => b.getAttribute('data-jump') === jumpLast), t = document.getElementById(jumpLast);
+    if (jb && t) { const r = t.getBoundingClientRect(); if (r.top >= line - 14 && r.top < window.innerHeight) act = jb; } }
+  const top = bar.querySelector('[data-jump="menuTop"]');
+  bar.querySelectorAll('[data-jump]').forEach(b => { b.classList.toggle('on', b === act); if (b === act) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+  if (top) top.classList.toggle('on', !act);
+  if (act) { // knop in beeld schuiven binnen de balk (niet de pagina)
+    const br = bar.getBoundingClientRect(), r = act.getBoundingClientRect();
+    if (r.left < br.left + 4) bar.scrollLeft += r.left - br.left - 40;
+    else if (r.right > br.right - 4) bar.scrollLeft += r.right - br.right + 40;
+  }
+}
+window.addEventListener('scroll', () => {
+  if (jumpRaf) return;
+  jumpRaf = requestAnimationFrame(() => { jumpRaf = 0; updateJumpActive(); });
+}, { passive: true });
+window.addEventListener('resize', () => { syncTopbarHeight(); updateJumpActive(); });
+if (window.ResizeObserver) { const tb = document.querySelector('.topbar'); if (tb) new ResizeObserver(() => syncTopbarHeight()).observe(tb); }
+syncTopbarHeight();
 // Groepen in de volgorde van de kaart; alleen groepen met gerechten. 'eten' heet 'Eten' als er verder geen onderverdeling is.
 function menuGroups(menu) {
   const has = {};
@@ -1834,7 +1884,8 @@ function menuGroups(menu) {
 }
 function jumpBarHtml(menu) {
   const gs = menuGroups(menu);
-  return '<div class="jump-bar" id="jumpBar">' + gs.filter(g => isFoodCat(g[0])).map(g => '<button type="button" data-jump="grp-' + g[0] + '">' + escapeHtml(g[2]) + '</button>').join('') +
+  return '<div class="jump-bar" id="jumpBar" role="navigation" aria-label="Naar een stuk van de kaart">' +
+    '<button type="button" class="jb-top" data-jump="menuTop" aria-label="Naar boven, begin van de kaart">↑ Boven</button>' + gs.filter(g => isFoodCat(g[0])).map(g => '<button type="button" data-jump="grp-' + g[0] + '">' + escapeHtml(g[2]) + '</button>').join('') +
     (gs.some(g => g[0] === 'drinken') ? '<button type="button" data-jump="' + (menuEditMode ? 'grp-drinken' : 'drinkSection') + '">🥤 Drinken</button>' : '') +
     (menuEditMode ? '' : '<button type="button" data-jump="grp-zelf">✍️ Zelf invullen</button>') + '</div>';
 }
@@ -2776,7 +2827,7 @@ function changeTextSize(d) {
 })();
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '16';
+const APP_VERSION = '17';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
