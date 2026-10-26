@@ -225,6 +225,8 @@
   .dr-line .dr-price { flex: 1 1 3rem; min-width: 0; width: auto; margin-bottom: 0; }
   .dr-warn { font-size: 0.95rem; font-weight: 800; color: #a1150c; margin-top: 0.3rem; }
   .dr-hint { margin: 0 0.1rem 0.4rem; }
+  /* v13: ruimte onder de laatste kaart, zodat '+ Nog een regel' niet onder de 'Ongedaan maken'-balk valt */
+  #offMenuCards { padding-bottom: 4.5rem; }
   .tip-box { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 2px solid #ccc; }
   .tip-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
   .tip-line { font-size: 1.25rem; font-weight: 800; }
@@ -376,10 +378,10 @@
       <button class="big-button" onclick="goToTip()">💶 Fooi kiezen</button>
     </div>
     <div class="card">
-      <div class="section-title">Iets extra's</div>
-      <input type="text" id="quickName" placeholder="Bijv. extra saus, brood...">
-      <input type="text" id="quickPrice" placeholder="Prijs" inputmode="decimal" autocomplete="off">
-      <button class="big-button secondary" onclick="addQuickItem()">Snel toevoegen</button>
+      <div class="section-title" id="extraTitle">Iets extra's</div>
+      <p class="small-text dr-hint" style="margin-top:0;">Zoals extra saus of brood. Typ naam en prijs, en tik op + . Dan staat het meteen op de rekening.</p>
+      <div id="extraRows"></div>
+      <button type="button" class="big-button secondary" id="addExtraRowBtn" onclick="addExtraRow()">+ Nog een regel</button>
     </div>
     </div>
   </div>
@@ -1125,7 +1127,7 @@ function startWebMenu(id, force) {
     m.updated = new Date().toISOString(); m.origin = 'web'; m.webLoaded = m.updated;
     saveMenus();
     done(); setWebMsg('');
-    return createVisit(name, items, [], lid, items.length + ' gerechten en drankjes geladen. Tik op een gerecht of op + om te bestellen.', { webRetrieved: retrieved || 'onbekend' }).then(() => true);
+    return createVisit(name, items, [], lid, items.length + ' gerechten en drankjes geladen. Tik op + om te bestellen.', { webRetrieved: retrieved || 'onbekend' }).then(() => true);
   }).catch(() => {
     done();
     const m = findLocalForWeb(entry);
@@ -1430,7 +1432,7 @@ function handleMenuFiles(input) {
   setOcrBusy(true);
   ocrFiles(files, ocrUi(1)).then(res => {
     let notice = res.items.length
-      ? res.items.length + ' gerechten herkend. Tik op een gerecht of op + om te bestellen. Klopt een naam of prijs niet? Tik op ✏️ Aanpassen.'
+      ? res.items.length + ' gerechten herkend. Tik op + om te bestellen. Klopt een naam of prijs niet? Tik op de naam of prijs om die te veranderen.'
       : 'Er zijn geen gerechten met prijzen herkend. Tik op ✏️ Aanpassen om ze zelf in te vullen, of scan een scherpere foto.';
     if (res.failed) notice += ' ' + res.failed + ' bestand(en) konden niet gelezen worden.';
     setOcrBusy(false);
@@ -1515,7 +1517,7 @@ function replaceVisitMenu(v, res, files, kind) {
     if (rid) v.restaurantId = rid;
     saveData();
     menuSearch = '';
-    orderNotice = 'Nieuwe kaart geladen: ' + v.menu.length + ' gerechten en drankjes. Deze kaart geldt nu voor dit restaurant. Wat je al besteld had, blijft op de rekening staan met de oude prijs. Klopt iets niet? Tik op ✏️ Aanpassen.';
+    orderNotice = 'Nieuwe kaart geladen: ' + v.menu.length + ' gerechten en drankjes. Deze kaart geldt nu voor dit restaurant. Tik op + om te bestellen. Wat je al besteld had, blijft op de rekening staan met de oude prijs. Klopt een naam of prijs niet? Tik op de naam of prijs om die te veranderen.';
     renderCurrentVisit(true);
     renderMenuCard();
     window.scrollTo(0, 0);
@@ -1602,7 +1604,7 @@ function visitByKey(key) {
   if (key === 'cur') return currentVisit;
   return visits.filter(v => String(v.id) === String(key))[0] || null;
 }
-function sameDish(it, mi) { return !it.drinkRow && it.name === mi.name && Number(it.price) === Number(mi.price); }
+function sameDish(it, mi) { return !it.drinkRow && !it.extraRow && it.name === mi.name && Number(it.price) === Number(mi.price); }
 function isShown(id) { const el = document.getElementById(id); return !!el && !el.classList.contains('hidden'); }
 // Alles opnieuw tekenen zonder te verspringen
 function refreshAll() {
@@ -1685,6 +1687,15 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-q]');
   if (!b || b.disabled) return;
   const act = b.getAttribute('data-q');
+  if (b.hasAttribute('data-qx')) {
+    const row = findExtraRow(b.getAttribute('data-qx'));
+    if (!row) return;
+    const c = extraQty(currentVisit, row);
+    if (act === 'plus') setExtraQty(row, c + 1);
+    else if (act === 'minus') setExtraQty(row, c - 1);
+    else openQtyDialog(String(row.name || '').trim() || 'Extra', c, n => setExtraQty(row, n));
+    return;
+  }
   if (b.hasAttribute('data-qd')) {
     const row = findDrinkRow(b.getAttribute('data-qd'));
     if (!row) return;
@@ -1821,6 +1832,7 @@ function editItemHtml(it, i) {
       '<button type="button" data-grp="' + g[0] + '" class="' + (g[0] === cat ? 'on' : '') + '" aria-pressed="' + (g[0] === cat) + '">' + g[1] + '</button>').join('') + '</div></div>';
 }
 function renderMenuList() {
+  renderExtraRows();
   const list = document.getElementById('menuList');
   if (!list || !currentVisit) return;
   const menu = currentVisit.menu || [];
@@ -1872,7 +1884,7 @@ function renderMenuList() {
   // Bestellingen die niet op de kaart staan
   const offRows = [];
   currentVisit.items.forEach((it, idx) => {
-    if (it.drinkRow || menu.some(mi => sameDish(it, mi))) return;
+    if (it.drinkRow || it.extraRow || menu.some(mi => sameDish(it, mi))) return;
     const n = Number(it.qty) || 1;
     offRows.push(`<div class="order-row ordered"><div class="or-name static">${escapeHtml(it.name)}</div><div class="or-line"><span class="or-price">${formatEuro(it.price)}</span>` + qtyCtlHtml(n, 'data-qv="cur" data-qi="' + idx + '"') + '</div></div>');
   });
@@ -2182,18 +2194,80 @@ function addItem() {
   renderCurrentVisit();
   showToast('✓ ' + name + ' toegevoegd');
 }
-function addQuickItem() {
-  if (!currentVisit) { alert('Start eerst een bezoek'); return; }
-  const name = document.getElementById('quickName').value.trim() || 'Extra';
-  const price = parsePrice(document.getElementById('quickPrice').value);
-  if (isNaN(price)) { alert('Vul een prijs in'); return; }
-  currentVisit.items.push({ name, price, category: 'extra', qty: 1 });
-  saveData();
-  document.getElementById('quickName').value = '';
-  document.getElementById('quickPrice').value = '';
-  renderCurrentVisit();
-  showToast('✓ ' + name + ' toegevoegd');
+// ---------- v13: Iets extra's – zelf in te vullen regels (net als Drinken) ----------
+function newExtraRow() { return { id: 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: '', price: '', priceText: '', qty: 0 }; }
+function ensureExtraRows(v) {
+  if (!Array.isArray(v.extraRows)) { v.extraRows = []; for (let i = 0; i < 2; i++) v.extraRows.push(newExtraRow()); }
+  return v.extraRows;
 }
+function extraLinked(v, row) { return v.items.findIndex(it => it.extraRow === row.id); }
+function extraQty(v, row) {
+  const i = extraLinked(v, row);
+  if (i >= 0) return Number(v.items[i].qty) || 1;
+  if (drinkComplete(row)) row.qty = 0;
+  return Number(row.qty) || 0;
+}
+function syncExtra(v, row) {
+  const i = extraLinked(v, row);
+  if (drinkComplete(row) && (i >= 0 || row.qty > 0)) {
+    if (i >= 0) { v.items[i].name = row.name.trim(); v.items[i].price = row.price; v.items[i].category = 'extra'; }
+    else v.items.push({ name: row.name.trim(), price: row.price, category: 'extra', qty: row.qty, extraRow: row.id });
+  } else if (i >= 0) {
+    row.qty = Number(v.items[i].qty) || 1;
+    v.items.splice(i, 1);
+  }
+}
+function extraRowHtml(v, row) {
+  const q = extraQty(v, row);
+  const done = drinkComplete(row);
+  return '<div class="dr-row xr-row' + (done && q > 0 ? ' ordered' : '') + '" data-xr="' + row.id + '">' +
+    '<input type="text" data-xrf="name" placeholder="Bijv. extra saus, brood" autocomplete="off" value="' + escapeHtml(row.name || '') + '" aria-label="Naam extra">' +
+    '<div class="dr-line"><input type="text" class="dr-price" data-xrf="price" inputmode="decimal" autocomplete="off" placeholder="Prijs" value="' + escapeHtml(row.priceText != null && row.priceText !== '' ? row.priceText : (typeof row.price === 'number' ? priceToInput(row.price) : '')) + '" aria-label="Prijs extra">' +
+    qtyCtlHtml(q, 'data-qx="' + row.id + '"') + '</div>' +
+    '<div class="dr-warn' + (q > 0 && !done ? '' : ' hidden') + '">Nog niet op de rekening: vul naam en prijs in.</div></div>';
+}
+function renderExtraRows() {
+  const box = document.getElementById('extraRows');
+  if (!box || !currentVisit) return;
+  const v = currentVisit;
+  box.innerHTML = ensureExtraRows(v).map(r => extraRowHtml(v, r)).join('');
+}
+function addExtraRow() {
+  if (!currentVisit) return;
+  ensureExtraRows(currentVisit).push(newExtraRow());
+  saveData();
+  renderExtraRows();
+  const rows = document.querySelectorAll('#extraRows .xr-row');
+  const last = rows[rows.length - 1];
+  if (last) { last.scrollIntoView({ block: 'center' }); last.querySelector('input').focus(); }
+}
+function findExtraRow(id) { return currentVisit ? ensureExtraRows(currentVisit).filter(r => r.id === id)[0] : null; }
+function setExtraQty(row, n) {
+  const v = currentVisit;
+  n = Math.max(0, Math.floor(Number(n) || 0));
+  const i = extraLinked(v, row);
+  row.qty = n;
+  if (i >= 0) { setLineQty(v, i, n); return; }
+  syncExtra(v, row);
+  saveData();
+  refreshAll();
+  if (n > 0 && !drinkComplete(row)) showToast('Vul nog naam en prijs in');
+}
+document.getElementById('extraRows').addEventListener('input', e => {
+  const inp = e.target.closest('[data-xrf]');
+  if (!inp || !currentVisit) return;
+  const el = inp.closest('.xr-row');
+  const row = findExtraRow(el.getAttribute('data-xr'));
+  if (!row) return;
+  if (inp.getAttribute('data-xrf') === 'name') row.name = inp.value;
+  else { row.priceText = inp.value; const p = parsePrice(inp.value); row.price = inp.value.trim() === '' || isNaN(p) ? '' : p; }
+  syncExtra(currentVisit, row);
+  saveData();
+  renderCurrentVisit(true);
+  const q = extraQty(currentVisit, row), done = drinkComplete(row);
+  el.classList.toggle('ordered', done && q > 0);
+  el.querySelector('.dr-warn').classList.toggle('hidden', !(q > 0 && !done));
+});
 function finishVisit() {
   if (!currentVisit) return;
   if (menuEditMode) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); }
@@ -2572,7 +2646,7 @@ function changeTextSize(d) {
 }
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '12';
+const APP_VERSION = '13';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
