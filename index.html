@@ -12,12 +12,17 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="manifest" href="manifest.json">
-<script>(function(){try{var s=localStorage.getItem('hapjeDrankjeTextSize');if(s==='extra'||s==='enorm')document.documentElement.className='ts-'+s;}catch(e){}})();</script>
+<script>(function(){try{var s=localStorage.getItem('hapjeDrankjeTextSize');if(['extra','enorm','enorm2','enorm3','enorm4'].indexOf(s)>=0)document.documentElement.className='ts-'+s;}catch(e){}})();</script>
 <style>
   /* v5: alles in rem; de lettergrootte (Groot / Extra groot / Enorm) zit op <html> */
   html { font-size: 22px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 6rem; scroll-padding-bottom: 6rem; }
   html.ts-extra { font-size: 25px; }
   html.ts-enorm { font-size: 28px; }
+  html.ts-enorm2 { font-size: 31px; }
+  html.ts-enorm3 { font-size: 34px; }
+  html.ts-enorm4 { font-size: 37px; }
+  /* v15: bij de grootste maten lange woorden afbreken i.p.v. zijwaarts scrollen */
+  html.ts-enorm2 body, html.ts-enorm3 body, html.ts-enorm4 body { -webkit-hyphens: auto; hyphens: auto; overflow-wrap: break-word; }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { min-height: 100%; }
   body {
@@ -31,18 +36,19 @@
   button, input, select { font-family: inherit; }
   .topbar { position: sticky; top: 0; z-index: 100; }
   .header {
-    background: #1a73e8; color: white; padding: 0.35rem 0.6rem 0.45rem;
+    background: #1a73e8; color: white; padding: 0.35rem min(0.6rem, 3.5vw) 0.45rem;
     padding-top: calc(0.35rem + env(safe-area-inset-top));
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
-  .header-row { display: flex; align-items: center; justify-content: space-between; gap: 0.4rem; }
-  .header h1 { margin: 0; font-size: 0.95rem; font-weight: 800; }
-  .ts-btns { display: flex; gap: 0.3rem; }
-  .ts-btn { min-width: 2.5rem; height: 2.5rem; border-radius: 0.6rem; border: 2px solid rgba(255,255,255,0.8); background: rgba(255,255,255,0.15); color: white; font-size: 0.9rem; font-weight: 800; padding: 0 0.3rem; }
+  .header-row { display: flex; align-items: center; justify-content: space-between; gap: 0.3rem 0.4rem; flex-wrap: wrap; }
+  .header h1 { margin: 0; font-size: min(0.95rem, 6vw); font-weight: 800; }
+  .ts-btns { display: flex; align-items: center; gap: 0.3rem; margin-left: auto; }
+  .ts-btn { min-width: min(2.5rem, 60px); height: min(2.5rem, 60px); border-radius: 0.6rem; border: 2px solid rgba(255,255,255,0.8); background: rgba(255,255,255,0.15); color: white; font-size: min(0.9rem, 6vw); font-weight: 800; padding: 0 0.3rem; }
   .ts-btn:active { background: rgba(255,255,255,0.35); }
+  .ts-btn.ts-reset { background: white; color: #0b3d91; padding: 0 0.5rem; }
   .total-line { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.1rem; }
-  .total-label { font-size: 0.9rem; font-weight: 700; }
-  .total-display { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; }
+  .total-label { font-size: min(0.9rem, 6vw); font-weight: 700; }
+  .total-display { font-size: min(2rem, 11vw); font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; }
   /* tabbalk onderaan, grote vakken */
   .tabs { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 100; background: white; border-top: 2px solid #c8ccd4;
     padding-bottom: env(safe-area-inset-bottom); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); box-shadow: 0 -2px 8px rgba(0,0,0,0.08); }
@@ -79,8 +85,8 @@
   .visit-name { font-size: 1.15rem; font-weight: 800; overflow-wrap: anywhere; }
   .hidden { display: none !important; }
   .estimate-badge { display: inline-block; background: #c25400; color: white; padding: 0.15rem 0.5rem; border-radius: 0.6rem; font-size: 0.85rem; font-weight: 800; white-space: nowrap; }
-  .qty-controls { display: flex; align-items: center; gap: 0.4rem; }
-  .qty-btn { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2px solid #8a8f98; background: white; font-size: 1.3rem; font-weight: 800; color: #111; padding: 0; line-height: 1; }
+  .qty-controls { display: flex; align-items: center; gap: min(0.4rem, 2.5vw); }
+  .qty-btn { width: min(2.5rem, 17vw); height: min(2.5rem, 17vw); border-radius: 50%; border: 2px solid #8a8f98; background: white; font-size: min(1.3rem, 11vw); font-weight: 800; color: #111; padding: 0; line-height: 1; }
   .qty-btn.remove { font-size: 1.05rem; color: #b3261e; border-color: #b3261e; }
   .qty-btn:active { background: #e4e7ec; }
   .menu-item { display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 0.5rem; text-align: left;
@@ -90,7 +96,7 @@
   .menu-item:active { background: #dbe8fd; }
   .menu-item.flash { background: #d7f5dd; border-color: #188038; }
   .menu-item .count { display: inline-block; background: #0b57d0; color: white; border-radius: 0.6rem; padding: 0 0.4rem; font-size: 0.9rem; font-weight: 800; margin-left: 0.3rem; }
-  .menu-group { font-size: 1rem; font-weight: 800; color: #111; text-transform: uppercase; letter-spacing: 0.5px; margin: 0.7rem 0.1rem 0.4rem; }
+  .menu-group { font-size: min(1rem, 7vw); font-weight: 800; color: #111; text-transform: uppercase; letter-spacing: 0.5px; margin: 0.7rem 0.1rem 0.4rem; }
   .seg { display: flex; flex-wrap: wrap; background: #e4e7ec; border-radius: 0.6rem; padding: 0.2rem; margin-bottom: 0.6rem; gap: 0.2rem; }
   .seg button { flex: 1 1 6rem; border: none; background: none; min-height: 2.5rem; padding: 0.4rem 0.3rem; font-size: 1rem; font-weight: 800; border-radius: 0.45rem; color: #222; }
   .seg button.active { background: white; color: #0b57d0; box-shadow: inset 0 0 0 3px #0b57d0; }
@@ -137,7 +143,7 @@
   /* voorlopige rekening: één blok per regel */
   .bill-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.4rem; margin-bottom: 0.3rem; flex-wrap: wrap; }
   .bill-title { font-size: 1.25rem; font-weight: 800; overflow-wrap: anywhere; }
-  .bill-group { font-size: 1.1rem; font-weight: 800; color: #0b57d0; text-transform: uppercase; letter-spacing: 0.5px; margin: 0.9rem 0 0.2rem; padding-bottom: 0.2rem; border-bottom: 3px solid #0b57d0; }
+  .bill-group { font-size: min(1.1rem, 7vw); font-weight: 800; color: #0b57d0; text-transform: uppercase; letter-spacing: 0.5px; margin: 0.9rem 0 0.2rem; padding-bottom: 0.2rem; border-bottom: 3px solid #0b57d0; }
   .bill-line { display: flex; gap: 0.55rem; align-items: flex-start; padding: 0.55rem 0.2rem; border-bottom: 2px solid #e3e5ea; }
   .bill-line.done { background: #e3f4e7; }
   .bill-line .bl-main { flex: 1; min-width: 0; }
@@ -179,7 +185,7 @@
   .or-price { background: none; border: none; padding: 0.25rem 0.1rem; font-size: 1.1rem; font-weight: 800; color: #0b57d0; min-height: 2.5rem; white-space: nowrap; display: inline-flex; align-items: center; }
   .or-price.unpriced { color: #a1150c; white-space: normal; text-align: left; text-decoration: underline; }
   @media (min-width: 600px) { .or-name { flex: 1 1 0; } .or-line { flex: 0 0 auto; } }
-  .qty-num { min-width: 2.7rem; height: 2.5rem; border-radius: 0.5rem; border: 3px solid #111; background: white; font-size: 1.2rem; font-weight: 800; color: #111; padding: 0 0.3rem; }
+  .qty-num { min-width: min(2.7rem, 19vw); height: min(2.5rem, 17vw); border-radius: 0.5rem; border: 3px solid #111; background: white; font-size: 1.2rem; font-weight: 800; color: #111; padding: 0 0.3rem; }
   .qty-num.zero { border-color: #8a8f98; color: #555; }
   .qty-btn:disabled { opacity: 0.3; }
   .qty-controls { flex: 0 0 auto; margin-left: auto; }
@@ -217,7 +223,7 @@
   .h-persons { display: block; margin-top: 0.2rem; font-size: 1.05rem; font-weight: 700; color: #333; }
   .header-row { flex-wrap: wrap; }
   .ts-btns { align-items: center; }
-  .ts-label { font-size: 0.8rem; font-weight: 800; margin-right: 0.1rem; }
+  .ts-label { font-size: min(0.8rem, 5vw); font-weight: 800; margin-right: 0.1rem; }
   .total-toggle { width: 100%; background: none; border: none; color: white; text-align: left; padding: 0.15rem 0; min-height: 2.5rem; font-family: inherit; cursor: pointer; }
   .total-toggle .total-label { display: inline-block; }
   .total-toggle.closed .total-label { border: 2px solid rgba(255,255,255,0.7); border-radius: 0.6rem; padding: 0.3rem 0.6rem; background: rgba(255,255,255,0.12); }
@@ -270,7 +276,6 @@
     <h1>Hapje/Drankje</h1>
     <div class="ts-btns" role="group" aria-label="Lettergrootte">
       <span class="ts-label" aria-hidden="true">Letters</span>
-      <button type="button" class="ts-btn" id="tsMinus" onclick="changeTextSize(-1)" aria-label="Kleinere letters">A−</button>
       <button type="button" class="ts-btn" id="tsPlus" onclick="changeTextSize(1)" aria-label="Grotere letters">A+</button>
     </div>
   </div>
@@ -2735,32 +2740,38 @@ function clearAllHistory() {
   renderHistory();
   renderPhotos();
 }
-// ---------- Lettergrootte (Groot / Extra groot / Enorm) ----------
-const TEXT_SIZES = [['groot', 'Groot'], ['extra', 'Extra groot'], ['enorm', 'Enorm']];
+// ---------- Lettergrootte (v15: Normaal = kleinste; A+ gaat 5 stappen groter, op het grootst wordt de knop "Normaal") ----------
+const TEXT_SIZES = [['groot', 'Normaal'], ['extra', 'Groter (1 van 5)'], ['enorm', 'Groter (2 van 5)'], ['enorm2', 'Groter (3 van 5)'], ['enorm3', 'Groter (4 van 5)'], ['enorm4', 'Grootst (5 van 5)']];
 function textSizeIndex() {
   let s = 'groot';
   try { s = localStorage.getItem('hapjeDrankjeTextSize') || 'groot'; } catch (e) {}
   for (let i = 0; i < TEXT_SIZES.length; i++) if (TEXT_SIZES[i][0] === s) return i;
-  return 0;
+  return 0; // onbekend of kleiner dan normaal (oude versies) → normaal
 }
 function applyTextSize(i) {
   const k = TEXT_SIZES[i][0];
-  document.documentElement.classList.remove('ts-extra', 'ts-enorm');
-  if (k !== 'groot') document.documentElement.classList.add('ts-' + k);
-  document.getElementById('tsMinus').disabled = i === 0;
-  document.getElementById('tsPlus').disabled = i === TEXT_SIZES.length - 1;
-  document.getElementById('tsMinus').style.opacity = i === 0 ? '0.4' : '1';
-  document.getElementById('tsPlus').style.opacity = i === TEXT_SIZES.length - 1 ? '0.4' : '1';
+  const cl = document.documentElement.classList;
+  TEXT_SIZES.forEach(t => cl.remove('ts-' + t[0]));
+  if (k !== 'groot') cl.add('ts-' + k);
+  const b = document.getElementById('tsPlus');
+  const max = i === TEXT_SIZES.length - 1;
+  b.textContent = max ? 'Normaal' : 'A+';
+  b.setAttribute('aria-label', max ? 'Letters terug naar normaal' : 'Grotere letters');
+  b.classList.toggle('ts-reset', max);
 }
-function changeTextSize(d) {
-  const i = Math.max(0, Math.min(TEXT_SIZES.length - 1, textSizeIndex() + d));
-  try { localStorage.setItem('hapjeDrankjeTextSize', TEXT_SIZES[i][0]); } catch (e) {}
+function changeTextSize() {
+  const cur = textSizeIndex();
+  const i = cur >= TEXT_SIZES.length - 1 ? 0 : cur + 1;
+  try { if (i === 0) localStorage.removeItem('hapjeDrankjeTextSize'); else localStorage.setItem('hapjeDrankjeTextSize', TEXT_SIZES[i][0]); } catch (e) {}
   applyTextSize(i);
-  showToast('Letters: ' + TEXT_SIZES[i][1]);
+  showToast('Letters: ' + TEXT_SIZES[i][1] + (i === TEXT_SIZES.length - 1 ? '. Tik op Normaal om terug te gaan.' : ''));
 }
+(function () { // oude of onbekende (kleinere) lettermaat → normaal
+  try { const v = localStorage.getItem('hapjeDrankjeTextSize'); if (v && textSizeIndex() === 0) localStorage.removeItem('hapjeDrankjeTextSize'); } catch (e) {}
+})();
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '14';
+const APP_VERSION = '15';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
