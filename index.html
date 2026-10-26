@@ -160,6 +160,10 @@
   .history-item:active { background: #e3edfd; }
   .history-item .h-row { margin-top: 0.3rem; display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; }
   .history-item .h-total { font-weight: 800; font-size: 1.15rem; }
+  /* v14: rij met bezoek + ✕ wissen (zelfde ✕ als bij Eerder bezocht) */
+  .history-row { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem; }
+  .history-row .history-item { flex: 1 1 auto; min-width: 0; margin-bottom: 0; overflow-wrap: anywhere; }
+  .history-row .qty-btn.remove { flex: 0 0 auto; }
   .ok-text { color: #0b5e24; font-weight: 800; } .diff-text { color: #a1150c; font-weight: 800; }
   .install-hint { background: #fff8d6; border: 3px solid #e0b400; }
   .install-hint ol { margin: 0.3rem 0 0.5rem; padding-left: 1.3rem; }
@@ -227,6 +231,8 @@
   .dr-hint { margin: 0 0.1rem 0.4rem; }
   /* v13: ruimte onder de laatste kaart, zodat '+ Nog een regel' niet onder de 'Ongedaan maken'-balk valt */
   #offMenuCards { padding-bottom: 4.5rem; }
+  /* v14: ook op Eerder ruimte onder 'Alles wissen' voor de 'Ongedaan maken'-balk */
+  #tab-geschiedenis { padding-bottom: 4.5rem; }
   .tip-box { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 2px solid #ccc; }
   .tip-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
   .tip-line { font-size: 1.25rem; font-weight: 800; }
@@ -400,7 +406,7 @@
   </div>
   <div id="tab-geschiedenis" class="hidden">
     <div class="section-title">Eerdere bezoeken</div>
-    <p class="small-text" style="margin-top:0;">Tik op een bezoek om de rekening te bekijken.</p>
+    <p class="small-text" style="margin-top:0;">Tik op een bezoek om de rekening te bekijken. Tik op ✕ om een bezoek te wissen.</p>
     <div id="historyList"></div>
     <button class="big-button secondary" onclick="clearAllHistory()">Alles wissen</button>
     <p class="small-text" style="text-align:center;">Hapje/Drankje · versie <span id="appVersion"></span></p>
@@ -1639,6 +1645,7 @@ function setMenuQty(mi, n) {
 }
 let undoState = null, undoTimer = null;
 function showUndo(v, it, idx) {
+  hideUndo();
   undoState = { v: v, it: it, idx: idx };
   document.getElementById('undoText').textContent = it.name + ' weggehaald';
   document.getElementById('undoBar').classList.remove('hidden');
@@ -1648,12 +1655,15 @@ function showUndo(v, it, idx) {
 }
 function hideUndo() {
   clearTimeout(undoTimer);
+  const s = undoState;
   undoState = null;
   document.getElementById('undoBar').classList.add('hidden');
+  if (s && s.kind === 'visit') finalizeVisitDelete(); // v14: niet ongedaan gemaakt -> foto's echt weg
 }
 function undoRemove() {
   const s = undoState;
   if (!s) return;
+  if (s.kind === 'visit') { undoVisitDelete(s); return; }
   s.v.items.splice(Math.min(s.idx, s.v.items.length), 0, s.it);
   hideUndo();
   saveData();
@@ -2335,7 +2345,10 @@ function renderHistory() {
   }
   visits.forEach(v => {
     const total = visitTotal(v);
+    const row = document.createElement('div');
+    row.className = 'history-row';
     const div = document.createElement('button');
+    div.type = 'button';
     div.className = 'history-item';
     div.setAttribute('data-visit', String(v.id));
     let check = '';
@@ -2348,13 +2361,111 @@ function renderHistory() {
     if (tp) check += '<span class="h-persons">' + tipText(v) + ' · te betalen ' + formatEuro(payC / 100) + '</span>';
     if (np > 1) check += '<span class="h-persons">' + np + ' personen · ' + formatEuro(splitCents(payC, np).per / 100) + ' per persoon</span>';
     div.innerHTML = `<div class="item-name">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Inschatting' : ''}</div><div class="h-row"><span class="h-total">${formatEuro(total)}</span><span style="color:#0b57d0; font-weight:800;">Rekening ›</span></div>${check}`;
-    list.appendChild(div);
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'qty-btn remove';
+    del.setAttribute('data-delvisit', String(v.id));
+    del.setAttribute('aria-label', 'Bezoek ' + visitLabel(v) + ' wissen');
+    del.textContent = '✕';
+    row.appendChild(div);
+    row.appendChild(del);
+    list.appendChild(row);
   });
 }
 document.getElementById('historyList').addEventListener('click', e => {
+  const del = e.target.closest('[data-delvisit]');
+  if (del) { e.preventDefault(); e.stopPropagation(); deleteVisit(del.getAttribute('data-delvisit')); return; }
   const b = e.target.closest('[data-visit]');
   if (b) openBill(b.getAttribute('data-visit'));
 });
+// ---------- v14: één bezoek wissen (met 'Ongedaan maken') ----------
+// Het bezoek gaat meteen uit de lijst; de foto's worden pas echt gewist als 'Ongedaan maken' weg is.
+// Bewaarde menukaarten blijven bestaan (alleen verwijzingen naar gewiste foto's gaan eruit, net als bij Alles wissen).
+const PENDING_PHOTO_KEY = 'hapjeDrankjePendingPhotoDelete';
+let pendingVisitDelete = null; // { photoIds: [...] }
+function visitLabel(v) {
+  const d = new Date(v.date);
+  const ds = isNaN(d.getTime()) ? '' : d.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+  return (v.name || 'Bezoek') + (ds ? ', ' + ds : '');
+}
+function visitPhotoIds(v) {
+  const ids = {};
+  (v.menuPhotoIds || []).forEach(id => { ids[String(id)] = id; });
+  photos.forEach(p => { if (p.visitId != null && String(p.visitId) === String(v.id)) ids[String(p.id)] = p.id; });
+  return Object.keys(ids).map(k => ids[k]);
+}
+function readPendingPhotoIds() {
+  try { const a = JSON.parse(localStorage.getItem(PENDING_PHOTO_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; }
+}
+function writePendingPhotoIds(a) {
+  try { if (a.length) localStorage.setItem(PENDING_PHOTO_KEY, JSON.stringify(a)); else localStorage.removeItem(PENDING_PHOTO_KEY); } catch (e) {}
+}
+function deleteVisit(id) {
+  const idx = visits.findIndex(v => String(v.id) === String(id));
+  if (idx < 0) return;
+  hideUndo(); // een vorige wis-actie wordt definitief
+  const v = visits[idx];
+  const wasCurrent = !!(currentVisit && String(currentVisit.id) === String(v.id));
+  const wasBill = billVisitId !== null && String(billVisitId) === String(v.id);
+  const photoIds = visitPhotoIds(v);
+  visits.splice(idx, 1);
+  let current = null;
+  if (wasCurrent) { current = currentVisit; currentVisit = null; }
+  if (wasBill) billVisitId = null;
+  saveData();
+  // Foto-id's alvast onthouden: wordt de app gesloten voordat het definitief is, dan wist de volgende start ze.
+  pendingVisitDelete = { photoIds: photoIds, visitId: v.id };
+  writePendingPhotoIds(readPendingPhotoIds().concat(photoIds));
+  undoState = { kind: 'visit', v: v, idx: idx, current: current, wasBill: wasBill, photoIds: photoIds };
+  document.getElementById('undoText').textContent = 'Bezoek "' + visitLabel(v) + '" gewist';
+  document.getElementById('undoBar').classList.remove('hidden');
+  document.getElementById('toast').classList.remove('show');
+  clearTimeout(undoTimer);
+  undoTimer = setTimeout(hideUndo, 8000);
+  renderCurrentVisit();
+  if (wasCurrent) showTab('overzicht');
+  else if (isShown('tab-geschiedenis')) renderHistory();
+}
+function undoVisitDelete(s) {
+  clearTimeout(undoTimer);
+  undoState = null;
+  pendingVisitDelete = null;
+  document.getElementById('undoBar').classList.add('hidden');
+  const keep = {}; s.photoIds.forEach(id => { keep[String(id)] = true; });
+  writePendingPhotoIds(readPendingPhotoIds().filter(id => !keep[String(id)]));
+  visits.splice(Math.min(s.idx, visits.length), 0, s.v);
+  if (s.current && !currentVisit) currentVisit = s.current;
+  saveData();
+  renderCurrentVisit();
+  if (s.current) showTab('geschiedenis'); else refreshAll();
+  showToast('Teruggezet: ' + (s.v.name || 'bezoek'));
+}
+function finalizeVisitDelete() {
+  const pd = pendingVisitDelete;
+  pendingVisitDelete = null;
+  if (!pd) return;
+  // opnieuw kijken: foto's kunnen pas na het wissen ingeladen zijn
+  purgePhotos(visitPhotoIds({ id: pd.visitId, menuPhotoIds: pd.photoIds }));
+}
+// Foto's echt wissen uit IndexedDB en uit de lijsten (bewaarde kaarten blijven, alleen de foto-verwijzing gaat eruit)
+function purgePhotos(ids) {
+  if (!ids || !ids.length) return Promise.resolve();
+  const del = {}; ids.forEach(id => { del[String(id)] = true; });
+  photos = photos.filter(p => !del[String(p.id)]);
+  let changed = false;
+  menus.forEach(m => {
+    if (!Array.isArray(m.photoIds)) return;
+    const n = m.photoIds.filter(id => !del[String(id)]);
+    if (n.length !== m.photoIds.length) { m.photoIds = n; changed = true; }
+  });
+  if (changed) saveMenus();
+  if (isShown('tab-fotos')) renderPhotos();
+  return Promise.all(ids.map(id => deletePhoto(id).catch(() => {}))).then(() => {
+    writePendingPhotoIds(readPendingPhotoIds().filter(id => !del[String(id)]));
+  });
+}
+// App gaat naar de achtergrond of dicht: wis-actie definitief maken
+window.addEventListener('pagehide', () => { if (undoState && undoState.kind === 'visit') hideUndo(); });
 
 // ---------- Voorlopige rekening (pro forma) ----------
 let billVisitId = null; // null = huidig bezoek, anders id van een afgerond bezoek
@@ -2610,6 +2721,9 @@ document.getElementById('billView').addEventListener('click', e => {
 });
 function clearAllHistory() {
   if (!confirm('Alle bezoeken en foto\'s wissen? Dit kan niet ongedaan worden gemaakt.\n(Bewaarde menukaarten blijven bewaard.)')) return;
+  clearTimeout(undoTimer); undoState = null; pendingVisitDelete = null; writePendingPhotoIds([]);
+  document.getElementById('undoBar').classList.add('hidden');
+  billVisitId = null;
   visits = [];
   photos = [];
   currentVisit = null;
@@ -2646,7 +2760,7 @@ function changeTextSize(d) {
 }
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '13';
+const APP_VERSION = '14';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
@@ -2674,7 +2788,11 @@ function dismissInstallHint() {
 renderItemCatPills();
 renderCurrentVisit();
 renderHistory();
-migrateOldPhotos().then(loadPhotos).then(renderPhotos);
+migrateOldPhotos().then(loadPhotos).then(() => {
+  // v14: foto's van een bezoek dat gewist werd terwijl de app dichtging alsnog wissen
+  const pend = readPendingPhotoIds();
+  return pend.length ? purgePhotos(pend) : null;
+}).then(renderPhotos);
 handleKaartLink();
 </script>
 </body>
