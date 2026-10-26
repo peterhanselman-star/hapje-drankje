@@ -12,17 +12,20 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="manifest" href="manifest.json">
-<script>(function(){try{var s=localStorage.getItem('hapjeDrankjeTextSize');if(['extra','enorm','enorm2','enorm3','enorm4'].indexOf(s)>=0)document.documentElement.className='ts-'+s;}catch(e){}})();</script>
+<script>(function(){try{var s=localStorage.getItem('hapjeDrankjeTextSize');if(/^enorm[234]$/.test(s))s='enorm';if(['klein2','klein','extra','enorm'].indexOf(s)>=0)document.documentElement.className='ts-'+s;}catch(e){}})();</script>
 <style>
-  /* v5: alles in rem; de lettergrootte (Groot / Extra groot / Enorm) zit op <html> */
+  /* v5: alles in rem; de lettergrootte zit op <html>. v16: 16 / 19 / 22 (normaal) / 25 / 28 px */
   html { font-size: 22px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 6rem; scroll-padding-bottom: 6rem; }
+  html.ts-klein2 { font-size: 16px; }
+  html.ts-klein { font-size: 19px; }
   html.ts-extra { font-size: 25px; }
   html.ts-enorm { font-size: 28px; }
-  html.ts-enorm2 { font-size: 31px; }
-  html.ts-enorm3 { font-size: 34px; }
-  html.ts-enorm4 { font-size: 37px; }
-  /* v15: bij de grootste maten lange woorden afbreken i.p.v. zijwaarts scrollen */
-  html.ts-enorm2 body, html.ts-enorm3 body, html.ts-enorm4 body { -webkit-hyphens: auto; hyphens: auto; overflow-wrap: break-word; }
+  /* v15/v16: bij de grootste maat lange woorden afbreken i.p.v. zijwaarts scrollen */
+  html.ts-enorm body { -webkit-hyphens: auto; hyphens: auto; overflow-wrap: break-word; }
+  /* v16: bij kleine letters blijven knoppen goed te raken (≥ 44 px) */
+  html.ts-klein button, html.ts-klein2 button { min-height: 44px; }
+  html.ts-klein .qty-btn, html.ts-klein2 .qty-btn, html.ts-klein .qty-num, html.ts-klein2 .qty-num, html.ts-klein .tick, html.ts-klein2 .tick,
+  html.ts-klein .del-btn, html.ts-klein2 .del-btn, html.ts-klein .ts-btn, html.ts-klein2 .ts-btn { min-width: 44px; min-height: 44px; }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { min-height: 100%; }
   body {
@@ -45,7 +48,7 @@
   .ts-btns { display: flex; align-items: center; gap: 0.3rem; margin-left: auto; }
   .ts-btn { min-width: min(2.5rem, 60px); height: min(2.5rem, 60px); border-radius: 0.6rem; border: 2px solid rgba(255,255,255,0.8); background: rgba(255,255,255,0.15); color: white; font-size: min(0.9rem, 6vw); font-weight: 800; padding: 0 0.3rem; }
   .ts-btn:active { background: rgba(255,255,255,0.35); }
-  .ts-btn.ts-reset { background: white; color: #0b3d91; padding: 0 0.5rem; }
+  .ts-btn:disabled { opacity: 0.4; }
   .total-line { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.1rem; }
   .total-label { font-size: min(0.9rem, 6vw); font-weight: 700; }
   .total-display { font-size: min(2rem, 11vw); font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; }
@@ -276,6 +279,7 @@
     <h1>Hapje/Drankje</h1>
     <div class="ts-btns" role="group" aria-label="Lettergrootte">
       <span class="ts-label" aria-hidden="true">Letters</span>
+      <button type="button" class="ts-btn" id="tsMinus" onclick="changeTextSize(-1)" aria-label="Kleinere letters">A−</button>
       <button type="button" class="ts-btn" id="tsPlus" onclick="changeTextSize(1)" aria-label="Grotere letters">A+</button>
     </div>
   </div>
@@ -2740,38 +2744,39 @@ function clearAllHistory() {
   renderHistory();
   renderPhotos();
 }
-// ---------- Lettergrootte (v15: Normaal = kleinste; A+ gaat 5 stappen groter, op het grootst wordt de knop "Normaal") ----------
-const TEXT_SIZES = [['groot', 'Normaal'], ['extra', 'Groter (1 van 5)'], ['enorm', 'Groter (2 van 5)'], ['enorm2', 'Groter (3 van 5)'], ['enorm3', 'Groter (4 van 5)'], ['enorm4', 'Grootst (5 van 5)']];
+// ---------- Lettergrootte (v16: 2× kleiner, Normaal, 2× groter; A− en A+) ----------
+const TEXT_SIZES = [['klein2', 'Kleiner (2 van 2)'], ['klein', 'Kleiner (1 van 2)'], ['groot', 'Normaal'], ['extra', 'Groter (1 van 2)'], ['enorm', 'Groter (2 van 2)']];
+const TS_NORMAL = 2;
 function textSizeIndex() {
   let s = 'groot';
   try { s = localStorage.getItem('hapjeDrankjeTextSize') || 'groot'; } catch (e) {}
+  if (/^enorm[234]$/.test(s)) s = 'enorm'; // v15-maten (31/34/37 px) → grootste
   for (let i = 0; i < TEXT_SIZES.length; i++) if (TEXT_SIZES[i][0] === s) return i;
-  return 0; // onbekend of kleiner dan normaal (oude versies) → normaal
+  return TS_NORMAL; // onbekend → normaal
 }
 function applyTextSize(i) {
   const k = TEXT_SIZES[i][0];
   const cl = document.documentElement.classList;
-  TEXT_SIZES.forEach(t => cl.remove('ts-' + t[0]));
+  ['klein2', 'klein', 'extra', 'enorm', 'enorm2', 'enorm3', 'enorm4'].forEach(t => cl.remove('ts-' + t));
   if (k !== 'groot') cl.add('ts-' + k);
-  const b = document.getElementById('tsPlus');
-  const max = i === TEXT_SIZES.length - 1;
-  b.textContent = max ? 'Normaal' : 'A+';
-  b.setAttribute('aria-label', max ? 'Letters terug naar normaal' : 'Grotere letters');
-  b.classList.toggle('ts-reset', max);
+  document.getElementById('tsMinus').disabled = i === 0;
+  document.getElementById('tsPlus').disabled = i === TEXT_SIZES.length - 1;
 }
-function changeTextSize() {
-  const cur = textSizeIndex();
-  const i = cur >= TEXT_SIZES.length - 1 ? 0 : cur + 1;
-  try { if (i === 0) localStorage.removeItem('hapjeDrankjeTextSize'); else localStorage.setItem('hapjeDrankjeTextSize', TEXT_SIZES[i][0]); } catch (e) {}
+function storeTextSize(i) {
+  try { if (i === TS_NORMAL) localStorage.removeItem('hapjeDrankjeTextSize'); else localStorage.setItem('hapjeDrankjeTextSize', TEXT_SIZES[i][0]); } catch (e) {}
+}
+function changeTextSize(d) {
+  const i = Math.max(0, Math.min(TEXT_SIZES.length - 1, textSizeIndex() + d));
+  storeTextSize(i);
   applyTextSize(i);
-  showToast('Letters: ' + TEXT_SIZES[i][1] + (i === TEXT_SIZES.length - 1 ? '. Tik op Normaal om terug te gaan.' : ''));
+  showToast('Letters: ' + TEXT_SIZES[i][1]);
 }
-(function () { // oude of onbekende (kleinere) lettermaat → normaal
-  try { const v = localStorage.getItem('hapjeDrankjeTextSize'); if (v && textSizeIndex() === 0) localStorage.removeItem('hapjeDrankjeTextSize'); } catch (e) {}
+(function () { // v15-maten en onbekende waarden opruimen
+  try { const v = localStorage.getItem('hapjeDrankjeTextSize'); if (v && (!TEXT_SIZES.some(t => t[0] === v) || v === 'groot')) storeTextSize(textSizeIndex()); } catch (e) {}
 })();
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '15';
+const APP_VERSION = '16';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
