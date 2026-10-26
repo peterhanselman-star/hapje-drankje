@@ -233,6 +233,15 @@
   .tip-btn.wide { grid-column: span 2; }
   .tip-btn.on { background: #1a73e8; border-color: #0b57d0; color: white; }
   .grand .sub { display: block; text-align: right; font-size: 0.95rem; font-weight: 700; color: #333; }
+  /* v11: soort kiezen (Voor/Hoofd/Na/Bij/Overig/Drinken), notitie eigen kaart */
+  .grp-pills { display: grid; grid-template-columns: repeat(auto-fit, minmax(4.6em, 1fr)); gap: 0.3rem; margin-top: 0.1rem; }
+  .grp-pills button { min-height: 2.5rem; border: 2px solid #8a8f98; background: white; color: #111; border-radius: 0.5rem; font-size: 1rem; font-weight: 800; padding: 0.2rem 0.3rem; line-height: 1.15; min-width: 0; overflow-wrap: anywhere; }
+  .grp-pills button.on { background: #1a73e8; border-color: #0b57d0; color: white; }
+  .grp-pills button.on::before { content: '✓ '; }
+  .edit-item .edit-lbl { display: block; font-size: 0.9rem; font-weight: 800; color: #333; margin: 0.35rem 0 0.15rem; }
+  .web-note.card-note { background: #e6f4ea; border-color: #188038; color: #0b5e24; }
+  .web-btn .wb-sub.wb-newer { color: #8a3b00; }
+  .new-card-btn { margin-top: 0.2rem; }
 </style>
 </head>
 <body>
@@ -298,10 +307,10 @@
       <div class="section-title" id="menuStepTitle">Menukaart</div>
       <label class="small-text" for="newName" style="font-weight:800; margin:0 0 0.2rem;">Restaurant</label>
       <input type="text" id="newName" placeholder="Naam van het restaurant" autocomplete="off">
-      <p class="small-text" style="margin-top:0;">Kies een of meer foto's of schermafbeeldingen van de menukaart. De app leest de gerechten en prijzen, daarna kun je alles nog aanpassen.</p>
+      <p class="small-text" style="margin-top:0;">Kies een of meer foto's, schermafbeeldingen of een PDF van de menukaart. De app leest de gerechten en prijzen, daarna kun je alles nog aanpassen.</p>
       <p class="search-tip" id="cropTip">💡 Tip: snijd de foto of schermafbeelding bij, zodat alleen de kaart erop staat.</p>
-      <input type="file" id="menuInput" accept="image/*" multiple style="display:none;" onchange="handleMenuFiles(this)">
-      <button class="big-button huge" id="menuPickBtn" onclick="document.getElementById('menuInput').click()">📷 Foto's of screenshots van de menukaart kiezen</button>
+      <input type="file" id="menuInput" accept="image/*,application/pdf,.pdf" multiple style="display:none;" onchange="handleMenuFiles(this)">
+      <button class="big-button huge" id="menuPickBtn" onclick="document.getElementById('menuInput').click()">📷 Foto's, screenshots of PDF van de menukaart kiezen</button>
       <div id="ocrBox" class="hidden">
         <div style="font-weight:600;" id="ocrStatus">Bezig…</div>
         <div class="progress"><div id="ocrBar"></div></div>
@@ -327,12 +336,13 @@
         <button type="button" id="segReal" onclick="setVisitEstimate(false)">Echte rekening</button>
       </div>
     </div>
-    <div class="card" id="menuCard"></div>
-    <input type="file" id="moreMenuInput" accept="image/*" multiple style="display:none;" onchange="handleMoreMenuFiles(this)">
     <div id="ocrBox2" class="card hidden">
       <div style="font-weight:800;" id="ocrStatus2">Bezig…</div>
       <div class="progress"><div id="ocrBar2"></div></div>
     </div>
+    <div class="card" id="menuCard"></div>
+    <input type="file" id="moreMenuInput" accept="image/*,application/pdf,.pdf" multiple style="display:none;" onchange="handleMoreMenuFiles(this)">
+    <input type="file" id="newCardInput" accept="image/*,application/pdf,.pdf" multiple style="display:none;" onchange="handleNewCardFiles(this)">
     <div id="offMenuCards" class="hidden">
     <div class="card">
       <div class="section-title">Buiten de kaart</div>
@@ -394,7 +404,7 @@
 <div class="dialog-backdrop hidden" id="kaartConfirm">
   <div class="dialog" role="alertdialog" aria-labelledby="kaartConfirmText">
     <p class="confirm-text" id="kaartConfirmText"></p>
-    <p class="small-text" style="margin-top:0;">Het bezoek dat nu loopt wordt dan niet bewaard.</p>
+    <p class="small-text" style="margin-top:0;" id="kaartConfirmSub">Het bezoek dat nu loopt wordt dan niet bewaard.</p>
     <div class="dlg-btns stack">
       <button type="button" class="big-button" id="kaartConfirmYes">Ja, nieuw bezoek starten</button>
       <button type="button" class="big-button secondary" id="kaartConfirmNo">Nee, huidig bezoek houden</button>
@@ -420,7 +430,21 @@
 var MenuParser = (function () {
   var DRINK_WORDS = ['bier','pils','tap','wijn','rosé','rose','prosecco','cava','champagne','cola','coca','fanta','sprite','sinas','cassis','tonic','ginger','fris','frisdrank','water','spa','chaudfontaine','sourcy','koffie','coffee','espresso','cappuccino','cappucino','latte','americano','macchiato','thee','tea','chocomel','chocolademelk','warme chocolade','cocktail','mocktail','gin','whisky','whiskey','rum','vodka','jenever','likeur','baileys','amaretto','limoncello','aperol','spritz','mojito','margarita','port','sherry','martini','sap','jus','juice','smoothie','milkshake','limonade','ice tea','icetea','lipton','heineken','amstel','grolsch','hertog jan','brand','bavaria','jupiler','la chouffe','duvel','leffe','affligem','westmalle','chimay','kwak','corona','desperados','radler','weizen','ipa','tripel','dubbel','witbier','speciaalbier','merlot','chardonnay','sauvignon','pinot','shiraz','syrah','malbec','rioja','primitivo','cabernet','verdejo','riesling','tempranillo','sangria','glas','fles','karaf','borrelglas','beer','wine','soda','drink','drank','dranken','fernandes','red bull','redbull','appelsap','ginger ale','bitter lemon','tonic','fever-tree','kombucha','melk','karnemelk','verse munt','muntthee','jägermeister','jagermeister','tequila','cognac','calvados','grappa','sake','soju','lassi'];
   var DRINK_HEADERS = ['dranken','drankjes','drinks','drinken','beverages','wijnen','wijn','wines','wine','bieren','bier','beers','beer','op tap','van de tap','speciaalbieren','frisdranken','fris','soft drinks','softdrinks','warme dranken','koude dranken','hot drinks','koffie','koffie & thee','koffie en thee','coffee','thee','cocktails','mocktails','gin & tonic','gin tonic','sterke drank','gedistilleerd','spirits','aperitief','aperitieven','digestief','likeuren','bubbels','huiswijn','huiswijnen','rode wijn','rode wijnen','witte wijn','witte wijnen','rosé','sappen','alcoholvrij','non alcoholic','whisky','barkaart','drankkaart','wijnkaart','vino','vini','bevande','bebidas','getränke','boissons','vins','bières'];
-  var FOOD_HEADERS = ['voorgerechten','voorgerecht','starters','starter','hoofdgerechten','hoofdgerecht','mains','main courses','main','desserts','dessert','nagerechten','nagerecht','toetjes','zoet','lunch','diner','dinner','ontbijt','breakfast','brunch','borrelhapjes','borrel','bites','borrelkaart','snacks','bijgerechten','side dishes','sides','extra','extra\'s','soepen','soep','soups','salades','salade','salads','tosti\'s','tostis','broodjes','brood','sandwiches','burgers','pizza','pizza\'s','pizzas','pasta','pasta\'s','vis','vlees','vega','vegetarisch','vegan','kindermenu','kinderen','kids','kinderkaart','gebak','taart','sharing','to share','delen','tapas','sushi','wraps','eten','food','keuken','specials','dagmenu','menu van de dag','gerechten','klassiekers','plates','small plates','big plates','grill','van de grill'];
+  // v11: kopjes per soort eten. 'eten' = eten zonder vaste plek (Overig eten)
+  var FOOD_HEADS = {
+    voor: ['voorgerechten','voorgerecht','vooraf','voorafjes','amuse','amuses','amuse bouche','amuse-bouche','hapjes','hapje','borrelhapjes','tussengerechten','tussengerecht','tussengangen','tussengang','soepen','soep','soups','soup','starters','starter','appetizers','appetizer','appetisers','appetiser','small plates','bites','snacks','entrées','entrée','entrees','entree','hors d\'oeuvre','hors d\'oeuvres','hors-d\'oeuvre','hors-d\'oeuvres','potages','potage','antipasti','antipasto','primi','primi piatti'],
+    hoofd: ['hoofdgerechten','hoofdgerecht','hoofdgangen','hoofdgang','mains','main','main courses','main course','main dishes','main dish','plats','plat','plats principaux','plat principal','secondi','secondi piatti','big plates','vleesgerechten','visgerechten','vlees','vis','vegetarisch','vegetarische gerechten','vega','vegan','pasta','pasta\'s','pastas','pizza','pizza\'s','pizzas','burgers','van de grill','grill','to share','om te delen'],
+    na: ['nagerechten','nagerecht','desserts','dessert','toetjes','toetje','zoet','zoetigheden','kaas','kazen','kaasplank','kaasplankje','cheese','cheeses','fromage','fromages','dolci','ijs','ijscoupes','gebak','taart','taarten','sweets','puddings'],
+    bij: ['bijgerechten','bijgerecht','bijlagen','bijlage','garnituren','garnituur','sides','side','side dishes','side dish','extra','extra\'s','extras','accompagnements','garnitures','contorni','sauzen'],
+    eten: ['lunch','diner','dinner','ontbijt','breakfast','brunch','borrel','borrelkaart','salades','salade','salads','tosti\'s','tostis','broodjes','brood','sandwiches','kindermenu','kinderen','kids','kinderkaart','sharing','delen','tapas','sushi','wraps','eten','food','keuken','specials','dagmenu','menu van de dag','gerechten','klassiekers','plates','chefs menu','chef\'s menu','chef menu','menu du chef','tasting menu','proeverij','a la carte','à la carte','menu']
+  };
+  var HEAD_FILLER = ['onze','ons','de','het','een','van','the','our','les','le','la','nos','du','des','en','and','et','of','or','&','per','à','a','al'];
+  var HEAD_PHRASES = {};
+  (function () {
+    DRINK_HEADERS.concat(['frisdrank','wijnen per glas','per glas','per fles','mousserend','dessertwijn','dessertwijnen','digestieven','koffiespecialiteiten','koffie specialiteiten','thee','mineraalwater','water','port','gin','cocktail','bier van de tap','tapbier','beers on tap','soft drinks','wine','red wine','white wine','red wines','white wines','sparkling','champagne','hot drinks','apéritifs','aperitifs','digestifs']).forEach(function (p) { HEAD_PHRASES[p] = 'drinken'; });
+    for (var c in FOOD_HEADS) FOOD_HEADS[c].forEach(function (p) { HEAD_PHRASES[p] = c; });
+    HEAD_PHRASES['wijn'] = 'drinken'; HEAD_PHRASES['wijnen'] = 'drinken';
+  })();
   var GENERIC_NAME = /^(menu|menukaart|de kaart|onze kaart|kaart|welkom|welcome|lunch|diner|dinner|borrel|food|drinks|eten|eten & drinken|eten en drinken|prijzen|prices|card|carte|la carte|page|pagina)$/i;
   var DESC_LEAD = /^(met|van|op|in|uit|en|of|geserveerd|keuze|naar keuze|inclusief|incl\.?|served|with|and|optioneel|optie|ook|alle|onze|vers|verse|huisgemaakte?|vraag|ask|bevat|contains|\(|\+)/i;
   var NOISE = /(www\.|https?:|\.nl\b|\.com\b|@|\btel\b|telefoon|\bbtw\b|allergie|allergen|\bkvk\b|iban|openingstijden|geopend|\bopen\b|\buur\b|pinnen|cash|instagram|facebook|wifi|wi-fi)/i;
@@ -446,13 +470,32 @@ var MenuParser = (function () {
     }
     return false;
   }
+  // Kopje herkennen: de hele regel moet uit kopwoorden bestaan (bijv. "Voorgerechten / Starters", "Onze desserts").
+  // Geeft 'voor' | 'hoofd' | 'na' | 'bij' | 'eten' | 'drinken' of null.
   function headerCategory(line) {
-    if (/\d/.test(line)) return null;
-    var t = line.toLowerCase().replace(/[^a-zà-ÿ&' ]/g, ' ').replace(/\s+/g, ' ').trim();
-    if (!t || words(t) > 4) return null;
-    if (DRINK_HEADERS.indexOf(t) >= 0) return 'drinken';
-    if (FOOD_HEADERS.indexOf(t) >= 0) return 'eten';
-    return null;
+    var l = String(line || '').replace(/\([^)]*\)/g, ' ');
+    if (/\d/.test(l)) return null;
+    var t = l.toLowerCase().replace(/[\u2018\u2019`´]/g, "'").replace(/œ/g, 'oe').replace(/[^a-zà-ÿ&' ]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!t || words(t) > 6) return null;
+    if (HEAD_PHRASES.hasOwnProperty(t)) return HEAD_PHRASES[t];
+    var w = t.split(' '), cats = [], i = 0;
+    while (i < w.length) {
+      var hit = 0;
+      for (var len = Math.min(4, w.length - i); len >= 1; len--) {
+        var ph = w.slice(i, i + len).join(' ');
+        if (HEAD_PHRASES.hasOwnProperty(ph)) { cats.push(HEAD_PHRASES[ph]); hit = len; break; }
+      }
+      if (hit) { i += hit; continue; }
+      if (HEAD_FILLER.indexOf(w[i]) >= 0 || w[i] === "'") { i++; continue; }
+      return null;
+    }
+    if (!cats.length) return null;
+    var subs = [];
+    cats.forEach(function (c) { if (c !== 'eten' && c !== 'drinken' && subs.indexOf(c) < 0) subs.push(c); });
+    if (cats.every(function (c) { return c === 'drinken'; })) return 'drinken';
+    if (cats.indexOf('drinken') >= 0) return cats[0] === 'drinken' ? 'drinken' : (subs[0] || 'eten');
+    if (subs.length === 1) return subs[0];
+    return 'eten';
   }
   function toValue(intPart, dec) {
     var v = parseInt(intPart, 10);
@@ -492,11 +535,14 @@ var MenuParser = (function () {
       .replace(/\s+/g, ' ')
       .trim();
   }
-  var FOOD_HINT = /(saus|soep|stoof|taart|gebak|tiramisu|risotto|mossel|beslag|biefstuk|burger|friet|kip|vlees|vis\b|kaas|brood|\bin\b|gemarineerd|ijs\b|sorbet|pudding|parfait)/i;
+  var FOOD_HINT = /(saus|soep|stoof|taart|gebak|tiramisu|risotto|mossel|beslag|biefstuk|burger|friet|kip|vlees|vis\b|kaas|brood|\bin\b|gemarineerd|ijs\b|sorbet|pudding|parfait|garnal|prawn|shrimp|krab|crab|kreeft|lobster|oyster|oester|steak|sauce|vinaigrette|ricotta|pumpkin)/i;
   function categoryFor(name, section) {
     if (section === 'drinken') return 'drinken';
-    if (!hasWord(name, DRINK_WORDS) || FOOD_HINT.test(name)) return 'eten';
-    if (section === 'eten' && /\smet\s/i.test(name)) return 'eten';
+    var food = section || 'eten';
+    if (!hasWord(name, DRINK_WORDS) || FOOD_HINT.test(name)) return food;
+    if (section && /\smet\s/i.test(name)) return food;
+    // Onder Voor/Hoofd/Bij/Na: een lange gerechtomschrijving met toevallig 'sherry' of 'port' erin blijft eten
+    if (section && section !== 'eten' && words(name) > 4 && !hasWord(name.split(/[\s\-–—,]+/)[0], DRINK_WORDS)) return food;
     return 'drinken';
   }
   function guessName(lines) {
@@ -525,7 +571,7 @@ var MenuParser = (function () {
     function add(name, price, cat) {
       name = cleanName(name);
       if (letters(name) < 2 || !(price >= 0.5 && price <= 500)) return false;
-      if (name.length > 60) name = name.slice(0, 60).trim();
+      if (name.length > 90) { name = name.slice(0, 91); name = name.slice(0, Math.max(name.lastIndexOf(' '), 60)).replace(/[\s\-–—,&]+$/, '').trim(); }
       var key = name.toLowerCase() + '|' + price.toFixed(2);
       if (seen[key]) return true;
       seen[key] = true;
@@ -550,7 +596,8 @@ var MenuParser = (function () {
 
       // 2. Kopje (Dranken, Hoofdgerechten...)
       var hc = headerCategory(line);
-      if (hc) { if (pending) unpriced++; section = hc; pending = null; continue; }
+      // "Kaas" met de prijs op de volgende regel is een gerecht, geen kopje
+      if (hc && !(j + 1 < lines.length && PRICE_ONLY.test(lines[j + 1]) && words(line) <= 2 && hc !== 'drinken' && line !== line.toUpperCase())) { if (pending) unpriced++; section = hc; pending = null; continue; }
 
       // 3. Prijzen zoeken
       var all = [], mm;
@@ -594,7 +641,7 @@ var MenuParser = (function () {
         var vEnd = toValue(pe[3], pe[5]);
         var before = line.slice(0, pe.index + pe[1].length);
         // eenheid of maat zonder prijs ("33 cl" staat niet aan het eind, maar "Pizza 4" e.d. wel)
-        if (strongEnd || (vEnd >= 1 && vEnd <= 99 && letters(before) >= 3 && /[A-Za-zÀ-ÿ)]\s*[.·…_\-–—]*\s*$/.test(before))) {
+        if (strongEnd || (vEnd >= 1 && vEnd <= 99 && letters(before) >= 3 && /[A-Za-zÀ-ÿ)'"\u2019]\s*[.·…_\-–—]*\s*$/.test(before))) {
           if (!/(\bcl|\bml|\bgr|\bkg|%)\s*$/i.test(before)) { price = vEnd; namePart = before; }
         }
       }
@@ -617,7 +664,40 @@ var MenuParser = (function () {
     return { name: guessName(headLines), items: items, unpriced: unpriced };
   }
 
-  return { parse: parse, categoryFor: categoryFor, headerCategory: headerCategory };
+  // PDF-tekst: regels die over twee regels doorlopen weer samenvoegen (alleen voor de tekstlaag van een PDF)
+  var JW_END_PRICE = /^(.*\S)\s+((?:€\s*)?\d{1,3}(?:[.,]\d{1,2})?)$/;
+  var JW_PRICE_ONLY = /^(?:€\s*)?\d{1,3}(?:[.,]\d{1,2})?$/;
+  function joinWrapped(text) {
+    var lines = String(text || '').split(/\r?\n/).map(function (l) { return l.replace(/\s+/g, ' ').trim(); }).filter(Boolean);
+    var out = [];
+    var lower = function (l) { return !!l && /^[a-zà-ÿ]/.test(l); };
+    var head = function (l) { return !!l && !!headerCategory(normalize(l)); };
+    for (var i = 0; i < lines.length; i++) {
+      var L = lines[i].replace(/^(.*\S)\s+((?:€\s*)?\d{1,3}(?:[.,]\d{1,2})?)\s*(?:p\.\s?p\.?|pp|per persoon)$/i, '$1 (p.p.) $2');
+      var next = lines[i + 1];
+      // "CHEFS MENU" + "3 courses 55" -> kopje + "Chefs menu (3 courses) 55"
+      if (head(L) && next && /^\d+\s+[A-Za-zÀ-ÿ]/.test(next) && JW_END_PRICE.test(next)) {
+        var mh = next.match(JW_END_PRICE);
+        out.push(L);
+        out.push(L.charAt(0).toUpperCase() + L.slice(1).toLowerCase() + ' (' + mh[1] + ') ' + mh[2]);
+        i++; continue;
+      }
+      for (var guard = 0; guard < 4; guard++) {
+        next = lines[i + 1];
+        if (!next || head(next) || head(L)) break;
+        var endP = JW_END_PRICE.test(L) && !JW_PRICE_ONLY.test(L);
+        if (!endP && /[-–—&,]$/.test(L) && !JW_PRICE_ONLY.test(next)) { L = L + ' ' + next; i++; continue; }
+        if (!endP && JW_PRICE_ONLY.test(next) && lower(lines[i + 2])) { L = L + ' ' + lines[i + 2] + ' ' + next; i += 2; continue; }
+        if (endP && lower(next) && !JW_END_PRICE.test(next) && !JW_PRICE_ONLY.test(next)) { var me = L.match(JW_END_PRICE); L = me[1] + ' ' + next + ' ' + me[2]; i++; continue; }
+        if (!endP && /^(per|p\.p)/i.test(next) && JW_END_PRICE.test(next)) { L = L + ' ' + next; i++; continue; }
+        break;
+      }
+      out.push(L);
+    }
+    return out.join('\n');
+  }
+
+  return { parse: parse, categoryFor: categoryFor, headerCategory: headerCategory, joinWrapped: joinWrapped };
 })();
 function parseMenuText(text) { return MenuParser.parse(text); }
 // Tesseract-resultaat -> tekst, zonder woorden met lage zekerheid (meestal stippellijntjes die als 'eee' of 'vive' gelezen worden)
@@ -746,9 +826,27 @@ document.addEventListener('click', e => {
 function renderItemCatPills() {
   document.getElementById('itemCatPills').innerHTML = catPillsHtml(document.getElementById('itemCategory').value, true);
 }
+// v11: eten is onderverdeeld. 'eten' = Overig eten (ook oude kaarten), 'drinken', 'extra' blijven.
+const FOOD_GROUPS = [['voor', 'Voorgerechten', 'Voor'], ['hoofd', 'Hoofdgerechten', 'Hoofd'], ['bij', 'Bijgerechten', 'Bij'], ['na', 'Nagerechten', 'Na'], ['eten', 'Overig eten', 'Overig']];
+const FOOD_CAT_IDS = FOOD_GROUPS.map(g => g[0]);
+const GROUP_PICK = [['voor', 'Voor'], ['hoofd', 'Hoofd'], ['na', 'Na'], ['bij', 'Bij'], ['eten', 'Overig'], ['drinken', 'Drinken']];
+const CAT_ALIASES = { drink: 'drinken', drinks: 'drinken', drank: 'drinken', dranken: 'drinken', voorgerecht: 'voor', voorgerechten: 'voor', starter: 'voor', starters: 'voor', appetizer: 'voor', appetizers: 'voor',
+  hoofdgerecht: 'hoofd', hoofdgerechten: 'hoofd', main: 'hoofd', mains: 'hoofd', nagerecht: 'na', nagerechten: 'na', dessert: 'na', desserts: 'na',
+  bijgerecht: 'bij', bijgerechten: 'bij', side: 'bij', sides: 'bij', overig: 'eten', food: 'eten' };
+function normCat(c) {
+  c = String(c || '').trim().toLowerCase();
+  c = CAT_ALIASES[c] || c;
+  return c === 'drinken' || c === 'extra' || FOOD_CAT_IDS.indexOf(c) >= 0 ? c : 'eten';
+}
+function isFoodCat(c) { return FOOD_CAT_IDS.indexOf(normCat(c)) >= 0; }
+// Op de rekening: Eten / Drinken / Extra
+function billCat(c) { c = normCat(c); return c === 'drinken' || c === 'extra' ? c : 'eten'; }
+function pad2(n) { return (n < 10 ? '0' : '') + n; }
+// ISO-tijd -> 'JJJJ-MM-DD' in de eigen tijdzone
+function isoDay(iso) { const d = new Date(iso); return isNaN(d.getTime()) ? '' : d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
 function cents(x) { return Math.round((Number(x) || 0) * 100); }
 function visitTotal(v) { return (v && v.items ? v.items : []).reduce((s, it) => s + cents(it.price) * (Number(it.qty) || 1), 0) / 100; }
-function categoryLabel(c) { return c === 'drinken' ? 'Drinken' : c === 'extra' ? 'Extra' : 'Eten'; }
+function categoryLabel(c) { c = billCat(c); return c === 'drinken' ? 'Drinken' : c === 'extra' ? 'Extra' : 'Eten'; }
 function saveData() { 
   try {
     localStorage.setItem('hapjeDrankjeVisits', JSON.stringify(visits));
@@ -833,6 +931,7 @@ function renderCurrentVisit(skipMenuCard) {
 
 // ---------- Nieuw bezoek: menukaart kiezen (daarna direct de bestelkaart) ----------
 let menuEditMode = false;
+let newMenuItems = []; // in de aanpas-stand net toegevoegde gerechten (staan bovenaan tot 'Klaar')
 let orderNotice = '';
 function startNewVisit() {
   if (currentVisit && !confirm('Er loopt al een bezoek. Toch een nieuw bezoek starten? Het huidige bezoek wordt dan niet opgeslagen.')) return;
@@ -863,7 +962,7 @@ function skipMenu() {
 function renderSavedList() {
   const card = document.getElementById('savedCard');
   const list = document.getElementById('savedList');
-  const sorted = menus.slice().sort((a, b) => (a.updated < b.updated ? 1 : -1));
+  const sorted = menus.slice().sort((a, b) => ((a.used || a.updated || '') < (b.used || b.updated || '') ? 1 : -1));
   if (!sorted.length) { card.classList.add('hidden'); return; }
   card.classList.remove('hidden');
   list.innerHTML = sorted.map(m => `<div class="saved-rest"><button class="pick" data-pick="${escapeHtml(m.id)}"><div class="item-name">${escapeHtml(m.name || 'Restaurant')}</div><div class="small-text">${(m.items || []).length} gerechten · ${m.updated ? new Date(m.updated).toLocaleDateString('nl-NL') : ''}</div></button><button class="qty-btn remove" data-delrest="${escapeHtml(m.id)}" aria-label="Verwijderen">✕</button></div>`).join('');
@@ -884,9 +983,29 @@ document.getElementById('savedList').addEventListener('click', e => {
   if (pick) {
     const m = menus.filter(x => String(x.id) === pick.getAttribute('data-pick'))[0];
     if (!m) return;
-    createVisit(m.name || '', (m.items || []).map(it => ({ name: it.name, price: it.price, category: it.category })), [], m.id, '', m.retrieved ? { webRetrieved: m.retrieved } : null);
+    startSavedMenu(m, '');
   }
 });
+// Herkomst van een bewaarde kaart: 'web' | 'foto' | 'pdf' | 'mix' | 'hand' | '' (oud, onbekend)
+function menuOrigin(m) { return !m ? '' : m.origin || (m.online ? 'web' : ''); }
+// Extra velden voor het bezoek, zodat Bestellen de juiste notitie toont
+function noteExtraFor(m) {
+  const o = menuOrigin(m);
+  if (o === 'web') return { webRetrieved: m.retrieved || 'onbekend' };
+  if (o) return { cardFrom: { kind: o, date: m.updated || '' } };
+  return null;
+}
+function startSavedMenu(m, notice) {
+  return createVisit(m.name || '', (m.items || []).map(it => ({ name: it.name, price: it.price, category: it.category })), [], m.id, notice || '', noteExtraFor(m));
+}
+function cardNoteText(cf) {
+  const d = shortDate(isoDay(cf && cf.date));
+  const k = cf && cf.kind;
+  if (k === 'pdf') return '📄 Kaart van PDF' + (d ? ', ' + d : '');
+  if (k === 'mix') return '📷 Kaart van foto en PDF' + (d ? ', ' + d : '');
+  if (k === 'hand') return '✏️ Eigen kaart' + (d ? ', aangepast ' + d : '');
+  return '📷 Kaart van foto' + (d ? ', ' + d : '');
+}
 
 // ---------- Kaarten klaargezet (menus/index.json + menus/<id>.json in dezelfde map als de app) ----------
 const WEB_MENU_INDEX = 'menus/index.json';
@@ -920,10 +1039,12 @@ function renderWebMenus() {
   card.classList.remove('hidden');
   document.getElementById('webMenuList').innerHTML = webMenuList.map(m => {
     const d = shortDate(m.retrieved);
-    const local = menus.some(x => x.id === webMenuLocalId(m.id));
-    const sub = [m.place, local ? 'al bewaard – tik om bij te werken' : ''].filter(Boolean).join(' · ');
+    const local = findLocalForWeb(m);
+    const newer = localNewer(local, m);
+    const sub = [m.place, newer ? '' : local ? 'al bewaard – tik om bij te werken' : ''].filter(Boolean).join(' · ');
     return '<button type="button" class="web-btn" data-web="' + escapeHtml(m.id) + '"' + (webMenuBusy ? ' disabled' : '') + '>' + escapeHtml(m.name) + (d ? ' — kaart van ' + d : '') +
-      (sub ? '<span class="wb-sub">' + escapeHtml(sub) + '</span>' : '') + '</button>';
+      (sub ? '<span class="wb-sub">' + escapeHtml(sub) + '</span>' : '') +
+      (newer ? '<span class="wb-sub wb-newer">je eigen kaart van ' + escapeHtml(shortDate(isoDay(local.updated))) + ' is nieuwer – tik om toch de internetkaart te laden</span>' : '') + '</button>';
   }).join('');
 }
 document.getElementById('webMenuList').addEventListener('click', e => {
@@ -935,9 +1056,23 @@ function setWebMsg(t) {
   el.textContent = t || '';
   el.classList.toggle('hidden', !t);
 }
-function webCat(c) {
-  c = String(c || '').toLowerCase();
-  return c === 'drinken' || c === 'drink' || c === 'drinks' ? 'drinken' : c === 'extra' ? 'extra' : 'eten';
+function webCat(c) { return normCat(c); }
+function sameName(a, b) { return String(a || '').trim().toLowerCase() === String(b || '').trim().toLowerCase(); }
+// Bewaarde kaart bij een online kaart: zelfde id (web-<id>) of anders dezelfde restaurantnaam (nieuwste eerst)
+function findLocalForWeb(entry) {
+  if (!entry) return null;
+  const byId = menus.filter(x => x.id === webMenuLocalId(entry.id))[0];
+  if (byId) return byId;
+  if (!String(entry.name || '').trim()) return null;
+  return menus.filter(x => sameName(x.name, entry.name)).sort((a, b) => ((a.updated || '') < (b.updated || '') ? 1 : -1))[0] || null;
+}
+// Laatste invoer geldt: is de eigen kaart (foto, PDF of aangepast) van dezelfde dag of later dan de internetkaart?
+function localNewer(m, entry) {
+  if (!m || !(m.items || []).length) return false;
+  const o = menuOrigin(m);
+  if (!o || o === 'web') return false;
+  const d = isoDay(m.updated);
+  return !!d && (!entry || !entry.retrieved || d >= String(entry.retrieved).slice(0, 10));
 }
 // menu-bestand -> items in het formaat van de app
 function convertWebItems(list) {
@@ -953,10 +1088,17 @@ function webNotice(retrieved) {
   return '🌐 Kaart van internet' + (d ? ', prijzen van ' + d : '') + ' — controleer ze even.';
 }
 // Online kaart ophalen, bewaren (of bijwerken) in hapjeDrankjeMenus en het bezoek starten
-function startWebMenu(id) {
+function startWebMenu(id, force) {
   id = cleanWebId(id);
   if (!id) return Promise.resolve(false);
   const entry = webMenuList.filter(m => m.id === id)[0] || { id: id, name: '', file: 'menus/' + id + '.json', retrieved: '' };
+  const own = findLocalForWeb(entry);
+  if (!force && localNewer(own, entry)) {
+    const d = shortDate(isoDay(own.updated)), dw = shortDate(entry.retrieved);
+    return askBig('Je eigen kaart van ' + d + ' is nieuwer dan de internetkaart' + (dw ? ' (' + dw + ')' : '') + '. Toch de internetkaart laden?',
+      { yes: 'Ja, internetkaart laden', no: 'Nee, mijn eigen kaart gebruiken', sub: 'Laad je de internetkaart, dan wordt je eigen kaart van ' + (own.name || 'dit restaurant') + ' vervangen.' })
+      .then(yes => (yes ? startWebMenu(id, true) : startSavedMenu(own, 'Je eigen kaart wordt gebruikt.').then(() => true)));
+  }
   webMenuBusy = true; renderWebMenus(); setWebMsg('Kaart ophalen…');
   const done = () => { webMenuBusy = false; renderWebMenus(); };
   return fetchJson(entry.file + (entry.file.indexOf('?') < 0 ? '?t=' : '&t=') + Date.now()).then(d => {
@@ -964,21 +1106,20 @@ function startWebMenu(id) {
     if (!items.length) throw new Error('leeg');
     const name = String((d && d.name) || entry.name || 'Restaurant').trim();
     const retrieved = String((d && d.retrieved) || entry.retrieved || '');
-    const lid = webMenuLocalId(id);
-    let m = menus.filter(x => x.id === lid)[0];
-    if (!m) { m = { id: lid, name: name, items: [], photoIds: [], updated: '' }; menus.push(m); }
+    let m = findLocalForWeb({ id: id, name: name });
+    if (!m) { m = { id: webMenuLocalId(id), name: name, items: [], photoIds: [], updated: '' }; menus.push(m); }
+    const lid = m.id;
     m.name = name; m.items = items; m.online = id; m.retrieved = retrieved; m.source = (d && d.source) || '';
-    m.updated = new Date().toISOString();
+    m.updated = new Date().toISOString(); m.origin = 'web'; m.webLoaded = m.updated;
     saveMenus();
     done(); setWebMsg('');
     return createVisit(name, items, [], lid, items.length + ' gerechten en drankjes geladen. Tik op een gerecht of op + om te bestellen.', { webRetrieved: retrieved || 'onbekend' }).then(() => true);
   }).catch(() => {
     done();
-    const m = menus.filter(x => x.id === webMenuLocalId(id))[0];
+    const m = findLocalForWeb(entry);
     if (m && (m.items || []).length) {
       setWebMsg('');
-      return createVisit(m.name || '', m.items.map(it => ({ name: it.name, price: it.price, category: it.category })), [], m.id,
-        'De kaart kon nu niet worden opgehaald; de bewaarde kaart wordt gebruikt.', m.retrieved ? { webRetrieved: m.retrieved } : null).then(() => true);
+      return startSavedMenu(m, 'De kaart kon nu niet worden opgehaald; de bewaarde kaart wordt gebruikt.').then(() => true);
     }
     setWebMsg('Deze kaart kon nu niet worden opgehaald. Probeer het later nog eens.');
     showToast('Kaart niet gevonden');
@@ -1001,10 +1142,14 @@ function clearKaartParam() {
     history.replaceState(history.state, '', u.pathname + u.search + u.hash);
   } catch (e) {}
 }
-function askBig(text) {
+function askBig(text, o) {
+  o = o || {};
   return new Promise(resolve => {
     const dlg = document.getElementById('kaartConfirm');
     document.getElementById('kaartConfirmText').textContent = text;
+    document.getElementById('kaartConfirmSub').textContent = o.sub || 'Het bezoek dat nu loopt wordt dan niet bewaard.';
+    document.getElementById('kaartConfirmYes').textContent = o.yes || 'Ja, nieuw bezoek starten';
+    document.getElementById('kaartConfirmNo').textContent = o.no || 'Nee, huidig bezoek houden';
     dlg.classList.remove('hidden');
     const close = v => { dlg.classList.add('hidden'); document.getElementById('kaartConfirmYes').onclick = null; document.getElementById('kaartConfirmNo').onclick = null; resolve(v); };
     document.getElementById('kaartConfirmYes').onclick = () => close(true);
@@ -1077,49 +1222,175 @@ const OCR_STATUS = {
   'initialized api': 'Voorbereiden…',
   'recognizing text': 'Tekst lezen'
 };
-// Leest alle foto's na elkaar; geeft { name, items } terug
+// ---------- PDF (pdf.js van jsDelivr, pas geladen als je een PDF kiest) ----------
+const PDFJS_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/legacy/build/pdf.min.js';
+const PDFJS_WORKER_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/legacy/build/pdf.worker.min.js';
+const PDF_MAX_PAGES = 30;
+let pdfjsPromise = null;
+function isPdfFile(f) { return !!f && (/pdf/i.test(f.type || '') || /\.pdf$/i.test(f.name || '')); }
+function filesKind(files) { const p = files.some(isPdfFile), i = files.some(f => !isPdfFile(f)); return p && i ? 'mix' : p ? 'pdf' : 'foto'; }
+function loadPdfJs() {
+  if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  if (pdfjsPromise) return pdfjsPromise;
+  pdfjsPromise = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = PDFJS_URL;
+    s.onload = () => {
+      const lib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
+      if (!lib) { pdfjsPromise = null; reject(new Error('PDF-lezer niet beschikbaar')); return; }
+      window.pdfjsLib = lib;
+      lib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL;
+      resolve(lib);
+    };
+    s.onerror = () => { pdfjsPromise = null; s.remove(); reject(new Error('PDF-lezer kon niet geladen worden')); };
+    document.head.appendChild(s);
+  });
+  return pdfjsPromise;
+}
+function readFileBuffer(file) {
+  if (file.arrayBuffer) return file.arrayBuffer();
+  return new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(r.result); r.onerror = () => reject(r.error); r.readAsArrayBuffer(file); });
+}
+const PDF_PRICE_TOKEN = /^\s*(€\s*)?\d{1,3}([.,]\d{1,2}|,-)?\s*(€)?\s*$/;
+// Tekstlaag van één pagina -> regels. Twee kolommen (zoals bij Verlan) worden apart gelezen: eerst links, dan rechts.
+function pdfItemsToText(items, pageWidth) {
+  items = items.filter(it => it.s && it.s.trim());
+  const letterCount = list => list.reduce((n, it) => n + ((it.s.match(/[A-Za-zÀ-ÿ]/g) || []).length), 0);
+  const total = letterCount(items);
+  let cols = [items];
+  if (items.length >= 8) {
+    let best = null;
+    for (let k = 25; k <= 75; k++) {
+      const X = pageWidth * k / 100;
+      const left = [], right = []; let cross = 0;
+      items.forEach(it => { if (it.x < X - 1 && it.x + it.w > X + 1) cross++; else if (it.x + it.w / 2 < X) left.push(it); else right.push(it); });
+      if (cross > Math.max(1, items.length * 0.03)) continue;
+      if (letterCount(left) < total * 0.25 || letterCount(right) < total * 0.25) continue;
+      // Echte kolomgrens: links eindigen veel regels met een prijs (en niet midden tussen naam en prijs)
+      const rowsL = {};
+      left.forEach(it => { const key = Math.round(it.y / Math.max(4, it.h * 0.6)); if (!rowsL[key] || rowsL[key].x < it.x) rowsL[key] = it; });
+      let priceEnds = 0; for (const key in rowsL) if (PDF_PRICE_TOKEN.test(rowsL[key].s)) priceEnds++;
+      const score = priceEnds * 10 - cross;
+      if (!best || score > best.score) best = { score: score, X: X };
+    }
+    if (best) cols = [items.filter(it => it.x + it.w / 2 < best.X), items.filter(it => it.x + it.w / 2 >= best.X)];
+  }
+  const out = [];
+  cols.forEach(col => {
+    const sorted = col.slice().sort((a, b) => a.y - b.y || a.x - b.x);
+    const lines = [];
+    sorted.forEach(it => {
+      const ln = lines.length ? lines[lines.length - 1] : null;
+      if (ln && Math.abs(it.y - ln.y) <= Math.max(2, Math.min(it.h, ln.h) * 0.5)) ln.items.push(it);
+      else lines.push({ y: it.y, h: it.h, items: [it] });
+    });
+    lines.forEach(ln => {
+      ln.items.sort((a, b) => a.x - b.x);
+      let txt = '', end = null;
+      ln.items.forEach(it => {
+        if (end !== null) { const gap = it.x - end; if (gap > ln.h * 0.12 && !/\s$/.test(txt) && !/^\s/.test(it.s)) txt += ' '; }
+        txt += it.s; end = it.x + it.w;
+      });
+      txt = txt.replace(/\s+/g, ' ').trim();
+      if (txt) out.push(txt);
+    });
+  });
+  return { text: out.join('\n'), letters: total };
+}
+// Eén PDF-bestand: per pagina eerst de tekstlaag; weinig of geen tekst -> pagina tekenen en met Tesseract lezen
+function pdfFileToSources(file, ui, label) {
+  return loadPdfJs().then(lib => readFileBuffer(file).then(buf => lib.getDocument({ data: new Uint8Array(buf) }).promise)).then(pdf => {
+    const n = Math.min(pdf.numPages, PDF_MAX_PAGES), sources = [];
+    let chain = Promise.resolve();
+    for (let p = 1; p <= n; p++) chain = chain.then(() => pdf.getPage(p).then(page => {
+      ui(label + ' – pagina ' + p + ' van ' + n + ' lezen…', null);
+      const vp = page.getViewport({ scale: 1 });
+      return page.getTextContent().then(tc => {
+        const items = (tc.items || []).map(it => ({ s: String(it.str || ''), x: it.transform[4], y: vp.height - it.transform[5],
+          w: Math.abs(it.width || 0), h: Math.abs(it.transform[3]) || Math.abs(it.height || 0) || 10 }));
+        const r = pdfItemsToText(items, vp.width);
+        if (r.letters >= 40) { sources.push({ text: r.text }); return; }
+        // Gescande pagina: tekenen en OCR
+        let scale = Math.min(3, 2000 / vp.width);
+        if (vp.width * scale * vp.height * scale > 12000000) scale = Math.sqrt(12000000 / (vp.width * vp.height));
+        const v2 = page.getViewport({ scale: scale });
+        const c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(v2.width)); c.height = Math.max(1, Math.round(v2.height));
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+        return page.render({ canvasContext: ctx, viewport: v2 }).promise.then(() => { sources.push({ canvas: c }); });
+      });
+    }));
+    return chain.then(() => sources);
+  });
+}
+// Leest één afbeelding (canvas) met Tesseract; zwak resultaat -> nog een keer als één tekstblok
+function ocrCanvas(worker, canvas, setPass) {
+  return worker.setParameters({ tessedit_pageseg_mode: '3' })
+    .then(() => worker.recognize(canvas))
+    .then(res => {
+      const r = parseMenuText(ocrDataToText(res.data));
+      if (r.items.length < 3 || r.unpriced > Math.max(2, 0.25 * r.items.length)) {
+        setPass(', tweede poging');
+        return worker.setParameters({ tessedit_pageseg_mode: '6' })
+          .then(() => worker.recognize(canvas))
+          .then(res2 => { const r2 = parseMenuText(ocrDataToText(res2.data)); return r2.items.length > r.items.length ? r2 : r; });
+      }
+      return r;
+    });
+}
+// Leest alle foto's en PDF's na elkaar; geeft { name, items, failed } terug
 function ocrFiles(files, ui) {
   const result = { name: '', items: [] };
   const seen = {};
   const n = files.length;
-  let current = 0, pass = '';
+  let current = 0, pass = '', what = 'Foto';
   ocrProgress = m => {
     const label = OCR_STATUS[m.status] || 'Bezig…';
     if (m.status === 'recognizing text') {
       const p = (current + (m.progress || 0)) / n;
-      ui(label + (n > 1 ? ' – foto ' + (current + 1) + ' van ' + n : '') + pass + ' (' + Math.round((m.progress || 0) * 100) + '%)', p);
+      ui(label + (n > 1 ? ' – ' + what.toLowerCase() + ' ' + (current + 1) + ' van ' + n : '') + pass + ' (' + Math.round((m.progress || 0) * 100) + '%)', p);
     } else {
       ui(label + (m.progress ? ' ' + Math.round(m.progress * 100) + '%' : ''), null);
     }
   };
-  ui('Tekstherkenning laden…', 0);
-  return getWorker().then(worker => files.reduce((chain, file, i) => chain.then(() => {
+  const addResult = r => {
+    if (!result.name && r.name) result.name = r.name;
+    r.items.forEach(it => {
+      const key = it.name.toLowerCase() + '|' + it.price.toFixed(2);
+      if (!seen[key]) { seen[key] = true; result.items.push(it); }
+    });
+  };
+  let usedOcr = false, ocrErr = null;
+  ui(files.some(f => !isPdfFile(f)) ? 'Tekstherkenning laden…' : 'PDF openen…', 0);
+  return files.reduce((chain, file, i) => chain.then(() => {
     current = i; pass = '';
-    ui('Foto ' + (i + 1) + ' van ' + n + ' voorbereiden…', i / n);
-    return prepareForOcr(file)
-      .then(canvas => worker.setParameters({ tessedit_pageseg_mode: '3' })
-        .then(() => worker.recognize(canvas))
-        .then(res => {
-          const r = parseMenuText(ocrDataToText(res.data));
-          // Zwak resultaat (veel namen zonder prijs)? Nog een keer lezen als één tekstblok.
-          if (r.items.length < 3 || r.unpriced > Math.max(2, 0.25 * r.items.length)) {
-            pass = ', tweede poging';
-            return worker.setParameters({ tessedit_pageseg_mode: '6' })
-              .then(() => worker.recognize(canvas))
-              .then(res2 => { const r2 = parseMenuText(ocrDataToText(res2.data)); return r2.items.length > r.items.length ? r2 : r; });
-          }
-          return r;
-        }))
-      .then(r => {
-        if (!result.name && r.name) result.name = r.name;
-        r.items.forEach(it => {
-          const key = it.name.toLowerCase() + '|' + it.price.toFixed(2);
-          if (!seen[key]) { seen[key] = true; result.items.push(it); }
-        });
-      })
-      .catch(err => { console.warn('OCR foto mislukt', err); result.failed = (result.failed || 0) + 1; });
-  }), Promise.resolve())).then(() => { ocrProgress = null; ui('Klaar', 1); return result; },
-    err => { ocrProgress = null; throw err; });
+    if (isPdfFile(file)) {
+      what = 'PDF';
+      const label = 'PDF' + (n > 1 ? ' ' + (i + 1) + ' van ' + n : '');
+      return pdfFileToSources(file, ui, label).then(sources => {
+        const text = sources.filter(x => x.text).map(x => x.text).join('\n');
+        if (text.trim()) addResult(parseMenuText(MenuParser.joinWrapped(text)));
+        const scans = sources.filter(x => x.canvas);
+        if (!scans.length) return;
+        usedOcr = true;
+        return getWorker().then(worker => scans.reduce((c2, sc, k) => c2.then(() => {
+          pass = scans.length > 1 ? ', gescande pagina ' + (k + 1) + ' van ' + scans.length : ', gescande pagina';
+          return ocrCanvas(worker, sc.canvas, p => { pass = p; }).then(addResult);
+        }), Promise.resolve()));
+      }).catch(err => { console.warn('PDF mislukt', err); ocrErr = err; result.failed = (result.failed || 0) + 1; });
+    }
+    what = 'Foto'; usedOcr = true;
+    return getWorker().then(worker => {
+      ui('Foto ' + (i + 1) + ' van ' + n + ' voorbereiden…', i / n);
+      return prepareForOcr(file).then(canvas => ocrCanvas(worker, canvas, p => { pass = p; })).then(addResult);
+    }).catch(err => { console.warn('OCR foto mislukt', err); ocrErr = err; result.failed = (result.failed || 0) + 1; });
+  }), Promise.resolve()).then(() => {
+    ocrProgress = null;
+    // Niets gelukt en de lezer zelf laadde niet: als fout doorgeven (geen internet?)
+    if (!result.items.length && result.failed === n && ocrErr && /geladen|beschikbaar|network|fetch|load/i.test(String(ocrErr && ocrErr.message || ocrErr))) throw ocrErr;
+    ui('Klaar', 1); return result;
+  }, err => { ocrProgress = null; throw err; });
 }
 function setOcrBusy(busy, which) {
   const suffix = which === 2 ? '2' : '';
@@ -1149,12 +1420,13 @@ function handleMenuFiles(input) {
     let notice = res.items.length
       ? res.items.length + ' gerechten herkend. Tik op een gerecht of op + om te bestellen. Klopt een naam of prijs niet? Tik op ✏️ Aanpassen.'
       : 'Er zijn geen gerechten met prijzen herkend. Tik op ✏️ Aanpassen om ze zelf in te vullen, of scan een scherpere foto.';
-    if (res.failed) notice += ' ' + res.failed + ' foto(\'s) konden niet gelezen worden.';
+    if (res.failed) notice += ' ' + res.failed + ' bestand(en) konden niet gelezen worden.';
     setOcrBusy(false);
-    createVisit(typedName || res.name || '', res.items, files, null, notice);
+    createVisit(typedName || res.name || '', res.items, files.filter(f => !isPdfFile(f)), null, notice,
+      res.items.length ? { cardFrom: { kind: filesKind(files), date: new Date().toISOString() } } : null);
   }).catch(() => {
     setOcrBusy(false);
-    createVisit(typedName, [], files, null, 'Tekstherkenning werkt nu niet (geen internet?). De foto\'s zijn bewaard. Tik op ✏️ Aanpassen om gerechten zelf in te vullen.');
+    createVisit(typedName, [], files.filter(f => !isPdfFile(f)), null, 'Tekstherkenning werkt nu niet (geen internet?). De foto\'s zijn bewaard. Tik op ✏️ Aanpassen om gerechten zelf in te vullen.');
   });
 }
 function handleMoreMenuFiles(input) {
@@ -1172,10 +1444,10 @@ function handleMoreMenuFiles(input) {
     const fresh = res.items.filter(it => !have[it.name.toLowerCase() + '|' + it.price.toFixed(2)]);
     v.menu = v.menu.concat(fresh);
     if (res.name && !v.name) v.name = res.name;
-    return savePhotoFiles(files, v.id, v.name || '').then(ids => {
+    return savePhotoFiles(files.filter(f => !isPdfFile(f)), v.id, v.name || '').then(ids => {
       v.menuPhotoIds = (v.menuPhotoIds || []).concat(ids);
       syncRestaurant(ids);
-      orderNotice = fresh.length + ' gerecht(en) toegevoegd uit de nieuwe foto.';
+      orderNotice = fresh.length + ' gerecht(en) toegevoegd aan deze kaart.';
       setOcrBusy(false, 2);
       renderCurrentVisit();
     });
@@ -1183,6 +1455,59 @@ function handleMoreMenuFiles(input) {
     setOcrBusy(false, 2);
     orderNotice = 'Tekstherkenning werkt nu niet (geen internet?).';
     renderMenuCard();
+  });
+}
+// ---------- v11: Nieuwe kaart (foto of PDF) tijdens het bezoek: laatste invoer geldt ----------
+function pickNewCard() {
+  if (!currentVisit) return;
+  if (menuEditMode) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); }
+  document.getElementById('newCardInput').click();
+}
+function handleNewCardFiles(input) {
+  const files = Array.from(input.files || []);
+  input.value = '';
+  if (!files.length || !currentVisit) return Promise.resolve(false);
+  if (menuEditMode) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); }
+  const kind = filesKind(files);
+  const what = kind === 'pdf' ? 'deze PDF' : kind === 'mix' ? 'deze foto\'s en PDF' : files.length > 1 ? 'deze foto\'s' : 'deze foto';
+  setOcrBusy(true, 2);
+  const box = document.getElementById('ocrBox2');
+  if (box.scrollIntoView) box.scrollIntoView({ block: 'center' });
+  return ocrFiles(files, ocrUi(2)).then(res => {
+    setOcrBusy(false, 2);
+    const v = currentVisit;
+    if (!v) return false;
+    if (!res.items.length) {
+      orderNotice = 'Op ' + what + ' zijn geen gerechten met prijzen gevonden. De kaart die je had, blijft staan.';
+      renderMenuCard(); window.scrollTo(0, 0);
+      return false;
+    }
+    return replaceVisitMenu(v, res, files, kind).then(() => true);
+  }).catch(() => {
+    setOcrBusy(false, 2);
+    orderNotice = 'De kaart kon nu niet worden gelezen (geen internet?). De kaart die je had, blijft staan.';
+    renderMenuCard(); window.scrollTo(0, 0);
+    return false;
+  });
+}
+// Kaart van dit bezoek vervangen; wordt ook de bewaarde kaart van dit restaurant. Bestelde regels blijven zoals ze zijn.
+function replaceVisitMenu(v, res, files, kind) {
+  const now = new Date().toISOString();
+  v.menu = res.items.map(it => ({ name: it.name, price: it.price, category: normCat(it.category) }));
+  v.cardFrom = { kind: kind, date: now };
+  delete v.webRetrieved;
+  if (res.name && !String(v.name || '').trim()) v.name = res.name;
+  return savePhotoFiles(files.filter(f => !isPdfFile(f)), v.id, v.name || '').then(ids => {
+    v.menuPhotoIds = (v.menuPhotoIds || []).concat(ids);
+    const rid = upsertRestaurantMenu(String(v.name || '').trim(), validMenuItems(v.menu), ids, v.restaurantId, { origin: kind, exact: true });
+    if (rid) v.restaurantId = rid;
+    saveData();
+    menuSearch = '';
+    orderNotice = 'Nieuwe kaart geladen: ' + v.menu.length + ' gerechten en drankjes. Deze kaart geldt nu voor dit restaurant. Wat je al besteld had, blijft op de rekening staan met de oude prijs. Klopt iets niet? Tik op ✏️ Aanpassen.';
+    renderCurrentVisit(true);
+    renderMenuCard();
+    window.scrollTo(0, 0);
+    showToast('Nieuwe kaart geladen');
   });
 }
 // Menu-foto's opslaan in IndexedDB, gekoppeld aan bezoek en restaurant
@@ -1197,22 +1522,34 @@ function savePhotoFiles(files, visitId, restaurantName) {
 }
 function validMenuItems(list) {
   return (list || []).filter(it => String(it.name).trim() && it.price !== '' && it.price != null && !isNaN(Number(it.price)))
-    .map(it => ({ name: String(it.name).trim(), price: Math.round(Number(it.price) * 100) / 100, category: it.category || 'eten' }));
+    .map(it => ({ name: String(it.name).trim(), price: Math.round(Number(it.price) * 100) / 100, category: normCat(it.category) }));
 }
-function upsertRestaurantMenu(name, items, photoIds, restaurantId) {
-  let m = null;
-  if (restaurantId) m = menus.filter(x => x.id === restaurantId)[0] || null;
+// Bewaarde kaart bijwerken. Laatste invoer geldt: gewijzigde gerechten -> nieuwe 'updated' en herkomst.
+// opts.origin = 'foto' | 'pdf' | 'mix' (nieuwe kaart); opts.exact = precies deze lijst bewaren (ook als hij leeg is)
+function upsertRestaurantMenu(name, items, photoIds, restaurantId, opts) {
+  opts = opts || {};
+  let m = null, byId = false;
+  if (restaurantId) { m = menus.filter(x => x.id === restaurantId)[0] || null; byId = !!m; }
   const key = String(name || '').trim().toLowerCase();
   if (!m && key && key !== 'restaurantbezoek') m = menus.filter(x => (x.name || '').trim().toLowerCase() === key)[0] || null;
+  const now = new Date().toISOString();
   if (!m) {
     if (!items.length && !photoIds.length) return null;
     m = { id: 'r' + Date.now(), name: name, items: [], photoIds: [], updated: '' };
     menus.push(m);
   }
   if (name) m.name = name;
-  if (items.length || !(m.items || []).length) m.items = items.map(it => ({ name: it.name, price: it.price, category: it.category }));
+  const fresh = items.map(it => ({ name: it.name, price: it.price, category: normCat(it.category) }));
+  const take = items.length || !(m.items || []).length || (byId && opts.exact);
+  const changed = JSON.stringify(fresh) !== JSON.stringify(m.items || []);
+  if (take && (changed || opts.origin)) {
+    m.items = fresh;
+    m.updated = now;
+    m.origin = opts.origin || (menuOrigin(m) && menuOrigin(m) !== 'web' ? menuOrigin(m) : 'hand');
+  }
+  if (!m.updated) m.updated = now;
+  m.used = now;
   m.photoIds = (m.photoIds || []).concat(photoIds);
-  m.updated = new Date().toISOString();
   saveMenus();
   return m.id;
 }
@@ -1225,16 +1562,16 @@ function syncRestaurant(photoIds) {
 }
 function createVisit(name, items, files, restaurantId, notice, extra) {
   const visitId = Date.now();
-  const menu = (items || []).map(it => ({ name: it.name, price: it.price, category: it.category || 'eten' }));
+  const menu = (items || []).map(it => ({ name: it.name, price: it.price, category: normCat(it.category) }));
   return savePhotoFiles(files || [], visitId, name).then(photoIds => {
     currentVisit = { id: visitId, name: name, date: new Date().toISOString(), items: [], isEstimate: false, finished: false,
       menu: menu, restaurantId: restaurantId || null, menuPhotoIds: photoIds };
     if (extra) Object.assign(currentVisit, extra);
-    const rid = upsertRestaurantMenu(name, validMenuItems(menu), photoIds, restaurantId);
+    const rid = upsertRestaurantMenu(name, validMenuItems(menu), photoIds, restaurantId, extra && extra.cardFrom ? { origin: extra.cardFrom.kind } : null);
     if (rid) currentVisit.restaurantId = rid;
     saveData();
     orderNotice = notice || '';
-    menuEditMode = false;
+    menuEditMode = false; newMenuItems = [];
     menuSearch = '';
     renderCurrentVisit(true);
     showTab('toevoegen');
@@ -1404,32 +1741,35 @@ function renderMenuCard() {
   const menu = currentVisit.menu || [];
   const hadFocus = document.activeElement && document.activeElement.id === 'menuSearch';
   let html = orderNotice ? '<div class="notice">' + escapeHtml(orderNotice) + '</div>' : '';
-  if (currentVisit.webRetrieved && menu.length) html += '<div class="web-note" id="webNote">' + escapeHtml(webNotice(currentVisit.webRetrieved)) + '</div>';
+  if (currentVisit.cardFrom && menu.length) html += '<div class="web-note card-note" id="cardNote">' + escapeHtml(cardNoteText(currentVisit.cardFrom)) + '</div>';
+  else if (currentVisit.webRetrieved && menu.length) html += '<div class="web-note" id="webNote">' + escapeHtml(webNotice(currentVisit.webRetrieved)) + '</div>';
   html += '<div class="menu-head"><div class="section-title">Menukaart</div><div class="head-btns">' +
     (menu.length || menuEditMode ? '<button type="button" class="edit-toggle' + (menuEditMode ? ' on' : '') + '" onclick="toggleMenuEdit()">' + (menuEditMode ? '✓ Klaar' : '✏️ Aanpassen') + '</button>' : '') +
     '</div></div>';
+  const searchHtml = menu.length > 6 ? '<input type="search" id="menuSearch" placeholder="Zoeken op de kaart…" autocomplete="off" value="' + escapeHtml(menuSearch) + '">' : '';
+  const jumpHtml = menu.length > 20 ? jumpBarHtml(menu) : '';
   if (menuEditMode) {
-    html += '<p class="small-text" style="margin-top:0;">Pas naam, prijs of soort aan, of haal een gerecht weg met ✕. Tik daarna op <b>Klaar</b>.</p>' +
+    html += '<p class="small-text" style="margin-top:0;">Pas naam, prijs of soort (Voor, Hoofd, Na, Bij, Drinken) aan, of haal iets weg met ✕. Het wordt meteen bewaard. Tik daarna op <b>Klaar</b>.</p>' +
+      '<button class="big-button secondary" id="addMenuRowTop" onclick="addMenuRow()">+ Gerecht of drankje toevoegen</button>' +
+      searchHtml + jumpHtml +
       '<div id="menuList"></div>' +
-      '<button class="big-button secondary" onclick="addMenuRow()">+ Gerecht op de kaart zetten</button>' +
+      '<button class="big-button secondary" onclick="addMenuRow()">+ Gerecht of drankje toevoegen</button>' +
       '<button class="big-button" onclick="toggleMenuEdit()">✓ Klaar met aanpassen</button>';
   } else if (!menu.length) {
     html += '<p>Dit bezoek heeft nog geen menukaart.</p>' +
-      '<button class="big-button" onclick="document.getElementById(\'moreMenuInput\').click()">📷 Menukaart scannen</button>' +
+      '<button class="big-button huge new-card-btn" id="newCardBtn" onclick="pickNewCard()">📷 Nieuwe kaart (foto of PDF)</button>' +
       '<button class="big-button secondary" onclick="menuEditMode = true; addMenuRow();">✏️ Zelf gerechten op de kaart zetten</button>' +
       '<div id="menuList"></div>';
   } else {
-    const hasE = menu.some(mi => (mi.category || 'eten') === 'eten'), hasD = menu.some(mi => mi.category === 'drinken');
-    html += (menu.length > 6 ? '<input type="search" id="menuSearch" placeholder="Zoeken op de kaart…" autocomplete="off" value="' + escapeHtml(menuSearch) + '">' : '') +
-      (menu.length > 20 ? '<div class="jump-bar" id="jumpBar">' + (hasE ? '<button type="button" data-jump="grp-eten">🍽 Eten</button>' : '') +
-        (hasD ? '<button type="button" data-jump="drinkSection">🥤 Drinken</button>' : '') + '<button type="button" data-jump="grp-zelf">✍️ Zelf invullen</button></div>' : '') +
+    html += '<button class="big-button new-card-btn" id="newCardBtn" onclick="pickNewCard()">📷 Nieuwe kaart (foto of PDF)</button>' +
+      searchHtml + jumpHtml +
       '<div id="menuList"></div>' +
-      '<button class="big-button secondary" onclick="document.getElementById(\'moreMenuInput\').click()">📷 Nog een foto scannen</button>';
+      '<button class="big-button secondary" id="moreMenuBtn" onclick="document.getElementById(\'moreMenuInput\').click()">➕ Nog een foto of PDF bij deze kaart</button>';
   }
   card.innerHTML = html;
   const s = document.getElementById('menuSearch');
   if (s) {
-    s.addEventListener('input', e => { menuSearch = e.target.value; renderMenuList(); });
+    s.addEventListener('input', e => { if (menuEditMode) commitMenuEdits(); menuSearch = e.target.value; renderMenuList(); });
     if (hadFocus) { s.focus(); try { s.setSelectionRange(s.value.length, s.value.length); } catch(e) {} }
   } else menuSearch = '';
   renderMenuList();
@@ -1437,33 +1777,67 @@ function renderMenuCard() {
 document.getElementById('menuCard').addEventListener('click', e => {
   const b = e.target.closest('[data-jump]');
   if (!b) return;
-  if (menuSearch) { menuSearch = ''; const s = document.getElementById('menuSearch'); if (s) s.value = ''; renderMenuList(); }
+  if (menuSearch) { if (menuEditMode) commitMenuEdits(); menuSearch = ''; const s = document.getElementById('menuSearch'); if (s) s.value = ''; renderMenuList(); }
   const t = document.getElementById(b.getAttribute('data-jump'));
   if (t) t.scrollIntoView({ block: 'start' });
 });
+// Groepen in de volgorde van de kaart; alleen groepen met gerechten. 'eten' heet 'Eten' als er verder geen onderverdeling is.
+function menuGroups(menu) {
+  const has = {};
+  menu.forEach(mi => { has[normCat(mi.category)] = true; });
+  const split = FOOD_GROUPS.some(g => g[0] !== 'eten' && has[g[0]]);
+  return FOOD_GROUPS.map(g => g[0] === 'eten' && !split ? ['eten', 'Eten', 'Eten'] : g)
+    .concat([['drinken', 'Drinken', 'Drinken'], ['extra', 'Extra', 'Extra']]).filter(g => has[g[0]]);
+}
+function jumpBarHtml(menu) {
+  const gs = menuGroups(menu);
+  return '<div class="jump-bar" id="jumpBar">' + gs.filter(g => isFoodCat(g[0])).map(g => '<button type="button" data-jump="grp-' + g[0] + '">' + escapeHtml(g[2]) + '</button>').join('') +
+    (gs.some(g => g[0] === 'drinken') ? '<button type="button" data-jump="' + (menuEditMode ? 'grp-drinken' : 'drinkSection') + '">🥤 Drinken</button>' : '') +
+    (menuEditMode ? '' : '<button type="button" data-jump="grp-zelf">✍️ Zelf invullen</button>') + '</div>';
+}
+function editItemHtml(it, i) {
+  const cat = normCat(it.category);
+  return '<div class="edit-item" data-i="' + i + '">' +
+    '<input type="text" data-f="name" value="' + escapeHtml(it.name) + '" placeholder="Naam gerecht of drankje" aria-label="Naam" autocomplete="off">' +
+    '<div class="edit-row">' +
+      '<input class="price" type="text" inputmode="decimal" data-f="price" autocomplete="off" aria-label="Prijs" value="' + (it.price === '' || it.price == null ? '' : escapeHtml(priceToInput(it.price))) + '" placeholder="Prijs">' +
+      '<button type="button" class="del-btn" data-del="' + i + '" aria-label="Van de kaart halen">✕</button>' +
+    '</div>' +
+    '<input type="hidden" data-f="category" value="' + cat + '">' +
+    '<div class="grp-pills" role="group" aria-label="Soort">' + GROUP_PICK.map(g =>
+      '<button type="button" data-grp="' + g[0] + '" class="' + (g[0] === cat ? 'on' : '') + '" aria-pressed="' + (g[0] === cat) + '">' + g[1] + '</button>').join('') + '</div></div>';
+}
 function renderMenuList() {
   const list = document.getElementById('menuList');
   if (!list || !currentVisit) return;
   const menu = currentVisit.menu || [];
+  const q = menuSearch.trim().toLowerCase();
   if (menuEditMode) {
-    list.innerHTML = menu.map((it, i) => `<div class="edit-item" data-i="${i}">
-    <input type="text" data-f="name" value="${escapeHtml(it.name)}" placeholder="Naam gerecht">
-    <div class="edit-row">
-      <input class="price" type="text" inputmode="decimal" data-f="price" value="${it.price === '' || it.price == null ? '' : escapeHtml(priceToInput(it.price))}" placeholder="Prijs">
-      <input type="hidden" data-f="category" value="${escapeHtml(it.category || 'eten')}">${catPillsHtml(it.category, false)}
-      <button class="del-btn" data-del="${i}" aria-label="Van de kaart halen">✕</button>
-    </div></div>`).join('');
+    newMenuItems = newMenuItems.filter(it => menu.indexOf(it) >= 0);
+    let h = '';
+    if (newMenuItems.length) h += '<div class="menu-group" id="grp-nieuw">Nieuw op de kaart</div>' + newMenuItems.map(it => editItemHtml(it, menu.indexOf(it))).join('');
+    let shownE = 0;
+    menuGroups(menu).forEach(g => {
+      const rows = [];
+      menu.forEach((it, i) => {
+        if (newMenuItems.indexOf(it) >= 0 || normCat(it.category) !== g[0]) return;
+        if (q && String(it.name).toLowerCase().indexOf(q) < 0) return;
+        rows.push(editItemHtml(it, i));
+      });
+      if (rows.length) { h += '<div class="menu-group" id="grp-' + g[0] + '">' + escapeHtml(g[1]) + '</div>' + rows.join(''); shownE += rows.length; }
+    });
+    if (!shownE && q && menu.length) h += '<p class="small-text">Niets gevonden voor "' + escapeHtml(menuSearch) + '".</p>';
+    list.innerHTML = h;
     return;
   }
-  const q = menuSearch.trim().toLowerCase();
-  const groups = [['eten', 'Eten'], ['drinken', 'Drinken'], ['extra', 'Extra']];
+  const groups = menuGroups(menu);
   let html = '', shown = 0;
-  const parts = {};
+  const parts = { drinken: '', extra: '' };
+  let foodHtml = '';
   groups.forEach(g => {
-    parts[g[0]] = '';
     const rows = [];
     menu.forEach((mi, idx) => {
-      if ((mi.category || 'eten') !== g[0]) return;
+      if (normCat(mi.category) !== g[0]) return;
       if (q && String(mi.name).toLowerCase().indexOf(q) < 0) return;
       const priced = mi.price !== '' && mi.price != null && !isNaN(Number(mi.price));
       const c = priced ? orderedCount(mi) : 0;
@@ -1471,8 +1845,12 @@ function renderMenuList() {
         `<div class="or-line">` + (priced ? `<button type="button" class="or-price" data-madd="${idx}">${formatEuro(mi.price)}</button>` + qtyCtlHtml(c, 'data-qm="' + idx + '"')
           : `<button type="button" class="or-price unpriced" data-madd="${idx}">Prijs ontbreekt – tik hier</button>`) + `</div></div>`);
     });
-    if (rows.length) { parts[g[0]] = '<div class="menu-group" id="grp-' + g[0] + '">' + g[1] + '</div>' + rows.join(''); shown += rows.length; }
+    if (!rows.length) return;
+    const part = '<div class="menu-group" id="grp-' + g[0] + '">' + escapeHtml(g[1]) + '</div>' + rows.join('');
+    shown += rows.length;
+    if (isFoodCat(g[0])) foodHtml += part; else parts[g[0]] = part;
   });
+  parts.eten = foodHtml;
   if (!shown && menu.length) html = '<p class="small-text">Niets gevonden voor "' + escapeHtml(menuSearch) + '".</p>';
   html += parts.eten + drinkSectionHtml(parts.drinken) + parts.extra;
   // Bestellingen die niet op de kaart staan
@@ -1482,13 +1860,15 @@ function renderMenuList() {
     const n = Number(it.qty) || 1;
     offRows.push(`<div class="order-row ordered"><div class="or-name static">${escapeHtml(it.name)}</div><div class="or-line"><span class="or-price">${formatEuro(it.price)}</span>` + qtyCtlHtml(n, 'data-qv="cur" data-qi="' + idx + '"') + '</div></div>');
   });
-  if (offRows.length) html += '<div class="menu-group">Buiten de kaart besteld</div>' + offRows.join('');
+  if (offRows.length) html += '<div class="menu-group" id="grp-los">Besteld, niet (meer) op de kaart</div><p class="small-text dr-hint">Deze regels staan op de rekening met hun eigen naam en prijs.</p>' + offRows.join('');
   list.innerHTML = html;
 }
-// Waarden uit de aanpas-velden in de kaart zetten (en al bestelde regels meenemen)
+// Waarden uit de aanpas-velden in de kaart zetten en meteen bij dit restaurant bewaren.
+// Al bestelde regels houden hun eigen naam en prijs (aanpassen kan op de rekening); alleen de soort gaat mee als naam en prijs gelijk blijven.
 function commitMenuEdits() {
-  if (!currentVisit) return;
+  if (!currentVisit) return false;
   const menu = currentVisit.menu || [];
+  let changed = false;
   document.querySelectorAll('#menuList .edit-item').forEach(el => {
     const mi = menu[Number(el.getAttribute('data-i'))];
     if (!mi) return;
@@ -1496,20 +1876,20 @@ function commitMenuEdits() {
     const raw = el.querySelector('[data-f="price"]').value;
     const p = parsePrice(raw);
     const price = isNaN(p) ? (raw.trim() === '' ? '' : mi.price) : p;
-    const cat = el.querySelector('[data-f="category"]').value || 'eten';
-    const wasPriced = mi.price !== '' && mi.price != null;
-    if (wasPriced && (name !== mi.name || price !== mi.price || cat !== mi.category)) {
-      currentVisit.items.forEach(it => {
-        if (!sameDish(it, mi)) return;
-        if (name) it.name = name;
-        if (price !== '') it.price = price;
-        it.category = cat;
-      });
-    }
+    const cat = normCat(el.querySelector('[data-f="category"]').value);
+    if (name !== mi.name || price !== mi.price || cat !== mi.category) changed = true;
+    if (name === mi.name && price === mi.price && cat !== mi.category) currentVisit.items.forEach(it => { if (sameDish(it, mi)) it.category = cat; });
     mi.name = name; mi.price = price; mi.category = cat;
   });
+  if (changed) markHandEdited();
   saveData();
   updateTotal();
+  if (changed) syncRestaurant();
+  return changed;
+}
+// Zelf aangepaste internetkaart: geen 'kaart van internet'-notitie meer, maar 'Eigen kaart, aangepast …'
+function markHandEdited() {
+  if (currentVisit && currentVisit.webRetrieved) { delete currentVisit.webRetrieved; currentVisit.cardFrom = { kind: 'hand', date: new Date().toISOString() }; }
 }
 function toggleMenuEdit() {
   if (!currentVisit) return;
@@ -1517,7 +1897,7 @@ function toggleMenuEdit() {
     commitMenuEdits();
     currentVisit.menu = (currentVisit.menu || []).filter(it => String(it.name).trim());
     syncRestaurant();
-    menuEditMode = false;
+    menuEditMode = false; newMenuItems = [];
     showToast('Menukaart opgeslagen');
   } else {
     menuEditMode = true;
@@ -1531,11 +1911,13 @@ function addMenuRow() {
   if (menuEditMode) commitMenuEdits();
   menuEditMode = true;
   currentVisit.menu = currentVisit.menu || [];
-  currentVisit.menu.push({ name: '', price: '', category: 'eten' });
+  const split = currentVisit.menu.some(it => { const c = normCat(it.category); return c !== 'eten' && isFoodCat(c); });
+  const it = { name: '', price: '', category: split || !currentVisit.menu.length ? 'hoofd' : 'eten' };
+  currentVisit.menu.push(it);
+  newMenuItems.push(it);
   renderMenuCard();
-  const inputs = document.querySelectorAll('#menuList .edit-item input[data-f="name"]');
-  const last = inputs[inputs.length - 1];
-  if (last) { last.focus(); last.scrollIntoView({ block: 'center' }); }
+  const el = document.querySelector('#menuList .edit-item[data-i="' + (currentVisit.menu.length - 1) + '"] input[data-f="name"]');
+  if (el) { el.focus(); el.scrollIntoView({ block: 'center' }); }
 }
 document.getElementById('menuCard').addEventListener('change', e => { if (menuEditMode && e.target.closest('.edit-item')) commitMenuEdits(); });
 document.getElementById('menuCard').addEventListener('click', e => {
@@ -1545,7 +1927,16 @@ document.getElementById('menuCard').addEventListener('click', e => {
     commitMenuEdits();
     const i = Number(del.getAttribute('data-del'));
     const mi = currentVisit.menu[i];
-    if (mi && (!String(mi.name).trim() || confirm('"' + mi.name + '" van de kaart halen?'))) { currentVisit.menu.splice(i, 1); saveData(); renderMenuList(); }
+    if (mi && (!String(mi.name).trim() || confirm('"' + mi.name + '" van de kaart halen?'))) { currentVisit.menu.splice(i, 1); markHandEdited(); saveData(); syncRestaurant(); renderMenuList(); }
+    return;
+  }
+  const gb = e.target.closest('[data-grp]');
+  if (gb) {
+    const el = gb.closest('.edit-item');
+    if (!el) return;
+    el.querySelector('[data-f="category"]').value = gb.getAttribute('data-grp');
+    el.querySelectorAll('[data-grp]').forEach(b => { const on = b === gb; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
+    commitMenuEdits();
     return;
   }
   if (e.target.closest('.cat-pills button[data-cat]')) { setTimeout(commitMenuEdits, 0); return; }
@@ -1684,7 +2075,7 @@ function addQuickItem() {
 }
 function finishVisit() {
   if (!currentVisit) return;
-  if (menuEditMode) { commitMenuEdits(); menuEditMode = false; syncRestaurant(); }
+  if (menuEditMode) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); }
   if (!confirm('Bezoek afronden en opslaan?')) return;
   currentVisit.finished = true;
   currentVisit.finishedAt = new Date().toISOString();
@@ -1702,7 +2093,7 @@ function showTab(tab) {
   const btn = document.querySelector('.tab[data-tab="' + (tab === 'fotos' ? 'overzicht' : tab) + '"]');
   if (btn) btn.classList.add('active');
   window.scrollTo(0, 0);
-  if (tab !== 'toevoegen') { orderNotice = ''; if (menuEditMode) { commitMenuEdits(); menuEditMode = false; syncRestaurant(); } }
+  if (tab !== 'toevoegen') { orderNotice = ''; if (menuEditMode) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); } }
   if (tab === 'fotos') renderPhotos();
   if (tab === 'geschiedenis') renderHistory();
   if (tab === 'toevoegen') renderMenuCard();
@@ -1813,7 +2204,7 @@ function renderBill() {
     const rows = [];
     let sub = 0;
     items.forEach((it, idx) => {
-      if ((it.category || 'eten') !== c[0]) return;
+      if (billCat(it.category) !== c[0]) return;
       const q = Number(it.qty) || 1;
       const lineCents = cents(it.price) * q;
       sub += lineCents;
@@ -2060,7 +2451,7 @@ function changeTextSize(d) {
 }
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '10';
+const APP_VERSION = '11';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
