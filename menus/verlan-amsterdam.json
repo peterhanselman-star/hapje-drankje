@@ -1,7 +1,7 @@
 {
  "name": "Verlan Amsterdam",
- "source": "https://cafeverlan.yourhotelwebsite.com/upload/files/diner%20%20menu%20verlan%20%20sept%20%20ENG%20(1).pdf ; https://cafeverlan.yourhotelwebsite.com/upload/files/WIJNKAART_MAR%20(1).pdf",
- "retrieved": "2026-10-25",
+ "source": "https://cafeverlan.yourhotelwebsite.com/upload/files/diner%20%20menu%20verlan%20%20sept%20%20ENG%20(1).pdf ; https://cafeverlan.yourhotelwebsite.com/upload/files/verlan_wijnkaart_website_(1).pdf",
+ "retrieved": "2026-11-06",
  "items": [
   {
    "name": "Oyster no.4 from Yerseke - mignonette",
@@ -150,12 +150,12 @@
   },
   {
    "name": "Loire Brut Nature Méthode Ancestrale 'Monange', Domaine de la Noblaie (Sparkling, fles)",
-   "price": 55.0,
+   "price": 57.0,
    "cat": "drinken"
   },
   {
    "name": "Champagne Brut Grande Reserve, Ferdinand Bonnet (Sparkling, fles)",
-   "price": 90.0,
+   "price": 95.0,
    "cat": "drinken"
   },
   {
@@ -164,83 +164,88 @@
    "cat": "drinken"
   },
   {
-   "name": "Champagne Brut Nature, Blanc de Blanc 2023, Laherte Freres (Sparkling, fles)",
-   "price": 105.0,
+   "name": "Champagne Brut Nature, Blanc de Blanc, Laherte Freres (Sparkling, fles)",
+   "price": 110.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Champagne Extra Brut Premier cru, Blanc de Blanc, Griffon-Trichet (Sparkling, fles)",
+   "price": 120.0,
    "cat": "drinken"
   },
   {
    "name": "Champagne Brut Réserve, Pol Roger (Sparkling, fles)",
-   "price": 120.0,
+   "price": 121.0,
    "cat": "drinken"
   },
   {
-   "name": "Nahe Cuvée Blanc Sparkling No.01, 0.0, Kolonne Null (Sparkling, fles)",
+   "name": "Champagne Cuvée Blanc Sparkling No.01, Kolonne Null (Non-Alcoholic) (Sparkling, fles)",
    "price": 55.0,
    "cat": "drinken"
   },
   {
-   "name": "Baden Grauburgunder 'Jechtinger' 2023, Bercher (White, fles)",
-   "price": 49.0,
+   "name": "Baden Grauburgunder 'Jechtinger' 2024, Bercher (White, fles)",
+   "price": 50.0,
    "cat": "drinken"
   },
   {
-   "name": "Mosel Riesling 'Ürziger Würzgarten' 2022, Dr. Loosen (White, fles)",
-   "price": 85.0,
+   "name": "Nahe Frühlingsplätzchen GG 2020, Emrich Schonleber (White, fles)",
+   "price": 123.0,
    "cat": "drinken"
   },
   {
-   "name": "Nahe Riesling Trocken 2023, Emrich Schönleber (White, fles)",
-   "price": 52.0,
+   "name": "Pfalz Riesling Gutswein 2025, Dr. Bassermann-Jordan (White, fles)",
+   "price": 45.0,
    "cat": "drinken"
   },
   {
-   "name": "Nahe Frühlingsplätzchen GG 2018, Emrich Schonleber (White, fles)",
-   "price": 120.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Pfalz Erste Lage 'Nusriegel' 2022, Rings (White, fles)",
-   "price": 76.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Rheinhessen Chardonnay 2023, Baum-Barth (White, fles)",
-   "price": 54.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Württemberg Fellbach Riesling AlteReben 2022, Aldinger (White, fles)",
-   "price": 65.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Bourgogne Mâcon-Villages 'Vieilles Vignes' 2023, Domaine de la Verpaille (White, fles)",
-   "price": 55.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Bourgogne Petit Chablis 'Les Deux Terres' 2023, Domaine Dauvissat (White, fles)",
-   "price": 59.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Bourgogne Côte Chalonnaise “Les Pertusots” 2022, Domaine de la Monette (White, fles)",
+   "name": "Pfalz Weissburgunder Trocken 2025, Dr. Bürklin-Wolf (White, fles)",
    "price": 60.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Chablis 2024, Domaine Gautheron (White, fles)",
-   "price": 65.0,
+   "name": "Pfalz Erste Lage 'Nusriegel' 2024, Rings (White, fles)",
+   "price": 78.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Chardonnay 'Grand Ardèche' 2023, Louis Latour (White, fles)",
+   "name": "Rheingau Riesling Trocken GG 'Kiedrich Gräfenberg' 2022, Robert Weil (White, fles)",
+   "price": 105.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Rheinhessen Chardonnay 2025, Baum-Barth (White, fles)",
+   "price": 58.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Württemberg Fellbach Riesling AlteReben 2025, Aldinger (White, fles)",
    "price": 67.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Chablis AC 2023, Christophe et Fils (White, fles)",
-   "price": 69.0,
+   "name": "Bourgogne Mâcon-Villages 'Vieilles Vignes' 2024, Domaine de la Verpaille (White, fles)",
+   "price": 55.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bourgogne Côte Chalonnaise \"Les Pertusots\" 2022, Domaine de la Monette (White, fles)",
+   "price": 60.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bourgogne Petit Chablis 'Les Deux Terres' 2025, Domaine Dauvissat (White, fles)",
+   "price": 62.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bourgogne Chablis 'Vieilles vignes' 2024, Domaine Paul Nicolle (White, fles)",
+   "price": 65.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bourgogne Chardonnay 'Grand Ardèche' 2024, Louis Latour (White, fles)",
+   "price": 67.0,
    "cat": "drinken"
   },
   {
@@ -249,8 +254,8 @@
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Hautes Côtes de Nuits 'Les Plancons' 2023, Domaine Patrick Hudelot (White, fles)",
-   "price": 78.0,
+   "name": "Bourgogne Hautes Côtes de Nuits 'Les Plancons' 2024, Domaine Patrick Hudelot (White, fles)",
+   "price": 79.0,
    "cat": "drinken"
   },
   {
@@ -259,32 +264,32 @@
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Viré-Clessé 2023, Les Héritiers du Comte Lafon (White, fles)",
+   "name": "Bourgogne Pouilly Fuisse 'Terroir' 2024, Vignobles Roger Lassarat (White, fles)",
    "price": 85.0,
    "cat": "drinken"
   },
   {
    "name": "Bourgogne Chablis 1er cru 'Fourchaume' 2023, Domaine Nathalie & Gilles Fèvre (White, fles)",
-   "price": 90.0,
+   "price": 99.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Hautes Côtes de Beaune 'Les Champs Perdrix' 2019, Jean-Yves Devevey (White, fles)",
-   "price": 98.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Bourgogne Pouilly-Fuissé 1er cru 'Les Crays' 2023, Eve & Michel Rey (White, fles)",
+   "name": "Bourgogne Hautes Côtes de Beaune 'l'air du temps' 2020, Jean-Yves Devevey (White, fles)",
    "price": 100.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Puligny-Montrachet 2023, Bouzereau (White, fles)",
+   "name": "Bourgogne Pouilly-Fuissé 1er cru 'Les Crays' 2023, Eve & Michel Rey (White, fles)",
+   "price": 105.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bourgogne Puligny-Montrachet 2023, Jean Louis Chevy (White, fles)",
    "price": 148.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Aloxe-Corton “Les Combes” Blanc 2023, Domaine Jean-Baptiste Boudier (White, fles)",
+   "name": "Bourgogne Aloxe-Corton \"Les Combes\" Blanc 2023, Domaine Jean-Baptiste Boudier (White, fles)",
    "price": 155.0,
    "cat": "drinken"
   },
@@ -294,7 +299,7 @@
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Chassagne Montrachet 1er Cru 'Les Chaumees' 2022, Bouzereau (White, fles)",
+   "name": "Bourgogne Chassagne Montrachet 1er Cru 'Les Chenevottes' 2024, Domaine V&F Jouard (White, fles)",
    "price": 183.0,
    "cat": "drinken"
   },
@@ -304,13 +309,8 @@
    "cat": "drinken"
   },
   {
-   "name": "Bordeaux Pessac-Leognan Bordeaux Blanc 2019, Château de France (White, fles)",
+   "name": "Bordeaux Pessac-Leognan Bordeaux Blanc 2020, Château de France (White, fles)",
    "price": 85.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Corsica Vermentino 'Tranoï Blanc' 2023, Domaine de Santa Marina (White, fles)",
-   "price": 67.0,
    "cat": "drinken"
   },
   {
@@ -324,33 +324,33 @@
    "cat": "drinken"
   },
   {
-   "name": "Jura Chardonnay 'De la Reculée' 2022, Domaine Pignier (White, fles)",
-   "price": 87.0,
+   "name": "Jura Chardonnay 'grandes chaudes' 2024, Domaine Grand (White, fles)",
+   "price": 85.0,
    "cat": "drinken"
   },
   {
-   "name": "Loire Ajou L'Audace Chenin blanc 2024, Domaine Des Forges (White, fles)",
-   "price": 44.0,
+   "name": "Languedoc Chardonnay 2025, Domaine de Castelnau (White, fles)",
+   "price": 38.0,
    "cat": "drinken"
   },
   {
-   "name": "Loire Muscadet 2023, Domaine Landron Chartier (White, fles)",
-   "price": 52.0,
+   "name": "Loire Anjou L'Audace Chenin blanc 2025, Domaine Des Forges (White, fles)",
+   "price": 48.0,
    "cat": "drinken"
   },
   {
-   "name": "Loire Touraine Sauvignon Blanc 2024, Comte Henry (White, fles)",
-   "price": 55.0,
+   "name": "Loire Touraine Sauvignon Blanc 2025, Comte Henry (White, fles)",
+   "price": 58.0,
    "cat": "drinken"
   },
   {
    "name": "Loire Sancerre 2024, Daniel Chotard (White, fles)",
-   "price": 62.0,
+   "price": 65.0,
    "cat": "drinken"
   },
   {
    "name": "Loire Pouilly Fumé 'Tenebris' 2023, Château Favray (White, fles)",
-   "price": 70.0,
+   "price": 72.0,
    "cat": "drinken"
   },
   {
@@ -360,27 +360,17 @@
   },
   {
    "name": "Loire Vouvray 'Le Haut-Lieu Sec' 2023, Domaine Huet (White, fles)",
-   "price": 85.0,
+   "price": 87.0,
    "cat": "drinken"
   },
   {
-   "name": "Loire Montlouis-sur-Loire 2020, Domaine de la Taille Aux Loups (White, fles)",
-   "price": 90.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Loire Sancerre Blanc “Les Romains” 2023, Domaine Vacheron (White, fles)",
+   "name": "Loire Sancerre Blanc \"Les Romains\" 2024, Domaine Vacheron (White, fles)",
    "price": 106.0,
    "cat": "drinken"
   },
   {
-   "name": "Rhône Côtes du Rhone Blanc 'à la Rêverie' 2024, Château de Montfrin (White, fles)",
-   "price": 46.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Rhône Côtes du Rhône Blanc 2024, Xavier Vignon (White, fles)",
-   "price": 47.0,
+   "name": "Rhône Côtes du Rhône Blanc 2025, Xavier Vignon (White, fles)",
+   "price": 49.0,
    "cat": "drinken"
   },
   {
@@ -389,48 +379,38 @@
    "cat": "drinken"
   },
   {
-   "name": "Savoie Altesse Jongieux Blanc 2022, Chevallier Bernard (White, fles)",
-   "price": 59.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Alto-Adige Grüner Veltliner 2023, Pacherhof (White, fles)",
+   "name": "Alto-Adige Grüner Veltliner 2024, Pacherhof (White, fles)",
    "price": 69.0,
    "cat": "drinken"
   },
   {
-   "name": "Friuli Pinot Grigio 'Dessimis' 2023, Vie di Romans (White, fles)",
-   "price": 87.0,
+   "name": "Friuli Pinot Grigio 'Dessimis' 2024, Vie di Romans (White, fles)",
+   "price": 89.0,
    "cat": "drinken"
   },
   {
-   "name": "Marche Verdicchio 'Il filetto' 2024, Sabbionare (White, fles)",
-   "price": 49.0,
+   "name": "Marche Verdicchio Il Filetto 2025, Sabbionaire (White, fles)",
+   "price": 40.0,
    "cat": "drinken"
   },
   {
-   "name": "Marche Offida Pecorino “Petraiae” 2022, Mario Recchi Franceschini (White, fles)",
-   "price": 55.0,
+   "name": "Marche Offida Pecorino \"Petraiae\" 2022, Mario Recchi Franceschini (White, fles)",
+   "price": 58.0,
    "cat": "drinken"
   },
   {
-   "name": "Sardinie Vermentino di Sardegna 'Veor' 2024, Quartomoro Piero Cella (White, fles)",
-   "price": 60.0,
+   "name": "Sardinie Vermentino di Sardegna 'Veor' 2025, Quartomoro Piero Cella (White, fles)",
+   "price": 63.0,
    "cat": "drinken"
   },
   {
    "name": "Sicilia Etna Bianco 'Piano del Daini' 2024, Tenute Bosco (White, fles)",
-   "price": 77.0,
+   "price": 79.0,
    "cat": "drinken"
   },
   {
-   "name": "Veneto Soave Superiore “Il Casale” 2023, Vicentini Agostino (White, fles)",
-   "price": 65.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Galicia Godello 'Gaba do Xil' 2024, Telmo Rodriguez (White, fles)",
-   "price": 63.0,
+   "name": "Veneto Soave Superiore \"Il Casale\" 2024, Vicentini Agostino (White, fles)",
+   "price": 67.0,
    "cat": "drinken"
   },
   {
@@ -439,8 +419,8 @@
    "cat": "drinken"
   },
   {
-   "name": "Ribera El Lebrero Blanco 2022, Félix Callejo (White, fles)",
-   "price": 77.0,
+   "name": "Priorat Priorat 'Usatges blanc' 2025, Pastrana & Jarque (White, fles)",
+   "price": 69.0,
    "cat": "drinken"
   },
   {
@@ -449,8 +429,18 @@
    "cat": "drinken"
   },
   {
+   "name": "Ribera El Lebrero Blanco 2022, Félix Callejo (White, fles)",
+   "price": 77.0,
+   "cat": "drinken"
+  },
+  {
    "name": "Rioja Suañe Blanco Reserva 2019, Alonso & Pedrajo (White, fles)",
    "price": 105.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Rueda Verdejo 'Menade Nosso' 2025, Bodega Ricardo Sanz (White, fles)",
+   "price": 68.0,
    "cat": "drinken"
   },
   {
@@ -460,21 +450,21 @@
   },
   {
    "name": "South Africa Chenin Blanc 2023, Dalkeith (White, fles)",
-   "price": 77.0,
+   "price": 79.0,
    "cat": "drinken"
   },
   {
-   "name": "South Africa Silene Chardonnay 2020, Capensis (White, fles)",
+   "name": "South Africa Silene Chardonnay 2023, Capensis (White, fles)",
    "price": 109.0,
    "cat": "drinken"
   },
   {
-   "name": "Bekaa Valley Sauvignon Blanc, Chardonnay 2019, B-Qa de Marsyas (White, fles)",
-   "price": 58.0,
+   "name": "California Diatom Chardonnay 2022, Brewer Clifton (White, fles)",
+   "price": 83.0,
    "cat": "drinken"
   },
   {
-   "name": "Provence Classique Rosé 2024, Château d`Ollières (Rosé & Orange, fles)",
+   "name": "Provence Classique Rosé 2025, Château d'Ollières (Rosé & Orange, fles)",
    "price": 49.0,
    "cat": "drinken"
   },
@@ -484,37 +474,52 @@
    "cat": "drinken"
   },
   {
-   "name": "Ahr Purist Spätburgunder 2022, Adeneuer (Red, fles)",
-   "price": 49.0,
+   "name": "Provence Bandol rosé 2024, Domaine Suffrène (Rosé & Orange, fles)",
+   "price": 71.0,
    "cat": "drinken"
   },
   {
-   "name": "Ahr Kräuterberg Spätburgunder Alte Lay GG 2018, Adeneuer (Red, fles)",
+   "name": "Sicilia Macerato 2025, Troppo Giovane (Rosé & Orange, fles)",
+   "price": 48.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Ahr Purist Spätburgunder 2023, Adeneuer (Red, fles)",
+   "price": 51.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Ahr Kräuterberg Spätburgunder Alte Lay GG 2020, Adeneuer (Red, fles)",
    "price": 145.0,
    "cat": "drinken"
   },
   {
-   "name": "Pfalz Spätburgunder Vom Kalk 2022, Jülg (Red, fles)",
-   "price": 72.0,
+   "name": "Pfalz Spätburgunder Vom Kalk 2023, Jülg (Red, fles)",
+   "price": 75.0,
    "cat": "drinken"
   },
   {
-   "name": "Beaujolais Côte de Brouilly 2023, Marc-Antonin Blain (Red, fles)",
-   "price": 55.0,
+   "name": "Beaujolais Beaujolais Rouge 'Côteaux du Razet' 2024, Famille Girin (Red, fles)",
+   "price": 50.0,
    "cat": "drinken"
   },
   {
-   "name": "Beaujolais Chenas les Blemonts 2020, Domaine Thillardon (Red, fles)",
-   "price": 70.0,
+   "name": "Beaujolais Chenas les Blemonts 2022, Domaine Thillardon (Red, fles)",
+   "price": 73.0,
    "cat": "drinken"
   },
   {
-   "name": "Beaujolais Morgon 2022, Domaine Marcel Lapierre (Red, fles)",
-   "price": 91.0,
+   "name": "Beaujolais Morgon 'Cote du Py' 2023, Domaine Jean Foillard (Red, fles)",
+   "price": 83.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Bourgogne Pinot Noir 2023, Benoit Girardin (Red, fles)",
+   "name": "Beaujolais Morgon 2024, Domaine Marcel Lapierre (Red, fles)",
+   "price": 86.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bourgogne Bourgogne Pinot Noir 2024, Benoit Girardin (Red, fles)",
    "price": 69.0,
    "cat": "drinken"
   },
@@ -524,13 +529,13 @@
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Hautes Côtes de Nuits 'Les Genevrières' 2022, Domaine Patrick Hudelot (Red, fles)",
-   "price": 78.0,
+   "name": "Bourgogne Hautes Côtes de Nuits 'Les Genevrières' 2024, Domaine Patrick Hudelot (Red, fles)",
+   "price": 80.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Savigny-Lès-Beaune Rouge 2021, Domaine Decelle & Fils (Red, fles)",
-   "price": 88.0,
+   "name": "Bourgogne Marsannay 'Les Longeroies' 2014, Domaine Charles Audoin (Red, fles)",
+   "price": 85.0,
    "cat": "drinken"
   },
   {
@@ -539,28 +544,38 @@
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Savigny-les-Beaune 1er cru 2022, Domaine d'Ardhuy (Red, fles)",
-   "price": 110.0,
+   "name": "Bourgogne Hautes-Côtes de Beaune 2023, Jean Very (Red, fles)",
+   "price": 89.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Rully Rouge “Les Champs Cloux” 1er Cru 2021, Domaine A&P de Villaine (Red, fles)",
+   "name": "Bourgogne Savigny-les-Beaune 1er cru 2023, Domaine d'Ardhuy (Red, fles)",
+   "price": 112.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bourgogne Rully Rouge \"Les Champs Cloux\" 1er Cru 2021, Domaine A&P de Villaine (Red, fles)",
    "price": 135.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Volnay 2023, Domaine des Comtes Lafon (Red, fles)",
+   "name": "Bourgogne Volnay 2022, Domaine des Comtes Lafon (Red, fles)",
    "price": 195.0,
    "cat": "drinken"
   },
   {
    "name": "Bordeaux Cotes de Bourg 2023, Château de la Grave (Red, fles)",
-   "price": 42.0,
+   "price": 51.0,
    "cat": "drinken"
   },
   {
-   "name": "Bordeaux Saint-Emilion Grand Cru 2017, Château Belregard-Figeac (Red, fles)",
-   "price": 85.0,
+   "name": "Bordeaux Côtes de Bordeaux Castillon 2022, Château Faugères (Red, fles)",
+   "price": 55.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bordeaux Saint-Emilion Grand Cru 'La Fleur Garderose' 2018, Vignobles Pueyo (Red, fles)",
+   "price": 89.0,
    "cat": "drinken"
   },
   {
@@ -574,68 +589,58 @@
    "cat": "drinken"
   },
   {
-   "name": "Bordeaux Chateau Brane-Cantenac 2017 Margaux, 2e Grand Clu Classé (Red, fles)",
-   "price": 299.0,
+   "name": "Bordeaux Pauillac 'Baron' 2015, Château Pichon-Longueville (Red, fles)",
+   "price": 460.0,
    "cat": "drinken"
   },
   {
    "name": "Elzas Pinot Noir 2023, Jean-Marc Bernhard (Red, fles)",
-   "price": 55.0,
+   "price": 57.0,
    "cat": "drinken"
   },
   {
-   "name": "Jura Arbois Trousseau 2022, Henri Maire (Red, fles)",
-   "price": 72.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Jura Trousseau 2022, Domaine Pignier (Red, fles)",
-   "price": 83.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Loire Saumur 'Mazurique' 2022, Domaine Arnaud Lambert (Red, fles)",
-   "price": 59.0,
+   "name": "Loire Saumur 'Mazurique' 2023, Domaine Arnaud Lambert (Red, fles)",
+   "price": 62.0,
    "cat": "drinken"
   },
   {
    "name": "Loire Chinon 'Cuvee Marie' 2021, Domaine Beatrice & Pascal Lambert (Red, fles)",
-   "price": 65.0,
+   "price": 67.0,
    "cat": "drinken"
   },
   {
-   "name": "Loire Sancerre Rouge 2022, Pierre Martin (Red, fles)",
+   "name": "Loire Sancerre Rouge 2023, Pierre Martin (Red, fles)",
    "price": 85.0,
    "cat": "drinken"
   },
   {
-   "name": "Loire Bourgueil 'Le Haut de la Butte' 2020, Domaine de la Butte (Red, fles)",
-   "price": 85.0,
+   "name": "Rhône Côtes du Rhône 'Les Lauzières' 2025, Tardieu-Laurent (Red, fles)",
+   "price": 49.0,
    "cat": "drinken"
   },
   {
-   "name": "Rhône Côtes du Rhône 'Les Lauzières' 2024, Tardieu-Laurent (Red, fles)",
-   "price": 47.0,
+   "name": "Rhône Côtes du Rhône 2023, Domaine de Reveirolles (Red, fles)",
+   "price": 58.0,
    "cat": "drinken"
   },
   {
-   "name": "Rhône Côtes du Rhône 2022, Domaine de Reveirolles (Red, fles)",
-   "price": 55.0,
+   "name": "Rhône Crozes-Hermitages 2023, Domaine Les Bruyeres (Red, fles)",
+   "price": 78.0,
    "cat": "drinken"
   },
   {
-   "name": "Rhône Crozes-Hermitages 2021, Domaine Les Bruyeres (Red, fles)",
-   "price": 76.0,
+   "name": "Rhône Saint-Joseph 2024, Christophe Pichon (Red, fles)",
+   "price": 80.0,
    "cat": "drinken"
   },
   {
-   "name": "Rhône Saint-Joseph 2023, Christophe Pichon (Red, fles)",
-   "price": 79.0,
+   "name": "Rhône Crozes-Hermitage 2023, Yann Chaves (Red, fles)",
+   "price": 80.0,
    "cat": "drinken"
   },
   {
-   "name": "Rhône Cornas 'Les Chailles' 2021, Alain Voge (Red, fles)",
-   "price": 100.0,
+   "name": "Rhône Côte Rotie 'Les Essartailles' 2022, Les Vins de Vienne (Red, fles)",
+   "price": 125.0,
    "cat": "drinken"
   },
   {
@@ -644,42 +649,42 @@
    "cat": "drinken"
   },
   {
+   "name": "Piemonte Barbera & Friends 'Spaccapietra', Ricardo Bregstein (Red, fles)",
+   "price": 50.0,
+   "cat": "drinken"
+  },
+  {
    "name": "Piemonte Langhe Nebbiolo 'Cabora' 2024, Nino Costa (Red, fles)",
-   "price": 55.0,
+   "price": 57.0,
    "cat": "drinken"
   },
   {
-   "name": "Piemonte Barbera d'Asti 2024, Cantina del Pino (Red, fles)",
-   "price": 62.0,
+   "name": "Piemonte Barbera d'Asti 2025, Cantina del Pino (Red, fles)",
+   "price": 65.0,
    "cat": "drinken"
   },
   {
-   "name": "Piemonte Barolo 2020, Castello di Verduno (Red, fles)",
+   "name": "Piemonte Barolo 2021, Castello di Verduno (Red, fles)",
    "price": 110.0,
    "cat": "drinken"
   },
   {
-   "name": "Piemonte Barbaresco Camp Gros Martinenga 2018, Marchesi di Gresi (Red, fles)",
-   "price": 320.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Puglia Nero di Troia “Pietra dei Lupi” 2021, Cantine Carpentiere (Red, fles)",
-   "price": 47.0,
+   "name": "Puglia Nero di Troia \"Pietra dei Lupi\" 2021, Cantine Carpentiere (Red, fles)",
+   "price": 49.0,
    "cat": "drinken"
   },
   {
    "name": "Puglia Primitivo Mezzanotte 2024, Morella (Red, fles)",
-   "price": 60.0,
+   "price": 62.0,
    "cat": "drinken"
   },
   {
-   "name": "Sicilia Etna rosso “A Rina” 2023, Girolamo Russo (Red, fles)",
-   "price": 74.0,
+   "name": "Sicilia Etna rosso \"A Rina\" 2024, Girolamo Russo (Red, fles)",
+   "price": 76.0,
    "cat": "drinken"
   },
   {
-   "name": "Sicilia Nero di Sei 2020, Palmento Constanzo (Red, fles)",
+   "name": "Sicilia Nero di Sei 2021, Palmento Costanzo (Red, fles)",
    "price": 79.0,
    "cat": "drinken"
   },
@@ -689,18 +694,23 @@
    "cat": "drinken"
   },
   {
-   "name": "Toscana Chianti Classico 2022, Monteraponi (Red, fles)",
-   "price": 75.0,
+   "name": "Toscana Chianti Classico 2024, Monteraponi (Red, fles)",
+   "price": 78.0,
    "cat": "drinken"
   },
   {
    "name": "Toscana Aria di Caiarossa 2021, Caiarossa (Red, fles)",
-   "price": 88.0,
+   "price": 89.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Toscana Montevertine 2023, Montevertine (Red, fles)",
+   "price": 155.0,
    "cat": "drinken"
   },
   {
    "name": "Toscana Brunello di Montalcino 'Sesti' 2020, Castello di Argiano (Red, fles)",
-   "price": 155.0,
+   "price": 156.0,
    "cat": "drinken"
   },
   {
@@ -709,53 +719,53 @@
    "cat": "drinken"
   },
   {
+   "name": "Toscana Tignanello 2022, Antinori (Red, fles)",
+   "price": 345.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Toscana Toscana IGT 'Le Pergole Torte' 2023, Montevertine (Red, fles)",
+   "price": 375.0,
+   "cat": "drinken"
+  },
+  {
    "name": "Toscana Toscana IGT 'Colore' 2019, Bibi Graetz (Red, fles)",
    "price": 375.0,
    "cat": "drinken"
   },
   {
-   "name": "Toscana Toscana IGT 'Solaia' 2018, Marchesi Antinori (Red, fles)",
-   "price": 600.0,
+   "name": "Toscana Tignanello 2019, Antinori (Red, fles)",
+   "price": 385.0,
    "cat": "drinken"
   },
   {
-   "name": "Toscana Toscana IGT 'Sassicaia' 2018, Tenuta San Guido (Red, fles)",
-   "price": 650.0,
+   "name": "Ribera Parajes 2023, Félix Callejo (Red, fles)",
+   "price": 80.0,
    "cat": "drinken"
   },
   {
-   "name": "Toscana Il Marroneto Madonna della Grazie Brunello di Montalcino 2018 (Red, fles)",
-   "price": 1080.0,
+   "name": "Ribera Ribera del Duero 2018, Dominio Romano (Red, fles)",
+   "price": 95.0,
    "cat": "drinken"
   },
   {
-   "name": "Veneto Valpolicella 2023, Vincentini Agostino (Red, fles)",
-   "price": 50.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Veneto Amarone della Valpolicella 'Morar' 2015, Valentino Cubi (Red, fles)",
-   "price": 120.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Ribera Parajes 2022, Félix Callejo (Red, fles)",
-   "price": 75.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Ribera Ribera del Duero 2017, Dominio Romano (Red, fles)",
-   "price": 93.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Ribera Gran Callejo 2019, Félix Callejo (Red, fles)",
+   "name": "Ribera Gran Callejo 2020, Félix Callejo (Red, fles)",
    "price": 165.0,
    "cat": "drinken"
   },
   {
-   "name": "Ribeiro Son de Arrieiro Tinto 2021, Xulia Bande (Red, fles)",
+   "name": "Ribeiro Son de Arrieiro Tinto 2024, Xulia Bande (Red, fles)",
    "price": 88.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Rioja Rioja Crianza Letargo 2022, Bodegas D. Mateos (Red, fles)",
+   "price": 40.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Rioja Viñas Jóvenes 2023, Miguel Merino (Red, fles)",
+   "price": 68.0,
    "cat": "drinken"
   },
   {
@@ -765,7 +775,7 @@
   },
   {
    "name": "Montsant Gris Granit 2020, Celler Comunica (Red, fles)",
-   "price": 65.0,
+   "price": 67.0,
    "cat": "drinken"
   },
   {
@@ -779,33 +789,33 @@
    "cat": "drinken"
   },
   {
-   "name": "Mclaren Vale The Peake Cabernet Shiraz 2018, Hickinbotham (Red, fles)",
+   "name": "Mclaren Vale Cabernet Shiraz 'The Peake' 2018, Hickinbotham (Red, fles)",
    "price": 510.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Magnum Hautes côtes de Beaune 2020, Jean-Yves Devevey (White, fles)",
+   "name": "Champagne Magnum Brut Nature, Blanc de Blanc, Laherte Freres (Sparkling, fles)",
+   "price": 220.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bourgogne Magnum Hautes côtes de Beaune 2022, Jean-Yves Devevey (White, fles)",
    "price": 160.0,
    "cat": "drinken"
   },
   {
-   "name": "Bourgogne Magnum Chablis 1er cru 'Mont de Milieu' 2020, Domaine de l'Enclos (White, fles)",
+   "name": "Bourgogne Magnum Viré-Clessé 2023, Les Héritiers du Comte Lafon (White, fles)",
+   "price": 175.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bourgogne Magnum Chablis 1er cru 'Mont de Milieu' 2020, Domaine de L'Enclos (White, fles)",
    "price": 185.0,
    "cat": "drinken"
   },
   {
    "name": "Provence Magnum 3L Côtes de Provence Rosé 2022, La Mascaronne (Rose, fles)",
    "price": 210.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Bordeaux Magnum Saint-Estèphe 'La Dame de Montrose' 2014, Château Montrose (Red, fles)",
-   "price": 175.0,
-   "cat": "drinken"
-  },
-  {
-   "name": "Bordeaux Magnum 5L Saint-Estèphe, Château Meyney (Red, fles)",
-   "price": 1000.0,
    "cat": "drinken"
   },
   {
