@@ -251,6 +251,10 @@
   .dr-row { border: 2px dashed #9aa6b8; background: #fbfcfe; border-radius: 0.6rem; padding: 0.4rem 0.5rem; margin-bottom: 0.45rem; }
   .dr-row.ordered { border-style: solid; background: #e3f4e7; border-color: #188038; box-shadow: inset 0.35rem 0 0 #188038; }
   .dr-row input { margin-bottom: 0.35rem; font-weight: 700; }
+  /* v19: soortknoppen Eten / Drinken per zelf-in-te-vullen regel */
+  .cat-tog { display: flex; gap: 0.35rem; margin-top: 0.35rem; flex-wrap: wrap; }
+  .cat-tog-btn { flex: 1 1 8rem; min-height: 44px; border: 2px solid #8a8f98; background: white; color: #111; border-radius: 0.55rem; font-size: min(1rem, 5.5vw); font-weight: 800; padding: 0.25rem 0.4rem; line-height: 1.15; }
+  .cat-tog-btn.on { background: #1a73e8; border-color: #0b57d0; color: white; }
   .dr-line { display: flex; align-items: center; gap: 0.3rem; flex-wrap: wrap; }
   .dr-line .dr-price { flex: 1 1 3rem; min-width: 0; width: auto; margin-bottom: 0; }
   .dr-warn { font-size: 0.95rem; font-weight: 800; color: #a1150c; margin-top: 0.3rem; }
@@ -408,12 +412,6 @@
       <div class="section-title">💶 Fooi</div>
       <p class="small-text" style="margin-top:0;">Fooi kies je op de rekening: geen, 5%, 10%, 15% of een eigen bedrag. Het wordt meteen meegeteld.</p>
       <button class="big-button" onclick="goToTip()">💶 Fooi kiezen</button>
-    </div>
-    <div class="card">
-      <div class="section-title" id="extraTitle">Iets extra's</div>
-      <p class="small-text dr-hint" style="margin-top:0;">Zoals extra saus of brood. Typ naam en prijs, en tik op + . Dan staat het meteen op de rekening.</p>
-      <div id="extraRows"></div>
-      <button type="button" class="big-button secondary" id="addExtraRowBtn" onclick="addExtraRow()">+ Nog een regel</button>
     </div>
     </div>
   </div>
@@ -1636,7 +1634,7 @@ function visitByKey(key) {
   if (key === 'cur') return currentVisit;
   return visits.filter(v => String(v.id) === String(key))[0] || null;
 }
-function sameDish(it, mi) { return !it.drinkRow && !it.extraRow && it.name === mi.name && Number(it.price) === Number(mi.price); }
+function sameDish(it, mi) { return !it.drinkRow && !it.extraRow && !it.selfRow && it.name === mi.name && Number(it.price) === Number(mi.price); }
 function isShown(id) { const el = document.getElementById(id); return !!el && !el.classList.contains('hidden'); }
 // Alles opnieuw tekenen zonder te verspringen
 function refreshAll() {
@@ -1723,22 +1721,14 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-q]');
   if (!b || b.disabled) return;
   const act = b.getAttribute('data-q');
-  if (b.hasAttribute('data-qx')) {
-    const row = findExtraRow(b.getAttribute('data-qx'));
+  if (b.hasAttribute('data-qs')) {
+    const row = findSelfRow(b.getAttribute('data-qs'));
     if (!row) return;
-    const c = extraQty(currentVisit, row);
-    if (act === 'plus') setExtraQty(row, c + 1);
-    else if (act === 'minus') setExtraQty(row, c - 1);
-    else openQtyDialog(String(row.name || '').trim() || 'Extra', c, n => setExtraQty(row, n));
-    return;
-  }
-  if (b.hasAttribute('data-qd')) {
-    const row = findDrinkRow(b.getAttribute('data-qd'));
-    if (!row) return;
-    const c = drinkQty(currentVisit, row);
-    if (act === 'plus') setDrinkQty(row, c + 1);
-    else if (act === 'minus') setDrinkQty(row, c - 1);
-    else openQtyDialog(String(row.name || '').trim() || 'Drankje', c, n => setDrinkQty(row, n));
+    const c = selfQty(currentVisit, row);
+    const lbl = String(row.name || '').trim() || (row.category === 'drinken' ? 'Drankje' : 'Gerecht');
+    if (act === 'plus') setSelfQty(row, c + 1);
+    else if (act === 'minus') setSelfQty(row, c - 1);
+    else openQtyDialog(lbl, c, n => setSelfQty(row, n));
     return;
   }
   if (b.hasAttribute('data-qm')) {
@@ -1910,7 +1900,6 @@ function editItemHtml(it, i) {
       '<button type="button" data-grp="' + g[0] + '" class="' + (g[0] === cat ? 'on' : '') + '" aria-pressed="' + (g[0] === cat) + '">' + g[1] + '</button>').join('') + '</div></div>';
 }
 function renderMenuList() {
-  renderExtraRows();
   const list = document.getElementById('menuList');
   if (!list || !currentVisit) return;
   const menu = currentVisit.menu || [];
@@ -1962,7 +1951,7 @@ function renderMenuList() {
   // Bestellingen die niet op de kaart staan
   const offRows = [];
   currentVisit.items.forEach((it, idx) => {
-    if (it.drinkRow || it.extraRow || menu.some(mi => sameDish(it, mi))) return;
+    if (it.drinkRow || it.extraRow || it.selfRow || menu.some(mi => sameDish(it, mi))) return;
     const n = Number(it.qty) || 1;
     offRows.push(`<div class="order-row ordered"><div class="or-name static">${escapeHtml(it.name)}</div><div class="or-line"><span class="or-price">${formatEuro(it.price)}</span>` + qtyCtlHtml(n, 'data-qv="cur" data-qi="' + idx + '"') + '</div></div>');
   });
@@ -2173,86 +2162,155 @@ function addMenuItemToBill(mi, rowIdx) {
   const c = orderedCount(mi);
   showToast('✓ ' + mi.name + (c > 1 ? ' (' + c + '×)' : ''));
 }
-// ---------- Drinken: zelf in te vullen regels ----------
-function newDrinkRow() { return { id: 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: '', price: '', priceText: '', qty: 0 }; }
-function ensureDrinkRows(v) {
-  if (!Array.isArray(v.drinkRows)) { v.drinkRows = []; for (let i = 0; i < 6; i++) v.drinkRows.push(newDrinkRow()); }
-  return v.drinkRows;
+// ---------- v19: Zelf invullen (buiten de kaart) – eten of drinken ----------
+function newSelfRow(cat) {
+  return { id: 's' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: '', price: '', priceText: '', qty: 0, category: cat || 'eten' };
 }
-function drinkLinked(v, row) { return v.items.findIndex(it => it.drinkRow === row.id); }
-function drinkComplete(row) { return !!String(row.name || '').trim() && typeof row.price === 'number' && !isNaN(row.price); }
-function drinkQty(v, row) {
-  const i = drinkLinked(v, row);
+function rowFilled(r) {
+  return !!(String(r.name || '').trim() || (r.price !== '' && r.price != null && !isNaN(Number(r.price))) || Number(r.qty) > 0);
+}
+function ensureSelfRows(v) {
+  if (Array.isArray(v.selfRows)) {
+    v.selfRows.forEach(r => { if (r.category !== 'drinken' && r.category !== 'extra') r.category = 'eten'; });
+    return v.selfRows;
+  }
+  const rows = [];
+  if (Array.isArray(v.drinkRows)) {
+    v.drinkRows.forEach(r => {
+      rows.push({ id: r.id, name: r.name || '', price: r.price, priceText: r.priceText, qty: Number(r.qty) || 0, category: 'drinken' });
+    });
+  }
+  if (Array.isArray(v.extraRows)) {
+    v.extraRows.forEach(r => {
+      const linked = (v.items || []).some(it => it.extraRow === r.id);
+      if (!rowFilled(r) && !linked) return;
+      rows.push({ id: r.id, name: r.name || '', price: r.price, priceText: r.priceText, qty: Number(r.qty) || 0, category: 'extra' });
+    });
+  }
+  while (rows.length < 6) rows.push(newSelfRow('eten'));
+  v.selfRows = rows;
+  return v.selfRows;
+}
+function findSelfRow(id) { return currentVisit ? ensureSelfRows(currentVisit).filter(r => r.id === id)[0] : null; }
+function selfLinked(v, row) {
+  return v.items.findIndex(it => it.selfRow === row.id || it.drinkRow === row.id || it.extraRow === row.id);
+}
+function selfComplete(row) { return !!String(row.name || '').trim() && typeof row.price === 'number' && !isNaN(row.price); }
+function selfQty(v, row) {
+  const i = selfLinked(v, row);
   if (i >= 0) return Number(v.items[i].qty) || 1;
-  if (drinkComplete(row)) row.qty = 0;
+  if (selfComplete(row)) row.qty = 0;
   return Number(row.qty) || 0;
 }
-// Regel en rekening gelijk houden
-function syncDrink(v, row) {
-  const i = drinkLinked(v, row);
-  if (drinkComplete(row) && (i >= 0 || row.qty > 0)) {
-    if (i >= 0) { v.items[i].name = row.name.trim(); v.items[i].price = row.price; v.items[i].category = 'drinken'; }
-    else v.items.push({ name: row.name.trim(), price: row.price, category: 'drinken', qty: row.qty, drinkRow: row.id });
+function syncSelf(v, row) {
+  const i = selfLinked(v, row);
+  const cat = row.category === 'drinken' ? 'drinken' : (row.category === 'extra' ? 'extra' : 'eten');
+  if (selfComplete(row) && (i >= 0 || row.qty > 0)) {
+    if (i >= 0) {
+      v.items[i].name = row.name.trim();
+      v.items[i].price = row.price;
+      v.items[i].category = cat;
+      v.items[i].selfRow = row.id;
+    } else {
+      v.items.push({ name: row.name.trim(), price: row.price, category: cat, qty: row.qty, selfRow: row.id });
+    }
   } else if (i >= 0) {
     row.qty = Number(v.items[i].qty) || 1;
     v.items.splice(i, 1);
   }
 }
-function drinkRowHtml(v, row) {
-  const q = drinkQty(v, row);
-  const done = drinkComplete(row);
-  return '<div class="dr-row' + (done && q > 0 ? ' ordered' : '') + '" data-dr="' + row.id + '">' +
-    '<input type="text" data-drf="name" placeholder="Drankje, bijv. Spa rood" autocomplete="off" value="' + escapeHtml(row.name || '') + '" aria-label="Naam drankje">' +
-    '<div class="dr-line"><input type="text" class="dr-price" data-drf="price" inputmode="decimal" autocomplete="off" placeholder="Prijs" value="' + escapeHtml(row.priceText != null && row.priceText !== '' ? row.priceText : (typeof row.price === 'number' ? priceToInput(row.price) : '')) + '" aria-label="Prijs drankje">' +
-    qtyCtlHtml(q, 'data-qd="' + row.id + '"') + '</div>' +
+function selfCatToggleHtml(row) {
+  const cat = row.category === 'drinken' ? 'drinken' : (row.category === 'extra' ? 'extra' : 'eten');
+  return '<div class="cat-tog" role="group" aria-label="Soort">' +
+    '<button type="button" class="cat-tog-btn' + (cat === 'eten' ? ' on' : '') + '" data-scat="eten" data-sr="' + row.id + '" aria-pressed="' + (cat === 'eten') + '">🍽 Eten</button>' +
+    '<button type="button" class="cat-tog-btn' + (cat === 'drinken' ? ' on' : '') + '" data-scat="drinken" data-sr="' + row.id + '" aria-pressed="' + (cat === 'drinken') + '">🥤 Drinken</button></div>';
+}
+function selfRowHtml(v, row) {
+  const q = selfQty(v, row);
+  const done = selfComplete(row);
+  const ph = row.category === 'drinken' ? 'Drankje, bijv. Spa rood' : 'Gerecht of extra, bijv. dagschotel';
+  return '<div class="dr-row sr-row' + (done && q > 0 ? ' ordered' : '') + '" data-sr="' + row.id + '">' +
+    '<input type="text" data-srf="name" placeholder="' + ph + '" autocomplete="off" value="' + escapeHtml(row.name || '') + '" aria-label="Naam">' +
+    '<div class="dr-line"><input type="text" class="dr-price" data-srf="price" inputmode="decimal" autocomplete="off" placeholder="Prijs" value="' + escapeHtml(row.priceText != null && row.priceText !== '' ? row.priceText : (typeof row.price === 'number' ? priceToInput(row.price) : '')) + '" aria-label="Prijs">' +
+    qtyCtlHtml(q, 'data-qs="' + row.id + '"') + '</div>' +
+    selfCatToggleHtml(row) +
     '<div class="dr-warn' + (q > 0 && !done ? '' : ' hidden') + '">Nog niet op de rekening: vul naam en prijs in.</div></div>';
 }
-function drinkSectionHtml(recognized) {
+function selfFillHtml() {
+  if (!currentVisit || menuEditMode) return '';
   const v = currentVisit;
-  const rows = ensureDrinkRows(v);
-  return '<div id="drinkSection">' + (recognized || '<div class="menu-group" id="grp-zelf">Drinken</div>') +
-    (recognized ? '<div class="menu-group" id="grp-zelf">Drinken zelf invullen</div>' : '') +
-    '<p class="small-text dr-hint">Typ naam en prijs, en tik op + . Dan staat het meteen op de rekening.</p>' +
-    rows.map(r => drinkRowHtml(v, r)).join('') +
-    '<button type="button" class="big-button secondary" id="addDrinkRowBtn" onclick="addDrinkRow()">+ Nog een regel</button></div>';
+  const rows = ensureSelfRows(v);
+  return '<div id="selfFill">' +
+    '<div class="menu-group" id="grp-zelf">Zelf invullen (buiten de kaart)</div>' +
+    '<p class="small-text dr-hint">Typ naam en prijs, kies 🍽 Eten of 🥤 Drinken, en tik op + . Dan staat het meteen op de rekening.</p>' +
+    rows.map(r => selfRowHtml(v, r)).join('') +
+    '<button type="button" class="big-button secondary" id="addSelfRowBtn" onclick="addSelfRow()">+ Nog een regel</button></div>';
 }
-function addDrinkRow() {
+// Herkende drankjes van de kaart + daaronder zelf invullen
+function drinkSectionHtml(recognized) {
+  return '<div id="drinkSection">' + (recognized || '') + selfFillHtml() + '</div>';
+}
+function addSelfRow() {
   if (!currentVisit) return;
-  ensureDrinkRows(currentVisit).push(newDrinkRow());
+  ensureSelfRows(currentVisit).push(newSelfRow('eten'));
   saveData();
   renderMenuList();
-  const rows = document.querySelectorAll('#menuList .dr-row');
+  const rows = document.querySelectorAll('#menuList .sr-row');
   const last = rows[rows.length - 1];
   if (last) { last.scrollIntoView({ block: 'center' }); last.querySelector('input').focus(); }
 }
-function findDrinkRow(id) { return currentVisit ? ensureDrinkRows(currentVisit).filter(r => r.id === id)[0] : null; }
-function setDrinkQty(row, n) {
+function setSelfQty(row, n) {
   const v = currentVisit;
   n = Math.max(0, Math.floor(Number(n) || 0));
-  const i = drinkLinked(v, row);
+  const i = selfLinked(v, row);
   row.qty = n;
   if (i >= 0) { setLineQty(v, i, n); return; }
-  syncDrink(v, row);
+  syncSelf(v, row);
   saveData();
   refreshAll();
-  if (n > 0 && !drinkComplete(row)) showToast('Vul nog naam en prijs in');
+  if (n > 0 && !selfComplete(row)) showToast('Vul nog naam en prijs in');
+}
+function setSelfCategory(row, cat) {
+  if (!currentVisit || !row) return;
+  row.category = cat === 'drinken' ? 'drinken' : 'eten';
+  syncSelf(currentVisit, row);
+  saveData();
+  const el = document.querySelector('.sr-row[data-sr="' + row.id + '"]');
+  if (el) {
+    el.querySelectorAll('[data-scat]').forEach(b => {
+      const on = b.getAttribute('data-scat') === row.category;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    const nameInp = el.querySelector('[data-srf="name"]');
+    if (nameInp) nameInp.placeholder = row.category === 'drinken' ? 'Drankje, bijv. Spa rood' : 'Gerecht of extra, bijv. dagschotel';
+  } else renderMenuList();
+  renderCurrentVisit(true);
+  if (isShown('tab-rekening')) renderBill();
 }
 document.getElementById('menuCard').addEventListener('input', e => {
-  const inp = e.target.closest('[data-drf]');
+  const inp = e.target.closest('[data-srf]');
   if (!inp || !currentVisit) return;
-  const el = inp.closest('.dr-row');
-  const row = findDrinkRow(el.getAttribute('data-dr'));
+  const el = inp.closest('.sr-row');
+  const row = findSelfRow(el && el.getAttribute('data-sr'));
   if (!row) return;
-  if (inp.getAttribute('data-drf') === 'name') row.name = inp.value;
+  if (inp.getAttribute('data-srf') === 'name') row.name = inp.value;
   else { row.priceText = inp.value; const p = parsePrice(inp.value); row.price = inp.value.trim() === '' || isNaN(p) ? '' : p; }
-  syncDrink(currentVisit, row);
+  syncSelf(currentVisit, row);
   saveData();
   renderCurrentVisit(true);
-  const q = drinkQty(currentVisit, row), done = drinkComplete(row);
+  const q = selfQty(currentVisit, row), done = selfComplete(row);
   el.classList.toggle('ordered', done && q > 0);
   el.querySelector('.dr-warn').classList.toggle('hidden', !(q > 0 && !done));
 });
-// Alleen de lijst in Overzicht bijwerken (zonder de menukaart opnieuw te tekenen)
+document.getElementById('menuCard').addEventListener('click', e => {
+  const b = e.target.closest('[data-scat]');
+  if (!b || !currentVisit) return;
+  const row = findSelfRow(b.getAttribute('data-sr'));
+  if (!row) return;
+  e.preventDefault();
+  setSelfCategory(row, b.getAttribute('data-scat'));
+});
 function renderCurrentVisitList() { renderCurrentVisit(true); }
 
 function addItem() {
@@ -2272,80 +2330,6 @@ function addItem() {
   renderCurrentVisit();
   showToast('✓ ' + name + ' toegevoegd');
 }
-// ---------- v13: Iets extra's – zelf in te vullen regels (net als Drinken) ----------
-function newExtraRow() { return { id: 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: '', price: '', priceText: '', qty: 0 }; }
-function ensureExtraRows(v) {
-  if (!Array.isArray(v.extraRows)) { v.extraRows = []; for (let i = 0; i < 2; i++) v.extraRows.push(newExtraRow()); }
-  return v.extraRows;
-}
-function extraLinked(v, row) { return v.items.findIndex(it => it.extraRow === row.id); }
-function extraQty(v, row) {
-  const i = extraLinked(v, row);
-  if (i >= 0) return Number(v.items[i].qty) || 1;
-  if (drinkComplete(row)) row.qty = 0;
-  return Number(row.qty) || 0;
-}
-function syncExtra(v, row) {
-  const i = extraLinked(v, row);
-  if (drinkComplete(row) && (i >= 0 || row.qty > 0)) {
-    if (i >= 0) { v.items[i].name = row.name.trim(); v.items[i].price = row.price; v.items[i].category = 'extra'; }
-    else v.items.push({ name: row.name.trim(), price: row.price, category: 'extra', qty: row.qty, extraRow: row.id });
-  } else if (i >= 0) {
-    row.qty = Number(v.items[i].qty) || 1;
-    v.items.splice(i, 1);
-  }
-}
-function extraRowHtml(v, row) {
-  const q = extraQty(v, row);
-  const done = drinkComplete(row);
-  return '<div class="dr-row xr-row' + (done && q > 0 ? ' ordered' : '') + '" data-xr="' + row.id + '">' +
-    '<input type="text" data-xrf="name" placeholder="Bijv. extra saus, brood" autocomplete="off" value="' + escapeHtml(row.name || '') + '" aria-label="Naam extra">' +
-    '<div class="dr-line"><input type="text" class="dr-price" data-xrf="price" inputmode="decimal" autocomplete="off" placeholder="Prijs" value="' + escapeHtml(row.priceText != null && row.priceText !== '' ? row.priceText : (typeof row.price === 'number' ? priceToInput(row.price) : '')) + '" aria-label="Prijs extra">' +
-    qtyCtlHtml(q, 'data-qx="' + row.id + '"') + '</div>' +
-    '<div class="dr-warn' + (q > 0 && !done ? '' : ' hidden') + '">Nog niet op de rekening: vul naam en prijs in.</div></div>';
-}
-function renderExtraRows() {
-  const box = document.getElementById('extraRows');
-  if (!box || !currentVisit) return;
-  const v = currentVisit;
-  box.innerHTML = ensureExtraRows(v).map(r => extraRowHtml(v, r)).join('');
-}
-function addExtraRow() {
-  if (!currentVisit) return;
-  ensureExtraRows(currentVisit).push(newExtraRow());
-  saveData();
-  renderExtraRows();
-  const rows = document.querySelectorAll('#extraRows .xr-row');
-  const last = rows[rows.length - 1];
-  if (last) { last.scrollIntoView({ block: 'center' }); last.querySelector('input').focus(); }
-}
-function findExtraRow(id) { return currentVisit ? ensureExtraRows(currentVisit).filter(r => r.id === id)[0] : null; }
-function setExtraQty(row, n) {
-  const v = currentVisit;
-  n = Math.max(0, Math.floor(Number(n) || 0));
-  const i = extraLinked(v, row);
-  row.qty = n;
-  if (i >= 0) { setLineQty(v, i, n); return; }
-  syncExtra(v, row);
-  saveData();
-  refreshAll();
-  if (n > 0 && !drinkComplete(row)) showToast('Vul nog naam en prijs in');
-}
-document.getElementById('extraRows').addEventListener('input', e => {
-  const inp = e.target.closest('[data-xrf]');
-  if (!inp || !currentVisit) return;
-  const el = inp.closest('.xr-row');
-  const row = findExtraRow(el.getAttribute('data-xr'));
-  if (!row) return;
-  if (inp.getAttribute('data-xrf') === 'name') row.name = inp.value;
-  else { row.priceText = inp.value; const p = parsePrice(inp.value); row.price = inp.value.trim() === '' || isNaN(p) ? '' : p; }
-  syncExtra(currentVisit, row);
-  saveData();
-  renderCurrentVisit(true);
-  const q = extraQty(currentVisit, row), done = drinkComplete(row);
-  el.classList.toggle('ordered', done && q > 0);
-  el.querySelector('.dr-warn').classList.toggle('hidden', !(q > 0 && !done));
-});
 function finishVisit() {
   if (!currentVisit) return;
   if (menuEditMode) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); }
@@ -2951,7 +2935,7 @@ function changeTextSize(d) {
 })();
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '18';
+const APP_VERSION = '19';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
