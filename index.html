@@ -39,11 +39,11 @@
   button, input, select { font-family: inherit; }
   .topbar { position: sticky; top: 0; z-index: 100; }
   .header {
-    background: #1a73e8; color: white; padding: 0.35rem min(0.6rem, 3.5vw) 0.45rem;
+    background: #1a73e8; color: white; padding: 0.25rem min(0.55rem, 3.5vw) 0.3rem;
     padding-top: calc(0.35rem + env(safe-area-inset-top));
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
-  .header-row { display: flex; align-items: center; justify-content: space-between; gap: 0.3rem 0.4rem; flex-wrap: wrap; }
+  .header-row { display: flex; align-items: center; justify-content: space-between; gap: 0.2rem 0.35rem; flex-wrap: wrap; }
   .header h1 { margin: 0; font-size: min(0.95rem, 6vw); font-weight: 800; }
   .ts-btns { display: flex; align-items: center; gap: 0.3rem; margin-left: auto; }
   .ts-btn { min-width: min(2.5rem, 60px); height: min(2.5rem, 60px); border-radius: 0.6rem; border: 2px solid rgba(255,255,255,0.8); background: rgba(255,255,255,0.15); color: white; font-size: min(0.9rem, 6vw); font-weight: 800; padding: 0 0.3rem; }
@@ -128,9 +128,9 @@
   .web-msg { font-size: 1.05rem; font-weight: 700; color: #111; margin: 0 0 0.5rem; }
   .web-note { background: #e8f0fe; border: 2px solid #0b57d0; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font-size: 1.05rem; font-weight: 800; color: #0b3d91; margin-bottom: 0.5rem; line-height: 1.35; }
   /* v17: snelknoppen blijven bovenaan staan (onder de blauwe kop), één rij die zelf zijwaarts schuift */
-  .jump-bar { position: -webkit-sticky; position: sticky; top: var(--topbar-h, 0px); z-index: 60; display: flex; flex-wrap: nowrap; gap: 0.35rem;
+  .jump-bar { position: -webkit-sticky; position: sticky; top: var(--topbar-h, 0px); z-index: 60; display: flex; flex-wrap: nowrap; gap: 0.3rem;
     overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; scrollbar-width: none;
-    background: white; margin: 0 -0.75rem 0.5rem; padding: 0.35rem 0.75rem; border-bottom: 2px solid #c9d4e6; box-shadow: 0 3px 6px -3px rgba(0,0,0,0.18); }
+    background: white; margin: 0 -0.5rem 0.3rem; padding: 0.25rem 0.5rem; border-bottom: 2px solid #c9d4e6; box-shadow: 0 3px 6px -3px rgba(0,0,0,0.18); }
   .jump-bar::-webkit-scrollbar { display: none; }
   .jump-bar button { flex: 0 0 auto; min-height: max(52px, 2rem); border: 2px solid #0b57d0; background: #fff; color: #0b3d91; border-radius: 0.6rem;
     font-size: min(1rem, 6vw); font-weight: 800; padding: 0.15rem 0.55rem; white-space: nowrap; line-height: 1.15; }
@@ -197,15 +197,17 @@
   .install-hint li { margin-bottom: 0.3rem; }
 
   /* v6: bestelkaart, aantallen, dialoog, ongedaan maken */
-  .order-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.1rem 0.5rem; border: 2px solid #c9d4e6; background: #f7f9fc; border-radius: 0.6rem; padding: 0.3rem 0.5rem 0.4rem; margin-bottom: 0.45rem; }
+  .order-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.35rem; border: 2px solid #c9d4e6; background: #f7f9fc; border-radius: 0.55rem; padding: 0.1rem 0.4rem; margin-bottom: 0.15rem; }
   .order-row.ordered { background: #e3f4e7; border-color: #188038; box-shadow: inset 0.35rem 0 0 #188038; }
   .order-row.flash { background: #c3ebcd; }
-  .or-name { flex: 1 1 100%; min-width: 0; text-align: left; background: none; border: none; padding: 0.25rem 0.1rem; font-size: 1.08rem; font-weight: 800; color: #111; min-height: 2.4rem; overflow-wrap: anywhere; line-height: 1.25; }
+  .or-name { flex: 1 1 100%; min-width: 0; text-align: left; background: none; border: none; padding: 0; font-size: 1.02rem; font-weight: 800; color: #111; min-height: 36px; overflow-wrap: anywhere; line-height: 1.15; }
   .or-name.static { display: flex; align-items: center; }
-  .or-line { flex: 1 1 100%; display: flex; align-items: center; justify-content: space-between; gap: 0.4rem; flex-wrap: wrap; }
-  .or-price { background: none; border: none; padding: 0.25rem 0.1rem; font-size: 1.1rem; font-weight: 800; color: #0b57d0; min-height: 2.5rem; white-space: nowrap; display: inline-flex; align-items: center; }
-  .or-price.unpriced { color: #a1150c; white-space: normal; text-align: left; text-decoration: underline; }
-  @media (min-width: 600px) { .or-name { flex: 1 1 0; } .or-line { flex: 0 0 auto; } }
+  .or-line { flex: 1 1 100%; display: flex; align-items: center; justify-content: space-between; gap: 0.25rem; flex-wrap: nowrap; }
+  .or-price { background: none; border: none; padding: 0; font-size: 1.02rem; font-weight: 800; color: #0b57d0; min-height: 44px; white-space: nowrap; display: inline-flex; align-items: center; }
+  .or-price.unpriced { color: #a1150c; white-space: normal; text-align: left; text-decoration: underline; max-width: 9rem; }
+  .order-row .qty-btn { width: 44px; height: 44px; min-width: 44px; min-height: 44px; font-size: 1.15rem; }
+  .order-row .qty-num { min-width: 44px; width: auto; height: 44px; min-height: 44px; font-size: 1.1rem; border-width: 2px; }
+  .order-row .qty-controls { gap: 0.25rem; }
   .qty-num { min-width: min(2.7rem, 19vw); height: min(2.5rem, 17vw); border-radius: 0.5rem; border: 3px solid #111; background: white; font-size: 1.2rem; font-weight: 800; color: #111; padding: 0 0.3rem; }
   .qty-num.zero { border-color: #8a8f98; color: #555; }
   .qty-btn:disabled { opacity: 0.3; }
@@ -245,7 +247,7 @@
   .header-row { flex-wrap: wrap; }
   .ts-btns { align-items: center; }
   .ts-label { font-size: min(0.8rem, 5vw); font-weight: 800; margin-right: 0.1rem; }
-  .total-toggle { width: 100%; background: none; border: none; color: white; text-align: left; padding: 0.15rem 0; min-height: 2.5rem; font-family: inherit; cursor: pointer; }
+  .total-toggle { width: 100%; background: none; border: none; color: white; text-align: left; padding: 0.1rem 0; min-height: 2.3rem; font-family: inherit; cursor: pointer; }
   .total-toggle .total-label { display: inline-block; }
   .total-toggle.closed .total-label { border: 2px solid rgba(255,255,255,0.7); border-radius: 0.6rem; padding: 0.3rem 0.6rem; background: rgba(255,255,255,0.12); }
   .total-hint { display: block; font-size: 0.75rem; font-weight: 700; opacity: 0.9; }
@@ -282,7 +284,31 @@
   .web-btn .wb-sub.wb-newer { color: #8a3b00; }
   .new-card-btn { margin-top: 0.2rem; }
   /* v12: naam en prijs direct op de kaart veranderen */
-  .menu-tip { font-size: 0.95rem; color: #333; margin: 0 0 0.45rem; }
+  .menu-tip { font-size: 0.9rem; color: #333; margin: 0 0 0.25rem; }
+  /* v21: compacter Bestellen – minder ruimte boven de eerste gerechten */
+  #orderHead { padding: 0.2rem 0.5rem; margin-bottom: 0.15rem; }
+  #orderHead .seg.compact { margin: 0.2rem 0 0; }
+  #orderHead .seg.compact button { min-height: 44px; font-size: 0.85rem; padding: 0.15rem 0.2rem; line-height: 1.1; }
+  #orderHead input { margin-bottom: 0.25rem; min-height: 2.3rem; padding-top: 0.35rem; padding-bottom: 0.35rem; }
+  .visit-settings > summary { font-size: 0.92rem; font-weight: 800; color: #0b3d91; cursor: pointer; min-height: 40px; display: flex; align-items: center; list-style: none; }
+  .visit-settings > summary::-webkit-details-marker { display: none; }
+  .visit-settings > summary::before { content: '▸ '; }
+  .visit-settings[open] > summary::before { content: '▾ '; }
+  #menuCard { padding: 0.35rem 0.5rem; }
+  .content { padding: 0.35rem; }
+  .menu-tip { display: none; } /* tip zit in de kop; spaart ruimte */
+  #menuCard > .web-note, #menuCard > .notice { font-size: 0.9rem; padding: 0.3rem 0.45rem; margin-bottom: 0.35rem; line-height: 1.25; }
+  #menuCard > .web-note.collapsed, #menuCard > .notice.collapsed { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-height: 2.2rem; cursor: pointer; }
+  .menu-head { margin-bottom: 0.15rem; }
+  .menu-head .section-title { font-size: 1rem; margin: 0; }
+  .new-card-btn { min-height: 2.5rem !important; padding: 0.35rem 0.55rem !important; font-size: 0.95rem !important; margin: 0.15rem 0 0.35rem !important; }
+  .menu-search-wrap { margin: 0.1rem 0 0.2rem; }
+  .menu-search-wrap > summary { font-size: 0.95rem; font-weight: 800; color: #0b3d91; min-height: 40px; display: flex; align-items: center; cursor: pointer; list-style: none; }
+  .menu-search-wrap > summary::-webkit-details-marker { display: none; }
+  #menuSearch { min-height: 2.3rem; margin: 0.2rem 0 0; font-size: 1rem; width: 100%; }
+  .menu-group { font-size: min(0.9rem, 6vw); margin: 0.15rem 0.1rem 0.1rem; letter-spacing: 0.3px; }
+  .menu-head { gap: 0.25rem; margin-bottom: 0.1rem !important; }
+  .menu-head .small-text { font-size: 0.8rem; }
   .or-pen { color: #6b6f76; font-weight: 400; font-size: 0.95rem; margin-left: 0.35rem; }
   .order-row.inline-edit { display: block; background: #fff8e1; border-color: #b06000; box-shadow: inset 0.35rem 0 0 #b06000; padding: 0.5rem 0.6rem 0.6rem; }
   .inline-edit .ie-lbl { display: block; font-size: 0.95rem; font-weight: 800; color: #333; margin: 0.15rem 0 0.15rem; }
@@ -306,7 +332,7 @@
     </div>
   </div>
   <button type="button" class="total-line total-toggle closed" id="totalToggle" onclick="toggleTotal()" aria-expanded="false">
-    <span class="total-label" id="totalLabel">👁 Totaal tonen</span>
+    <span class="total-label" id="totalLabel">👁 Tot nu toe – tik hier</span>
     <span class="total-display hidden" id="totalDisplay">€ 0,00</span>
   </button>
 </div>
@@ -334,7 +360,7 @@
           <div class="visit-name" id="visitName">Geen actief bezoek</div>
           <div class="small-text" id="visitDate"></div>
         </div>
-        <span class="estimate-badge" id="estimateBadge" style="display:none;">Inschatting</span>
+        <span class="estimate-badge" id="estimateBadge" style="display:none;">Vooraf geschat</span>
       </div>
       <div id="itemsList" style="margin-top:0.5rem;"></div>
       <button class="big-button secondary" onclick="startNewVisit()" id="newVisitBtn">Nieuw restaurantbezoek starten</button>
@@ -385,12 +411,15 @@
   <!-- Stap 2: controleren -->
   <div id="tab-toevoegen" class="hidden">
     <div class="card hidden" id="orderHead">
-      <label class="small-text" for="orderName" style="font-weight:800; margin:0 0 0.2rem;">Restaurant</label>
-      <input type="text" id="orderName" placeholder="Naam van het restaurant" autocomplete="off">
-      <div class="seg compact">
-        <button type="button" id="segEstimate" onclick="setVisitEstimate(true)">Inschatting vooraf</button>
-        <button type="button" id="segReal" onclick="setVisitEstimate(false)">Echte rekening</button>
-      </div>
+      <details id="visitSettings" class="visit-settings">
+        <summary id="visitSettingsSum">Bezoek-instellingen</summary>
+        <label class="small-text" for="orderName" style="font-weight:800; margin:0.35rem 0 0; font-size:0.85rem;">Restaurant</label>
+        <input type="text" id="orderName" placeholder="Naam van het restaurant" autocomplete="off">
+        <div class="seg compact">
+          <button type="button" id="segEstimate" onclick="setVisitEstimate(true)">🏠 Vooraf schatten</button>
+          <button type="button" id="segReal" onclick="setVisitEstimate(false)">🍽 Echt bestellen</button>
+        </div>
+      </details>
     </div>
     <div id="ocrBox2" class="card hidden">
       <div style="font-weight:800;" id="ocrStatus2">Bezig…</div>
@@ -400,21 +429,6 @@
     <input type="file" id="moreMenuInput" accept="image/*,application/pdf,.pdf" multiple style="display:none;" onchange="handleMoreMenuFiles(this)">
     <input type="file" id="newCardInput" accept="image/*,application/pdf,.pdf" multiple style="display:none;" onchange="handleNewCardFiles(this)">
     <div id="offMenuCards" class="hidden">
-    <div class="card">
-      <div class="section-title">Buiten de kaart</div>
-      <p class="small-text" style="margin-top:0;">Iets dat niet op de kaart staat, zoals een dagschotel.</p>
-      <input type="text" id="itemName" placeholder="Naam van het gerecht of drankje">
-      <div class="add-row">
-        <input type="text" id="itemPrice" placeholder="Prijs (bijv. 12,50)" inputmode="decimal" autocomplete="off">
-        <input class="qty" type="number" id="itemQty" value="1" min="1" placeholder="Aantal" inputmode="numeric" aria-label="Aantal">
-      </div>
-      <div class="cat-host">
-        <span style="font-weight:800;">Soort:</span>
-        <input type="hidden" id="itemCategory" value="eten">
-        <span id="itemCatPills"></span>
-      </div>
-      <button class="big-button" onclick="addItem()">+ Gerecht toevoegen</button>
-    </div>
     <div class="card" id="tipShortcut">
       <div class="section-title">💶 Fooi</div>
       <p class="small-text" style="margin-top:0;">Fooi kies je op de rekening: geen, 5%, 10%, 15% of een eigen bedrag. Het wordt meteen meegeteld.</p>
@@ -440,6 +454,13 @@
     <p class="small-text" style="margin-top:0;">Tik op een bezoek om de rekening te bekijken. Tik op ✕ om een bezoek te wissen.</p>
     <div id="historyList"></div>
     <button class="big-button secondary" onclick="clearAllHistory()">Alles wissen</button>
+    <div class="card" id="backupBox" style="margin-top:0.7rem;">
+      <div class="section-title" style="margin-top:0;">Back-up</div>
+      <p class="small-text" style="margin-top:0;">Bewaar je bezoeken en menukaarten op je iPhone (Bestanden/iCloud) of stuur ze naar jezelf. Foto's zitten er niet in – die blijven op dit apparaat.</p>
+      <button type="button" class="big-button" id="backupExportBtn" onclick="exportBackup()">💾 Bewaar back-up</button>
+      <button type="button" class="big-button secondary" id="backupImportBtn" onclick="document.getElementById('backupInput').click()" style="margin-top:0.45rem;">📂 Zet back-up terug</button>
+      <input type="file" id="backupInput" accept="application/json,.json" style="display:none;" onchange="importBackupFile(this)">
+    </div>
     <p class="small-text" style="text-align:center;">Hapje/Drankje · versie <span id="appVersion"></span></p>
   </div>
 </div>
@@ -874,7 +895,9 @@ document.addEventListener('click', e => {
   group.outerHTML = catPillsHtml(cat, withLabels);
 });
 function renderItemCatPills() {
-  document.getElementById('itemCatPills').innerHTML = catPillsHtml(document.getElementById('itemCategory').value, true);
+  const el = document.getElementById('itemCatPills');
+  const cat = document.getElementById('itemCategory');
+  if (el && cat) el.innerHTML = catPillsHtml(cat.value, true);
 }
 // v11: eten is onderverdeeld. 'eten' = Overig eten (ook oude kaarten), 'drinken', 'extra' blijven.
 const FOOD_GROUPS = [['voor', 'Voorgerechten', 'Voor'], ['hoofd', 'Hoofdgerechten', 'Hoofd'], ['bij', 'Bijgerechten', 'Bij'], ['na', 'Nagerechten', 'Na'], ['eten', 'Overig eten', 'Overig']];
@@ -925,7 +948,7 @@ function setTotalShown(on) {
   b.classList.toggle('closed', !on);
   b.setAttribute('aria-expanded', on ? 'true' : 'false');
   document.getElementById('totalDisplay').classList.toggle('hidden', !on);
-  document.getElementById('totalLabel').innerHTML = on ? 'Lopend totaal<span class="total-hint">tik om te verbergen</span>' : '👁 Totaal tonen';
+  document.getElementById('totalLabel').innerHTML = on ? 'Tot nu toe<span class="total-hint">tik om te verbergen</span>' : '👁 Tot nu toe – tik hier';
   if (on) totalTimer = setTimeout(() => setTotalShown(false), 10000);
 }
 function toggleTotal() { setTotalShown(!totalShown); }
@@ -1008,7 +1031,7 @@ function cancelMenuFlow() {
 }
 function skipMenu() {
   const nm = document.getElementById('newName').value.trim();
-  createVisit(nm, [], [], null, 'Zonder menukaart begonnen. ' + (nm ? '' : 'Vul de naam van het restaurant in. ') + 'Bestellen kan via ‘Buiten de kaart’ hieronder, of scan alsnog de kaart.');
+  createVisit(nm, [], [], null, 'Zonder menukaart begonnen. ' + (nm ? '' : 'Vul de naam van het restaurant in. ') + 'Bestellen kan via Zelf invullen, of scan alsnog de kaart.');
 }
 function renderSavedList() {
   const card = document.getElementById('savedCard');
@@ -1274,8 +1297,8 @@ const OCR_STATUS = {
   'recognizing text': 'Tekst lezen'
 };
 // ---------- PDF (pdf.js van jsDelivr, pas geladen als je een PDF kiest) ----------
-const PDFJS_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/legacy/build/pdf.min.js';
-const PDFJS_WORKER_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/legacy/build/pdf.worker.min.js';
+const PDFJS_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/legacy/build/pdf.min.mjs';
+const PDFJS_WORKER_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/legacy/build/pdf.worker.min.mjs';
 const PDF_MAX_PAGES = 30;
 let pdfjsPromise = null;
 function isPdfFile(f) { return !!f && (/pdf/i.test(f.type || '') || /\.pdf$/i.test(f.name || '')); }
@@ -1283,19 +1306,14 @@ function filesKind(files) { const p = files.some(isPdfFile), i = files.some(f =>
 function loadPdfJs() {
   if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
   if (pdfjsPromise) return pdfjsPromise;
-  pdfjsPromise = new Promise((resolve, reject) => {
-    const s = document.createElement('script');
-    s.src = PDFJS_URL;
-    s.onload = () => {
-      const lib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
-      if (!lib) { pdfjsPromise = null; reject(new Error('PDF-lezer niet beschikbaar')); return; }
-      window.pdfjsLib = lib;
-      lib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL;
-      resolve(lib);
-    };
-    s.onerror = () => { pdfjsPromise = null; s.remove(); reject(new Error('PDF-lezer kon niet geladen worden')); };
-    document.head.appendChild(s);
-  });
+  // v21: pdf.js 4.x legacy als ES-module (tegen CVE-2024-4367); dynamic import werkt op iOS Safari 11+
+  pdfjsPromise = import(PDFJS_URL).then(lib => {
+    const api = lib && (lib.GlobalWorkerOptions ? lib : lib.default);
+    if (!api || !api.getDocument) { pdfjsPromise = null; throw new Error('PDF-lezer niet beschikbaar'); }
+    api.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL;
+    window.pdfjsLib = api;
+    return api;
+  }).catch(err => { pdfjsPromise = null; throw err; });
   return pdfjsPromise;
 }
 function readFileBuffer(file) {
@@ -1350,7 +1368,7 @@ function pdfItemsToText(items, pageWidth) {
 }
 // Eén PDF-bestand: per pagina eerst de tekstlaag; weinig of geen tekst -> pagina tekenen en met Tesseract lezen
 function pdfFileToSources(file, ui, label) {
-  return loadPdfJs().then(lib => readFileBuffer(file).then(buf => lib.getDocument({ data: new Uint8Array(buf) }).promise)).then(pdf => {
+  return loadPdfJs().then(lib => readFileBuffer(file).then(buf => lib.getDocument({ data: new Uint8Array(buf), isEvalSupported: false }).promise)).then(pdf => {
     const n = Math.min(pdf.numPages, PDF_MAX_PAGES), sources = [];
     let chain = Promise.resolve();
     for (let p = 1; p <= n; p++) chain = chain.then(() => pdf.getPage(p).then(page => {
@@ -1770,12 +1788,16 @@ function setVisitEstimate(val) {
   saveData();
   document.getElementById('segEstimate').classList.toggle('active', !!val);
   document.getElementById('segReal').classList.toggle('active', !val);
+  const sum = document.getElementById('visitSettingsSum');
+  if (sum) sum.textContent = (currentVisit.name || 'Bezoek') + ' · ' + (val ? 'Vooraf schatten' : 'Echt bestellen');
   renderCurrentVisit(true);
 }
 document.getElementById('orderName').addEventListener('input', e => {
   if (!currentVisit) return;
   currentVisit.name = e.target.value;
   saveData();
+  const sum = document.getElementById('visitSettingsSum');
+  if (sum) sum.textContent = (currentVisit.name || 'Bezoek') + ' · ' + (currentVisit.isEstimate ? 'Vooraf schatten' : 'Echt bestellen');
   renderCurrentVisit(true);
 });
 document.getElementById('orderName').addEventListener('change', () => syncRestaurant());
@@ -1794,6 +1816,8 @@ function renderMenuCard() {
   if (document.activeElement !== nameInp) nameInp.value = currentVisit.name || '';
   document.getElementById('segEstimate').classList.toggle('active', !!currentVisit.isEstimate);
   document.getElementById('segReal').classList.toggle('active', !currentVisit.isEstimate);
+  const sum = document.getElementById('visitSettingsSum');
+  if (sum) sum.textContent = (currentVisit.name || 'Bezoek') + ' · ' + (currentVisit.isEstimate ? 'Vooraf schatten' : 'Echt bestellen');
   const menu = currentVisit.menu || [];
   const hadFocus = document.activeElement && document.activeElement.id === 'menuSearch';
   let html = orderNotice ? '<div class="notice">' + escapeHtml(orderNotice) + '</div>' : '';
@@ -1802,7 +1826,7 @@ function renderMenuCard() {
   html += '<div class="menu-head"><div class="section-title">Menukaart</div><div class="head-btns">' +
     (menu.length || menuEditMode ? '<button type="button" class="edit-toggle' + (menuEditMode ? ' on' : '') + '" onclick="toggleMenuEdit()">' + (menuEditMode ? '✓ Klaar' : '✏️ Aanpassen') + '</button>' : '') +
     '</div></div>';
-  const searchHtml = menu.length > 6 ? '<input type="search" id="menuSearch" placeholder="Zoeken op de kaart…" autocomplete="off" value="' + escapeHtml(menuSearch) + '">' : '';
+  const searchHtml = menu.length > 6 ? '<details class="menu-search-wrap"' + (menuSearch ? ' open' : '') + '><summary>🔍 Zoeken op de kaart</summary><input type="search" id="menuSearch" placeholder="Typ een naam…" autocomplete="off" value="' + escapeHtml(menuSearch) + '"></details>' : '';
   const jumpHtml = menu.length > 20 ? jumpBarHtml(menu) : '';
   if (menuEditMode) {
     html += '<p class="small-text" style="margin-top:0;">Pas naam, prijs of soort (Voor, Hoofd, Na, Bij, Drinken) aan, of haal iets weg met ✕. Het wordt meteen bewaard. Tik daarna op <b>Klaar</b>.</p>' +
@@ -1817,18 +1841,26 @@ function renderMenuCard() {
       '<button class="big-button secondary" onclick="menuEditMode = true; addMenuRow();">✏️ Zelf gerechten op de kaart zetten</button>' +
       '<div id="menuList"></div>';
   } else {
-    html += '<button class="big-button new-card-btn" id="newCardBtn" onclick="pickNewCard()">📷 Nieuwe kaart (foto of PDF)</button>' +
-      '<p class="menu-tip" id="menuTip">Tik op een naam of prijs om die te veranderen.</p>' +
-      searchHtml + jumpHtml +
+    html += searchHtml + jumpHtml +
       '<div id="menuList"></div>' +
+      '<button class="big-button new-card-btn" id="newCardBtn" onclick="pickNewCard()">📷 Nieuwe kaart (foto of PDF)</button>' +
       '<button class="big-button secondary" id="moreMenuBtn" onclick="document.getElementById(\'moreMenuInput\').click()">➕ Nog een foto of PDF bij deze kaart</button>';
   }
   card.innerHTML = html;
   const s = document.getElementById('menuSearch');
   if (s) {
     s.addEventListener('input', e => { if (menuEditMode) commitMenuEdits(); menuSearch = e.target.value; renderMenuList(); });
-    if (hadFocus) { s.focus(); try { s.setSelectionRange(s.value.length, s.value.length); } catch(e) {} }
+    if (hadFocus) {
+      const wrap = s.closest('details'); if (wrap) wrap.open = true;
+      s.focus(); try { s.setSelectionRange(s.value.length, s.value.length); } catch(e) {}
+    }
   } else menuSearch = '';
+  // v21: lange meldingen inklappen tot 1 regel; tik om uit te klappen
+  document.querySelectorAll('#menuCard > .web-note, #menuCard > .notice').forEach(n => {
+    n.classList.add('collapsed');
+    n.title = 'Tik om alles te lezen';
+    n.onclick = () => { n.classList.toggle('collapsed'); };
+  });
   renderMenuList();
   syncTopbarHeight();
   updateJumpActive();
@@ -2169,7 +2201,7 @@ function addMenuItemToBill(mi, rowIdx) {
   const c = orderedCount(mi);
   showToast('✓ ' + mi.name + (c > 1 ? ' (' + c + '×)' : ''));
 }
-// ---------- v19: Zelf invullen (buiten de kaart) – eten of drinken ----------
+// ---------- v19: Zelf invullen – eten of drinken ----------
 function newSelfRow(cat) {
   return { id: 's' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: '', price: '', priceText: '', qty: 0, category: cat || 'eten' };
 }
@@ -2248,7 +2280,7 @@ function selfFillHtml() {
   const v = currentVisit;
   const rows = ensureSelfRows(v);
   return '<div id="selfFill">' +
-    '<div class="menu-group" id="grp-zelf">Zelf invullen (buiten de kaart)</div>' +
+    '<div class="menu-group" id="grp-zelf">Zelf invullen</div>' +
     '<p class="small-text dr-hint">Typ naam en prijs, kies 🍽 Eten of 🥤 Drinken, en tik op + . Dan staat het meteen op de rekening.</p>' +
     rows.map(r => selfRowHtml(v, r)).join('') +
     '<button type="button" class="big-button secondary" id="addSelfRowBtn" onclick="addSelfRow()">+ Nog een regel</button></div>';
@@ -2333,8 +2365,7 @@ function addItem() {
   document.getElementById('itemPrice').value = '';
   document.getElementById('itemQty').value = '1';
   document.getElementById('itemCategory').value = 'eten';
-  renderItemCatPills();
-  renderCurrentVisit();
+    renderCurrentVisit();
   showToast('✓ ' + name + ' toegevoegd');
 }
 function finishVisit() {
@@ -2413,13 +2444,13 @@ function renderHistory() {
     let check = '';
     if (typeof v.billAmount === 'number') {
       const d = Math.round(v.billAmount * 100) - cents(total);
-      check = '<span class="h-check ' + (d === 0 ? 'ok-text">✓ Klopt' : d > 0 ? 'diff-text">Rekening is ' + formatEuro(d / 100) + ' hoger' : 'lower-text">Rekening is ' + formatEuro(-d / 100) + ' lager') + '</span>';
+      check = '<span class="h-check ' + (d === 0 ? 'ok-text">✓ Klopt' : d > 0 ? 'diff-text">Verschil € ' + (d / 100).toFixed(2).replace('.', ',') + ' (hoger)' : 'lower-text">Verschil € ' + ((-d) / 100).toFixed(2).replace('.', ',') + ' (lager)') + '</span>';
     }
     const np = visitPersons(v), tp = tipCents(v);
     const payC = (typeof v.billAmount === 'number' ? Math.round(v.billAmount * 100) : cents(total)) + tp;
     if (tp) check += '<span class="h-persons">' + tipText(v) + ' · te betalen ' + formatEuro(payC / 100) + '</span>';
     if (np > 1) check += '<span class="h-persons">' + np + ' personen · ' + formatEuro(splitCents(payC, np).per / 100) + ' per persoon</span>';
-    div.innerHTML = `<div class="item-name">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Inschatting' : ''}</div><div class="h-row"><span class="h-total">${formatEuro(total)}</span><span style="color:#0b57d0; font-weight:800;">Rekening ›</span></div>${check}`;
+    div.innerHTML = `<div class="item-name">${escapeHtml(v.name || 'Bezoek')}</div><div class="small-text">${new Date(v.date).toLocaleString('nl-NL')} ${v.isEstimate ? '· Vooraf geschat' : ''}</div><div class="h-row"><span class="h-total">${formatEuro(total)}</span><span style="color:#0b57d0; font-weight:800;">Rekening ›</span></div>${check}`;
     const del = document.createElement('button');
     del.type = 'button';
     del.className = 'qty-btn remove';
@@ -2553,7 +2584,7 @@ function renderBill() {
   if (fromHistory) html += '<button class="link-button" style="padding-top:0;" onclick="showTab(\'geschiedenis\')">← Terug naar eerdere bezoeken</button>';
   html += '<div class="bill-head"><div><div class="small-text" style="margin:0; font-weight:700;">Voorlopige rekening</div><div class="bill-title">' + escapeHtml(v.name || 'Restaurantbezoek') + '</div>' +
     '<div class="small-text">' + escapeHtml(new Date(v.date).toLocaleString('nl-NL')) + (fromHistory ? ' · afgerond' : '') + '</div></div>' +
-    (v.isEstimate ? '<span class="estimate-badge">Inschatting</span>' : '') + '</div>';
+    (v.isEstimate ? '<span class="estimate-badge">Vooraf geschat</span>' : '') + '</div>';
   const editable = !fromHistory || billEdit;
   const qv = fromHistory ? escapeHtml(String(v.id)) : 'cur';
   if (fromHistory && items.length) html += billEdit
@@ -2691,7 +2722,9 @@ function renderBillShare() {
   el.classList.remove('hidden');
   el.innerHTML =
     '<div class="section-title">Rekening delen</div>' +
-    '<p class="small-text">De rekening is gecontroleerd. Stuur hem naar anderen via WhatsApp, of deel of kopieer de tekst.</p>' +
+    '<p class="small-text">' + (billCents(v) !== null && billCents(v) === cents(visitTotal(v))
+      ? 'De rekening is gecontroleerd. Stuur hem naar anderen via WhatsApp, of deel of kopieer de tekst.'
+      : 'Er is een verschil – controleer de rekening. Je kunt hem toch delen via WhatsApp of kopiëren.') + '</p>' +
     '<button type="button" class="big-button huge share-wa" id="shareWaBtn" onclick="shareBillWhatsApp()">📤 Stuur via WhatsApp</button>' +
     '<button type="button" class="big-button secondary share-other" id="shareOtherBtn" onclick="shareBillOther()">Andere app / kopiëren</button>' +
     '<details class="share-preview" id="sharePreview"><summary>Bekijk tekst</summary><pre id="shareText">' + escapeHtml(text) + '</pre></details>';
@@ -2883,6 +2916,38 @@ document.getElementById('billView').addEventListener('click', e => {
   else if (act === 'minus') setPersons(n - 1);
   else openQtyDialog('Aantal personen', n, setPersons, 'Van 1 tot ' + MAX_PERSONS + ' personen');
 });
+function diffHints(v, diffCents) {
+  const abs = Math.abs(diffCents);
+  if (!abs || !v) return [];
+  const higher = diffCents > 0;
+  const cand = [];
+  const seen = {};
+  const add = (qty, name, priceC) => {
+    if (!name || !priceC || priceC <= 0) return;
+    if (priceC * qty !== abs) return;
+    const key = qty + '|' + name + '|' + priceC;
+    if (seen[key]) return;
+    seen[key] = true;
+    cand.push({ qty: qty, name: name, price: priceC / 100 });
+  };
+  (v.items || []).forEach(it => {
+    const pc = cents(it.price), q = Number(it.qty) || 1;
+    add(1, it.name, pc);
+    if (q >= 2) add(2, it.name, pc);
+    if (q >= 2) add(1, it.name, pc); // 1× van een bestelde regel
+  });
+  (v.menu || []).forEach(mi => {
+    if (mi.price === '' || mi.price == null || isNaN(Number(mi.price))) return;
+    add(1, mi.name, cents(mi.price));
+    add(2, mi.name, cents(mi.price));
+  });
+  // eerst 1×, dan 2×; max 3
+  cand.sort((a, b) => a.qty - b.qty || a.name.localeCompare(b.name, 'nl'));
+  return cand.slice(0, 3).map(c => {
+    const tip = higher ? 'Misschien extra gerekend?' : 'Misschien vergeten op de rekening?';
+    return 'Het verschil is precies de prijs van ' + c.qty + '× ' + c.name + ' (' + formatEuro(c.price) + '). ' + tip;
+  });
+}
 function renderBillCheck() {
   const el = document.getElementById('billCheck');
   const v = billVisit();
@@ -2890,11 +2955,13 @@ function renderBillCheck() {
   if (typeof v.billAmount !== 'number') { el.innerHTML = ''; return; }
   const diff = Math.round(v.billAmount * 100) - cents(visitTotal(v));
   const mine = formatEuro(visitTotal(v)) + (tipCents(v) ? ', zonder fooi' : '');
-  if (diff === 0) el.innerHTML = '<div class="check-result ok">✓ Klopt<span class="small">De rekening is gelijk aan jouw telling (' + mine + ').</span></div>';
-  else if (diff > 0) el.innerHTML = '<div class="check-result diff">Rekening is ' + formatEuro(diff / 100) + ' hoger' +
-    '<span class="small">dan jouw telling (' + mine + '). Kijk welke regel niet klopt.</span></div>';
-  else el.innerHTML = '<div class="check-result lower">Rekening is ' + formatEuro(-diff / 100) + ' lager' +
-    '<span class="small">dan jouw telling (' + mine + '), bijvoorbeeld iets aangeboden.</span></div>';
+  const hints = diff !== 0 ? diffHints(v, diff) : [];
+  const hintHtml = hints.map(h => '<span class="small">' + escapeHtml(h) + '</span>').join('');
+  if (diff === 0) el.innerHTML = '<div class="check-result ok">✓ Klopt<span class="small">De rekening is gecontroleerd en gelijk aan jouw telling (' + mine + ').</span></div>';
+  else if (diff > 0) el.innerHTML = '<div class="check-result diff">Er is een verschil van € ' + (diff / 100).toFixed(2).replace('.', ',') +
+    '<span class="small">De rekening van het restaurant is hoger dan jouw telling (' + mine + '). Controleer de rekening.</span>' + hintHtml + '</div>';
+  else el.innerHTML = '<div class="check-result lower">Er is een verschil van € ' + ((-diff) / 100).toFixed(2).replace('.', ',') +
+    '<span class="small">De rekening van het restaurant is lager dan jouw telling (' + mine + '). Controleer de rekening.</span>' + hintHtml + '</div>';
 }
 document.getElementById('billView').addEventListener('click', e => {
   const b = e.target.closest('[data-tick]');
@@ -2956,7 +3023,111 @@ function changeTextSize(d) {
 })();
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '20';
+// ---------- v21: back-up bewaren / terugzetten ----------
+function backupPayload() {
+  let textSize = null, installHint = null;
+  try { textSize = localStorage.getItem('hapjeDrankjeTextSize'); } catch (e) {}
+  try { installHint = localStorage.getItem('hapjeDrankjeInstallHint'); } catch (e) {}
+  return {
+    app: 'Hapje/Drankje',
+    version: APP_VERSION,
+    exportedAt: new Date().toISOString(),
+    note: "Foto's zitten niet in deze back-up.",
+    visits: visits,
+    currentVisit: currentVisit,
+    menus: menus,
+    settings: { textSize: textSize, installHint: installHint }
+  };
+}
+function backupFileName() {
+  const d = new Date();
+  return 'hapje-drankje-backup-' + d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + '.json';
+}
+function exportBackup() {
+  const data = backupPayload();
+  const text = JSON.stringify(data, null, 2);
+  const name = backupFileName();
+  const blob = new Blob([text], { type: 'application/json' });
+  const file = new File([blob], name, { type: 'application/json' });
+  const share = () => {
+    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+      return navigator.share({ files: [file], title: 'Hapje/Drankje back-up' }).then(() => true).catch(() => false);
+    }
+    return Promise.resolve(false);
+  };
+  share().then(ok => {
+    if (ok) { showToast('Back-up gedeeld'); return; }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    showToast('Back-up opgeslagen als bestand');
+  });
+}
+function applyBackup(data, mode) {
+  if (!data || data.app !== 'Hapje/Drankje' || !Array.isArray(data.visits) || !Array.isArray(data.menus)) {
+    throw new Error('Dit is geen geldige Hapje/Drankje-back-up.');
+  }
+  if (mode === 'replace') {
+    visits = data.visits.slice();
+    currentVisit = data.currentVisit || null;
+    menus = data.menus.slice();
+  } else {
+    // samenvoegen op id (back-up wint bij hetzelfde id)
+    const byId = {};
+    visits.forEach(v => { byId[String(v.id)] = v; });
+    data.visits.forEach(v => { byId[String(v.id)] = v; });
+    visits = Object.keys(byId).map(k => byId[k]).sort((a, b) => (a.date < b.date ? 1 : -1));
+    const mBy = {};
+    menus.forEach(m => { mBy[String(m.id)] = m; });
+    data.menus.forEach(m => { mBy[String(m.id)] = m; });
+    menus = Object.keys(mBy).map(k => mBy[k]);
+    if (data.currentVisit) {
+      if (!currentVisit || String(currentVisit.id) === String(data.currentVisit.id)) currentVisit = data.currentVisit;
+    }
+  }
+  if (data.settings) {
+    try {
+      if (data.settings.textSize) localStorage.setItem('hapjeDrankjeTextSize', data.settings.textSize);
+      else localStorage.removeItem('hapjeDrankjeTextSize');
+      if (data.settings.installHint) localStorage.setItem('hapjeDrankjeInstallHint', data.settings.installHint);
+    } catch (e) {}
+  }
+  saveData(); saveMenus();
+  try { applyTextSize(textSizeIndex()); } catch (e) {}
+  renderCurrentVisit(); renderHistory(); renderPhotos();
+  showToast(mode === 'replace' ? 'Back-up teruggezet' : 'Back-up samengevoegd');
+}
+function importBackupFile(input) {
+  const file = input.files && input.files[0];
+  input.value = '';
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    let data;
+    try { data = JSON.parse(reader.result); }
+    catch (e) { alert('Dit bestand kon niet gelezen worden als back-up.'); return; }
+    if (!data || data.app !== 'Hapje/Drankje' || !Array.isArray(data.visits)) {
+      alert('Dit is geen geldige Hapje/Drankje-back-up.'); return;
+    }
+    const when = data.exportedAt ? new Date(data.exportedAt).toLocaleString('nl-NL') : 'onbekende datum';
+    askBig('Back-up van ' + when + ' terugzetten?', {
+      sub: 'Standaard worden bezoeken samengevoegd (zelfde nummer wordt bijgewerkt). Kies Vervangen om alles te wissen en alleen de back-up te houden. Foto\'s zitten niet in de back-up.',
+      yes: 'Samenvoegen (aanbevolen)',
+      no: 'Alles vervangen'
+    }).then(merge => {
+      if (merge === null || merge === undefined) return;
+      // askBig returns true for yes, false for no – we map yes=merge, no=replace
+      // But if user dismisses... askBig only has yes/no. Use true=merge, false=replace.
+      try { applyBackup(data, merge ? 'merge' : 'replace'); }
+      catch (e) { alert(e.message || String(e)); }
+    });
+  };
+  reader.onerror = () => alert('Bestand lezen mislukt');
+  reader.readAsText(file);
+}
+const APP_VERSION = '21';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
@@ -2981,7 +3152,6 @@ function dismissInstallHint() {
   try { weg = localStorage.getItem('hapjeDrankjeInstallHint') === 'weg'; } catch (e) {}
   if (!isStandalone() && !weg) document.getElementById('installHint').classList.remove('hidden');
 })();
-renderItemCatPills();
 renderCurrentVisit();
 renderHistory();
 migrateOldPhotos().then(loadPhotos).then(() => {
