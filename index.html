@@ -174,6 +174,14 @@
   .check-result.ok { background: #d9f2df; color: #0b5e24; border: 3px solid #188038; }
   .check-result.diff { background: #fde4dc; color: #a1150c; border: 3px solid #b3261e; }
   .check-result .small { display: block; font-size: 1rem; font-weight: 700; margin-top: 0.2rem; color: #111; }
+  /* v18: rekening delen via WhatsApp */
+  .share-box { margin-top: 0.7rem; }
+  .share-box .share-wa { background: #128c7e; border-color: #075e54; }
+  .share-box .share-wa:active { background: #075e54; }
+  .share-box .share-other { margin-top: 0.45rem; }
+  .share-preview { margin-top: 0.5rem; }
+  .share-preview summary { font-size: 1.05rem; font-weight: 800; color: #0b3d91; cursor: pointer; padding: 0.4rem 0; min-height: 2.5rem; }
+  .share-preview pre { white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; background: #f4f7fc; border: 2px solid #c9d4e6; border-radius: 0.6rem; padding: 0.7rem; font-family: inherit; font-size: 1rem; font-weight: 700; line-height: 1.4; color: #111; margin: 0.3rem 0 0; max-height: 22rem; overflow-y: auto; }
   .history-item { display: block; width: 100%; text-align: left; background: white; border-radius: 0.7rem; padding: 0.7rem; margin-bottom: 0.5rem; border: none; font-size: 1rem; color: #111; box-shadow: 0 1px 6px rgba(0,0,0,0.1); }
   .history-item:active { background: #e3edfd; }
   .history-item .h-row { margin-top: 0.3rem; display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; }
@@ -2604,7 +2612,8 @@ function renderBill() {
     '<input type="text" id="billAmount" inputmode="decimal" autocomplete="off" placeholder="bijv. 54,50" class="bill-amount" value="' +
     (typeof v.billAmount === 'number' ? escapeHtml(priceToInput(v.billAmount)) : '') + '">' +
     '<div id="billCheck"></div>' +
-    '<p class="small-text">Vink tijdens het vergelijken elke regel af die ook op de rekening van het restaurant staat.</p></div>';
+    '<p class="small-text">Vink tijdens het vergelijken elke regel af die ook op de rekening van het restaurant staat.</p></div>' +
+    '<div class="card share-box hidden" id="billShare"></div>';
   box.innerHTML = html;
   document.getElementById('billAmount').addEventListener('input', e => {
     const p = parsePrice(e.target.value);
@@ -2613,6 +2622,7 @@ function renderBill() {
     if (e.target.value.trim() === '' || isNaN(p)) delete vv.billAmount; else vv.billAmount = p;
     saveBillVisit();
     renderBillCheck();
+    renderBillShare();
     renderTotals();
   });
   const ta = document.getElementById('tipAmount');
@@ -2622,10 +2632,124 @@ function renderBill() {
     const p = parsePrice(e.target.value);
     vv.tip = { amount: e.target.value.trim() === '' || isNaN(p) ? 0 : Math.max(0, p) };
     saveBillVisit();
+    renderBillShare();
     renderTotals();
   });
   renderBillCheck();
+  renderBillShare();
   renderTotals();
+}
+// ---------- v18: rekening delen via WhatsApp ----------
+function billShareText(v) {
+  if (!v) return '';
+  const lines = [];
+  const name = (v.name || 'Restaurantbezoek').trim() || 'Restaurantbezoek';
+  const when = new Date(v.date);
+  lines.push('*' + name + '*');
+  lines.push(isNaN(when.getTime()) ? '' : when.toLocaleString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }));
+  lines.push('');
+  CATS.forEach(c => {
+    const rows = (v.items || []).filter(it => billCat(it.category) === c[0]);
+    if (!rows.length) return;
+    lines.push(c[1] + ' *' + c[2] + '*');
+    let sub = 0;
+    rows.forEach(it => {
+      const q = Number(it.qty) || 1;
+      const line = cents(it.price) * q;
+      sub += line;
+      lines.push(q + ' × ' + (it.name || 'Onbekend') + ' — ' + formatEuro(line / 100));
+    });
+    lines.push('Subtotaal ' + c[2].toLowerCase() + ' ' + formatEuro(sub / 100));
+    lines.push('');
+  });
+  const mine = cents(visitTotal(v));
+  const tip = tipCents(v);
+  const b = billCents(v);
+  lines.push('*Totaal* ' + formatEuro(mine / 100));
+  if (tip) {
+    lines.push(tipText(v));
+    lines.push('*Te betalen incl. fooi* ' + formatEuro((mine + tip) / 100));
+  }
+  if (b !== null) {
+    const d = b - mine;
+    let rest = 'Rekening restaurant: ' + formatEuro(b / 100);
+    if (d === 0) rest += ' ✓ Klopt';
+    else if (d > 0) rest += ' (' + formatEuro(d / 100) + ' hoger)';
+    else rest += ' (' + formatEuro(-d / 100) + ' lager)';
+    lines.push(rest);
+  }
+  const np = visitPersons(v);
+  if (np > 1) {
+    const pay = (b !== null ? b : mine) + tip;
+    const r = splitCents(pay, np);
+    lines.push(np + ' personen · ' + formatEuro(r.per / 100) + ' per persoon');
+  }
+  lines.push('');
+  lines.push('Gemaakt met Hapje/Drankje');
+  return lines.filter((l, i, a) => !(l === '' && a[i - 1] === '')).join('\n');
+}
+function billShareReady(v) {
+  return !!(v && (v.items || []).length && typeof v.billAmount === 'number');
+}
+function renderBillShare() {
+  const el = document.getElementById('billShare');
+  const v = billVisit();
+  if (!el) return;
+  if (!billShareReady(v)) { el.classList.add('hidden'); el.innerHTML = ''; return; }
+  const text = billShareText(v);
+  el.classList.remove('hidden');
+  el.innerHTML =
+    '<div class="section-title">Rekening delen</div>' +
+    '<p class="small-text">De rekening is gecontroleerd. Stuur hem naar anderen via WhatsApp, of deel of kopieer de tekst.</p>' +
+    '<button type="button" class="big-button huge share-wa" id="shareWaBtn" onclick="shareBillWhatsApp()">📤 Stuur via WhatsApp</button>' +
+    '<button type="button" class="big-button secondary share-other" id="shareOtherBtn" onclick="shareBillOther()">Andere app / kopiëren</button>' +
+    '<details class="share-preview" id="sharePreview"><summary>Bekijk tekst</summary><pre id="shareText">' + escapeHtml(text) + '</pre></details>';
+}
+function shareBillWhatsApp() {
+  const v = billVisit();
+  if (!billShareReady(v)) return;
+  const text = billShareText(v);
+  const q = encodeURIComponent(text);
+  const web = 'https://wa.me/?text=' + q;
+  const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (ios) {
+    // iPhone/iPad: app-link eerst; als WhatsApp niet opent, na 1,2 s de webpagina
+    let left = false;
+    const onHide = () => { left = true; };
+    document.addEventListener('visibilitychange', onHide, { once: true });
+    window.location.href = 'whatsapp://send?text=' + q;
+    setTimeout(() => {
+      document.removeEventListener('visibilitychange', onHide);
+      if (!left && document.visibilityState === 'visible') window.location.href = web;
+    }, 1200);
+  } else {
+    window.open(web, '_blank');
+  }
+}
+function copyBillText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).then(() => true).catch(() => false);
+  }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    return Promise.resolve(!!ok);
+  } catch (e) { return Promise.resolve(false); }
+}
+function shareBillOther() {
+  const v = billVisit();
+  if (!billShareReady(v)) return;
+  const text = billShareText(v);
+  if (navigator.share) {
+    navigator.share({ text: text }).then(() => showToast('Gedeeld')).catch(() => {
+      copyBillText(text).then(ok => showToast(ok ? 'Tekst gekopieerd – plak hem in WhatsApp of een andere app' : 'Delen mislukt'));
+    });
+    return;
+  }
+  copyBillText(text).then(ok => showToast(ok ? 'Tekst gekopieerd – plak hem in WhatsApp of een andere app' : 'Kopiëren niet mogelijk op dit apparaat'));
 }
 // ---------- Fooi ----------
 function billCents(v) { return typeof v.billAmount === 'number' ? Math.round(v.billAmount * 100) : null; }
@@ -2827,7 +2951,7 @@ function changeTextSize(d) {
 })();
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '17';
+const APP_VERSION = '18';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
