@@ -178,7 +178,8 @@
   .share-box { margin-top: 0.7rem; }
   .share-box .share-wa { background: #128c7e; border-color: #075e54; }
   .share-box .share-wa:active { background: #075e54; }
-  .share-box .share-other { margin-top: 0.45rem; }
+  .share-box .share-other, .share-other { margin-top: 0.45rem; }
+  .app-share { margin-top: 0.6rem; }
   .share-preview { margin-top: 0.5rem; }
   .share-preview summary { font-size: 1.05rem; font-weight: 800; color: #0b3d91; cursor: pointer; padding: 0.4rem 0; min-height: 2.5rem; }
   .share-preview pre { white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; background: #f4f7fc; border: 2px solid #c9d4e6; border-radius: 0.6rem; padding: 0.7rem; font-family: inherit; font-size: 1rem; font-weight: 700; line-height: 1.4; color: #111; margin: 0.3rem 0 0; max-height: 22rem; overflow-y: auto; }
@@ -342,6 +343,12 @@
       <button class="big-button" onclick="finishVisit()" id="finishBtn" style="display:none;">Bezoek afronden</button>
     </div>
     <button class="big-button secondary" onclick="showTab('fotos')">📷 Foto's</button>
+    <div class="card app-share share-box" id="appShare">
+      <div class="section-title" style="margin-top:0;">App delen</div>
+      <p class="small-text" style="margin-top:0;">Stuur Hapje/Drankje naar iemand anders, zodat die de app ook kan gebruiken.</p>
+      <button type="button" class="big-button huge share-wa" id="shareAppWaBtn" onclick="shareAppWhatsApp()">📲 Deel de app via WhatsApp</button>
+      <button type="button" class="big-button secondary share-other" id="shareAppOtherBtn" onclick="shareAppOther()">Andere app / kopiëren</button>
+    </div>
   </div>
 
   <!-- Stap 1: menukaart kiezen -->
@@ -2689,10 +2696,7 @@ function renderBillShare() {
     '<button type="button" class="big-button secondary share-other" id="shareOtherBtn" onclick="shareBillOther()">Andere app / kopiëren</button>' +
     '<details class="share-preview" id="sharePreview"><summary>Bekijk tekst</summary><pre id="shareText">' + escapeHtml(text) + '</pre></details>';
 }
-function shareBillWhatsApp() {
-  const v = billVisit();
-  if (!billShareReady(v)) return;
-  const text = billShareText(v);
+function shareViaWhatsApp(text) {
   const q = encodeURIComponent(text);
   const web = 'https://wa.me/?text=' + q;
   const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -2723,10 +2727,7 @@ function copyBillText(text) {
     return Promise.resolve(!!ok);
   } catch (e) { return Promise.resolve(false); }
 }
-function shareBillOther() {
-  const v = billVisit();
-  if (!billShareReady(v)) return;
-  const text = billShareText(v);
+function shareTextOther(text) {
   if (navigator.share) {
     navigator.share({ text: text }).then(() => showToast('Gedeeld')).catch(() => {
       copyBillText(text).then(ok => showToast(ok ? 'Tekst gekopieerd – plak hem in WhatsApp of een andere app' : 'Delen mislukt'));
@@ -2735,6 +2736,26 @@ function shareBillOther() {
   }
   copyBillText(text).then(ok => showToast(ok ? 'Tekst gekopieerd – plak hem in WhatsApp of een andere app' : 'Kopiëren niet mogelijk op dit apparaat'));
 }
+function shareBillWhatsApp() {
+  const v = billVisit();
+  if (!billShareReady(v)) return;
+  shareViaWhatsApp(billShareText(v));
+}
+function shareBillOther() {
+  const v = billVisit();
+  if (!billShareReady(v)) return;
+  shareTextOther(billShareText(v));
+}
+// ---------- v20: app-link delen via WhatsApp ----------
+const APP_SHARE_URL = 'https://peterhanselman-star.github.io/hapje-drankje/';
+function appShareText() {
+  return '*Hapje/Drankje* – handige app om je restaurantrekening te controleren.\n' +
+    'Open deze link in Safari of Chrome:\n' +
+    APP_SHARE_URL + '\n' +
+    'Tip: zet hem op je beginscherm via de deelknop → "Zet op beginscherm".';
+}
+function shareAppWhatsApp() { shareViaWhatsApp(appShareText()); }
+function shareAppOther() { shareTextOther(appShareText()); }
 // ---------- Fooi ----------
 function billCents(v) { return typeof v.billAmount === 'number' ? Math.round(v.billAmount * 100) : null; }
 // Fooi in centen; procent van de rekening van het restaurant als die is ingevuld, anders van onze telling
@@ -2935,7 +2956,7 @@ function changeTextSize(d) {
 })();
 applyTextSize(textSizeIndex());
 // ---------- Nieuwe versie ophalen (geen service worker; gewone HTTP-cache) ----------
-const APP_VERSION = '19';
+const APP_VERSION = '20';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
