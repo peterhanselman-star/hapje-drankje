@@ -240,6 +240,19 @@
   .persons-view { font-size: 1.5rem; font-weight: 800; }
   .pp-box { margin-top: 0.7rem; border-radius: 0.6rem; padding: 0.6rem 0.7rem; background: #e8f0fe; border: 3px solid #0b57d0; }
   .pp-box.rest { background: #fff6d6; border-color: #b58100; }
+  /* v22: iets apart afrekenen */
+  .apart-box { margin-top: 0.7rem; border: 2px solid #c9d4e6; border-radius: 0.6rem; background: #fbfcfe; padding: 0.35rem 0.55rem 0.5rem; }
+  .apart-box > summary { font-size: 1.1rem; font-weight: 800; color: #0b3d91; cursor: pointer; min-height: 44px; display: flex; align-items: center; list-style: none; }
+  .apart-box > summary::-webkit-details-marker { display: none; }
+  .apart-person { border: 2px solid #c9d4e6; border-radius: 0.55rem; padding: 0.45rem 0.5rem; margin: 0.45rem 0; background: white; }
+  .apart-person .apart-name { font-size: 1.1rem; font-weight: 800; min-height: 2.6rem; margin-bottom: 0.35rem; }
+  .apart-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.3rem; padding: 0.25rem 0; border-top: 1px solid #e3e7ee; }
+  .apart-line .al-name { flex: 1 1 8rem; font-weight: 800; font-size: 1rem; min-width: 0; overflow-wrap: anywhere; }
+  .apart-line .al-meta { font-size: 0.9rem; font-weight: 700; color: #333; }
+  .apart-result { margin-top: 0.5rem; background: #e8f0fe; border: 3px solid #0b57d0; border-radius: 0.6rem; padding: 0.55rem 0.65rem; }
+  .apart-result .ar-row { display: flex; justify-content: space-between; gap: 0.4rem; flex-wrap: wrap; font-size: 1.15rem; font-weight: 800; padding: 0.2rem 0; }
+  .apart-result .ar-check { margin-top: 0.35rem; font-size: 0.95rem; font-weight: 700; color: #0b5e24; }
+  .apart-result .ar-warn { margin-top: 0.35rem; font-size: 0.95rem; font-weight: 700; color: #a1150c; }
   .pp-lbl { display: block; font-size: 1.15rem; font-weight: 800; line-height: 1.25; }
   .pp-amt { display: block; font-size: 2.4rem; font-weight: 900; line-height: 1.15; text-align: right; letter-spacing: -0.5px; }
   .pp-note { display: block; font-size: 1rem; font-weight: 700; color: #333; margin-top: 0.15rem; }
@@ -1745,6 +1758,7 @@ document.getElementById('qtyDialog').addEventListener('click', e => { if (e.targ
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-q]');
   if (!b || b.disabled) return;
+  if (b.hasAttribute('data-aq')) return; // v22: apart-qty, handled on billView
   const act = b.getAttribute('data-q');
   if (b.hasAttribute('data-qs')) {
     const row = findSelfRow(b.getAttribute('data-qs'));
@@ -2627,7 +2641,9 @@ function renderBill() {
       '<button type="button" class="qty-num" data-p="set" id="personsNum" aria-label="' + np + ' personen, tik om te typen">' + np + '</button>' +
       '<button type="button" class="qty-btn" data-p="plus"' + (np < MAX_PERSONS ? '' : ' disabled') + ' aria-label="Eén persoon meer">+</button></div>'
       : '<span class="persons-view" id="personsNum">' + np + '</span>') +
-    '</div><div id="perPerson"></div></div>';
+    '</div><div id="perPerson"></div>' +
+    apartBoxHtml(v, editable) +
+    '</div>';
   html += '</div>';
   // Vergelijken met de echte rekening
   html += '<div class="card"><label class="section-title" for="billAmount">Bedrag op de rekening van het restaurant <span style="font-weight:700;">(zonder fooi)</span></label>' +
@@ -2701,7 +2717,14 @@ function billShareText(v) {
     lines.push(rest);
   }
   const np = visitPersons(v);
-  if (np > 1) {
+  const split = computeSplit(v);
+  if (split && split.used) {
+    lines.push('');
+    lines.push('*Wie betaalt wat* (' + np + ' personen)');
+    split.rows.forEach(r => lines.push(r.name + ': ' + formatEuro(r.total / 100) + (r.detail.length ? ' (' + r.detail.join(', ') + ')' : '')));
+    if (split.otherCount > 0) lines.push('Ieder van de andere ' + split.otherCount + ': ' + formatEuro(split.otherCents / 100));
+    lines.push('Fooi evenredig verdeeld');
+  } else if (np > 1) {
     const pay = (b !== null ? b : mine) + tip;
     const r = splitCents(pay, np);
     lines.push(np + ' personen · ' + formatEuro(r.per / 100) + ' per persoon');
@@ -2855,6 +2878,231 @@ function goToTip() {
   openBill(null);
   setTimeout(() => { const t = document.getElementById('tipBox'); if (t) t.scrollIntoView({ block: 'center' }); }, 30);
 }
+// ---------- v22: iets apart afrekenen ----------
+function ensureSplitApart(v) {
+  if (!v.splitApart || typeof v.splitApart !== 'object') v.splitApart = { open: false, people: [] };
+  if (!Array.isArray(v.splitApart.people)) v.splitApart.people = [];
+  v.splitApart.people.forEach(p => {
+    if (!p.id) p.id = 'ap' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+    if (!p.lines || typeof p.lines !== 'object') p.lines = {};
+    if (typeof p.name !== 'string') p.name = '';
+  });
+  return v.splitApart;
+}
+function apartAssigned(v, itemIdx, exceptId) {
+  let n = 0;
+  ensureSplitApart(v).people.forEach(p => {
+    if (exceptId && p.id === exceptId) return;
+    n += Math.max(0, Math.floor(Number(p.lines[String(itemIdx)]) || 0));
+  });
+  return n;
+}
+function distributeCents(total, weights) {
+  const m = weights.length;
+  if (m === 0) return [];
+  total = Math.max(0, Math.round(total));
+  const sumW = weights.reduce((a, b) => a + b, 0);
+  if (total === 0) return weights.map(() => 0);
+  if (sumW <= 0) {
+    const base = Math.floor(total / m), out = weights.map(() => base);
+    let rem = total - base * m;
+    for (let i = 0; rem > 0; i++, rem--) out[i % m]++;
+    return out;
+  }
+  const exact = weights.map(w => total * w / sumW);
+  const out = exact.map(Math.floor);
+  let rem = total - out.reduce((a, b) => a + b, 0);
+  const order = exact.map((e, i) => ({ i: i, f: e - out[i] })).sort((a, b) => b.f - a.f || a.i - b.i);
+  for (let k = 0; k < rem; k++) out[order[k % m].i]++;
+  return out;
+}
+function computeSplit(v) {
+  if (!v) return null;
+  const items = v.items || [];
+  const n = visitPersons(v);
+  const tip = tipCents(v);
+  const sub = cents(visitTotal(v));
+  const people = ensureSplitApart(v).people.filter(p => Object.keys(p.lines || {}).some(k => Number(p.lines[k]) > 0) || String(p.name || '').trim());
+  const used = ensureSplitApart(v).people.some(p => Object.keys(p.lines || {}).some(k => Number(p.lines[k]) > 0));
+  if (!used) return { used: false, n: n, sub: sub, tip: tip };
+  const named = ensureSplitApart(v).people.slice();
+  const own = named.map(p => {
+    let o = 0;
+    const detail = [];
+    Object.keys(p.lines || {}).forEach(k => {
+      const idx = Number(k), q = Math.max(0, Math.floor(Number(p.lines[k]) || 0));
+      const it = items[idx];
+      if (!it || q <= 0) return;
+      const max = Number(it.qty) || 1;
+      const qq = Math.min(q, max);
+      const line = cents(it.price) * qq;
+      o += line;
+      detail.push(qq + '× ' + (it.name || '?'));
+    });
+    return { id: p.id, name: String(p.name || '').trim() || 'Iemand', own: o, detail: detail };
+  }).filter(p => p.own > 0 || named.find(x => x.id === p.id));
+  // only people with assigns or name count as named slots
+  const activeNamed = named.filter(p => Object.keys(p.lines || {}).some(k => Number(p.lines[k]) > 0));
+  const ownSum = activeNamed.reduce((s, p) => {
+    let o = 0;
+    Object.keys(p.lines || {}).forEach(k => {
+      const idx = Number(k), q = Math.max(0, Math.floor(Number(p.lines[k]) || 0));
+      const it = items[idx];
+      if (!it || q <= 0) return;
+      o += cents(it.price) * Math.min(q, Number(it.qty) || 1);
+    });
+    return s + o;
+  }, 0);
+  let common = sub - ownSum;
+  if (common < 0) common = 0;
+  const namedCount = activeNamed.length;
+  const otherCount = Math.max(0, n - namedCount);
+  // common split over ALL n people
+  const commonShares = distributeCents(common, Array(n).fill(1));
+  // build list: first namedCount entries correspond to activeNamed order, then others
+  const basis = [];
+  const rows = [];
+  activeNamed.forEach((p, i) => {
+    let o = 0; const detail = [];
+    Object.keys(p.lines || {}).forEach(k => {
+      const idx = Number(k), q = Math.max(0, Math.floor(Number(p.lines[k]) || 0));
+      const it = items[idx];
+      if (!it || q <= 0) return;
+      const qq = Math.min(q, Number(it.qty) || 1);
+      o += cents(it.price) * qq;
+      detail.push(qq + '× ' + (it.name || '?'));
+    });
+    const b = o + commonShares[i];
+    basis.push(b);
+    rows.push({ kind: 'named', name: String(p.name || '').trim() || ('Persoon ' + (i + 1)), own: o, common: commonShares[i], basis: b, detail: detail });
+  });
+  for (let i = 0; i < otherCount; i++) {
+    const b = commonShares[namedCount + i];
+    basis.push(b);
+  }
+  const tips = distributeCents(tip, basis.map(b => Math.max(b, 0)));
+  rows.forEach((r, i) => {
+    r.tip = tips[i];
+    r.total = r.basis + r.tip;
+  });
+  // Maak 'anderen' onderling gelijk (hoogste van de rest), zodat het bordje één bedrag toont.
+  let otherTotal = 0;
+  if (otherCount > 0) {
+    let maxO = 0;
+    for (let i = 0; i < otherCount; i++) {
+      const t = commonShares[namedCount + i] + tips[namedCount + i];
+      if (t > maxO) maxO = t;
+    }
+    otherTotal = maxO;
+  }
+  const paySum = rows.reduce((s, r) => s + r.total, 0) + otherTotal * otherCount;
+  const grand = sub + tip;
+  const bAmt = billCents(v);
+  const warning = (bAmt !== null && bAmt !== sub)
+    ? 'Let op: de rekening van het restaurant wijkt af; de verdeling is gebaseerd op jouw regels (niet op het restaurantbedrag).'
+    : '';
+  return {
+    used: true, n: n, sub: sub, tip: tip, grand: grand,
+    rows: rows, otherCount: otherCount, otherCents: otherTotal,
+    paySum: paySum, roundExtra: paySum - grand, warning: warning,
+    note: 'Fooi is evenredig verdeeld naar ieders deel van de rekening.'
+  };
+}
+function apartBoxHtml(v, editable) {
+  const sa = ensureSplitApart(v);
+  const open = !!sa.open;
+  let h = '<details class="apart-box" id="apartBox"' + (open ? ' open' : '') + '>' +
+    '<summary>👥 Iets apart afrekenen?</summary>' +
+    '<p class="small-text" style="margin:0.3rem 0 0.4rem;">Handig als één of twee mensen iets voor zichzelf hadden. De rest delen jullie nog steeds eerlijk. Fooi gaat evenredig naar ieders deel.</p>';
+  if (!editable && !sa.people.length) {
+    h += '<p class="small-text">Niets apart gezet.</p></details>';
+    return h;
+  }
+  sa.people.forEach((p, pi) => {
+    h += '<div class="apart-person" data-ap="' + p.id + '">';
+    if (editable) {
+      h += '<input type="text" class="apart-name" data-apname="' + p.id + '" placeholder="Naam, bijv. Jan" value="' + escapeHtml(p.name || '') + '" aria-label="Naam persoon apart" autocomplete="off">' +
+        '<button type="button" class="link-button" data-apdel="' + p.id + '">Verwijder</button>';
+    } else {
+      h += '<div class="apart-name" style="border:none;padding:0.2rem 0;">' + escapeHtml(p.name || 'Iemand') + '</div>';
+    }
+    (v.items || []).forEach((it, idx) => {
+      const max = Number(it.qty) || 1;
+      const mine = Math.max(0, Math.floor(Number(p.lines[String(idx)]) || 0));
+      const others = apartAssigned(v, idx, p.id);
+      const left = Math.max(0, max - others);
+      if (!editable && mine <= 0) return;
+      if (!editable) {
+        h += '<div class="apart-line"><span class="al-name">' + escapeHtml(it.name) + '</span><span class="al-meta">' + mine + '× · ' + formatEuro(cents(it.price) * mine / 100) + '</span></div>';
+        return;
+      }
+      h += '<div class="apart-line" data-apline="' + p.id + '" data-idx="' + idx + '">' +
+        '<span class="al-name">' + escapeHtml(it.name) + ' <span class="al-meta">(' + formatEuro(it.price) + ', max ' + left + ')</span></span>' +
+        qtyCtlHtml(mine, 'data-aq="' + p.id + '" data-ai="' + idx + '"') + '</div>';
+    });
+    h += '</div>';
+  });
+  if (editable) h += '<button type="button" class="big-button secondary" id="apartAddBtn" onclick="addApartPerson()">+ Persoon apart</button>';
+  h += '<div id="apartResult" class="apart-result"></div></details>';
+  return h;
+}
+function apartResultHtml(v) {
+  const split = computeSplit(v);
+  if (!split || !split.used) return '<p class="small-text" style="margin:0;">Nog niets apart gekozen – iedereen deelt gelijk.</p>';
+  let h = '<div class="persons-lbl" style="margin-bottom:0.3rem;">Wie betaalt wat</div>';
+  split.rows.forEach(r => {
+    h += '<div class="ar-row"><span>' + escapeHtml(r.name) + (r.detail.length ? ' <span class="al-meta">(' + escapeHtml(r.detail.join(', ')) + ')</span>' : '') + '</span><span>' + formatEuro(r.total / 100) + '</span></div>';
+  });
+  if (split.otherCount > 0) {
+    h += '<div class="ar-row"><span>Ieder van de andere ' + split.otherCount + '</span><span>' + formatEuro(split.otherCents / 100) + '</span></div>';
+  }
+  h += '<p class="ar-check">Totaal van alle betalingen: ' + formatEuro(split.paySum / 100) +
+    (split.roundExtra ? ' (afronding +' + formatEuro(split.roundExtra / 100) + ')' : ' (= rekening)') + '</p>';
+  h += '<p class="small-text" style="margin:0.2rem 0 0;">' + escapeHtml(split.note) + '</p>';
+  if (split.warning) h += '<p class="ar-warn">' + escapeHtml(split.warning) + '</p>';
+  return h;
+}
+function addApartPerson() {
+  const v = billVisit();
+  if (!v) return;
+  const sa = ensureSplitApart(v);
+  let n = visitPersons(v);
+  if (sa.people.length >= n) {
+    n = Math.min(MAX_PERSONS, n + 1);
+    v.persons = n;
+    showToast('Aantal personen werd ' + n + ' (nodig voor deze naam)');
+  }
+  sa.open = true;
+  sa.people.push({ id: 'ap' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), name: '', lines: {} });
+  saveBillVisit();
+  const y = window.scrollY;
+  renderBill();
+  window.scrollTo(0, y);
+  const inputs = document.querySelectorAll('.apart-name');
+  const last = inputs[inputs.length - 1];
+  if (last) { last.focus(); last.scrollIntoView({ block: 'center' }); }
+}
+function removeApartPerson(id) {
+  const v = billVisit();
+  if (!v) return;
+  const sa = ensureSplitApart(v);
+  sa.people = sa.people.filter(p => p.id !== id);
+  saveBillVisit();
+  const y = window.scrollY; renderBill(); window.scrollTo(0, y);
+}
+function setApartQty(pid, idx, q) {
+  const v = billVisit();
+  if (!v) return;
+  const p = ensureSplitApart(v).people.find(x => x.id === pid);
+  const it = (v.items || [])[idx];
+  if (!p || !it) return;
+  const max = Math.max(0, (Number(it.qty) || 1) - apartAssigned(v, idx, pid));
+  q = Math.max(0, Math.min(max, Math.floor(Number(q) || 0)));
+  if (q <= 0) delete p.lines[String(idx)]; else p.lines[String(idx)] = q;
+  ensureSplitApart(v).open = true;
+  saveBillVisit();
+  const y = window.scrollY; renderBill(); window.scrollTo(0, y);
+}
 // ---------- Aantal personen en bedrag per persoon ----------
 const MAX_PERSONS = 50;
 function visitPersons(v) {
@@ -2884,7 +3132,10 @@ function renderPerPerson() {
   const hasBill = typeof v.billAmount === 'number';
   const rest0 = hasBill ? Math.round(v.billAmount * 100) : null;
   const rest = hasBill ? rest0 + tip : null;
-  if (!hasBill || rest0 === mine0) {
+  const split = computeSplit(v);
+  if (split && split.used) {
+    el.innerHTML = '<p class="small-text">Er staat iets apart. Zie <b>Wie betaalt wat</b> hieronder voor het juiste bedrag per persoon.</p>';
+  } else if (!hasBill || rest0 === mine0) {
     el.innerHTML = ppBoxHtml(tip ? 'Per persoon (incl. fooi):' : 'Per persoon:', mine, n, '') +
       (hasBill ? '<p class="small-text">Dit klopt met de rekening van het restaurant.</p>'
                : '<p class="small-text">Op basis van onze telling. Vul hieronder het bedrag van het restaurant in, dan rekenen we dat ook uit.</p>');
@@ -2893,12 +3144,20 @@ function renderPerPerson() {
       '<p class="small-text">Dit is wat ieder echt betaalt.</p>' +
       ppBoxHtml('Per persoon (volgens onze telling' + inc + '):', mine, n, '');
   }
+  const res = document.getElementById('apartResult');
+  if (res) res.innerHTML = apartResultHtml(v);
 }
 function setPersons(n) {
   const v = billVisit();
   if (!v) return;
   n = Math.min(MAX_PERSONS, Math.max(1, Math.floor(Number(n) || 1)));
-  if (n === 1) delete v.persons; else v.persons = n;
+  const named = ensureSplitApart(v).people;
+  if (named.length > n) {
+    named.length = n;
+    showToast('Minder personen: overgebleven namen-apart aangepast');
+  }
+  if (n === 1) { delete v.persons; if (v.splitApart) v.splitApart.people = []; }
+  else v.persons = n;
   saveBillVisit();
   const y = window.scrollY;
   renderBill();
@@ -2907,14 +3166,52 @@ function setPersons(n) {
 }
 document.getElementById('billView').addEventListener('click', e => {
   const b = e.target.closest('[data-p]');
-  if (!b || b.disabled) return;
+  if (b && !b.disabled && !b.hasAttribute('data-aq')) {
+    const v = billVisit();
+    if (!v) return;
+    const n = visitPersons(v);
+    const act = b.getAttribute('data-p');
+    if (act === 'plus') setPersons(n + 1);
+    else if (act === 'minus') setPersons(n - 1);
+    else openQtyDialog('Aantal personen', n, setPersons, 'Van 1 tot ' + MAX_PERSONS + ' personen');
+    return;
+  }
+  const del = e.target.closest('[data-apdel]');
+  if (del) { removeApartPerson(del.getAttribute('data-apdel')); return; }
+  const aq = e.target.closest('[data-aq]');
+  if (aq && !aq.disabled) {
+    const pid = aq.getAttribute('data-aq');
+    const idx = Number(aq.getAttribute('data-ai'));
+    const v = billVisit();
+    const p = v && ensureSplitApart(v).people.find(x => x.id === pid);
+    const cur = p ? Math.max(0, Math.floor(Number(p.lines[String(idx)]) || 0)) : 0;
+    const act = aq.getAttribute('data-q');
+    if (act === 'plus') setApartQty(pid, idx, cur + 1);
+    else if (act === 'minus') setApartQty(pid, idx, cur - 1);
+    else {
+      const it = v.items[idx];
+      openQtyDialog((it && it.name) || 'Aantal', cur, n => setApartQty(pid, idx, n), 'Hoeveel is voor deze persoon?');
+    }
+  }
+});
+document.getElementById('billView').addEventListener('toggle', e => {
+  if (e.target.id !== 'apartBox') return;
   const v = billVisit();
   if (!v) return;
-  const n = visitPersons(v);
-  const act = b.getAttribute('data-p');
-  if (act === 'plus') setPersons(n + 1);
-  else if (act === 'minus') setPersons(n - 1);
-  else openQtyDialog('Aantal personen', n, setPersons, 'Van 1 tot ' + MAX_PERSONS + ' personen');
+  ensureSplitApart(v).open = !!e.target.open;
+  saveBillVisit();
+}, true);
+document.getElementById('billView').addEventListener('input', e => {
+  const inp = e.target.closest('[data-apname]');
+  if (!inp) return;
+  const v = billVisit();
+  if (!v) return;
+  const p = ensureSplitApart(v).people.find(x => x.id === inp.getAttribute('data-apname'));
+  if (!p) return;
+  p.name = inp.value;
+  saveBillVisit();
+  const res = document.getElementById('apartResult');
+  if (res) res.innerHTML = apartResultHtml(v);
 });
 function diffHints(v, diffCents) {
   const abs = Math.abs(diffCents);
@@ -3127,7 +3424,7 @@ function importBackupFile(input) {
   reader.onerror = () => alert('Bestand lezen mislukt');
   reader.readAsText(file);
 }
-const APP_VERSION = '21';
+const APP_VERSION = '22';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
