@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#1a73e8">
 <meta http-equiv="Cache-Control" content="no-cache">
 <title>Hapje/Drankje</title>
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon-v2.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192-v2.png">
 <link rel="manifest" href="manifest.json">
 <script>(function(){try{var s=localStorage.getItem('hapjeDrankjeTextSize');if(/^enorm[234]$/.test(s))s='enorm';if(['klein2','klein','extra','enorm'].indexOf(s)>=0)document.documentElement.className='ts-'+s;}catch(e){}})();</script>
 <style>
@@ -3424,7 +3424,7 @@ function importBackupFile(input) {
   reader.onerror = () => alert('Bestand lezen mislukt');
   reader.readAsText(file);
 }
-const APP_VERSION = '22';
+const APP_VERSION = '23';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
