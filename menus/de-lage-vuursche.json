@@ -1,0 +1,1622 @@
+{
+ "name": "Restaurant De Lage Vuursche",
+ "source": "https://vuursche.nl/dinerkaart/ ; https://vuursche.nl/lunchkaart/ ; https://vuursche.nl/wp-content/uploads/2026/09/Wijnkaart-nieuw-23-9-2026.pdf",
+ "retrieved": "2026-11-13",
+ "items": [
+  {
+   "name": "Garnalen cocktail, Noorse garnalen - knapperige ijsbergsla, huisgemaakte cocktailsaus, fijngesneden bieslook en citroen",
+   "price": 18.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Garnalen cocktail, Hollandse garnalen - knapperige ijsbergsla, huisgemaakte cocktailsaus, fijngesneden bieslook en citroen",
+   "price": 29.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Gerookte paling - van palingrokerij Eveleens, brioche toast, crème fraîche en haringkaviaar",
+   "price": 29.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Carpaccio van het rund - truffelmayonaise, kappertjes, rucola, croutons, Parmezaanse kaas en geroosterde pitten en zaden",
+   "price": 18.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Marbré van fazantenbout en eendenlever - gepocheerde appel en een dressing van kaneel",
+   "price": 25.0,
+   "cat": "voor"
+  },
+  {
+   "name": "Ham van wildzwijn - salade van hutspot, kropsla, krokante rookworst, vinaigrette van Savora mosterd en mosterdkaviaar",
+   "price": 18.0,
+   "cat": "voor"
+  },
+  {
+   "name": "Huisgemaakte wildpaté - hazelnoten, pruimencompote en broodsoldaatje",
+   "price": 18.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Crèmeux van bloemkool en gele curry - krokante bloemkool en ingelegde ananas",
+   "price": 17.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Krokante cannelloni - gevuld met geroosterde pompoen, macadamianoten en sesam, bloemkool-misocrème en een soesje van kaas",
+   "price": 15.0,
+   "cat": "voor"
+  },
+  {
+   "name": "Tempura van paddenstoelen (lunch) - crème van baba ganoush en paddenstoelen en krokant van pompoen",
+   "price": 15.0,
+   "cat": "voor"
+  },
+  {
+   "name": "Garnalenkroketten - naar een recept van onze Zuiderburen, gefrituurde peterselie en een saus van garnalen",
+   "price": 21.0,
+   "cat": "voor"
+  },
+  {
+   "name": "Toast aux crevettes - krokant gebakken rouleaux met garnalen, kreeftenmayonaise, zalmeitjes en bieslook",
+   "price": 17.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Gebakken coquilles - geroosterde hazelnoten, beurre noisette en krokante bresaola",
+   "price": 25.0,
+   "cat": "voor"
+  },
+  {
+   "name": "Slakken in kruidenboter, 6 stuks - citroen en stokbrood",
+   "price": 15.0,
+   "cat": "voor"
+  },
+  {
+   "name": "Slakken in kruidenboter, 12 stuks - citroen en stokbrood",
+   "price": 24.0,
+   "cat": "voor"
+  },
+  {
+   "name": "Vol-au-vent van gevogelte - krokant gebakken zwezerik en een jus van gevogelte",
+   "price": 19.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Bisque van schaaldieren - met Noorse garnalen",
+   "price": 19.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Huisgemaakte uiensoep - gegratineerd met Gruyère kaas",
+   "price": 11.0,
+   "cat": "voor"
+  },
+  {
+   "name": "Paddenstoelenbouillon en croûte - geparfumeerd met truffel (bereiding ±15 min)",
+   "price": 12.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Gebakken schelvisfilet - mosselen, boerenkool, pommes château en een saus van Noilly Prat",
+   "price": 27.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalfslever - gebakken spek, ui, appel, aardappelpuree en saus van rode port",
+   "price": 25.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gebakken ossenhaas - pommes Anna, in spek gerolde boontjes en gegrilde tomaat, naar keuze rode wijn- of blauwe kaassaus",
+   "price": 37.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Getruffeerde ballotine van gevogelte - zuurkoolstamppot en gevogeltejus",
+   "price": 28.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Combinatie van wilde eend - gestoofde bout en op karkas gebraden borst, diverse bereidingen van artisjok, aardpeer en jus van zoethout",
+   "price": 25.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gebakken hertenbiefstuk - kastanjes, spruitjes, stoofpeer, crème van pompoen, ingelegde rozijnen en een wildjus met rozemarijn",
+   "price": 30.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hazenrug op het karkas gebraden (per persoon, vanaf 2 personen) - aardappelpuree, rode kool, spruitjes, stoofpeer en saus met cranberry",
+   "price": 37.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Biet bourguignon - met kastanjepuree",
+   "price": 25.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Vegetarische shepherd's pie (lunch) - pompoen, pastinaak en bleekselderij",
+   "price": 25.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Salade Lage Vuursche - gebakken coquille, Noorse garnalen, gerookte zalm en truffeldressing",
+   "price": 29.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Salade Barigoule - artisjokharten met gekonfijte tamme eendenbout en een stroop van sherry",
+   "price": 21.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Blauwe kaas salade - kastanjes, walnoot, stoofpeer en een dressing van stoofpeer",
+   "price": 19.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Oeufs Benedict (lunch) - gepocheerde eieren op knapperige brioche en frisse Hollandaise, keuze uit gerookte zalm of ham",
+   "price": 17.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Klassieke huzarensalade, klein (lunch) - lobbige mayonaise, doperwten, wortel en een gekookt ei",
+   "price": 12.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Klassieke huzarensalade, groot (lunch) - lobbige mayonaise, doperwten, wortel en een gekookt ei",
+   "price": 19.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Croque Monsieur (lunch) - beenham, boerenkaas en bechamelsaus",
+   "price": 12.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pittige kippendijen (lunch) - bosui, krokante ui, cashewnoten en wit vloerbrood",
+   "price": 18.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Vloerbrood met carpaccio (lunch) - truffelmayonaise, kappertjes, rucola, Parmezaanse kaas en geroosterde pitten en zaden",
+   "price": 14.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Vloerbrood met gerookte zalm (lunch) - roomkaas en ijsbergsla",
+   "price": 14.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Vloerbrood met huisgemaakte humus (lunch) - feta, granaatappel en gegrilde courgette",
+   "price": 12.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Keuzemenu drie gangen (per persoon)",
+   "price": 47.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tweegangen lunchmenu (voorgerecht | hoofdgerecht)",
+   "price": 35.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Plat spécial: Schweinehaxe (incl. glas wijn en koffie of thee) - gelakt met bier en appelstroop, stamppot zuurkool",
+   "price": 25.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Dame Blanche - vanille roomijs met slagroom en warme chocoladesaus, op verzoek een scheutje advocaat",
+   "price": 13.0,
+   "cat": "na"
+  },
+  {
+   "name": "Affogato - bol vanille-ijs overgoten met een warme espresso",
+   "price": 9.5,
+   "cat": "na"
+  },
+  {
+   "name": "Coupe Colonel - citroensorbet met een scheutje wodka",
+   "price": 11.0,
+   "cat": "na"
+  },
+  {
+   "name": "Crêpe suzette (per persoon, vanaf 2 personen) - aan tafel bereid",
+   "price": 18.5,
+   "cat": "na"
+  },
+  {
+   "name": "Losgeslagen appeltaart - mascarpone-vanille, gepocheerde appel, crumble van amandel en karamelsaus",
+   "price": 12.5,
+   "cat": "na"
+  },
+  {
+   "name": "Pure chocolade fudge - hangop en marmelade van mandarijn",
+   "price": 12.5,
+   "cat": "na"
+  },
+  {
+   "name": "Kazen - selectie van ons assortiment kazen",
+   "price": 18.0,
+   "cat": "na"
+  },
+  {
+   "name": "Koffie of thee servies - koffie of thee naar keuze, met drie bonbons van Smit's Delicious",
+   "price": 9.5,
+   "cat": "na"
+  },
+  {
+   "name": "Supplement Oscietra kaviaar 10 gr",
+   "price": 32.5,
+   "cat": "extra"
+  },
+  {
+   "name": "N.V. Prosecco Brut, La Gioiosa (IT) (mousserend, glas)",
+   "price": 10.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Champagne Brut 1er Cru, Pierre Trichet (FR) (mousserend, glas)",
+   "price": 15.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Domaine Estrade, Côtes de Gascogne (FR) (wit, glas)",
+   "price": 7.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Anterra, Sicilië (IT) (wit, glas)",
+   "price": 8.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Henri Bourgeois, ‘Petit Bourgeois’ (FR) (wit, glas)",
+   "price": 8.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Dr. Deinhard, Pfalz (D) (wit, glas)",
+   "price": 9.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Kellerei Terlan, Alto Adige (IT) (wit, glas)",
+   "price": 10.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Marinot-Verdun ‘Les Quatre Fils Aymon’ (FR), Chardonnay (wit, glas)",
+   "price": 8.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Clos des Lunes 'Lune d'Argent', Bordeaux (FR) (wit, glas)",
+   "price": 12.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Atelier Dubongout, ‘Le Patapouf’, Languedoc-Roussillon (FR) (wit, glas)",
+   "price": 9.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Tavernel, Gard (FR) (rood, glas)",
+   "price": 7.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Marinot-Verdun ‘Les Quatre Fils Aymon’ (FR), Pinot Noir (rood, glas)",
+   "price": 8.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Feudi Bizantini, Passofino, d'Abruzzo (IT) (rood, glas)",
+   "price": 9.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Quinta da Douza, Ribera del Duero (SP) (rood, glas)",
+   "price": 10.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Bastide de Fave, Coteaux Varois en Provence (FR) (rosé, glas)",
+   "price": 9.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Domaine Dyckerhoff, ‘Petit Gris’ Reuilly (FR) (rosé, glas)",
+   "price": 10.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Henkell sekt alkoholfrei (0,0%) (Piccolo) (alcoholvrij, piccolo)",
+   "price": 9.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Torres Natureo, Muscat (0,0%), Catalonië (alcoholvrij, glas)",
+   "price": 7.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Feral No.1, White, gefermenterde witte biet, hop & Szechuan peper (alcoholvrij, glas)",
+   "price": 9.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Feral No.2, Orange, gefermenteerde witte biet, gember & jeneverbes (alcoholvrij, glas)",
+   "price": 9.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Bastide de Fave, Coteaux Varois en Provence (rosé, fles)",
+   "price": 42.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Domaine Dyckerhoff, ‘Petit Gris’ Reuilly (rosé, fles)",
+   "price": 47.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Domaine Clos de l'Ours, l'Accent (rosé, fles)",
+   "price": 56.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Château Angueiroun, Prestige (rosé, fles)",
+   "price": 61.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Domaine Tempier, Bandol (rosé, fles)",
+   "price": 80.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Francois Cotat, Chavignol, Sancerre (rosé, fles)",
+   "price": 90.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Henri Bourgeois, Sancerre (0,375 L)",
+   "price": 36.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Villard, Condrieu Deponcins (0,375 L)",
+   "price": 55.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2007 Domaine Andron ‘Petit Andron’, Haut Médoc (0,375 L)",
+   "price": 32.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Tenuta dell'Ornellaia DOC (0,375 L)",
+   "price": 160.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Ruinart, Blanc de Blancs (magnum 1,5 L)",
+   "price": 330.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Krug, Grande Cuvée 169ème édition (magnum 1,5 L)",
+   "price": 740.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Chardonnay 'Le Patapouf', Pays d'Oc (magnum 1,5 L)",
+   "price": 85.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2014 Mas de Daumas, Saint Guilhem-le-Désert (magnum 1,5 L)",
+   "price": 145.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Weingut von Winning 'Ungeheuer' Riesling GG, Pfalz (magnum 1,5 L)",
+   "price": 175.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2012 De Ladoucette 'Baron de L', Pouilly-Fumé (magnum 1,5 L)",
+   "price": 268.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2015 Domaine Joblot Givry 1er Cru Clos Cellier aux Moines (magnum 1,5 L)",
+   "price": 180.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Château Musar (magnum 1,5 L)",
+   "price": 190.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2005 Château de Monthélie, Monthélie (magnum 1,5 L)",
+   "price": 198.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Roger Coulon ‘Vindemia’ Zero Dosage Premier Cru (mousserend, fles)",
+   "price": 95.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. ‘R’ de Ruinart (mousserend, fles)",
+   "price": 124.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Louis Roederer Collection 244 (mousserend, fles)",
+   "price": 125.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Ruinart, Blanc de Blancs (mousserend, fles)",
+   "price": 162.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Ruinart, Rosé (mousserend, fles)",
+   "price": 198.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2015 Dom Pérignon, Brut (mousserend, fles)",
+   "price": 325.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Krug, Grande Cuvée 172ème édition (mousserend, fles)",
+   "price": 385.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2006 Dom Pérignon, Rosé, Lady Gaga Limited Edition (mousserend, fles)",
+   "price": 650.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Pierre Trichet, Brut Premier Cru (mousserend, fles)",
+   "price": 74.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Agrapart ‘Atoma’ p22 (mousserend, fles)",
+   "price": 169.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Billecart-Salmon, Le Réserve (mousserend, fles)",
+   "price": 115.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Billecart-Salmon, Brut Rose (mousserend, fles)",
+   "price": 180.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Billecart-Salmon, Blanc de Blanc Grand cru (mousserend, fles)",
+   "price": 186.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2014 Billecart-Salmon, Les Rendez-Vous de N°6 (mousserend, fles)",
+   "price": 198.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2014 Bollinger, La Grande Année (mousserend, fles)",
+   "price": 215.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2012 Billecart-Salmon, Blanc de Blanc Cuvee Louis (mousserend, fles)",
+   "price": 295.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2009 Bollinger, Édition Limitée 007 (mousserend, fles)",
+   "price": 375.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2014 Philipponnat, Extra Brut 'Clos des Goisses' (mousserend, fles)",
+   "price": 440.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Barbichon, Brut Réserve 4 Cépages (mousserend, fles)",
+   "price": 95.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Domaine Rolet Crémant du Jura Brut (mousserend, fles)",
+   "price": 58.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Prosecco ‘La Gioiosa’ (mousserend, fles)",
+   "price": 40.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Sainte Madeleine, Vézelay (wit, fles)",
+   "price": 62.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Maison Olivier-Sanders, Aligoté (wit, fles)",
+   "price": 65.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Jean Fournier, Aligoté ‘Saint Urbain’ (wit, fles)",
+   "price": 71.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Domaine Marquis d'Angerville, Aligoté (wit, fles)",
+   "price": 98.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Maison Harbour, Bourgogne Blanc Cote d'Or (wit, fles)",
+   "price": 100.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine de la Cornasse, ‘Beauroy’ 1er Cru (wit, fles)",
+   "price": 72.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Guy Robin, Vieilles Vignes (wit, fles)",
+   "price": 74.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Domaine Pattes Loup Vent d’Ange (wit, fles)",
+   "price": 93.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Vincent Dauvissat, ‘Vaillons 1er Cru’ (wit, fles)",
+   "price": 165.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Domaine de Bellene (wit, fles)",
+   "price": 79.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Christian Bellang (wit, fles)",
+   "price": 90.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Antonin Cosnier ‘La Morand’ (wit, fles)",
+   "price": 89.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Joseph Pascal (wit, fles)",
+   "price": 87.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Domaine Potinet-Ampeau (wit, fles)",
+   "price": 96.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Henri Germain (wit, fles)",
+   "price": 130.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Latour, Les Narvaux (wit, fles)",
+   "price": 138.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Buisson Battault Vieilles Vignes (wit, fles)",
+   "price": 155.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Laurent Ponsot ‘Cuvée du Pandorea’ (wit, fles)",
+   "price": 170.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Maison Harbour, le Limozin (wit, fles)",
+   "price": 194.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Domaine Jacques Carillon (wit, fles)",
+   "price": 160.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Domaine Xavier Monnot (wit, fles)",
+   "price": 205.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Jean Noël Gagnard ‘Les Masures’ (wit, fles)",
+   "price": 165.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Domaine Xavier Monnot, Grand Cru (wit, fles)",
+   "price": 495.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Maison Harbour Grand Cru 'Les Languettes' (wit, fles)",
+   "price": 540.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Olivier, Le Bievaux (wit, fles)",
+   "price": 75.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Maison Olivier-Sanders, Rully ‘Saint-Jacques’ (wit, fles)",
+   "price": 72.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Domaine de la Tour, Montagny, 1er Cru (wit, fles)",
+   "price": 75.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Châteaux des Correaux, Saint-Véran (wit, fles)",
+   "price": 60.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Dominique Cornin, Macon Chaintré les Serreuxdières (wit, fles)",
+   "price": 68.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Sangouard-Guyot Pouilly-Fuissé “L’ambassadeur” (wit, fles)",
+   "price": 70.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Pierre Vessigaud, Pouilly-Fuissé Vieilles Vignes (wit, fles)",
+   "price": 72.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Dominique Cornin, Saint-Véran les Serreuxdières (wit, fles)",
+   "price": 75.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Jean Foillard, Beaujolais Blanc (wit, fles)",
+   "price": 75.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Domaine Francois Chidaine, ‘Le Chenin d'Ici’ (wit, fles)",
+   "price": 62.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Domaine des Beaumard, Savennières, Clos de Saint Yves (wit, fles)",
+   "price": 77.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Domaine des Beaumard, Savennières, Clos du Papillon (wit, fles)",
+   "price": 97.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Domaine du Collier, Saumur Blanc (wit, fles)",
+   "price": 106.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2016 Clos Rougeard, Saumur Blanc, Breze (wit, fles)",
+   "price": 295.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine de la Renaudie, Touraine Chenonceaux (wit, fles)",
+   "price": 44.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine de la Coquillerie, Côtes de la Charité, Chardonnay (wit, fles)",
+   "price": 53.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Trotereau, Quincy (wit, fles)",
+   "price": 56.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Domaine Roger Neveu, ‘La Grande Côte’, Sancerre (wit, fles)",
+   "price": 60.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Dom. Bernard Fleuriet & Fils, Sancerre (wit, fles)",
+   "price": 73.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2015 Domaine Philippe Foreau, Vouvray Demi Sec (wit, fles)",
+   "price": 80.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2002 Domaine Philippe Foreau, Vouvray Demi Sec (wit, fles)",
+   "price": 95.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2015 Francois Cotat, Sancerre, Monts Damnés (wit, fles)",
+   "price": 111.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Weinbach, Pinot Blanc (wit, fles)",
+   "price": 80.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Weinbach, Riesling (wit, fles)",
+   "price": 80.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Domaine Weinbach, Riesling Grand Cru, Schlossberg Ste. Catherine (wit, fles)",
+   "price": 215.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Clos des Lunes 'Lune d'Argent' (wit, fles)",
+   "price": 56.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Château La Garde 'La Garde Blanc' (wit, fles)",
+   "price": 78.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Château Cos d'Estournel 'Les Pagodes de Cos' (wit, fles)",
+   "price": 119.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Château de Fieuzal, Pessac-Léognan (wit, fles)",
+   "price": 169.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Château Cheval Blanc, Petit Cheval Blanc (wit, fles)",
+   "price": 330.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Yves Cuilleron, Marsanne ‘Les Vignes d'à Côte’ (wit, fles)",
+   "price": 55.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Vacqueyras Blanc, Domaine Chantegut (wit, fles)",
+   "price": 63.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Domaine Merlin, Viognier Chemin de Monjoux (wit, fles)",
+   "price": 68.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Yves Cuilleron, Saint Joseph ‘Le Lombard’ (wit, fles)",
+   "price": 75.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Domaine Merlin, Condrieu, Cuvée Jeanraude (wit, fles)",
+   "price": 100.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Château de Beaucastel, Châteauneuf-du-Pape (wit, fles)",
+   "price": 240.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2012 Domaine Jean-Louis Chave, L'Hermitage (wit, fles)",
+   "price": 395.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Estrade, Côtes de Gascogne (wit, fles)",
+   "price": 35.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Domaine de Laballe, Chardonnay des Landes (wit, fles)",
+   "price": 39.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Chardonnay ‘Le Patapouf’, Pays d’Oc (wit, fles)",
+   "price": 43.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Château Angueiroun Blanc Réserve (wit, fles)",
+   "price": 50.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Domaine Martinelle, Vin de Pays, Vaucluse Blanc (wit, fles)",
+   "price": 60.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Weingut Heiner Sauer, Grauburgunder, Pfalz (wit, fles)",
+   "price": 40.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Dr. Deinhard Weisser Burgunder, Pfalz (wit, fles)",
+   "price": 44.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Weingut Dönnhof, Nahe, Riesling, Trocken (wit, fles)",
+   "price": 63.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Weingut Ökonomierat Rebholz, Pfalz, Riesling, Trocken (wit, fles)",
+   "price": 63.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Weingut Ökonomierat Rebholz, Pfalz, Weissburgunder (wit, fles)",
+   "price": 63.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Weingut Köbelin Grauerburgunder ‘Lösswand’, Baden (wit, fles)",
+   "price": 65.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Weingut Dönnhof, Nahe, Riesling Tonschiefer (wit, fles)",
+   "price": 73.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Johan Josef Prüm, Moezel, Wehlener Sonnenuhr Kabinett (wit, fles)",
+   "price": 115.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Johan Josef Prüm, Moezel, Wehlener Sonnenuhr Spätlese (wit, fles)",
+   "price": 115.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Weingut Dönnhof, Nahe, Riesling Hermannshohle, GG (wit, fles)",
+   "price": 155.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Grüner Veltliner Classic, Weingut Eichberger (wit, fles)",
+   "price": 41.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Schloss Gobelsburg, Tradition Heritage Cuvée 3 Years, Edition 850 (wit, fles)",
+   "price": 88.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Anterra, Pinot Grigio, Sicilië (wit, fles)",
+   "price": 38.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Collestefano, Verdicchio di Matelica DOC (wit, fles)",
+   "price": 44.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Kellerei Terlan, Alto Adige, Pinot Bianco ‘Tradition’ DOC (wit, fles)",
+   "price": 45.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Argiolas, Nasco di Cagliari ‘Iselis’, Sardinië DOC (wit, fles)",
+   "price": 47.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Tenuta Ulisse, Pecorino ‘Nativae’, Abruzzo DOC (wit, fles)",
+   "price": 56.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Kellerei Andrian, ‘Andrius’ Sauvignon Blanc, Alto Adige DOC (wit, fles)",
+   "price": 71.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Azienda Agricola Pieropan, Soave, Calvarino DOC (wit, fles)",
+   "price": 73.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Alois Lageder, Pinot Grigio ‘Porer’, Alto Adige DOC (wit, fles)",
+   "price": 75.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Kellerei Terlan, Pinot Bianco Riserva ‘Vorberg’ DOC (wit, fles)",
+   "price": 80.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Azienda Agricola Pieropan, Soave, La Rocca DOC (wit, fles)",
+   "price": 86.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Vietti Timorasso Derthona, Piemonte DOC (wit, fles)",
+   "price": 95.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Pariente, ‘A Vilerma’, Treixadura, Loureira & Godello, Ribeiro (wit, fles)",
+   "price": 49.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2025 Chaves, Albariño, Castel de Fornos (wit, fles)",
+   "price": 51.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Belondrade y Lurton, Verdejo, Rueda (wit, fles)",
+   "price": 108.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Chateau Montelena, Chardonnay, Napa Valley (wit, fles)",
+   "price": 123.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Arpepe, Il Pettirosso, Valtellina Superiore DOCG (rood, fles)",
+   "price": 74.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Roccheviberti Barolo Rocche di Castiglione DOCG (rood, fles)",
+   "price": 105.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Luciano Sandrone Barolo ‘Le Vigne’ DOCG (rood, fles)",
+   "price": 175.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Tedeschi, Ripasso ‘San Rocco’ DOC (rood, fles)",
+   "price": 53.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Pieropan, Ruberpan, Valpolicella Superiore DOC (rood, fles)",
+   "price": 75.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Tedeschi, Amarone della Valpolicella DOCG (rood, fles)",
+   "price": 82.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Pieropan, Amarone della Valpolicella, Riserve DOCG (rood, fles)",
+   "price": 118.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2009 Pieropan, Quintarelli, Amarone Classico DOCG (rood, fles)",
+   "price": 650.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Fattoria Di Basciano, Chianti Rufina DOCG (rood, fles)",
+   "price": 42.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Barone Ricasoli, Chianti Classico ‘Brolio’ DOCG (rood, fles)",
+   "price": 54.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Podre Forte Orcia Sangiove 'Villaggio' DOC (rood, fles)",
+   "price": 78.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Castello dei Rampolla, Sammarco (rood, fles)",
+   "price": 130.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Castello dei Rampolla, Vigna d’Alceo (rood, fles)",
+   "price": 215.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Marchesi Antinori, Tignanello (rood, fles)",
+   "price": 255.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Tenuta dell'Ornellaia DOC (rood, fles)",
+   "price": 340.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Tenuta San Guido Sassicaia DOC (rood, fles)",
+   "price": 495.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Feudi Bizantini, Passofino, Montepulciano d'Abruzzo DOC (rood, fles)",
+   "price": 40.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Mondo del Vino, ‘Ammasso’ DOC (rood, fles)",
+   "price": 52.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2016 Tenuta Tascante ‘Contrada Sciaranuova’, Etna DOC (rood, fles)",
+   "price": 145.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Marinot-Verdun, Pinot Noir ‘Les Quatre Fils Aymon’ (rood, fles)",
+   "price": 40.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Maison Ambroise, Bourgogne (rood, fles)",
+   "price": 63.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Dampt Frères Bourgogne Rouge Clos du Château (rood, fles)",
+   "price": 66.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Thibault Liger-Belair ‘Les Deux Terres’ (rood, fles)",
+   "price": 68.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Confuron-Gindre, Bourgogne (rood, fles)",
+   "price": 70.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2013 Domaine Jean Fournier, ‘Clos du Roy’, Marsannay (rood, fles)",
+   "price": 86.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Georges Lignier, Morey-Saint-Denis (rood, fles)",
+   "price": 95.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Domaine Odoul Coquard, Morey Saint Denis ‘les Crais Gillon’ (rood, fles)",
+   "price": 108.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Tawse, Gevrey Chambertin (rood, fles)",
+   "price": 123.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Benjamin Leroux, Morey Saint Denis (rood, fles)",
+   "price": 130.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Confuron-Gindre, Vosne-Romanée (rood, fles)",
+   "price": 130.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Ghislaine Barthod, Chambolle-Musigny (rood, fles)",
+   "price": 142.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Domaine Dujac, Morey-Saint-Denis (rood, fles)",
+   "price": 197.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Anne Gros, Chambolle-Musigny Combe d'Orveau (rood, fles)",
+   "price": 290.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Domaine Henri Rebourseau, Clos de Vougeot, Vieille Vigne (rood, fles)",
+   "price": 385.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Francois Parent, Echezeaux Grand Cru (rood, fles)",
+   "price": 395.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Domaine Tawse, Masiz-Chambertin Grand Cru (rood, fles)",
+   "price": 475.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Domaine Dujac, Échezeaux Grand Cru (rood, fles)",
+   "price": 690.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Domaine Armand Rousseau, Mazy-Chambertin, Grand Cru (rood, fles)",
+   "price": 790.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Domaine Armand Rousseau, Ruchottes-Chambertin, Clos des Ruchottes, Grand Cru (rood, fles)",
+   "price": 885.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Arnoux Lachoux, Clos de Vougeot Grand Cru (rood, fles)",
+   "price": 1150.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Arnoux Lachoux, Echezeaux Grand Cru (rood, fles)",
+   "price": 1250.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2013 Bouchard, Beaune Teurons 1er Cru (rood, fles)",
+   "price": 113.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Thénard, Givry 1er Cru, Bois Cheveaux (rood, fles)",
+   "price": 62.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Domaine Francois Lumpp, Givry 1er Cru, ‘A Vigne Rouge’ (rood, fles)",
+   "price": 112.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Domaine Steeve Charvet, Chiroubles (rood, fles)",
+   "price": 48.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2024 Clos de la Roilette, Fleurie (rood, fles)",
+   "price": 53.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine du Coteau des Lys, X Cyre (rood, fles)",
+   "price": 58.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine Jean Foillard, Morgon ‘Côte du Py’ (rood, fles)",
+   "price": 85.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Château Lafleur ‘Les Perrières’ Bordeaux Supérieur Rouge (rood, fles)",
+   "price": 168.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Château La Tour de By (rood, fles)",
+   "price": 60.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2016 Château du Retout (rood, fles)",
+   "price": 67.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Château Cantemerle 5ème cru classé (rood, fles)",
+   "price": 86.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Goulée d'Estournel - Château Cos d'Estournel (rood, fles)",
+   "price": 93.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2007 Château Belgrave 5ème cru classé (rood, fles)",
+   "price": 95.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Château Poujeaux (rood, fles)",
+   "price": 102.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2015 Château La Lagune 3ème cru classé (rood, fles)",
+   "price": 125.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2005 Château Sociando Mallet (rood, fles)",
+   "price": 145.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Château de Pez (rood, fles)",
+   "price": 106.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2011 Château Phelan Ségur (rood, fles)",
+   "price": 110.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Château Cos d'Estournel 'Les Pagodes de Cos' (rood, fles)",
+   "price": 115.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2016 Château Pedesclaux 5ème cru classé (rood, fles)",
+   "price": 105.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Pauillac de Latour - Château Latour (rood, fles)",
+   "price": 198.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "1994 Château Mouton Rothschild 1er cru classé (rood, fles)",
+   "price": 665.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "1995 Château Mouton Rothschild 1er cru classé (rood, fles)",
+   "price": 720.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "1996 Château Mouton Rothschild 1er cru classé (rood, fles)",
+   "price": 795.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Château Lafite Rothschild 1er cru classé (rood, fles)",
+   "price": 1370.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Château Branaire-Ducru 4ème cru classé (rood, fles)",
+   "price": 112.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Château Gruaud-Larose 2ème cru classé (rood, fles)",
+   "price": 230.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Château Desmirail 3ème cru classé (rood, fles)",
+   "price": 110.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2012 Château Marquis de Terme 4ème cru classé (rood, fles)",
+   "price": 125.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2016 Château Giscours 3ème cru classé (rood, fles)",
+   "price": 147.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Alter Ego Palmer, Château Palmer (rood, fles)",
+   "price": 193.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2011 Château Chasse-Spleen (rood, fles)",
+   "price": 95.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Château de Rochemorin (rood, fles)",
+   "price": 70.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2015 Château Latour-Martillac Cru Classé de Graves (rood, fles)",
+   "price": 105.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Château de Fieuzal Cru Classé de Graves (rood, fles)",
+   "price": 105.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2016 Château Chantalouette (rood, fles)",
+   "price": 85.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Château Plince (rood, fles)",
+   "price": 95.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2011 Château Beauregard (rood, fles)",
+   "price": 115.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2016 Château Pomeaux (rood, fles)",
+   "price": 152.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2004 Château Latour à Pomerol (rood, fles)",
+   "price": 162.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2014 Espérance de Trotanoy (rood, fles)",
+   "price": 198.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2011 Château Lafleur (rood, fles)",
+   "price": 1070.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "1979 Petrus (2021 release) (rood, fles)",
+   "price": 3480.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Château Les Echevins (rood, fles)",
+   "price": 41.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Château Fonbel (rood, fles)",
+   "price": 68.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Château La Gaffelière 'Clos La Gaffelière' (rood, fles)",
+   "price": 75.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Château Tour Saint Christophe Grand Cru Classé (rood, fles)",
+   "price": 85.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Haut Roc Blanquant - Château Bélair-Monange (rood, fles)",
+   "price": 99.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Château Quinault l'Enclos Grand cru Classé (rood, fles)",
+   "price": 113.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Château Reynon (rood, fles)",
+   "price": 47.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 L’Hetre (rood, fles)",
+   "price": 74.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Domaine de Cassan, Ventoux (rood, fles)",
+   "price": 40.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Domaine de Ferrand, Côtes-du-Rhône, Cuvée Antique, Vieilles-Vignes (rood, fles)",
+   "price": 55.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Domaine Martinelle, Ventoux (rood, fles)",
+   "price": 60.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2015 Domaine du Cayron, Gigondas (rood, fles)",
+   "price": 77.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2015 Domaine de Ferrand, Châteauneuf-du-Pape (rood, fles)",
+   "price": 90.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Gilles Robin, Cornas (rood, fles)",
+   "price": 108.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Gilles Robin, Hermitage (rood, fles)",
+   "price": 130.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Pierre Gonon, Saint Joseph (rood, fles)",
+   "price": 138.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Château de Beaucastel, Châteauneuf-du-Pape (rood, fles)",
+   "price": 199.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2015 Domaine de la Chevalerie ‘Bretèche’, Bourgueil (rood, fles)",
+   "price": 62.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2015 Domaine Alliet, ‘L'Huisserie’, Chinon (rood, fles)",
+   "price": 69.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2005 Domaine de Bellivière, Rouge-Gorge, Coteaux de Loir (rood, fles)",
+   "price": 75.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Domaine Andrée, Anjou Carbone (rood, fles)",
+   "price": 115.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 Clos Rougeard, Saumur Champigny (rood, fles)",
+   "price": 228.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2022 Domaine Tavernel, ‘Pont Neuf’ (rood, fles)",
+   "price": 35.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Domaine Tempier (rood, fles)",
+   "price": 91.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2020 Finca la Montesa, Reserva Especial (rood, fles)",
+   "price": 68.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2021 Bodega y Viñedos Artadi, Cuerdamayor (rood, fles)",
+   "price": 118.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2017 Bodega y Viñedos Artadi, El Carretil (rood, fles)",
+   "price": 290.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2023 Quinta da Douza (rood, fles)",
+   "price": 46.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2019 Château Musar (rood, fles)",
+   "price": 97.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Sensi Vino Liquoroso 'Il Santo', Italië (dessertwijn, fles)",
+   "price": 37.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "2018 La Galline, Banyuls rouge Rimage (dessertwijn, fles)",
+   "price": 43.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Clos Haut-Peyraguey, Sauternes, Frankrijk (0,375L) (dessertwijn, fles)",
+   "price": 45.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Moscatel Douro Reserva 'Portal’, Portugal (dessertwijn, fles)",
+   "price": 48.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Rivesaltes Ambré 6 ans, Frankrijk (dessertwijn, fles)",
+   "price": 50.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "N.V. Fernando de Castilla, Pedro Ximénez, Jerez, Spanje (dessertwijn, fles)",
+   "price": 53.0,
+   "cat": "drinken"
+  }
+ ]
+}

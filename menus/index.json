@@ -1,6 +1,13 @@
 {
   "menus": [
     {
+      "id": "de-lage-vuursche",
+      "name": "Restaurant De Lage Vuursche",
+      "place": "Lage Vuursche",
+      "retrieved": "2026-11-13",
+      "file": "menus/de-lage-vuursche.json"
+    },
+    {
       "id": "verlan-amsterdam",
       "name": "Verlan Amsterdam",
       "place": "Amsterdam",
