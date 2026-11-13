@@ -140,6 +140,11 @@
   .jump-bar button.jb-top.on { background: #eef4ff; color: #0b3d91; }
   .confirm-text { font-size: 1.45rem; font-weight: 800; line-height: 1.35; color: #111; margin: 0 0 0.6rem; overflow-wrap: anywhere; }
   .dlg-btns.stack { flex-direction: column; } .dlg-btns.stack .big-button { margin-bottom: 0; }
+  /* v24: ander restaurant / wisselen */
+  .switch-rest { min-height: 48px; font-size: 1.05rem; padding: 0.3rem 0.6rem; margin: 0.25rem 0 0.3rem; background: #fff4d6; color: #5a3b00; border: 2px solid #e8a33d; }
+  .switch-dlg .dlg-btns .big-button { flex: 0 0 auto; }
+  .switch-dlg .big-button { min-height: 56px; font-size: 1.15rem; overflow-wrap: anywhere; white-space: normal; }
+  .switch-dlg .big-button.danger { background: #fde7e5; color: #a1150c; border: 2px solid #e2a29b; }
   .head-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
   a.edit-toggle { display: inline-flex; align-items: center; text-decoration: none; box-sizing: border-box; }
   .notice { background: #fff1db; border: 2px solid #e8a33d; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font-size: 0.95rem; margin-bottom: 0.5rem; color: #111; }
@@ -376,10 +381,10 @@
         <span class="estimate-badge" id="estimateBadge" style="display:none;">Vooraf geschat</span>
       </div>
       <div id="itemsList" style="margin-top:0.5rem;"></div>
-      <button class="big-button secondary" onclick="startNewVisit()" id="newVisitBtn">Nieuw restaurantbezoek starten</button>
       <button class="big-button secondary" onclick="showTab('toevoegen')" id="toAddBtn" style="display:none;">➕ Bestellen van de kaart</button>
       <button class="big-button secondary" onclick="openBill(null)" id="toBillBtn" style="display:none;">🧾 Rekening bekijken</button>
       <button class="big-button" onclick="finishVisit()" id="finishBtn" style="display:none;">Bezoek afronden</button>
+      <button class="big-button secondary" onclick="startNewVisit()" id="newVisitBtn">Nieuw restaurantbezoek starten</button>
     </div>
     <button class="big-button secondary" onclick="showTab('fotos')">📷 Foto's</button>
     <div class="card app-share share-box" id="appShare">
@@ -424,6 +429,7 @@
   <!-- Stap 2: controleren -->
   <div id="tab-toevoegen" class="hidden">
     <div class="card hidden" id="orderHead">
+      <button type="button" class="big-button switch-rest" id="switchRestBtn" onclick="startNewVisit()">🔄 Ander restaurant</button>
       <details id="visitSettings" class="visit-settings">
         <summary id="visitSettingsSum">Bezoek-instellingen</summary>
         <label class="small-text" for="orderName" style="font-weight:800; margin:0.35rem 0 0; font-size:0.85rem;">Restaurant</label>
@@ -492,6 +498,17 @@
     <div class="dlg-btns stack">
       <button type="button" class="big-button" id="kaartConfirmYes">Ja, nieuw bezoek starten</button>
       <button type="button" class="big-button secondary" id="kaartConfirmNo">Nee, huidig bezoek houden</button>
+    </div>
+  </div>
+</div>
+<div class="dialog-backdrop hidden" id="switchDialog">
+  <div class="dialog switch-dlg" role="alertdialog" aria-labelledby="switchText">
+    <p class="confirm-text" id="switchText">Naar een ander restaurant?</p>
+    <p class="small-text" style="margin-top:0; font-size:1rem;" id="switchSub"></p>
+    <div class="dlg-btns stack">
+      <button type="button" class="big-button" id="switchSave">💾 Bewaar dit bezoek en wissel</button>
+      <button type="button" class="big-button danger" id="switchDiscard">🗑 Gooi weg en wissel</button>
+      <button type="button" class="big-button secondary" id="switchCancel">Annuleren</button>
     </div>
   </div>
 </div>
@@ -1009,7 +1026,7 @@ function renderCurrentVisit(skipMenuCard) {
   finishBtn.style.display = 'block';
   toAddBtn.style.display = 'block';
   document.getElementById('toBillBtn').style.display = currentVisit.items.length ? 'block' : 'none';
-  newBtn.style.display = 'none';
+  newBtn.style.display = 'block'; // v24: ook tijdens een bezoek, wisselt meteen als er nog niets besteld is
   updateTotal();
   if (!skipMenuCard && isShown('tab-toevoegen')) renderMenuCard();
   if (!document.getElementById('tab-rekening').classList.contains('hidden')) renderBill();
@@ -1020,9 +1037,72 @@ let menuEditMode = false;
 let newMenuItems = []; // in de aanpas-stand net toegevoegde gerechten (staan bovenaan tot 'Klaar')
 let inlineEdit = null; // v12: { mi, focus:'name'|'price', dName, dPrice, msg } – één regel op Bestellen in de veranderstand
 let orderNotice = '';
+// v24: wisselen van restaurant. Niets besteld -> meteen wisselen (leeg bezoek stil weg).
+// Wel besteld -> keuze Bewaar / Gooi weg (met bevestiging) / Annuleren.
+function visitHasOrders(v) {
+  if (!v) return false;
+  if ((v.items || []).length) return true;
+  // Zelf invullen: volledige regels met aantal staan al in items; ook halfvolle regels met een aantal tellen mee
+  if ((v.selfRows || []).some(r => Number(r.qty) > 0 && !selfComplete(r))) return true;
+  if ((v.drinkRows || []).concat(v.extraRows || []).some(r => Number(r.qty) > 0)) return true;
+  return typeof v.billAmount === 'number';
+}
+function closeMenuEditing() {
+  if (menuEditMode && currentVisit) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); }
+  menuEditMode = false; inlineEdit = null; orderNotice = '';
+}
+function storeCurrentVisit() {
+  if (!currentVisit) return;
+  currentVisit.finished = true;
+  currentVisit.finishedAt = new Date().toISOString();
+  visits.unshift(currentVisit);
+  currentVisit = null;
+  saveData();
+  renderCurrentVisit();
+  renderHistory();
+}
+function dropCurrentVisit() {
+  currentVisit = null;
+  saveData();
+  renderCurrentVisit();
+}
+function askSwitch() {
+  const v = currentVisit;
+  const n = (v.items || []).reduce((s, it) => s + (Number(it.qty) || 1), 0);
+  const tot = visitTotal(v);
+  const nm = (v.name || '').trim() || 'dit restaurant';
+  document.getElementById('switchSub').textContent = n
+    ? 'Bij ' + nm + ' heb je al ' + n + (n === 1 ? ' ding' : ' dingen') + ' besteld (' + formatEuro(tot) + '). Wat wil je met dit bezoek doen?'
+    : 'Bij ' + nm + ' heb je al iets ingevuld. Wat wil je met dit bezoek doen?';
+  const dlg = document.getElementById('switchDialog');
+  return new Promise(resolve => {
+    dlg.classList.remove('hidden');
+    const ids = ['switchSave', 'switchDiscard', 'switchCancel'];
+    const close = r => { dlg.classList.add('hidden'); ids.forEach(id => { document.getElementById(id).onclick = null; }); resolve(r); };
+    document.getElementById('switchSave').onclick = () => close('save');
+    document.getElementById('switchDiscard').onclick = () => close('discard');
+    document.getElementById('switchCancel').onclick = () => close('cancel');
+    document.getElementById('switchSave').focus();
+  });
+}
+function switchFlow() {
+  return askSwitch().then(choice => {
+    if (choice === 'save') { storeCurrentVisit(); showToast('✓ Bezoek bewaard bij Eerder'); return true; }
+    if (choice === 'discard') {
+      const nm = (currentVisit.name || '').trim() || 'dit restaurant';
+      return askBig('Weet je het zeker? Dit bezoek wordt weggegooid.', {
+        sub: 'Wat je bij ' + nm + ' besteld hebt (' + formatEuro(visitTotal(currentVisit)) + ') is dan weg en komt niet bij Eerder. De kaart van het restaurant blijft bewaard.',
+        yes: '🗑 Ja, gooi weg', no: 'Nee, terug' })
+        .then(yes => { if (yes) { dropCurrentVisit(); showToast('Bezoek weggegooid'); return true; } return switchFlow(); });
+    }
+    return false;
+  });
+}
 function startNewVisit() {
-  if (currentVisit && !confirm('Er loopt al een bezoek. Toch een nieuw bezoek starten? Het huidige bezoek wordt dan niet opgeslagen.')) return;
-  openMenuStep();
+  if (!currentVisit) { openMenuStep(); return Promise.resolve(true); }
+  closeMenuEditing();
+  if (!visitHasOrders(currentVisit)) { dropCurrentVisit(); openMenuStep(); return Promise.resolve(true); }
+  return switchFlow().then(go => { if (go) openMenuStep(); return go; });
 }
 // "Menukaart aanpassen": de bestelkaart in aanpas-stand
 function editCurrentMenu() {
@@ -2386,13 +2466,7 @@ function finishVisit() {
   if (!currentVisit) return;
   if (menuEditMode) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); }
   if (!confirm('Bezoek afronden en opslaan?')) return;
-  currentVisit.finished = true;
-  currentVisit.finishedAt = new Date().toISOString();
-  visits.unshift(currentVisit);
-  currentVisit = null;
-  saveData();
-  renderCurrentVisit();
-  renderHistory();
+  storeCurrentVisit();
   alert('Bezoek opgeslagen!');
 }
 function showTab(tab) {
@@ -3424,7 +3498,7 @@ function importBackupFile(input) {
   reader.onerror = () => alert('Bestand lezen mislukt');
   reader.readAsText(file);
 }
-const APP_VERSION = '23';
+const APP_VERSION = '24';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
