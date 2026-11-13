@@ -1,0 +1,632 @@
+{
+ "name": "De Generaal",
+ "source": "https://www.degeneraal.nl/menu/ ; https://www.degeneraal.nl/local/userfiles/menukaarten/De_Generaal_menu_september_2026.pdf",
+ "retrieved": "2026-11-13",
+ "items": [
+  {
+   "name": "Jus d'orange",
+   "price": 3.95,
+   "cat": "drinken"
+  },
+  {
+   "name": "Huisgemaakte ice-tea, green",
+   "price": 4.15,
+   "cat": "drinken"
+  },
+  {
+   "name": "Huisgemaakte ice-tea, lemon",
+   "price": 4.15,
+   "cat": "drinken"
+  },
+  {
+   "name": "Big Tom spicy bio-tomatensap",
+   "price": 5.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Agroposta bio-lemonade",
+   "price": 4.15,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fentiman's Rose Lemonade",
+   "price": 4.9,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fever-Tree Indian Tonic",
+   "price": 4.9,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fever-Tree Ginger Ale",
+   "price": 4.9,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fever-Tree Ginger Beer",
+   "price": 4.9,
+   "cat": "drinken"
+  },
+  {
+   "name": "Croissant met boter en bosbes-verveinejam (ontbijt)",
+   "price": 4.75,
+   "cat": "eten"
+  },
+  {
+   "name": "Hangop met granola en vers fruit (ontbijt)",
+   "price": 9.5,
+   "cat": "eten"
+  },
+  {
+   "name": "De Generaal ontbijt (ontbijt) - croissant met bosbes-verveinejam, gepocheerd ei met ham en Hollandaisesaus, hangop met granola en vers fruit, koffie naar keuze",
+   "price": 13.75,
+   "cat": "eten"
+  },
+  {
+   "name": "Appeltaart",
+   "price": 6.85,
+   "cat": "na"
+  },
+  {
+   "name": "Appeltaart met slagroom",
+   "price": 7.95,
+   "cat": "na"
+  },
+  {
+   "name": "Citroen-meringuetaart",
+   "price": 6.75,
+   "cat": "na"
+  },
+  {
+   "name": "Bananabread van Willem-Pie (plantaardig)",
+   "price": 4.75,
+   "cat": "na"
+  },
+  {
+   "name": "Chocolate Chip Cookie van Dynamite",
+   "price": 3.75,
+   "cat": "na"
+  },
+  {
+   "name": "Wisselende taartjes van banketbakkerij Hendricksen",
+   "price": 6.75,
+   "cat": "na"
+  },
+  {
+   "name": "Hollandse poffertjes (12 stuks) - roomboter en poedersuiker",
+   "price": 8.0,
+   "cat": "na"
+  },
+  {
+   "name": "Landbrood met jonge boerenkaas (lunch) - Waldorfsalade, tuinkers en mosterdmayonaise",
+   "price": 13.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Landbrood met carpaccio (lunch) - oude Remeker, Amsterdams zuur, pijnboompitten, rucola en truffelmayonaise",
+   "price": 15.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Landbrood met makreelsalade (lunch) - stukjes appel, rode biet en mierikswortelmayonaise",
+   "price": 15.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Landbrood met pastrami (lunch) - spitskool, grove mosterd en zure bom",
+   "price": 15.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Landbrood met pompoensalade (lunch) - pesto van salie, verse ricotta, citroen en walnoten (ook plantaardig)",
+   "price": 13.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "12 uurtje (lunch) - landbrood met boerenkaas, landbrood met kalfs- of oesterzwamkroket en tomatensoepje",
+   "price": 15.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalfskroketten, twee stuks met landbrood (lunch)",
+   "price": 13.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Oesterzwamkroketten, twee stuks met landbrood (lunch)",
+   "price": 13.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pasteitje met romige kip-bospaddenstoelenragout (lunch)",
+   "price": 15.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gooische bal in jus met landbrood, augurk en mosterdmayonaise (lunch)",
+   "price": 15.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tosti met boerenkaas en/of achterham op zuurdesembrood (lunch)",
+   "price": 8.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Chicken melt tosti met jalapeño en geroosterde paprikamayonaise (lunch)",
+   "price": 12.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hamburger De Generaal (lunch) - cheddar, piccalillymayonaise en verse friet",
+   "price": 19.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Knolselderij-venkelburger (lunch, plantaardig) - sla, tomaat, zure bom, remoulade van mierikswortel, kappertjes en dille, verse friet",
+   "price": 18.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Landbrood met pulled paddo's (lunch, plantaardig) - komkommer, rode ui en citroen-knoflookmayonaise",
+   "price": 13.85,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Uitsmijter naturel (3 eieren) op landbrood (lunch)",
+   "price": 9.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Omelet Florentine met spinazie en kaas op landbrood (lunch)",
+   "price": 15.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tosti met ham en/of kaas (kidslunch)",
+   "price": 4.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Landbrood met hagelslag, kaas of jam (kidslunch)",
+   "price": 3.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kidsburger met friet en groentebeker",
+   "price": 14.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pasta met tomatensaus en kaas (kids)",
+   "price": 12.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Lekkerbekje met friet en groentebeker (kids)",
+   "price": 13.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tomatensoep met basilicum (plantaardig)",
+   "price": 8.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Pompoen-linzensoep met zure room en koriander",
+   "price": 9.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Blini gerookte zalm van Bawykov - rode biet, zalmeitjes, geitenkaas, dragon en kruidensla",
+   "price": 15.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Carpaccio met oude Remeker, rucola, pijnboompitten, Amsterdams zuur en truffelmayonaise",
+   "price": 15.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Pâté en croûte - haricots verts, rode uiencompote en een frisse salade",
+   "price": 15.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Gerookte bietencarpaccio - vijgen, walnoten, feta, stukjes grapefruit en aceto balsamico (ook plantaardig)",
+   "price": 14.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Getoaste brioche met makreelsalade - witlof, tomaat en basilicum",
+   "price": 15.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Tartaar van paddenstoelen en knolselderij - jonge geitenkaas, bulgur en eekhoorntjesbrood (ook plantaardig)",
+   "price": 14.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Champignons in bierbeslag met roquefortsaus",
+   "price": 12.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Classic Caesar - krokante kippendijen, gepocheerd ei, ansjovis, croutons en Parmezaanse kaas",
+   "price": 16.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Salade Niçoise - gegrilde tonijn, little gem, haricots verts, krieltjes, olijven en gekookt ei",
+   "price": 18.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Salade blauwe kaas - witlof, knolselderij, gebakken druiven, walnoten en balsamicodressing (ook plantaardig)",
+   "price": 15.85,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Drie gangen keuzemenu (per persoon)",
+   "price": 42.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gegrilde entrecôte van Simmentaler rund van Lindenhoff - seizoensgroenten, aardappelpuree, keuze uit pepersaus, Café de Paris boter of Hollandaisesaus",
+   "price": 30.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gebakken tournedos van Simmentaler rund van Lindenhoff - seizoensgroenten, aardappelpuree, keuze uit pepersaus, Café de Paris boter of Hollandaisesaus",
+   "price": 35.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Halve gegrilde boerderijkip - citroen, tijmboter, verse friet en salade",
+   "price": 27.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Varkenswang in truffeljus - pastinaak, witlof, ui, prei en aardappelpuree",
+   "price": 26.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Wilde ganzenstoof - knolselderij, worteltjes, ui, spruitjes en rosevalaardappelen",
+   "price": 25.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hamburger De Generaal - cheddar, piccalillymayonaise, verse friet en salade",
+   "price": 24.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Doradefilet op de huid gebakken - saus van topinamboer, paddenstoelen, hazelnoten en roodlof",
+   "price": 26.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tarbot op de graat gebakken - citroen-tijmboter, verse friet en salade",
+   "price": 35.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Vispotje De Generaal - gegratineerde ovenschotel van verschillende vissoorten, gestoofde prei, spinazie, kerrie en aardappelpuree",
+   "price": 24.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pasteitje met pompoenragout, jonge geitenkaas, oesterzwam en dragon",
+   "price": 23.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Knolselderij-venkelburger (plantaardig) - tomaat, zure bom, remoulade van mierikswortel, dille en kappertjes, verse friet en salade",
+   "price": 23.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Herfststoof barigoule - knol, ui, paddenstoelen, pastinaak en polenta (ook plantaardig)",
+   "price": 23.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Verse friet met mayonaise",
+   "price": 5.75,
+   "cat": "bij"
+  },
+  {
+   "name": "Zoete aardappelfriet met truffelmayonaise",
+   "price": 6.5,
+   "cat": "bij"
+  },
+  {
+   "name": "Stokbrood met boter",
+   "price": 4.75,
+   "cat": "bij"
+  },
+  {
+   "name": "Groene salade",
+   "price": 5.5,
+   "cat": "bij"
+  },
+  {
+   "name": "Groentebeker kids",
+   "price": 3.75,
+   "cat": "bij"
+  },
+  {
+   "name": "Stroopwafel met stoofpeertjes, mascarpone, steranijs en vanille-ijs",
+   "price": 9.25,
+   "cat": "na"
+  },
+  {
+   "name": "Apfelstrudel uit de oven met kaneelroomijs en vanillesaus",
+   "price": 9.75,
+   "cat": "na"
+  },
+  {
+   "name": "Warm chocoladetaartje met karamel-pecannotenroomijs",
+   "price": 9.75,
+   "cat": "na"
+  },
+  {
+   "name": "IJs van Van Eck, vanille",
+   "price": 3.5,
+   "cat": "na"
+  },
+  {
+   "name": "IJs van Van Eck, chocolade",
+   "price": 3.5,
+   "cat": "na"
+  },
+  {
+   "name": "IJs van Van Eck, frambozen",
+   "price": 3.5,
+   "cat": "na"
+  },
+  {
+   "name": "Hollandse kazen van Lindenhoff",
+   "price": 16.5,
+   "cat": "na"
+  },
+  {
+   "name": "Toppings uitsmijter, 2 stuks naar keuze - jonge kaas, boerenham, krokant spek of tomaat",
+   "price": 4.5,
+   "cat": "extra"
+  },
+  {
+   "name": "Supplement keuzemenu voor gerechten met *",
+   "price": 5.5,
+   "cat": "extra"
+  },
+  {
+   "name": "Limoncello di Fiorito (glas)",
+   "price": 5.9,
+   "cat": "drinken"
+  },
+  {
+   "name": "Limoncello di Fiorito (fles)",
+   "price": 35.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Espresso Martini",
+   "price": 10.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Tawny Port, 8 years, Quinta do Tedo (glas)",
+   "price": 7.2,
+   "cat": "drinken"
+  },
+  {
+   "name": "Irish coffee",
+   "price": 10.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Coffee Brasil",
+   "price": 10.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Italian coffee",
+   "price": 10.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "French coffee",
+   "price": 10.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Spanish coffee",
+   "price": 10.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Café Cuarenta y Tres",
+   "price": 10.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Herfstspecial: Chardonnay, Spanje, Murcia, Jumilia, Bodegas Alceño - sappig, fris, vol en romig (glas)",
+   "price": 6.25,
+   "cat": "drinken"
+  },
+  {
+   "name": "Herfstspecial: Chardonnay, Spanje, Murcia, Jumilia, Bodegas Alceño - sappig, fris, vol en romig (fles)",
+   "price": 36.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Herfstspecial: Shiraz, Zuid-Afrika, Stellenbosch, Forgotten Vineyards, Kruger Family Wines - karaktervol, vol, stevig en zwoel (glas)",
+   "price": 6.25,
+   "cat": "drinken"
+  },
+  {
+   "name": "Herfstspecial: Shiraz, Zuid-Afrika, Stellenbosch, Forgotten Vineyards, Kruger Family Wines - karaktervol, vol, stevig en zwoel (fles)",
+   "price": 36.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Sparkling Muscat, alcoholvrij 0% en vegan - Frankrijk, Languedoc, Les Petit Beret (glas)",
+   "price": 6.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Sparkling Muscat, alcoholvrij 0% en vegan - Frankrijk, Languedoc, Les Petit Beret (fles)",
+   "price": 35.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Cava, Raventós Roig Brut - Spanje, Catalonië, lekker fris (glas)",
+   "price": 6.85,
+   "cat": "drinken"
+  },
+  {
+   "name": "Cava, Raventós Roig Brut - Spanje, Catalonië, lekker fris (fles)",
+   "price": 37.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Champagne Veuve Fourny et fils, Blanc de Blancs Brut - Frankrijk, feestelijk (fles)",
+   "price": 82.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Terret, fris en fruitig, 'Sauvignon Blanc'-stijl - Frankrijk, Côtes de Thau, Cave de Pomerols, les Montalus (glas)",
+   "price": 5.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Terret, fris en fruitig, 'Sauvignon Blanc'-stijl - Frankrijk, Côtes de Thau, Cave de Pomerols, les Montalus (fles)",
+   "price": 29.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Chardonnay, rond en vol - Frankrijk, Languedoc, Domaine de Belle Mare (glas)",
+   "price": 6.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Chardonnay, rond en vol - Frankrijk, Languedoc, Domaine de Belle Mare (fles)",
+   "price": 36.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Verdejo, vol, exotisch fruit en verfrissend - Spanje, Rueda, Palacio de Bornos, Colagón verdejo (glas)",
+   "price": 6.95,
+   "cat": "drinken"
+  },
+  {
+   "name": "Verdejo, vol, exotisch fruit en verfrissend - Spanje, Rueda, Palacio de Bornos, Colagón verdejo (fles)",
+   "price": 37.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Sauvignon Blanc, fris en sappig - Frankrijk, Loire, Domaine Jacky Marteau (fles)",
+   "price": 43.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Grüner Veltliner, droog, kruidig en verfrissend - Oostenrijk, Weinviertel, Weingut Setzer (fles)",
+   "price": 45.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Pouilly-Fuissé, uitbundig, rijp fruit en mineralen - Frankrijk, Bourgogne, Vieilles Vignes, Domaine des Deux Roches (fles)",
+   "price": 71.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Meursault, indrukwekkend, rijk, sappig en fris - Frankrijk, Bourgogne, Les Vireuils 2022, Domaine Dupot-Fahn (fles)",
+   "price": 95.0,
+   "cat": "drinken"
+  },
+  {
+   "name": "Pinot grigio rosé, fris, fruitig en zacht - Italië, Veneto, I Castelli Romeo & Giuletta (glas)",
+   "price": 5.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Pinot grigio rosé, fris, fruitig en zacht - Italië, Veneto, I Castelli Romeo & Giuletta (fles)",
+   "price": 29.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Guilhem Rosé, sappig, pittig en fris - Frankrijk, Languedoc, Moulin de Gassac (glas)",
+   "price": 6.95,
+   "cat": "drinken"
+  },
+  {
+   "name": "Guilhem Rosé, sappig, pittig en fris - Frankrijk, Languedoc, Moulin de Gassac (fles)",
+   "price": 37.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Tempranillo, sappig, zacht en elegant - Spanje, Toro, Orot, Bodegas Toresanas (glas)",
+   "price": 5.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Tempranillo, sappig, zacht en elegant - Spanje, Toro, Orot, Bodegas Toresanas (fles)",
+   "price": 29.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Merlot, fris, donker fruit en soepel - Frankrijk, Pays d'Oc, La Closerie des Lys, Les Fruitières rouge (glas)",
+   "price": 6.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Merlot, fris, donker fruit en soepel - Frankrijk, Pays d'Oc, La Closerie des Lys, Les Fruitières rouge (fles)",
+   "price": 36.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Montepulciano, vol, levendig en aromatisch - Italië, Marche, Velenosi, Montepulciano d'Abruzzo (glas)",
+   "price": 7.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Montepulciano, vol, levendig en aromatisch - Italië, Marche, Velenosi, Montepulciano d'Abruzzo (fles)",
+   "price": 40.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Spätburgunder, fruitig en zacht - Duitsland, Baden, Weingut St. Remigius (fles)",
+   "price": 41.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Malbec, vol en kruidig - Argentinië, Mendoza, Altocedro, Vago Rojo (fles)",
+   "price": 44.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Tempranillo, elegant, zacht en onweerstaanbaar - Spanje, Ribera del Duero, Bodegas Valduero, Tierra Alta (fles)",
+   "price": 69.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Aloxe-Corton, elegant en finesse - Frankrijk, Bourgogne, 2022, Domaine Tollot-Beaut (fles)",
+   "price": 97.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Le Petit Gascoûn 'sweet', friszoet - Frankrijk, Côtes de Gascogne, Les Frères Laffitte (glas)",
+   "price": 6.25,
+   "cat": "drinken"
+  },
+  {
+   "name": "Rivesaltes Ambré, rijk en kruidig - Frankrijk, Roussillon, Maison Parcé frères, 15 ans d'âge (glas)",
+   "price": 7.2,
+   "cat": "drinken"
+  }
+ ]
+}

@@ -1,6 +1,13 @@
 {
   "menus": [
     {
+      "id": "de-generaal-baarn",
+      "name": "De Generaal",
+      "place": "Baarn",
+      "retrieved": "2026-11-13",
+      "file": "menus/de-generaal-baarn.json"
+    },
+    {
       "id": "de-lage-vuursche",
       "name": "Restaurant De Lage Vuursche",
       "place": "Lage Vuursche",
