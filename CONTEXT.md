@@ -343,3 +343,7 @@ Goedkeuring gebruiker: gelijke split blijft default; optioneel enkele regels apa
 Alleen de achtergrond van het plaatje op het beginscherm is bordeauxrood (#7B1E2B); vork, bord, mes en € blijven wit. Kleuren in de app zelf zijn ongewijzigd.
 Nieuwe bestandsnamen (iOS bewaart plaatjes op URL): apple-touch-icon-v2.png, icon-192-v2.png, icon-512-v2.png. Oude plaatjes blijven staan.
 `APP_VERSION='23'`. Bestanden: index.html = index-v23.html, manifest.json, de drie nieuwe plaatjes, CONTEXT.md.
+
+## Kaart Restaurant De Lage Vuursche (13 nov 2026)
+Nieuwe internetkaart `menus/de-lage-vuursche.json` en een regel in `menus/index.json` (alfabetisch vóór Verlan). App v23 ongewijzigd, niet gepubliceerd.
+Bronnen opgehaald 13 nov 2026: dinerkaart (https://vuursche.nl/dinerkaart/, bijgewerkt 5 nov 2026), lunchkaart (https://vuursche.nl/lunchkaart/, 21 okt 2026) en wijnkaart-pdf 23 sept 2026 (https://vuursche.nl/wp-content/uploads/2026/09/Wijnkaart-nieuw-23-9-2026.pdf). Geen aparte drankenkaart (bier, fris, koffie à la carte) op de site; alleen wijn plus het koffie- of theeservies bij de desserts. 50 etenswaren (19 voor, 23 hoofd, 8 na) + 1 extra (supplement kaviaar) + 272 wijnen/drankjes. Lunch-only gerechten gemarkeerd met "(lunch)". "Dat wat de jager brengt" weggelaten (alleen dagprijs, geen bedrag). Sommeliers Selectie niet apart herhaald (die wijnen staan al op de wijnkaart).
