@@ -15,6 +15,13 @@
       "file": "menus/de-lage-vuursche.json"
     },
     {
+      "id": "vuur-baarn",
+      "name": "Restaurant Vuur",
+      "place": "Baarn",
+      "retrieved": "2026-11-15",
+      "file": "menus/vuur-baarn.json"
+    },
+    {
       "id": "verlan-amsterdam",
       "name": "Verlan Amsterdam",
       "place": "Amsterdam",

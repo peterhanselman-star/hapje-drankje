@@ -1,0 +1,1187 @@
+{
+ "name": "Restaurant Vuur",
+ "source": "https://restaurantvuur.nl/ ; https://restaurantvuur.nl/wp-content/uploads/2026/10/Vuur-Menukaart_Binnenwerk_A4_SEP_2026_NL_ONLNE.pdf ; https://restaurantvuur.nl/lunch/ ; https://restaurantvuur.nl/diner/",
+ "retrieved": "2026-11-15",
+ "items": [
+  {
+   "name": "Eggs Florentine (lunch) - brioche, spinazie, hollandaisesaus",
+   "price": 14,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalfsvleeskroketten van Holtkamp, 2 stuks (lunch) - zuurdesembrood, mosterd",
+   "price": 13,
+   "cat": "hoofd"
+  },
+  {
+   "name": "12 Vuurtje (lunch) - seizoenssoep, kalfsvleeskroket, scrambled egg",
+   "price": 18,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Club sandwich (lunch) - kalfsmuis, tonijnmayonaise, komkommer, tomaat, kappertjes",
+   "price": 18,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Scrambled egg (lunch, vegetarisch mogelijk) - gerookte zalm, bieslook, zuurdesembrood",
+   "price": 16,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Salade ocean (lunch, Vuur klassieker) - diverse vis uit het seizoen, limoenmayonaise",
+   "price": 24,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Picanha (lunch) - brioche, truffelcèpes-saus, little gem sla, gruyère",
+   "price": 19,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Vuursche herfst tuin (lunch) - kastanjehummus, pompoen, bundelzwam, vijgen, blauwe kaas, focaccia-crouton",
+   "price": 18,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Business lunch, chef's keuze 2 gangen (voorgerecht en hoofdgerecht)",
+   "price": 34,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Chefs menu, 3-gangen menu van de chef",
+   "price": 46,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Keuzemenu 3 gangen",
+   "price": 49.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Keuzemenu 4 gangen",
+   "price": 56.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Ierse oesters (per stuk) - citroen, mignonettesaus",
+   "price": 5,
+   "cat": "voor"
+  },
+  {
+   "name": "Pata negra - grissini",
+   "price": 9,
+   "cat": "voor"
+  },
+  {
+   "name": "Ambachtelijke chips - crème fraîche, peterselie",
+   "price": 4,
+   "cat": "voor"
+  },
+  {
+   "name": "Blini gerookte zalm (per stuk) - crème fraîche",
+   "price": 4,
+   "cat": "voor"
+  },
+  {
+   "name": "Truffelrisotto bitterbal (per stuk) - truffelmayonaise",
+   "price": 3,
+   "cat": "voor"
+  },
+  {
+   "name": "Vitello tonnato - kalfsmuis van de bbq, gegrilde tonijn, kappertjes, Parmezaan, kletskop, limoenmayonaise",
+   "price": 19,
+   "cat": "voor"
+  },
+  {
+   "name": "Wilde eend - rode ui pickle, calvados jus",
+   "price": 21,
+   "cat": "voor"
+  },
+  {
+   "name": "Steak tartaar, handgesneden - eidooiercrème, focaccia-crouton",
+   "price": 19,
+   "cat": "voor"
+  },
+  {
+   "name": "Paling, gekarameliseerd - pata negra, gruyère, brioche",
+   "price": 21,
+   "cat": "voor"
+  },
+  {
+   "name": "Coquille carpaccio - mosterdkaviaar, amandelschuim, tapioca, tijgermelk",
+   "price": 18,
+   "cat": "voor"
+  },
+  {
+   "name": "Herten tataki - sojamayonaise, gepofte wilde rijst, Amsterdamse ui, sesam",
+   "price": 19,
+   "cat": "voor"
+  },
+  {
+   "name": "Paarse bloemkool - tom yum, rettich, groene kruidenolie",
+   "price": 17,
+   "cat": "voor"
+  },
+  {
+   "name": "Artisjoksoep - rode peper olie",
+   "price": 12,
+   "cat": "voor"
+  },
+  {
+   "name": "Van Dobben bitterballen (8 stuks) - mosterd",
+   "price": 9,
+   "cat": "voor"
+  },
+  {
+   "name": "Hummus - pita brood",
+   "price": 9,
+   "cat": "voor"
+  },
+  {
+   "name": "Kaasstengels (8 stuks) - chilisaus",
+   "price": 8,
+   "cat": "voor"
+  },
+  {
+   "name": "Olijven",
+   "price": 4.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Oude Goudse kaas - mosterd",
+   "price": 8,
+   "cat": "voor"
+  },
+  {
+   "name": "Groenten gyoza (8 stuks) - teriyaki saus",
+   "price": 8.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Empanadas spinazie mozzarella (5 stuks) - chilisaus",
+   "price": 9,
+   "cat": "voor"
+  },
+  {
+   "name": "Nacho's - jalapeño, tomatensalsa",
+   "price": 10.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Chicken bites (8 stuks) - chilisaus",
+   "price": 9,
+   "cat": "voor"
+  },
+  {
+   "name": "Vuur plateau - kip yakitori, mini garnalenkroket, serranoham, oude kaas, brood, zwarte knoflook aioli",
+   "price": 18,
+   "cat": "voor"
+  },
+  {
+   "name": "Hertensucade - witlof, jus van bosbessen",
+   "price": 29,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Flat iron steak - pompoen, marsala jus",
+   "price": 29,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Duo van ree - reebiefstuk, reepeper, oesterzwam, specerijen jus",
+   "price": 34,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Heilbot - pastinaak, langoustinesaus",
+   "price": 29,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Zeeduivel & kokkels (chef's favorite) - prei, noilly prat saus, haringkaviaar",
+   "price": 34,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tarte tatin gerookte biet - spinazie, walnoten, jus van groenten",
+   "price": 23,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Open ravioli - ricotta, courgette, tomaat, noten, beurre noisette",
+   "price": 19,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kipnuggets (kids) - friet, appelmoes",
+   "price": 9.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Vissticks (kids) - friet, appelmoes",
+   "price": 9.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Ravioli (kids) - ricotta, tomatensaus",
+   "price": 11,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Brood - huisgemaakte boter",
+   "price": 5,
+   "cat": "bij"
+  },
+  {
+   "name": "Gemengde salade",
+   "price": 6,
+   "cat": "bij"
+  },
+  {
+   "name": "Seizoensgroenten",
+   "price": 6,
+   "cat": "bij"
+  },
+  {
+   "name": "Friet - mayonaise",
+   "price": 5,
+   "cat": "bij"
+  },
+  {
+   "name": "Bataat friet - truffelmayonaise",
+   "price": 6,
+   "cat": "bij"
+  },
+  {
+   "name": "Omelette Sibérienne - kaneelmerengue, pompoenroomijs",
+   "price": 13,
+   "cat": "na"
+  },
+  {
+   "name": "Hazelnoot cremeux - frambozengel, baileyscrème, vanille-ijs",
+   "price": 10,
+   "cat": "na"
+  },
+  {
+   "name": "Schwarzwalder cake - amarene kersen, vanille-mascarponecrème, kirsch",
+   "price": 11,
+   "cat": "na"
+  },
+  {
+   "name": "Sticky toffee - karamelsaus, VOC-ijs",
+   "price": 9,
+   "cat": "na"
+  },
+  {
+   "name": "Gorgonzola DOP Cremiziola - gepocheerde peer, Sardijnse crackers",
+   "price": 13,
+   "cat": "na"
+  },
+  {
+   "name": "Scroppino (ook alcoholvrij verkrijgbaar) - citroenijs, wodka, prosecco",
+   "price": 10,
+   "cat": "na"
+  },
+  {
+   "name": "Affogato - espresso, vanille-ijs",
+   "price": 7,
+   "cat": "na"
+  },
+  {
+   "name": "Kinder ijsje",
+   "price": 4,
+   "cat": "na"
+  },
+  {
+   "name": "Bonbon (per stuk)",
+   "price": 2.5,
+   "cat": "na"
+  },
+  {
+   "name": "Bonbons (4 stuks)",
+   "price": 8,
+   "cat": "na"
+  },
+  {
+   "name": "Supplement gerookte zalm (bij Eggs Florentine)",
+   "price": 3,
+   "cat": "extra"
+  },
+  {
+   "name": "Supplement kaviaar (bij blini)",
+   "price": 8,
+   "cat": "extra"
+  },
+  {
+   "name": "Supplement gebakken eendenlever (bij wilde eend)",
+   "price": 5,
+   "cat": "extra"
+  },
+  {
+   "name": "Supplement gehakte oester (bij steak tartaar)",
+   "price": 4,
+   "cat": "extra"
+  },
+  {
+   "name": "Havermelk (bij koffie)",
+   "price": 0.5,
+   "cat": "extra"
+  },
+  {
+   "name": "Koffie",
+   "price": 3.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Espresso",
+   "price": 3.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Koffie verkeerd",
+   "price": 4.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Cappuccino",
+   "price": 4.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Espresso macchiato",
+   "price": 4.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Latte macchiato",
+   "price": 4.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Flat white",
+   "price": 4.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Dubbele espresso",
+   "price": 4.75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Thee",
+   "price": 3.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Verse munt thee",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Verse gember thee",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Warme chocolademelk",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Warme chocolademelk met slagroom",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Warme chocolademelk met rum",
+   "price": 5.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "IJskoffie, caramel of vanille",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Irish Coffee - Jameson Irish Whiskey, koffie, geslagen room",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Coffee Brasil - Tia Maria, Grand Marnier, koffie, geslagen room",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Spanish Coffee (ook alcoholvrij verkrijgbaar) - Tia Maria, koffie, geslagen room",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Italian Coffee (ook alcoholvrij verkrijgbaar) - Amaretto, koffie, geslagen room",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "French Coffee - Grand Marnier, koffie, geslagen room",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Cafe 43 - Licor 43, koffie, geslagen room",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Coca Cola",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Coca Cola Zero",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fanta Orange",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fanta Cassis",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fuze Tea sparkling",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fuze Tea green tea",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Sprite",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Rivella",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fristi",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Chocomel",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fever Tree bitter lemon",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Crodino",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Tassoni Ginger beer Organic",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Tassoni Tonica Superfine",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Tassoni Ginger Ale Organic",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Big Tom tomatensap",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Verse jus d'orange",
+   "price": 4.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Schulp appelsap",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Schulp cranberrysap",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Marie Stella Maris water, plat, 25 cl",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Marie Stella Maris water, bruisend, 25 cl",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Marie Stella Maris water, plat, 75 cl",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Marie Stella Maris water, bruisend, 75 cl",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Brouwkamer Baarns blond",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Brouwkamer Baarns tripel",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Brouwkamer wit",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Hertog Jan pilsener 0.0",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Leffe blond 0.0",
+   "price": 6.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Affligem Belgisch Wit 0.0",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Hoegaarden radler 0.0",
+   "price": 5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Leffe bruin 0.0",
+   "price": 6.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Hertog Jan pilsener 20 cl (tap)",
+   "price": 4,
+   "cat": "drinken"
+  },
+  {
+   "name": "Hertog Jan pilsener 30 cl (tap)",
+   "price": 4.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Hertog Jan pilsener 50 cl (tap)",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bockbier (tap)",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Sir Edmond Gin & Tonic - Sir Edmond gin, Tonica Superfine, gedroogde sinaasappel, koffiebonen",
+   "price": 12.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Classic Gin & Tonic - Hendrick's gin, Tonica Superfine, limoen, komkommer",
+   "price": 12.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Aperol Spritz - Aperol, prosecco, bruisend water, sinaasappel, munt",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Campari Spritz - Campari, prosecco, bruisend water, sinaasappel",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Limoncello Spritz - limoncello, prosecco, bruisend water, citroen",
+   "price": 11,
+   "cat": "drinken"
+  },
+  {
+   "name": "Mojito 0.0 - Lyre's Spirit, bruisend water, rietsuiker, limoen, munt",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Alpex Spritz (alcoholvrij) - sinaasappel, grapefruit",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Alpex Gin en tonic (alcoholvrij) - jeneverbes, citroen",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Alpex Hugo (alcoholvrij) - limoen, munt",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Alpex Paloma (alcoholvrij) - limoen, grapefruit",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fine White Port doc 'Portal', Portugal - Douro (glas)",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fine Ruby Port doc 'Portal', Portugal - Douro (glas)",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Late Bottled Vintage Port doc 'Portal' gb, Portugal - Douro (glas)",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "10 Years Old Tawny Port doc 'Portal' gb, Portugal - Douro (glas)",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "Martini Bianco",
+   "price": 6,
+   "cat": "drinken"
+  },
+  {
+   "name": "Martini Rosso",
+   "price": 6,
+   "cat": "drinken"
+  },
+  {
+   "name": "La Galline Banyuls Cuvée, Frankrijk - Perpignan (dessertwijn, rood, glas)",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Quady Black Muscat Elysium, Verenigde Staten - Californië (dessertwijn, rood, glas)",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Pedro Ximénez, Spanje - Jerez de la Frontera (dessertwijn, rood, glas)",
+   "price": 6.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Moscatel Douro doc 'Portal' gb, Portugal - Douro (dessertwijn, wit, glas)",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Lions de Suduiraut Sauternes, Frankrijk - Bordeaux (dessertwijn, wit, glas)",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Sauvignon Blanc Limelight, Zuid-Afrika - Robertson Vallei (wit, glas)",
+   "price": 6.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Sauvignon Blanc Limelight, Zuid-Afrika - Robertson Vallei (wit, fles)",
+   "price": 32.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Gruner Veltliner 'Gruber Roschitz', Oostenrijk - Weinviertel (wit, glas)",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Gruner Veltliner 'Gruber Roschitz', Oostenrijk - Weinviertel (wit, fles)",
+   "price": 40,
+   "cat": "drinken"
+  },
+  {
+   "name": "Pinot Grigio Trentino Doc 'Cembra', Italië - Trentino (wit, glas)",
+   "price": 7.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Pinot Grigio Trentino Doc 'Cembra', Italië - Trentino (wit, fles)",
+   "price": 37.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Picpoul de Pinet aop 'Cuvée des Comtesses', Frankrijk - Languedoc (wit, fles)",
+   "price": 45,
+   "cat": "drinken"
+  },
+  {
+   "name": "Sancerre Blanc aop 'Les Baronnes', Frankrijk - Loire (wit, fles)",
+   "price": 70,
+   "cat": "drinken"
+  },
+  {
+   "name": "Chardonnay Cote de Gascoine, Frankrijk - Midi Pyrenees (wit, glas)",
+   "price": 6.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Chardonnay Cote de Gascoine, Frankrijk - Midi Pyrenees (wit, fles)",
+   "price": 32.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Viognier Pays d'Oc igp Dumanet, Frankrijk - Languedoc (wit, glas)",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Viognier Pays d'Oc igp Dumanet, Frankrijk - Languedoc (wit, fles)",
+   "price": 40,
+   "cat": "drinken"
+  },
+  {
+   "name": "Verdejo 'Gran Marius', Spanje - Almansa (wit, glas)",
+   "price": 7.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Verdejo 'Gran Marius', Spanje - Almansa (wit, fles)",
+   "price": 37.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Chardonnay 'Diamond Collection', Verenigde Staten - Californië (wit, glas)",
+   "price": 11.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Chardonnay 'Diamond Collection', Verenigde Staten - Californië (wit, fles)",
+   "price": 57.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "White Taoba 'Ilia Estate', Georgië - Kakheti (wit, glas)",
+   "price": 10,
+   "cat": "drinken"
+  },
+  {
+   "name": "White Taoba 'Ilia Estate', Georgië - Kakheti (wit, fles)",
+   "price": 55,
+   "cat": "drinken"
+  },
+  {
+   "name": "Chenin blanc 'Spier Signature', Zuid-Afrika - West Kaap (wit, fles)",
+   "price": 35,
+   "cat": "drinken"
+  },
+  {
+   "name": "Macon-Aze 'Domaine La Garenne', Frankrijk - Bourgogne (wit, fles)",
+   "price": 75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Condrieu 'La Petite Cote', Frankrijk - Rhône (wit, fles)",
+   "price": 90,
+   "cat": "drinken"
+  },
+  {
+   "name": "Mille Bolle 0.0, Italië - Veneto (mousserend, alcoholvrij, glas)",
+   "price": 7.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Mille Bolle 0.0, Italië - Veneto (mousserend, alcoholvrij, fles)",
+   "price": 37.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Prosecco Treviso Doc 'Brut Luna Argenta', Italië - Argenta (mousserend, glas)",
+   "price": 7.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Prosecco Treviso Doc 'Brut Luna Argenta', Italië - Argenta (mousserend, fles)",
+   "price": 37.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Crémant d'Alsace aoc Brut 'Cuvee Prestige Kuehn', Frankrijk - Elzas (mousserend, glas)",
+   "price": 8.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Crémant d'Alsace aoc Brut 'Cuvee Prestige Kuehn', Frankrijk - Elzas (mousserend, fles)",
+   "price": 42.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Champagne aoc Brut 'Philipponnat', Frankrijk - Champagne (mousserend, glas)",
+   "price": 15,
+   "cat": "drinken"
+  },
+  {
+   "name": "Champagne aoc Brut 'Philipponnat', Frankrijk - Champagne (mousserend, fles)",
+   "price": 75,
+   "cat": "drinken"
+  },
+  {
+   "name": "Prosecco Rosé Doc Brut 'Fili', Italië - Veneto (mousserend, glas)",
+   "price": 7.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Prosecco Rosé Doc Brut 'Fili', Italië - Veneto (mousserend, fles)",
+   "price": 37.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Champagne aoc Extra Brut Blanc de Noirs, Frankrijk - Champagne (mousserend, fles)",
+   "price": 95,
+   "cat": "drinken"
+  },
+  {
+   "name": "Merlot 'Limelight', Zuid-Afrika - Robertson Vallei (rood, glas)",
+   "price": 6,
+   "cat": "drinken"
+  },
+  {
+   "name": "Merlot 'Limelight', Zuid-Afrika - Robertson Vallei (rood, fles)",
+   "price": 30,
+   "cat": "drinken"
+  },
+  {
+   "name": "Pinot Noir VDP D'oc 'Saint Seine', Frankrijk - Pays D'oc (rood, glas)",
+   "price": 6.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Pinot Noir VDP D'oc 'Saint Seine', Frankrijk - Pays D'oc (rood, fles)",
+   "price": 32.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Primitivo Mocavero, Italië - Puglia (rood, glas)",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Primitivo Mocavero, Italië - Puglia (rood, fles)",
+   "price": 35,
+   "cat": "drinken"
+  },
+  {
+   "name": "Malbec vdf 'Le Gouleyant Pur Fruit', Frankrijk - Cahors (rood, glas)",
+   "price": 11,
+   "cat": "drinken"
+  },
+  {
+   "name": "Malbec vdf 'Le Gouleyant Pur Fruit', Frankrijk - Cahors (rood, fles)",
+   "price": 55,
+   "cat": "drinken"
+  },
+  {
+   "name": "Rioja tinto Crianza 'Conde Valdemar', Spanje - Rioja (rood, glas)",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Rioja tinto Crianza 'Conde Valdemar', Spanje - Rioja (rood, fles)",
+   "price": 40,
+   "cat": "drinken"
+  },
+  {
+   "name": "Taoba Saperavi 'Ilia Estate', Georgië - Kakheti (rood, glas)",
+   "price": 9,
+   "cat": "drinken"
+  },
+  {
+   "name": "Taoba Saperavi 'Ilia Estate', Georgië - Kakheti (rood, fles)",
+   "price": 45,
+   "cat": "drinken"
+  },
+  {
+   "name": "Blauer Zweigelt qba Organic 'Klassik', Oostenrijk - Weinviertel (rood, glas)",
+   "price": 11,
+   "cat": "drinken"
+  },
+  {
+   "name": "Blauer Zweigelt qba Organic 'Klassik', Oostenrijk - Weinviertel (rood, fles)",
+   "price": 55,
+   "cat": "drinken"
+  },
+  {
+   "name": "Chateau Musar Red, Libanon - Bekaa Vallei (rood, fles)",
+   "price": 90,
+   "cat": "drinken"
+  },
+  {
+   "name": "Marselan igp Édition Limitée 'Dumanet', Frankrijk - Languedoc (rood, glas)",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Marselan igp Édition Limitée 'Dumanet', Frankrijk - Languedoc (rood, fles)",
+   "price": 40,
+   "cat": "drinken"
+  },
+  {
+   "name": "Tinto do 'La Boscana Silvestre', Spanje - Costers del Segre (rood, glas)",
+   "price": 11,
+   "cat": "drinken"
+  },
+  {
+   "name": "Tinto do 'La Boscana Silvestre', Spanje - Costers del Segre (rood, fles)",
+   "price": 55,
+   "cat": "drinken"
+  },
+  {
+   "name": "Montepulciano, Italië - Abruzzo (rood, glas)",
+   "price": 11.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Montepulciano, Italië - Abruzzo (rood, fles)",
+   "price": 57.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Saint-Joseph Rouge aop 'Cavanos', Frankrijk - Rhône (rood, fles)",
+   "price": 80,
+   "cat": "drinken"
+  },
+  {
+   "name": "Fougueyrat aoc St. Emilion Grand Cru, Frankrijk - Bordeaux (rood, fles)",
+   "price": 65,
+   "cat": "drinken"
+  },
+  {
+   "name": "Amarone della Valpolicella 'Ansari', Italië - Veneto (rood, fles)",
+   "price": 89,
+   "cat": "drinken"
+  },
+  {
+   "name": "C.d'Aix-en-Provence aop Organic 'Chapelle du Seuil', Frankrijk - Provence (rosé, glas)",
+   "price": 8.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "C.d'Aix-en-Provence aop Organic 'Chapelle du Seuil', Frankrijk - Provence (rosé, fles)",
+   "price": 42.5,
+   "cat": "drinken"
+  },
+  {
+   "name": "Syrah Rosé Pays d'Oc igp Organic 'Bis by Biscaye', Frankrijk - Languedoc (rosé, fles)",
+   "price": 40,
+   "cat": "drinken"
+  },
+  {
+   "name": "Zuidam Jonge Graanjenever",
+   "price": 6,
+   "cat": "drinken"
+  },
+  {
+   "name": "Zuidam Oud Hollandsche Jenever",
+   "price": 6,
+   "cat": "drinken"
+  },
+  {
+   "name": "Zuidam Korenwijn",
+   "price": 6,
+   "cat": "drinken"
+  },
+  {
+   "name": "Ketel 1 Vodka",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bacardi Carta Blanca",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bacardi Carta Negra",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Jameson Irish Whiskey",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Jack Daniels Black Label",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Laphroaig Whisky Single Malt",
+   "price": 9,
+   "cat": "drinken"
+  },
+  {
+   "name": "Chivas Regal 12 years",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Glenfiddich Whisky Single Malt",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Frysk Hynder Single Malt",
+   "price": 9,
+   "cat": "drinken"
+  },
+  {
+   "name": "The Balvenie Whisky 12 years",
+   "price": 11,
+   "cat": "drinken"
+  },
+  {
+   "name": "Puni Arte Italian Single Malt",
+   "price": 15,
+   "cat": "drinken"
+  },
+  {
+   "name": "Amaretto",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Bailey's Irish Cream",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Campari",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Cointreau",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Drambuie",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Southern Comfort",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Grand Marnier",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Kahlua",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Likeur 43",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Limoncello",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Sambuca",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Tia Maria",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Armagnac VS",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Joseph Guy VS",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Calvados VS",
+   "price": 7,
+   "cat": "drinken"
+  },
+  {
+   "name": "Hennessy VS",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Remy Martin VSOP",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Calvados VSOP",
+   "price": 9,
+   "cat": "drinken"
+  },
+  {
+   "name": "Grappa",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Hendrick's Gin",
+   "price": 8,
+   "cat": "drinken"
+  },
+  {
+   "name": "Sir Edmond Gin",
+   "price": 8,
+   "cat": "drinken"
+  }
+ ]
+}
