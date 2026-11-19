@@ -145,6 +145,10 @@
   .switch-dlg .dlg-btns .big-button { flex: 0 0 auto; }
   .switch-dlg .big-button { min-height: 56px; font-size: 1.15rem; overflow-wrap: anywhere; white-space: normal; }
   .switch-dlg .big-button.danger { background: #fde7e5; color: #a1150c; border: 2px solid #e2a29b; }
+  /* v27: afronden met of zonder opslaan; bevestiging in rood */
+  .switch-dlg .big-button.primary-save { min-height: 64px; font-size: 1.25rem; }
+  .big-button.danger-solid { background: #c5221f; color: #fff; }
+  #finishDialog { overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 1rem; } /* grootste letter op kleine iPhone: venster kan scrollen */
   .head-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
   a.edit-toggle { display: inline-flex; align-items: center; text-decoration: none; box-sizing: border-box; }
   .notice { background: #fff1db; border: 2px solid #e8a33d; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font-size: 0.95rem; margin-bottom: 0.5rem; color: #111; }
@@ -530,6 +534,17 @@
       <button type="button" class="big-button" id="switchSave">💾 Bewaar dit bezoek en wissel</button>
       <button type="button" class="big-button danger" id="switchDiscard">🗑 Gooi weg en wissel</button>
       <button type="button" class="big-button secondary" id="switchCancel">Annuleren</button>
+    </div>
+  </div>
+</div>
+<div class="dialog-backdrop hidden" id="finishDialog">
+  <div class="dialog switch-dlg" role="alertdialog" aria-labelledby="finishText">
+    <p class="confirm-text" id="finishText">Bezoek afronden</p>
+    <p class="small-text" style="margin-top:0; font-size:1rem;" id="finishSub"></p>
+    <div class="dlg-btns stack">
+      <button type="button" class="big-button primary-save" id="finishSave">💾 Opslaan</button>
+      <button type="button" class="big-button danger" id="finishDiscard">🗑 Afronden zonder opslaan</button>
+      <button type="button" class="big-button secondary" id="finishCancel">Annuleren</button>
     </div>
   </div>
 </div>
@@ -1338,8 +1353,9 @@ function askBig(text, o) {
     document.getElementById('kaartConfirmSub').textContent = o.sub || 'Het bezoek dat nu loopt wordt dan niet bewaard.';
     document.getElementById('kaartConfirmYes').textContent = o.yes || 'Ja, nieuw bezoek starten';
     document.getElementById('kaartConfirmNo').textContent = o.no || 'Nee, huidig bezoek houden';
+    document.getElementById('kaartConfirmYes').classList.toggle('danger-solid', !!o.danger);
     dlg.classList.remove('hidden');
-    const close = v => { dlg.classList.add('hidden'); document.getElementById('kaartConfirmYes').onclick = null; document.getElementById('kaartConfirmNo').onclick = null; resolve(v); };
+    const close = v => { dlg.classList.add('hidden'); document.getElementById('kaartConfirmYes').classList.remove('danger-solid'); document.getElementById('kaartConfirmYes').onclick = null; document.getElementById('kaartConfirmNo').onclick = null; resolve(v); };
     document.getElementById('kaartConfirmYes').onclick = () => close(true);
     document.getElementById('kaartConfirmNo').onclick = () => close(false);
     document.getElementById('kaartConfirmYes').focus();
@@ -2640,12 +2656,58 @@ function addItem() {
     renderCurrentVisit();
   showToast('✓ ' + name + ' toegevoegd');
 }
+// v27: 'Bezoek afronden' -> eigen venster: 💾 Opslaan (hoofdknop) / 🗑 Afronden zonder opslaan (met bevestiging) / Annuleren
+function askFinish() {
+  const v = currentVisit;
+  const n = (v.items || []).reduce((s, it) => s + (Number(it.qty) || 1), 0);
+  const nm = (v.name || '').trim() || 'dit restaurant';
+  document.getElementById('finishSub').textContent = n
+    ? 'Bij ' + nm + ' heb je ' + n + (n === 1 ? ' ding' : ' dingen') + ' besteld (' + formatEuro(visitTotal(v)) + '). Wil je dit bezoek bewaren bij Eerder?'
+    : 'Bij ' + nm + ' heb je nog niets besteld. Wil je dit bezoek bewaren bij Eerder?';
+  const dlg = document.getElementById('finishDialog');
+  return new Promise(resolve => {
+    dlg.classList.remove('hidden');
+    const ids = ['finishSave', 'finishDiscard', 'finishCancel'];
+    const close = r => { dlg.classList.add('hidden'); ids.forEach(id => { document.getElementById(id).onclick = null; }); resolve(r); };
+    document.getElementById('finishSave').onclick = () => close('save');
+    document.getElementById('finishDiscard').onclick = () => close('discard');
+    document.getElementById('finishCancel').onclick = () => close('cancel');
+    document.getElementById('finishSave').focus();
+  });
+}
+// Bezoek weggooien zonder bewaren: niet bij Eerder, foto's van dit bezoek definitief weg (zoals een definitief gewist bezoek); bewaarde kaarten blijven
+function discardCurrentVisit() {
+  const v = currentVisit;
+  if (!v) return Promise.resolve();
+  const ids = visitPhotoIds(v);
+  dropCurrentVisit();
+  return purgePhotos(ids);
+}
 function finishVisit() {
-  if (!currentVisit) return;
-  if (menuEditMode) { commitMenuEdits(); menuEditMode = false; newMenuItems = []; syncRestaurant(); }
-  if (!confirm('Bezoek afronden en opslaan?')) return;
-  storeCurrentVisit();
-  alert('Bezoek opgeslagen!');
+  if (!currentVisit) return Promise.resolve(false);
+  closeMenuEditing();
+  return askFinish().then(choice => {
+    if (choice === 'save') {
+      storeCurrentVisit();
+      showTab('overzicht');
+      showToast('✓ Bezoek opgeslagen bij Eerder');
+      return 'save';
+    }
+    if (choice === 'discard') {
+      return askBig('Weet je het zeker? Dit bezoek wordt niet bewaard.', {
+        sub: 'Wat je bij ' + ((currentVisit.name || '').trim() || 'dit restaurant') + ' besteld hebt (' + formatEuro(visitTotal(currentVisit)) + ') is dan weg en komt niet bij Eerder. De kaart van het restaurant blijft bewaard.',
+        yes: '🗑 Ja, niet bewaren', no: 'Nee, terug', danger: true })
+        .then(yes => {
+          if (!yes) return finishVisit();
+          return discardCurrentVisit().then(() => {
+            showTab('overzicht');
+            showToast('Bezoek afgerond, niet bewaard');
+            return 'discard';
+          });
+        });
+    }
+    return 'cancel';
+  });
 }
 function showTab(tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -3676,7 +3738,7 @@ function importBackupFile(input) {
   reader.onerror = () => alert('Bestand lezen mislukt');
   reader.readAsText(file);
 }
-const APP_VERSION = '26';
+const APP_VERSION = '27';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;

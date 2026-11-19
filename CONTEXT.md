@@ -398,3 +398,16 @@ Verzoek Peter: het duurt te lang voordat je het bestelde gerecht vindt (Vuur hee
 - Aantallen (zalm/bal/wijn/rood/kaas/bier): De Generaal 1/3/2/17/13/1 · Vuur 3/3/6/32/4/1 · Verlan 0/0/2/0/0/1 (Engelse kaart: "Red", "Cheese"; wijn/bier daar = tikfout-treffers).
 - Screenshot: v26_zoeken_gooise.png (390×844, De Generaal, "Gooise bal" → Gooische bal).
 - Bestanden: index.html = index-v26.html; CONTEXT.md; 1 screenshot. Niet gepubliceerd.
+
+## v27 (19 nov 2026) – Afronden zonder opslaan
+Verzoek Peter: bij 'Bezoek afronden' was er maar één keuze (Opslaan; in v26 een kale iPhone-melding `confirm('Bezoek afronden en opslaan?')` + `alert('Bezoek opgeslagen!')`).
+- 'Bezoek afronden' (`#finishBtn`) staat alleen op **Overzicht** (Rekening heeft geen afrondknop). `finishVisit()` sluit eerst de aanpas-stand netjes (`closeMenuEditing`) en opent dan een eigen venster `#finishDialog` (zelfde stijl als v24 `#switchDialog`, class `switch-dlg`): titel "Bezoek afronden", uitleg "Bij X heb je n dingen besteld (€ …). Wil je dit bezoek bewaren bij Eerder?" (of "nog niets besteld").
+  - **💾 Opslaan** (`#finishSave`, blauw, hoofdknop, min. 64 px) → `storeCurrentVisit()` (zoals voorheen: finished, finishedAt, bovenaan Eerder), Overzicht, toast "✓ Bezoek opgeslagen bij Eerder" (geen alert meer).
+  - **🗑 Afronden zonder opslaan** (`#finishDiscard`, direct onder Opslaan, lichtrood zoals 'Gooi weg en wissel') → bevestiging via `askBig`: "Weet je het zeker? Dit bezoek wordt niet bewaard." + uitleg (bestelling en bedrag weg, niet bij Eerder, kaart blijft bewaard); knoppen **🗑 Ja, niet bewaren** (nieuwe optie `danger:true` → class `danger-solid`, rood #c5221f; wordt bij sluiten weer verwijderd zodat ?kaart=-vraag ongewijzigd blijft) / **Nee, terug** (terug naar de afrondkeuze).
+  - Ja → `discardCurrentVisit()`: `dropCurrentVisit()` (v24) + `purgePhotos(visitPhotoIds(v))` (foto's van dit bezoek definitief uit lijst en IndexedDB, zoals een definitief gewist bezoek; bewaarde kaarten onder Eerder bezocht blijven, alleen hun verwijzing naar die foto's gaat weg). Daarna Overzicht "Geen actief bezoek" + 'Nieuw restaurantbezoek starten', toast "Bezoek afgerond, niet bewaard".
+  - **Annuleren** → niets verandert.
+- `#finishDialog` mag verticaal scrollen (grootste letter op iPhone SE is het venster 13 px te hoog).
+- `APP_VERSION='27'`; 'Nu vernieuwen', plaatjes -v2 en manifest ongewijzigd.
+- Tests: **e2e27.js 148/148** (e2e26 + afronden: eigen venster, 3 knoppen en volgorde, groot/volle breedte, kleuren, uitleg, Annuleren houdt bezoek, bevestigingstekst + rode Ja, Nee terug houdt bezoek en niets in Eerder, herladen, Ja: geen bezoek, niets in Eerder, Overzicht beginscherm, foto weg uit lijst én IndexedDB, kaart Vuur blijft in Eerder bezocht, na herladen echt weg; Opslaan → bovenaan Eerder 2×, +1 bezoek, toast; aanpas-stand gesloten; v26 ziet "Nu vernieuwen"; geen JS-fouten). Losse check chk27.js: 375 px × 5 lettermaten geen zijwaarts scrollen. Regressie e2e25 78/81 en e2e24v25 73/76 (alleen versiechecks). Oude tests die `finishVisit` via de iPhone-melding deden (e2e6/7/8-reeks) werken niet meer zonder aanpassing.
+- Screenshots (390×844): v27_afronden.png, v27_afronden_bevestig.png.
+- Bestanden: index.html = index-v27.html; CONTEXT.md; 2 screenshots. Niet gepubliceerd.
