@@ -384,3 +384,17 @@ Verzoek Peter: het duurt te lang voordat je het bestelde gerecht vindt (Vuur hee
 - Tests (/workspace/hd-tools): **e2e25.js 81/81** (Vuur + Verlan: plek/grootte/attributen, 1 letter, "zalm" 3 regels, bestellen +/−/typen vanuit resultaten, sync met hele kaart, ✕, creme/Crème Fraîche/GRUYERE/iberico/fruhlingsplatzchen, twee woorden, geen resultaten + Zelf invullen-knop, Enter, inline prijs, Aanpassen, wisselen zet leeg, 375 px × 5 lettermaten geen zijwaarts scrollen + placeholder past, v24 ziet "Nu vernieuwen", geen JS-fouten). Regressie: **e2e24v25.js 76/76** (e2e24 met versiechecks naar 25/v24); e2e24 origineel 73/76 (alleen versiechecks); e2e22 2 fouten en e2e19 1 fout (alleen versiecheck); e2e17v25 231/233 (zelfde 2 als bij v24: versie + Verlan-groep 'Overig'; e2e17v25 typt 1 letter i.p.v. 'zalm' omdat de balk bij zoeken nu verborgen is); e2e21 42/46: versie + 3 layoutdoelen (eerste gerecht 48% i.p.v. ≤ 40%, met snelknoppen 56% i.p.v. ≤ 50%, bij 28 px nog 1 i.p.v. ≥ 2 gerechten volledig in beeld) – verwacht, het zoekvak kost ±65 px bovenaan. (Let op: e2e21 overschrijft v21_bestellen_22/28.png.) e2e12 en e2e8 liepen al vast bij v24 (oude selectors).
 - Screenshots (390×844): v25_zoeken_leeg.png, v25_zoeken_resultaat.png ("zalm", Blini gerookte zalm 2×).
 - Bestanden: index.html = index-v25.html; CONTEXT.md; 2 screenshots. Niet gepubliceerd.
+
+## v26 (19 nov 2026) – Zoeken snapt spelling en tikfouten
+- Aanleiding (Peter): bij De Generaal heet het gerecht "Gooische bal…", hij typte "Gooise bal" en kreeg niets.
+- Zoeken heeft nu 3 niveaus per kaartregel (alle zoekwoorden moeten passen, EN):
+  1. letterlijk (zoals v25: kleine letters, zonder accenten),
+  2. klinkt hetzelfde (`soundText`): sch→s, ph→f, th→t, ck/qu→k, c vóór a/o/u/l/r/k→k, ij/y/ei→ei, ou/au→au, d/dt aan woordeinde→t, dubbele letters→enkel. Zoekwoorden < 5 tekens alleen als heel woord (anders vindt "kaas"="kas" ook Castello/karkas); ≥ 5 tekens ook midden in samenstellingen (bietencarpaccio).
+  3. tikfout (`fuzzyHit`, Damerau-afstand op het begin van een woord): woorden ≥ 4 tekens max. 1 fout, ≥ 7 tekens max. 2 (en dan ook midden in een samenstelling). Eerste letter moet kloppen; het woordbegin moet minstens zo lang zijn als het zoekwoord (anders vond "bier" ook "Bernardus").
+- Tegen ruis: tikfout-treffers worden alleen getoond als er niets letterlijk of klinkend gevonden is; de teller zegt dan: 'Niet precies gevonden. Dit lijkt op "…" (n).'
+- Volgorde: groepen blijven; binnen een groep eerst letterlijk, dan klinkt-als, dan tikfout (verder kaartvolgorde). Geldt ook in Aanpassen.
+- Normaalvormen worden per naam onthouden (`searchCache`); 323 regels kost < 5 ms koud, < 0,2 ms warm.
+- Tests: **e2e26.js 110/110** (e2e25 + De Generaal: Gooise bal/gooise/gooische/goise bal/GOOISE BAL, bestellen vanuit "Gooise bal", carpacio, bietencarpaccio(-acio), croquet=kroket, kroketten, chardonay, sovignon (tikfoutmelding), zlam, xqzw = Geen resultaten, kaas/bier zonder ruis; Vuur zalm 3, creme, carpacio, bifstuk; Verlan; snelheid). Regressie e2e25: 78/81 (alleen de 3 versiechecks).
+- Aantallen (zalm/bal/wijn/rood/kaas/bier): De Generaal 1/3/2/17/13/1 · Vuur 3/3/6/32/4/1 · Verlan 0/0/2/0/0/1 (Engelse kaart: "Red", "Cheese"; wijn/bier daar = tikfout-treffers).
+- Screenshot: v26_zoeken_gooise.png (390×844, De Generaal, "Gooise bal" → Gooische bal).
+- Bestanden: index.html = index-v26.html; CONTEXT.md; 1 screenshot. Niet gepubliceerd.

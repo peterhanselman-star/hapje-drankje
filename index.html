@@ -2052,23 +2052,98 @@ function editItemHtml(it, i) {
 }
 // ---------- v25: zoeken op Bestellen (vanaf 2 letters, hoofdletters en accenten maken niet uit) ----------
 var searchVisitId = null;
+// v26: spellingsvriendelijk zoeken (Gooise = Gooische, carpacio = carpaccio, kleine tikfouten)
 function foldText(t) {
   t = String(t == null ? '' : t).toLowerCase();
   try { t = t.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch (e) {}
   return t.replace(/ß/g, 'ss').replace(/æ/g, 'ae').replace(/œ/g, 'oe').replace(/ø/g, 'o').replace(/ł/g, 'l')
     .replace(/[\u2018\u2019\u201b\u0060\u00b4]/g, "'").replace(/[\u2010-\u2015]/g, '-').replace(/\s+/g, ' ');
 }
-// Zoekwoorden; null = niet zoeken (minder dan 2 letters). Alle woorden moeten in de naam staan.
+// v26: klinkt-als-vorm van een (al gevouwen) tekst: Gooische = Gooise = Goise, carpaccio = carpacio, croquet = kroket
+function soundText(f) {
+  return f.replace(/[^a-z0-9 ]+/g, ' ')
+    .replace(/sch/g, 's').replace(/ph/g, 'f').replace(/th/g, 't').replace(/ck/g, 'k').replace(/qu/g, 'k')
+    .replace(/c(?=[aoulrk])/g, 'k').replace(/ij|y|ei/g, 'ei').replace(/ou|au/g, 'au')
+    .replace(/(d|dt)(?= |$)/g, 't').replace(/([a-z])\1+/g, '$1')
+    .replace(/\s+/g, ' ').trim();
+}
+// Kleinste aantal tikfouten tussen woord w en het begin van woord n (of heel woord n) (wisselen van 2 letters telt als 1)
+function prefixDist(w, n, max) {
+  const a = w.length, b = n.length;
+  if (b < a - max) return max + 1;
+  let p2 = null, p = [], best = max + 1;
+  for (let j = 0; j <= b; j++) p.push(j);
+  for (let i = 1; i <= a; i++) {
+    const c = [i]; let rowMin = i;
+    for (let j = 1; j <= b; j++) {
+      let v = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (w[i - 1] === n[j - 1] ? 0 : 1));
+      if (p2 && i > 1 && j > 1 && w[i - 1] === n[j - 2] && w[i - 2] === n[j - 1]) v = Math.min(v, p2[j - 2] + 1);
+      c.push(v); if (v < rowMin) rowMin = v;
+    }
+    if (rowMin > max) return max + 1;
+    p2 = p; p = c;
+  }
+  // het begin van n moet minstens zo lang zijn als w (anders vindt 'bier' ook 'Bernardus'), of n is het hele woord
+  for (let j = Math.min(a, b); j <= b; j++) if (p[j] < best) best = p[j];
+  return best;
+}
+const searchCache = new Map();
+function searchForms(name) {
+  let f = searchCache.get(name);
+  if (!f) {
+    const fold = foldText(name), snd = soundText(fold);
+    f = { fold: fold, snd: snd, words: snd.split(' ').filter(Boolean) };
+    if (searchCache.size > 3000) searchCache.clear();
+    searchCache.set(name, f);
+  }
+  return f;
+}
+// Zoekwoorden; null = niet zoeken (minder dan 2 letters)
 function searchWords() {
   const f = foldText(menuSearch).trim();
   if (f.replace(/\s/g, '').length < 2) return null;
-  return f.split(' ').filter(Boolean);
+  return f.split(' ').filter(Boolean).map(w => ({ fold: w, snd: soundText(w) }));
 }
-function nameMatches(name, words) {
-  if (!words) return true;
-  const f = foldText(name);
-  return words.every(w => f.indexOf(w) >= 0);
+// 0 = past niet, 1 = staat er letterlijk in, 2 = klinkt hetzelfde, 3 = met een tikfout
+function soundHit(s, f) {
+  if (!s) return false;
+  if (s.length >= 5) return f.snd.indexOf(s) >= 0; // ook midden in een samenstelling (bietencarpaccio)
+  return f.words.indexOf(s) >= 0; // korte woorden alleen als heel woord (kaas = kas, niet Castello)
 }
+function fuzzyHit(s, f) {
+  const L = s.length;
+  if (L < 4) return false;
+  const max = L >= 7 ? 2 : 1;
+  for (const nw of f.words) {
+    const last = L < 7 ? 0 : nw.length - (L - max); // korte woorden alleen aan het begin van een woord
+    for (let k = 0; k <= last; k++) {
+      if (nw[k] !== s[0]) continue; // eerste letter moet kloppen
+      if (prefixDist(s, nw.slice(k), max) <= max) return true;
+    }
+  }
+  return false;
+}
+function matchLevel(name, words) {
+  if (!words) return 1;
+  const f = searchForms(name);
+  let lvl = 1;
+  for (const w of words) {
+    if (f.fold.indexOf(w.fold) >= 0) continue;
+    if (soundHit(w.snd, f)) { lvl = Math.max(lvl, 2); continue; }
+    if (!fuzzyHit(w.snd, f)) return 0;
+    lvl = 3;
+  }
+  return lvl;
+}
+// Niveau per kaartregel. Tikfout-treffers alleen als er niets letterlijk of klinkend gevonden is (geen vloed).
+function searchLevels(menu, words) {
+  const lv = menu.map(it => matchLevel(it.name, words));
+  if (!words) return lv;
+  if (lv.some(x => x === 1 || x === 2)) return lv.map(x => x === 3 ? 0 : x);
+  return lv;
+}
+function nameMatches(name, words) { return matchLevel(name, words) > 0; }
+let searchFuzzyOnly = false; // v26: alleen tikfout-treffers (niets letterlijk gevonden)
 function searchActive() { return !!searchWords(); }
 function updateSearchUi(count) {
   const clr = document.getElementById('searchClear'), info = document.getElementById('searchInfo');
@@ -2078,7 +2153,7 @@ function updateSearchUi(count) {
   if (bar) bar.classList.toggle('hidden', on);
   if (!info) return;
   const t = menuSearch.trim();
-  if (on) { info.textContent = count ? (count === 1 ? '1 gevonden' : count + ' gevonden') + ' voor "' + t + '". Tik op ✕ voor de hele kaart.' : ''; info.classList.toggle('hidden', !count); }
+  if (on) { info.textContent = count ? (searchFuzzyOnly ? 'Niet precies gevonden. Dit lijkt op "' + t + '" (' + count + '). Tik op ✕ voor de hele kaart.' : (count === 1 ? '1 gevonden' : count + ' gevonden') + ' voor "' + t + '". Tik op ✕ voor de hele kaart.') : ''; info.classList.toggle('hidden', !count); }
   else if (t) { info.textContent = 'Typ nog een letter…'; info.classList.remove('hidden'); }
   else { info.textContent = ''; info.classList.add('hidden'); }
 }
@@ -2132,17 +2207,21 @@ function renderMenuList() {
     let h = '';
     if (newMenuItems.length) h += '<div class="menu-group" id="grp-nieuw">Nieuw op de kaart</div>' + newMenuItems.map(it => editItemHtml(it, menu.indexOf(it))).join('');
     let shownE = 0;
+    const lvE = searchLevels(menu, words);
     menuGroups(menu).forEach(g => {
       const rows = [];
       menu.forEach((it, i) => {
         if (newMenuItems.indexOf(it) >= 0 || normCat(it.category) !== g[0]) return;
-        if (words && !nameMatches(it.name, words)) return;
-        rows.push(editItemHtml(it, i));
+        if (words && !lvE[i]) return;
+        rows.push({ lv: lvE[i], i: i, h: editItemHtml(it, i) });
       });
+      rows.sort((x, y) => x.lv - y.lv || x.i - y.i); // v26: letterlijke treffers eerst
+      rows.forEach((r, k) => { rows[k] = r.h; });
       if (rows.length) { h += '<div class="menu-group" id="grp-' + g[0] + '">' + escapeHtml(g[1]) + '</div>' + rows.join(''); shownE += rows.length; }
     });
     if (!shownE && words && menu.length) h += '<p class="os-none" id="searchNone">Geen resultaten voor "' + escapeHtml(q) + '".</p>';
     list.innerHTML = h;
+    searchFuzzyOnly = !!shownE && lvE.some(x => x === 3);
     updateSearchUi(shownE);
     return;
   }
@@ -2152,11 +2231,15 @@ function renderMenuList() {
   let html = '', shown = 0;
   const parts = { drinken: '', extra: '' };
   let foodHtml = '';
+  const lv = searchLevels(menu, words);
+  searchFuzzyOnly = !!words && lv.some(x => x === 3);
   groups.forEach(g => {
     const rows = [];
-    menu.forEach((mi, idx) => {
-      if (normCat(mi.category) !== g[0]) return;
-      if (words && !nameMatches(mi.name, words)) return;
+    const order = [];
+    menu.forEach((mi, idx) => { if (normCat(mi.category) === g[0] && (!words || lv[idx])) order.push(idx); });
+    if (words) order.sort((x, y) => lv[x] - lv[y] || x - y); // v26: letterlijke treffers eerst, dan klinkt-als, dan tikfout
+    order.forEach(idx => {
+      const mi = menu[idx];
       const priced = mi.price !== '' && mi.price != null && !isNaN(Number(mi.price));
       const c = priced ? orderedCount(mi) : 0;
       if (inlineEdit && inlineEdit.mi === mi) { rows.push(inlineEditHtml(mi, idx, c)); return; }
@@ -3593,7 +3676,7 @@ function importBackupFile(input) {
   reader.onerror = () => alert('Bestand lezen mislukt');
   reader.readAsText(file);
 }
-const APP_VERSION = '25';
+const APP_VERSION = '26';
 document.getElementById('appVersion').textContent = APP_VERSION;
 function checkForUpdate() {
   if (!window.fetch || navigator.onLine === false || location.protocol.indexOf('http') !== 0) return;
