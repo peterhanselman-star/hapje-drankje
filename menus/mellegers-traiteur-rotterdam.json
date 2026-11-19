@@ -1,0 +1,267 @@
+{
+ "name": "Mellegers broodjes & catering",
+ "source": "https://online.keurslager.nl/nl-nl/keurslager-mellegers (webshop, opgehaald 19 nov 2026): belegde broodjes, warme broodjes, specialiteiten; https://mellegers.keurslager.nl/ (infopagina's catering/schepsalades-hapjes: canapés, borrelgarnituur, huzarensalade)",
+ "retrieved": "2026-11-19",
+ "items": [
+  {
+   "name": "Diverse canapés, vlees, vis en kaas, schaal vanaf 50 stuks (per stuk)",
+   "price": 1.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Hollands borrelgarnituur, o.a. grillworst, gehaktballetjes, kaas, gekookte worst (per schaal, 10 personen)",
+   "price": 50.0,
+   "cat": "voor"
+  },
+  {
+   "name": "Opgemaakte huzarensalade, met vleeswaren en garnering, vanaf 6 personen (per persoon)",
+   "price": 7.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Broodje tartaar speciaal, met ei, ui en mayonaise (per stuk)",
+   "price": 6.2,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje filet Americain speciaal, met ei, ui en mayonaise (per stuk)",
+   "price": 6.2,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Biefstuk tapenade, grof gemalen biefstuk, kappertjes, Parmezaan, pijnboompitjes (per stuk)",
+   "price": 7.2,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje van de week (per stuk)",
+   "price": 4.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Tartaar (per stuk)",
+   "price": 4.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Filet Américain (per stuk)",
+   "price": 5.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Bourgondische kipsalade, kip, paprika, prei en appel (per stuk)",
+   "price": 5.45,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Selleriesalade (per stuk)",
+   "price": 4.4,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Krabsalade (per stuk)",
+   "price": 5.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Kip kerrie salade (per stuk)",
+   "price": 5.4,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Eiersalade (per stuk)",
+   "price": 4.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Tonijnsalade (per stuk)",
+   "price": 5.65,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Vleessalade (per stuk)",
+   "price": 5.2,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje gezond, beenham, jong belegen kaas, komkommer, tomaat, ei (per stuk)",
+   "price": 6.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Half om, pekelvlees en varkenslever (per stuk)",
+   "price": 4.85,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Ossenworst (per stuk)",
+   "price": 4.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Beenham (per stuk)",
+   "price": 4.85,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Rosbief (per stuk)",
+   "price": 4.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Gebraden fricandeau (per stuk)",
+   "price": 4.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Oude kaas (per stuk)",
+   "price": 4.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Jong belegen kaas (per stuk)",
+   "price": 4.4,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Roompaté (per stuk)",
+   "price": 4.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Cranberry paté (per stuk)",
+   "price": 4.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Bourgondische paté (per stuk)",
+   "price": 4.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet Biefstuk tapenade, grof gemalen biefstuk, kappertjes, Parmezaan, pijnboompitjes (per stuk)",
+   "price": 7.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet filet Americain speciaal, met ui, ei en mayonaise (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet tartaar speciaal, met ui, ei en mayonaise (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet caprese, mozzarella, zontomaatje, pesto, pijnboompitjes, sla (per stuk)",
+   "price": 6.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet di roma, spianata romana, mozzarella, zontomaatje, pesto, sla (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet entrecôte speciaal, gebraden entrecôte, pancetta, grillsaus, uitjes, sla (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet pastrami speciaal, runderpastrami, augurk, mierikswortelmayonaise, sla (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet roombrie speciaal, roombrie, pancetta, honing, sla (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet carpaccio, runderbeef, Parmezaan, pijnboompitjes, mosterd-dilledressing (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet di parma, parmaham, mozzarella, zontomaatje, pesto, sla (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet filet martino, filet americain, martinotopping, mosterd, augurk (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet pancetta di coppa, pancetta di coppa, tapenade, mozzarella, sla (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet vitello tonato, gebraden kalfsrollade, kappertjes, tonijnmayonaise (per stuk)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pistolet picanha, gebakken picanha, pittige mayonaise, sla (per stuk)",
+   "price": 8.8,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Rundvlees kroket, Kwekkeboom (per stuk)",
+   "price": 4.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Hamburger, 100% rundvlees, grillsaus, gebakken uitjes (per stuk)",
+   "price": 5.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Bal gehakt, gebraden bal uit eigen keuken (per stuk)",
+   "price": 4.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Gebakken picanha, pittige mayonaise en sla (per stuk)",
+   "price": 8.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Kalfskroket, huisgemaakt (per stuk)",
+   "price": 5.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Lams shoarma, Hollands lam, shoarma- en knoflooksaus (per stuk)",
+   "price": 7.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Varkens shoarma, shoarma- en knoflooksaus (per stuk)",
+   "price": 6.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Knakworst (per stuk)",
+   "price": 4.65,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Warm vlees, varkensschouderfilet, zoete chilisaus, uitjes (per stuk)",
+   "price": 5.2,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Warme beenham, met honing-mosterdsaus (per stuk)",
+   "price": 5.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Broodje Warme rookworst (per stuk)",
+   "price": 5.0,
+   "cat": "hoofd"
+  }
+ ]
+}

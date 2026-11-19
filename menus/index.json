@@ -8,6 +8,34 @@
       "file": "menus/de-generaal-baarn.json"
     },
     {
+      "id": "mellegers-traiteur-rotterdam",
+      "name": "Mellegers broodjes & catering",
+      "place": "Rotterdam",
+      "retrieved": "2026-11-19",
+      "file": "menus/mellegers-traiteur-rotterdam.json"
+    },
+    {
+      "id": "mellegers-slager-rotterdam",
+      "name": "Mellegers gourmet & barbecue",
+      "place": "Rotterdam",
+      "retrieved": "2026-11-19",
+      "file": "menus/mellegers-slager-rotterdam.json"
+    },
+    {
+      "id": "jonker-poelier-amsterdam",
+      "name": "Poelier Jonker",
+      "place": "Amsterdam",
+      "retrieved": "2026-11-19",
+      "file": "menus/jonker-poelier-amsterdam.json"
+    },
+    {
+      "id": "jonker-traiteur-amsterdam",
+      "name": "Poelier Jonker traiteur",
+      "place": "Amsterdam",
+      "retrieved": "2026-11-19",
+      "file": "menus/jonker-traiteur-amsterdam.json"
+    },
+    {
       "id": "de-lage-vuursche",
       "name": "Restaurant De Lage Vuursche",
       "place": "Lage Vuursche",

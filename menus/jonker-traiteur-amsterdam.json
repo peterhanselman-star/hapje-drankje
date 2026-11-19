@@ -1,0 +1,167 @@
+{
+ "name": "Poelier Jonker traiteur",
+ "source": "https://www.poelierjonker.com/bestellijst/ (online bestellijst, productpagina's uit sitemap; versie nov 2026) — kant-en-klaar: gegrild, ragouts/poulets, gekonfijt, salades, hartig",
+ "retrieved": "2026-11-19",
+ "items": [
+  {
+   "name": "Eiersalade (per 100 gram, € 23,00/kg)",
+   "price": 2.3,
+   "cat": "voor"
+  },
+  {
+   "name": "Gerookte kipsalade (per 100 gram, € 32,50/kg)",
+   "price": 3.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Kiphuzarensalade (per 100 gram, € 25,00/kg)",
+   "price": 2.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Kipkerriesalade (per 100 gram, € 32,50/kg)",
+   "price": 3.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Selleriesalade (per 100 gram, € 19,50/kg)",
+   "price": 1.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Tonijnsalade (per 100 gram, € 27,50/kg)",
+   "price": 2.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Hartig taartje (per stuk)",
+   "price": 3.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Kipsaucijzenbroodje (per stuk)",
+   "price": 3.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Borrelpootjes gegrild (per stuk)",
+   "price": 0.85,
+   "cat": "voor"
+  },
+  {
+   "name": "Kip gegrild (per stuk)",
+   "price": 12.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kippenbouten gegrild (per stuk)",
+   "price": 3.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Drumsticks gegrild (per stuk)",
+   "price": 1.6,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoen gegrild, ca. 3000 gram (per stuk)",
+   "price": 67.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoen gevuld en gegrild, ca. 3000 gram (per stuk)",
+   "price": 79.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoenrollade gegrild, 600 gram – 1200 gram (per 100 gram, € 36,00/kg)",
+   "price": 3.6,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoenrollade gevuld en gegrild, 600 gram – 1200 gram (per 100 gram, € 39,50/kg)",
+   "price": 3.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kiprollade gegrild, 600 gram – 1200 gram (per 100 gram, € 29,95/kg)",
+   "price": 3.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kiprollade gevuld en gegrild, 600 gram – 1200 gram (per 100 gram, € 32,50/kg)",
+   "price": 3.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gekonfijte eendenbouten, ca. 0,35 kg (per 100 gram, € 32,50/kg)",
+   "price": 3.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gekonfijte fazantenbouten, ca. 0,15 kg (per 100 gram, € 32,50/kg)",
+   "price": 3.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gekonfijte parelhoenbouten, ca. 0,15 kg (per 100 gram, € 32,50/kg)",
+   "price": 3.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hazenpeper, 250 gram – 1000 gram (per 100 gram, € 37,50/kg)",
+   "price": 3.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hazenpoulet, portie ca. 500 gram (per 100 gram, € 35,00/kg)",
+   "price": 3.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hertenpoulet, portie ca. 500 gram (per 100 gram, € 35,00/kg)",
+   "price": 3.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Reepoulet, portie ca. 500 gram (per 100 gram, € 39,50/kg)",
+   "price": 3.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Wild zwijnpoulet, portie ca. 500 gram (per 100 gram, € 39,50/kg)",
+   "price": 3.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Wildragout, 250 gram – 1000 gram (per 100 gram, € 35,00/kg)",
+   "price": 3.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kipragout, 250 gram – 1000 gram (per 100 gram, € 27,50/kg)",
+   "price": 2.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pullend chicken pie (per stuk)",
+   "price": 6.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kipgehaktbal (per stuk)",
+   "price": 3.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Pasteibakje (per stuk)",
+   "price": 1.5,
+   "cat": "bij"
+  },
+  {
+   "name": "Pasteibakjes mini (per pak van 12 stuks)",
+   "price": 3.5,
+   "cat": "bij"
+  }
+ ]
+}

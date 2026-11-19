@@ -1,0 +1,147 @@
+{
+ "name": "Mellegers gourmet & barbecue",
+ "source": "https://online.keurslager.nl/nl-nl/keurslager-mellegers (webshop, opgehaald 19 nov 2026): gourmet en fondue, barbecue; https://mellegers.keurslager.nl/ (infopagina's gourmet-fondue-steengrill: Gourmet de luxe; rundvlees: gehaktdag)",
+ "retrieved": "2026-11-19",
+ "items": [
+  {
+   "name": "Barbecuepakket De Luxe, hamburger, teriyaki spies, scampi spies, gem. karbonade, gem. lamskoteletjes (per persoon, incl. tasje)",
+   "price": 15.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Barbecuepakket Populair, 3 stokjes kipsaté, kipshaslick, hamburger, barbecueworst (per persoon, incl. tasje)",
+   "price": 12.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Barbecuepakket Buurtbarbecue, 3 stokjes kipsaté, hamburger, barbecueworstje, stukje sparerib (per persoon, incl. tasje)",
+   "price": 13.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Fondue de luxe, ± 300 gram p.p.: ossenhaas, varkenshaas, kipfilet, runderballetjes, mini vinkjes (per persoon, incl. tasje)",
+   "price": 11.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Chinese fondue, ± 300 gram p.p.: reepjes varkens- en ossenhaas, kipfilet, kalfsbiefstuk, runderballetjes (per persoon, incl. tasje)",
+   "price": 12.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Steengrillpakket, ± 350 gram p.p.: entrecote, varkenshaas, kalfsschnitzel, kipfilet, hamburger, vinkjes (per persoon, incl. tasje)",
+   "price": 12.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gourmet de luxe, ± 300 gram p.p.: tournedos, kipfilet, varkenshaas, mini vinkjes, hamburgertjes, varkens cordon bleu (per persoon, incl. tasje)",
+   "price": 11.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Slavinkjes, gekruid varkensgehakt met katenspek, voor gourmet/fondue (per stuk)",
+   "price": 5.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Chipolata worstjes, voor gourmet/fondue (per stuk)",
+   "price": 5.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hamburger, voor gourmet/fondue (per stuk)",
+   "price": 6.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Varkens cordon bleu, varkensfilet met ham en kaas, voor gourmet/fondue (per stuk)",
+   "price": 5.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Varkensschnitzel, voor gourmet/fondue (per stuk)",
+   "price": 5.85,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Varkenshaas, voor gourmet/fondue (per stuk)",
+   "price": 7.8,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gemarineerde speklapjes, kerriemarinade, voor gourmet/fondue (per stuk)",
+   "price": 5.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Lomo Iberico, voor gourmet/fondue (per stuk)",
+   "price": 12.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Runder ribeye, voor gourmet/fondue (per stuk)",
+   "price": 14.9,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Runder entrecôte, voor gourmet/fondue (per stuk)",
+   "price": 12.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Varkens Shoarma, voor gourmet/fondue (per stuk)",
+   "price": 6.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Japanse ossenhaasreepjes, Indonesische marinade, taugé en prei, voor gourmet/fondue (per stuk)",
+   "price": 15.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kogelbiefstuk, voor gourmet/fondue (per stuk)",
+   "price": 12.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tournedos / Ossenhaas, met pancetta en kruidenboter, voor gourmet/fondue (per stuk)",
+   "price": 19.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gemarineerde lamskoteletjes, groene kruiden-knoflookmarinade, voor gourmet/fondue (per stuk)",
+   "price": 15.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Lamskoteletjes, voor gourmet/fondue (per stuk)",
+   "price": 14.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalfsoester, voor gourmet/fondue (per stuk)",
+   "price": 11.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalfsschnitzel, voor gourmet/fondue (per stuk)",
+   "price": 11.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kipfilet, voor gourmet/fondue (per stuk)",
+   "price": 4.9,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Gemarineerde kipfilet, milde Italiaanse marinade, voor gourmet/fondue (per stuk)",
+   "price": 5.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Rundergehakt, gehaktdag alleen op woensdag (per 100 gram, € 17,95/kg)",
+   "price": 1.8,
+   "cat": "hoofd"
+  }
+ ]
+}

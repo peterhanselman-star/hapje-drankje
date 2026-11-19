@@ -1,0 +1,587 @@
+{
+ "name": "Poelier Jonker",
+ "source": "https://www.poelierjonker.com/bestellijst/ (online bestellijst, productpagina's uit sitemap; versie nov 2026) — gevogelte, wild, kalkoen, paté, vleeswaren, sauzen/compotes, eieren",
+ "retrieved": "2026-11-19",
+ "items": [
+  {
+   "name": "Cranberrypaté, ca. 125 gram (per 100 gram, € 42,50/kg)",
+   "price": 4.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Eendenpaté, ca. 125 gram (per 100 gram, € 49,50/kg)",
+   "price": 4.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Eendenpaté met sinaasappel, ca. 125 gram (per 100 gram, € 49,50/kg)",
+   "price": 4.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Eendenmousse, ca. 125 gram (per 100 gram, € 75,00/kg)",
+   "price": 7.5,
+   "cat": "voor"
+  },
+  {
+   "name": "Eendenrillette, ca. 125 gram (per 100 gram, € 59,50/kg)",
+   "price": 5.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Eendenleverpaté, ca. 80 gram (per 100 gram, € 149,50/kg)",
+   "price": 14.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Fazantenpaté, ca. 125 gram (per 100 gram, € 52,50/kg)",
+   "price": 5.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Kwartelpaté, ca. 125 gram (per 100 gram, € 52,50/kg)",
+   "price": 5.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Parelhoenpaté, ca. 125 gram (per 100 gram, € 52,50/kg)",
+   "price": 5.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Reepaté, ca. 125 gram (per 100 gram, € 52,50/kg)",
+   "price": 5.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Wild zwijnpaté, ca. 125 gram (per 100 gram, € 52,50/kg)",
+   "price": 5.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Potsdammerpaté, ca. 80 gram (per 100 gram, € 79,50/kg)",
+   "price": 7.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Gemeste eendenlever (per 100 gram, € 159,50/kg)",
+   "price": 15.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Gemeste ganzenlever (per 100 gram, € 169,50/kg)",
+   "price": 16.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Gerookte eendenborstfilet gesneden (per 100 gram, € 59,50/kg)",
+   "price": 5.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Stukje gerookte kip (per 100 gram, € 27,50/kg)",
+   "price": 2.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Gerookte kipfiletrollade (per 100 gram, € 37,50/kg)",
+   "price": 3.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Kiprollade naturel (per 100 gram, € 32,50/kg)",
+   "price": 3.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Kiprollade met shoarmakruiden (per 100 gram, € 32,50/kg)",
+   "price": 3.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Kipsalami (per 100 gram, € 37,50/kg)",
+   "price": 3.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Kalkoensalami (per 100 gram, € 37,50/kg)",
+   "price": 3.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Kalkoenham (per 100 gram, € 39,50/kg)",
+   "price": 3.95,
+   "cat": "voor"
+  },
+  {
+   "name": "Kalkoenbacon (per 100 gram, € 27,50/kg)",
+   "price": 2.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Kipgrillworst naturel (per 100 gram, € 23,50/kg)",
+   "price": 2.35,
+   "cat": "voor"
+  },
+  {
+   "name": "Kipgrillworst pikant (per 100 gram, € 23,50/kg)",
+   "price": 2.35,
+   "cat": "voor"
+  },
+  {
+   "name": "Gebraden gehakt naturel (per 100 gram, € 27,50/kg)",
+   "price": 2.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Gebraden gehakt pikant (per 100 gram, € 27,50/kg)",
+   "price": 2.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Gebraden gehakt zoet (per 100 gram, € 27,50/kg)",
+   "price": 2.75,
+   "cat": "voor"
+  },
+  {
+   "name": "Hollandse boerderijkip, 1 kg – 1,5 kg (per 100 gram, € 11,50/kg)",
+   "price": 1.15,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Boeren maiskip, ca. 1,1 kg (per 100 gram, € 13,00/kg)",
+   "price": 1.3,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Biologische Hollandse kip (Polderhoen), ca. 1,3 kg (per 100 gram, € 19,00/kg)",
+   "price": 1.9,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Franse scharrelkip, ca. 1,3 kg (per 100 gram, € 18,00/kg)",
+   "price": 1.8,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Franse scharrelkip (Poulet Noir), ca. 1,5 kg (per 100 gram, € 17,00/kg)",
+   "price": 1.7,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Poussins, ca. 0,5 kg (per 100 gram, € 17,50/kg)",
+   "price": 1.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kiphaasjes (per pakje van 3 stuks)",
+   "price": 4.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kipnuggets (per pakje van 10 stuks)",
+   "price": 1.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kiprollade, 500 gram – 1500 gram (per 100 gram, € 19,50/kg)",
+   "price": 1.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kiprollade gevuld, met gekruid kipgehakt, pruimen en abrikozen, 500 gram – 1500 gram (per 100 gram, € 21,50/kg)",
+   "price": 2.15,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Mini kiprollade gevuld met abrikozen (per stuk)",
+   "price": 7.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Grillburger (per stuk)",
+   "price": 3.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoen, 2,5 kg – 7 kg (per 100 gram, € 17,50/kg)",
+   "price": 1.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoen gekruid, 2,5 kg – 7 kg (per 100 gram, € 17,50/kg)",
+   "price": 1.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoen gevuld, 2,5 kg – 7 kg (per 100 gram, € 16,75/kg)",
+   "price": 1.68,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoen gevuld en gekruid in zak, met gekruid kipgehakt, pruimen en abrikozen, 2,5 kg – 7 kg (per 100 gram, € 20,00/kg)",
+   "price": 2.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoenfilet, 500 gram – 2000 gram (per 100 gram, € 27,00/kg)",
+   "price": 2.7,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoendijen, ca. 500 gram per stuk (per 100 gram, € 21,00/kg)",
+   "price": 2.1,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoenbraadlap (per 100 gram, € 19,50/kg)",
+   "price": 1.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoenrollade, 500 gram – 1500 gram (per 100 gram, € 27,00/kg)",
+   "price": 2.7,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoenrollade gevuld, met gekruid kipgehakt, pruimen en abrikozen, 500 gram – 1500 gram (per 100 gram, € 28,50/kg)",
+   "price": 2.85,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tamme eend, ca. 1,5 kg (per 100 gram, € 19,50/kg)",
+   "price": 1.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tamme eendenborstfilet, ca. 0,4 kg (per 100 gram, € 39,50/kg)",
+   "price": 3.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tamme eendenbout canards, ca. 0,4 kg (per 100 gram, € 24,50/kg)",
+   "price": 2.45,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tamme eendenbout canettes, ca. 0,2 kg (per 100 gram, € 24,50/kg)",
+   "price": 2.45,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tamme gans, ca. 4 kg (per 100 gram, € 20,00/kg)",
+   "price": 2.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tamme ganzenborstfilet, ca. 0,3 kg (per 100 gram, € 55,00/kg)",
+   "price": 5.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tamme ganzenbout, ca. 0,6 kg (per 100 gram, € 45,00/kg)",
+   "price": 4.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Parelhoen, ca. 1,3 kg (per 100 gram, € 19,00/kg)",
+   "price": 1.9,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Parelhoen supreme, ca. 0,2 kg (per 100 gram, € 36,50/kg)",
+   "price": 3.65,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Parelhoenbouten, ca. 0,2 kg (per 100 gram, € 24,00/kg)",
+   "price": 2.4,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kwartel, ca. 200 gram (per stuk)",
+   "price": 7.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Houtduif, ca. 200 gram (per stuk)",
+   "price": 9.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Duivenborstfilet, ca. 70 gram (per stuk)",
+   "price": 4.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Roodpootpatrijs, ca. 300 gram (per stuk)",
+   "price": 12.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Fazant haan, ca. 1000 gram (per stuk)",
+   "price": 23.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Fazant hen, ca. 800 gram (per stuk)",
+   "price": 23.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Fazantenfilet, ca. 0,12 kg (per 100 gram, € 59,50/kg)",
+   "price": 5.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Fazantenbout, ca. 150 gram (per 100 gram, € 25,00/kg)",
+   "price": 2.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Wilde eend, ca. 700 gram (per stuk)",
+   "price": 21.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Wilde eendenborstfilet, ca. 100 gram (per 100 gram, € 65,00/kg)",
+   "price": 6.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Wilde eendenbout, ca. 75 gram (per stuk)",
+   "price": 3.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Haas, ca. 2000 gram (per stuk)",
+   "price": 45.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hazenrug, ca. 0,6 kg (per 100 gram, € 42,50/kg)",
+   "price": 4.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hazenrugfilet, ca. 0,13 kg (per 100 gram, € 69,50/kg)",
+   "price": 6.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hazenbout, ca. 0,4 kg (per 100 gram, € 25,00/kg)",
+   "price": 2.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Tam konijn, ca. 1500 gram (per stuk)",
+   "price": 35.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Wild konijn, ca. 1000 gram (per stuk)",
+   "price": 24.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Konijnenbout, achter, ca. 250 gram (per 100 gram, € 29,95/kg)",
+   "price": 3.0,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Reebout, ca. 2250 gram (per 100 gram, € 62,50/kg)",
+   "price": 6.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Reeboutbiefstuk (per 100 gram, € 95,00/kg)",
+   "price": 9.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Reerug, ca. 1750 gram (per 100 gram, € 75,00/kg)",
+   "price": 7.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Reerugfilet (per 100 gram, € 139,50/kg)",
+   "price": 13.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hertenboutbiefstuk (per 100 gram, € 72,50/kg)",
+   "price": 7.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hertenrugfilet (per 100 gram, € 115,00/kg)",
+   "price": 11.5,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Wild zwijnrollade, 500 gram – 1500 gram (per 100 gram, € 49,50/kg)",
+   "price": 4.95,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Wild zwijnrugfilet, ca. 1000 gram (per 100 gram, € 92,50/kg)",
+   "price": 9.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Smits cranberry compote, 165 ml (per stuk)",
+   "price": 6.25,
+   "cat": "bij"
+  },
+  {
+   "name": "Smits preiselberen compote, 165 ml (per stuk)",
+   "price": 6.25,
+   "cat": "bij"
+  },
+  {
+   "name": "Smits abrikoos cranberry, 475 ml (per stuk)",
+   "price": 6.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Smits tutti frutti, 475 ml (per stuk)",
+   "price": 6.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Smits oma's peertjes, 475 ml (per stuk)",
+   "price": 6.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Smits orange kaneel, 275 ml (per stuk)",
+   "price": 6.5,
+   "cat": "bij"
+  },
+  {
+   "name": "Smits mango chutney, 275 ml (per stuk)",
+   "price": 6.5,
+   "cat": "bij"
+  },
+  {
+   "name": "Smits uitjes confit, 90 ml (per stuk)",
+   "price": 4.25,
+   "cat": "bij"
+  },
+  {
+   "name": "Mrs Bridges cranberry port saus, 113 ml (per stuk)",
+   "price": 4.25,
+   "cat": "bij"
+  },
+  {
+   "name": "Mrs Bridges onion relish (per stuk)",
+   "price": 3.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Mrs H.S. Ball's original chutney, 470 gram (per stuk)",
+   "price": 6.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Mrs H.S. Ball's hot chutney, 470 gram (per stuk)",
+   "price": 6.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Mrs H.S. Ball's peach chutney, 470 gram (per stuk)",
+   "price": 6.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Van Ton Hollandse mayonaise (per stuk)",
+   "price": 4.25,
+   "cat": "bij"
+  },
+  {
+   "name": "Van Ton Franse mayonaise (per stuk)",
+   "price": 4.25,
+   "cat": "bij"
+  },
+  {
+   "name": "Van Ton Belze mayonaise (per stuk)",
+   "price": 4.25,
+   "cat": "bij"
+  },
+  {
+   "name": "Van Ton Spaanse mayonaise (per stuk)",
+   "price": 4.25,
+   "cat": "bij"
+  },
+  {
+   "name": "Ponthier gekookte kastanjes, 2x200 gram (per stuk)",
+   "price": 10.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Clement Faugier kastanjepuree, 439 gram (per stuk)",
+   "price": 9.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Clement Faugier kastanjecreme, 500 gram (per stuk)",
+   "price": 10.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Langbein gevogeltefond (per stuk)",
+   "price": 6.25,
+   "cat": "eten"
+  },
+  {
+   "name": "Langbein wildfond (per stuk)",
+   "price": 6.25,
+   "cat": "eten"
+  },
+  {
+   "name": "Jean Larnaudie eendenvet (per stuk)",
+   "price": 12.25,
+   "cat": "eten"
+  },
+  {
+   "name": "Rougie ganzenvet (per stuk)",
+   "price": 19.5,
+   "cat": "eten"
+  },
+  {
+   "name": "Scharreleieren (per stuk)",
+   "price": 0.45,
+   "cat": "eten"
+  },
+  {
+   "name": "Kwarteleieren (per doosje)",
+   "price": 5.5,
+   "cat": "eten"
+  },
+  {
+   "name": "Kwarteleitjes (per pak van 18)",
+   "price": 5.5,
+   "cat": "eten"
+  },
+  {
+   "name": "Gran Pavesi classiche (blauw) (per stuk)",
+   "price": 3.95,
+   "cat": "eten"
+  },
+  {
+   "name": "Gran Pavesi olive (blauw) (per stuk)",
+   "price": 3.95,
+   "cat": "eten"
+  },
+  {
+   "name": "Gran Pavesi mais (geel) (per stuk)",
+   "price": 3.95,
+   "cat": "eten"
+  },
+  {
+   "name": "Kalkoenbraadzak (per stuk)",
+   "price": 1.95,
+   "cat": "eten"
+  }
+ ]
+}
