@@ -22,6 +22,13 @@
       "file": "menus/vuur-baarn.json"
     },
     {
+      "id": "treuren-rotterdam",
+      "name": "Treuren traiteur",
+      "place": "Rotterdam",
+      "retrieved": "2026-11-19",
+      "file": "menus/treuren-rotterdam.json"
+    },
+    {
       "id": "verlan-amsterdam",
       "name": "Verlan Amsterdam",
       "place": "Amsterdam",

@@ -1,0 +1,177 @@
+{
+ "name": "Treuren traiteur",
+ "source": "https://treuren.nl/traiteur/ (TRAITEUR 2026 / Najaar 2026)",
+ "retrieved": "2026-11-19",
+ "items": [
+  {
+   "name": "Reepeper (per 100 gram)",
+   "price": 3.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hertenstoof met vijgen (per 100 gram)",
+   "price": 3.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Wildzwijnstoof met cognac en pruimen (per 100 gram)",
+   "price": 3.6,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Lamsgehaktballetjes in Toscaanse tomatensaus (per 100 gram)",
+   "price": 3.05,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Hoenderdijen in balsamicosaus (per 100 gram)",
+   "price": 2.75,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Canard a l' Orange (per 100 gram)",
+   "price": 4.4,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Coq au Vin; van scharrelhoen (per 100 gram)",
+   "price": 2.8,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Maiskipfilets in zachte pepersaus (per 100 gram)",
+   "price": 3.05,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kiptruffelragout (per 100 gram)",
+   "price": 2.8,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Kalkoenfunghi (per 100 gram)",
+   "price": 3.05,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Parelhoenfilets in pittige witte wijnsaus (per 100 gram)",
+   "price": 3.25,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Parelhoenrollade gevuld met pruimen in rode wijnsaus (per 100 gram)",
+   "price": 3.6,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Confit de Canard gegaard in eigen vet (per 100 gram)",
+   "price": 2.85,
+   "cat": "hoofd"
+  },
+  {
+   "name": "Aardappelgratin (per stuk)",
+   "price": 2.25,
+   "cat": "bij"
+  },
+  {
+   "name": "Rozeval aardappeltjes met rozemarijn en knoflook (per 100 gram)",
+   "price": 1.75,
+   "cat": "bij"
+  },
+  {
+   "name": "Krieltjes in fijne kruiden (per 100 gram)",
+   "price": 1.75,
+   "cat": "bij"
+  },
+  {
+   "name": "Haricots verts met kalkoen spekjes en pijnboompitjes (per 100 gram)",
+   "price": 2.9,
+   "cat": "bij"
+  },
+  {
+   "name": "Spruitjes met kastanjes (per 100 gram)",
+   "price": 2.75,
+   "cat": "bij"
+  },
+  {
+   "name": "Rode kool met appeltjes (per 100 gram)",
+   "price": 1.55,
+   "cat": "bij"
+  },
+  {
+   "name": "Gegrilde groenten (per 100 gram)",
+   "price": 2.85,
+   "cat": "bij"
+  },
+  {
+   "name": "Geglaceerde worteltjes (per 100 gram)",
+   "price": 2.6,
+   "cat": "bij"
+  },
+  {
+   "name": "Bieten salade met geitenkaas en appel (per 100 gram)",
+   "price": 2.95,
+   "cat": "bij"
+  },
+  {
+   "name": "Kipsalade 'Treuren' (per 100 gram)",
+   "price": 2.6,
+   "cat": "bij"
+  },
+  {
+   "name": "Bospaddenstoelensoep met gerookte hertenham (pot 500 ml, 2 pers.)",
+   "price": 5.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Wildbouillon (pot 500 ml, 2 pers.)",
+   "price": 5.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Gevogeltebouillon (pot 500 ml, 2 pers.)",
+   "price": 4.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Toscaanse tomatensoep met gerookte kipfilet (pot 500 ml, 2 pers.)",
+   "price": 5.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Kippensoep seizoenssoep (pot 500 ml, 2 pers.)",
+   "price": 4.25,
+   "cat": "voor"
+  },
+  {
+   "name": "Tarte Tatin (per 2 stuks)",
+   "price": 9.5,
+   "cat": "na"
+  },
+  {
+   "name": "Tiramisu de Luxe (per 2 stuks)",
+   "price": 7.0,
+   "cat": "na"
+  },
+  {
+   "name": "Frambozen Cheesecake Mousse dessert (per 2 stuks)",
+   "price": 7.0,
+   "cat": "na"
+  },
+  {
+   "name": "Moelleux au chocolat (per 2 stuks)",
+   "price": 5.0,
+   "cat": "na"
+  },
+  {
+   "name": "Chocolade Mousse dessert (per 2 stuks)",
+   "price": 7.0,
+   "cat": "na"
+  },
+  {
+   "name": "Limoen Cheesecake Mousse dessert (per 2 stuks)",
+   "price": 7.0,
+   "cat": "na"
+  }
+ ]
+}
